@@ -12,23 +12,32 @@ export default function Home() {
     fetcher
   );
   return (
-    <div className={styles.grid}>
-      {data?.data?.teams
-        ? Object.keys(data?.data?.teams)
-            .sort()
-            .map((team) => (
-              <div className={styles.gridRow}>
-                <div>{team}</div>
-                {Object.values(data?.data?.teams[team] || {})
-                  .sort((a, b) => {
-                    return new Date(a.date) > new Date(b.date) ? 1 : -1;
-                  })
-                  .map((match) => (
-                    <MatchCell match={match} />
-                  ))}
-              </div>
-            ))
-        : null}
+    <div className={styles.body}>
+      <h1>MLS Form Guide 2021</h1>
+      <div className={styles.grid}>
+        <div className={styles.gridRow}>
+          {[...new Array(35)].map((_, i) => (
+            <div className={styles.gridRowHeaderCell}>{i > 0 ? i : null}</div>
+          ))}
+        </div>
+
+        {data?.data?.teams
+          ? Object.keys(data?.data?.teams)
+              .sort()
+              .map((team) => (
+                <div className={styles.gridRow}>
+                  <div>{team}</div>
+                  {Object.values(data?.data?.teams[team] || {})
+                    .sort((a, b) => {
+                      return new Date(a.date) > new Date(b.date) ? 1 : -1;
+                    })
+                    .map((match) => (
+                      <MatchCell match={match} />
+                    ))}
+                </div>
+              ))
+          : null}
+      </div>
     </div>
   );
 }
@@ -55,6 +64,7 @@ function MatchCellDetails({
   const date = new Date(match.date);
   return (
     <div className={styles.matchDetails}>
+      <div>{match.home ? "Home" : "Away"}</div>
       <div>vs. {match.opponent}</div>
       <div>{match.date}</div>
       <div>

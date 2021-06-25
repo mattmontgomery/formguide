@@ -1,33 +1,45 @@
+.body {
+  margin: 1rem;
+}
 .grid {
-  padding: 1rem;
   display: grid;
   grid-row-gap: 1rem;
 }
 .gridRow {
   display: grid;
-  grid-template-columns: 200px repeat(34, 25px);
+  grid-template-columns: 200px repeat(34, 32px);
+}
+.gridRow > div:first-of-type {
+  align-self: center;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 1rem;
+  font-size: 14px;
 }
 .gridRow > div:not(:first-of-type) {
   padding: 0.25rem;
   text-align: center;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
   color: white;
-  border-right: 1px solid #999;
+  border-right: 1px solid rgb(181, 181, 181);
   position: relative;
   cursor: pointer;
 }
+.gridRowHeaderCell {
+  color: black !important;
+}
 .W {
-  background-color: green;
+  background-color: rgb(68, 125, 68);
 }
 .L {
-  background-color: red;
+  background-color: #b32222;
 }
 .D {
-  background-color: grey;
+  background-color: #909090;
 }
 .NA {
-  background-color: lightgrey;
+  background-color: rgb(213, 213, 213);
 }
 
 .matchDetails {
@@ -40,4 +52,5 @@
   text-align: left;
   left: 25px;
   z-index: 100;
+  width: 15rem;
 }
