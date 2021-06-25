@@ -7,8 +7,12 @@ const ENDPOINT = `/v3/fixtures?from=2021-01-01&to=2021-12-31&season=2021&league=
 const API_BASE = process.env.API_FOOTBALL_BASE;
 const API_KEY = process.env.API_FOOTBALL_KEY;
 
-const IN_MEMORY_CACHE: { cachedData: Results.RawData | null } = {
+const IN_MEMORY_CACHE: {
+  cachedData: Results.RawData | null;
+  expires: Date | null;
+} = {
   cachedData: null,
+  expires: null,
 };
 
 export default async function Form(req: NextApiRequest, res: NextApiResponse) {
@@ -26,20 +30,22 @@ export default async function Form(req: NextApiRequest, res: NextApiResponse) {
   });
   let matchData;
   let fromCache;
-  if (!IN_MEMORY_CACHE.cachedData) {
+  const expiresTime = IN_MEMORY_CACHE.expires?.getTime() || Date.now();
+  if (!IN_MEMORY_CACHE.cachedData || Date.now() >= expiresTime) {
     const response = await fetch(`${URL_BASE}${ENDPOINT}`, {
       headers,
     });
     matchData = (await response.json()) as Results.RawData;
     fromCache = false;
     IN_MEMORY_CACHE.cachedData = matchData;
+    IN_MEMORY_CACHE.expires = new Date(Date.now() + 30 * 60 * 1000); // expire in 30 mintues
   } else {
     fromCache = true;
     matchData = IN_MEMORY_CACHE.cachedData;
   }
   res.status(200);
   res.json({
-    meta: { fromCache },
+    meta: { fromCache, expires: IN_MEMORY_CACHE.expires },
     data: parseRawData(matchData),
   });
 }
