@@ -1,0 +1,113 @@
+import { NextApiRequest, NextApiResponse } from "next";
+
+import { format } from "util";
+
+const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
+const ENDPOINT = `/v3/fixtures?from=2021-01-01&to=2021-12-31&season=2021&league=253`;
+const API_BASE = process.env.API_FOOTBALL_BASE;
+const API_KEY = process.env.API_FOOTBALL_KEY;
+
+const IN_MEMORY_CACHE: { cachedData: Results.RawData | null } = {
+  cachedData: null,
+};
+
+export default async function Form(req: NextApiRequest, res: NextApiResponse) {
+  if (!API_BASE || !API_KEY) {
+    res.status(500);
+    res.json({
+      errors: [{ message: "Application not properly configured" }],
+    });
+    return;
+  }
+  const headers = new Headers({
+    "x-rapidapi-host": API_BASE,
+    "x-rapidapi-key": API_KEY,
+    useQueryString: "true",
+  });
+  let matchData;
+  let fromCache;
+  if (!IN_MEMORY_CACHE.cachedData) {
+    const response = await fetch(`${URL_BASE}${ENDPOINT}`, {
+      headers,
+    });
+    matchData = (await response.json()) as Results.RawData;
+    fromCache = false;
+    IN_MEMORY_CACHE.cachedData = matchData;
+  } else {
+    fromCache = true;
+    matchData = IN_MEMORY_CACHE.cachedData;
+  }
+  res.status(200);
+  res.json({
+    meta: { fromCache },
+    data: parseRawData(matchData),
+  });
+}
+
+type ResultType = "W" | "L" | "D" | null;
+
+function getResult(goalsA: number, goalsB: number): ResultType {
+  if (goalsA > goalsB) {
+    return "W";
+  } else if (goalsB > goalsA) {
+    return "L";
+  }
+  return "D";
+}
+
+function parseRawData(data: Results.RawData): Results.ParsedData {
+  const teams = data.response.reduce(
+    (previousValue: Results.ParsedData["teams"], curr) => {
+      const homeTeam = curr.teams.home.name;
+      const awayTeam = curr.teams.away.name;
+      return {
+        ...previousValue,
+        [homeTeam]: [
+          ...(previousValue[homeTeam] || []),
+          curr.fixture.status.short === "FT"
+            ? {
+                date: formatDate(curr.fixture.date),
+                scoreline: `${curr.goals.home}-${curr.goals.away}`,
+                result: getResult(curr.goals.home, curr.goals.away),
+                home: true,
+                opponent: awayTeam,
+              }
+            : {
+                date: formatDate(curr.fixture.date),
+                scoreline: null,
+                result: null,
+                home: true,
+                opponent: awayTeam,
+              },
+        ],
+        [awayTeam]: [
+          ...(previousValue[awayTeam] || []),
+          curr.fixture.status.short === "FT"
+            ? {
+                date: formatDate(curr.fixture.date),
+                scoreline: `${curr.goals.away}-${curr.goals.home}`,
+                result: getResult(curr.goals.away, curr.goals.home),
+                home: false,
+                opponent: homeTeam,
+              }
+            : {
+                date: formatDate(curr.fixture.date),
+                scoreline: null,
+                result: null,
+                home: true,
+                opponent: homeTeam,
+              },
+        ],
+      };
+    },
+    {}
+  );
+  return {
+    teams,
+  };
+}
+
+function formatDate(date: string) {
+  const d = new Date(date);
+  return d.toLocaleDateString();
+}
