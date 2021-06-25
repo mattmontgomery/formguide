@@ -13,6 +13,9 @@ export default function Home() {
   );
   return (
     <div className={styles.body}>
+      <Head>
+        <title>MLS Form Guide 2021</title>
+      </Head>
       <h1>MLS Form Guide 2021</h1>
       <div className={styles.grid}>
         <div className={styles.gridRow}>
