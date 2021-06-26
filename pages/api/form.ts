@@ -82,7 +82,7 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 date: formatDate(curr.fixture.date),
                 scoreline: null,
                 result: null,
-                home: true,
+                home: false,
                 opponent: awayTeam,
               },
         ],
