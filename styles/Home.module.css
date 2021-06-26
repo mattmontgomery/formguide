@@ -34,6 +34,9 @@
   position: relative;
   cursor: pointer;
 }
+.gridRow > div[data-home="home"] {
+  text-decoration: underline;
+}
 .gridRowHeaderCell {
   color: black !important;
 }
@@ -61,4 +64,5 @@
   left: 25px;
   z-index: 100;
   width: 15rem;
+  font-style: normal;
 }

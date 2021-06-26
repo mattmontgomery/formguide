@@ -49,6 +49,7 @@ function MatchCell({ match }: { match: Results.Match }): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <div
+      data-home={match.home ? "home" : null}
       onMouseOver={() => setOpen(true)}
       onMouseOut={() => setOpen(false)}
       className={styles[match.result || "NA"]}
