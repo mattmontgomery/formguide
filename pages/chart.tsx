@@ -40,7 +40,7 @@ function Chart({
                   <span className={styles.chartPointText}>{pointValue}</span>
                   <span
                     className={styles.chartPointValue}
-                    style={{ height: `${(pointValue / 15) * 100}%` }}
+                    style={{ height: `${((pointValue || 0) / 15) * 100}%` }}
                   ></span>
                 </div>
               );
