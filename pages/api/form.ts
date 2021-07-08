@@ -8,9 +8,11 @@ const API_KEY = process.env.API_FOOTBALL_KEY;
 const IN_MEMORY_CACHE: {
   cachedData: Results.RawData | null;
   expires: Date | null;
+  refetching: boolean;
 } = {
   cachedData: null,
   expires: null,
+  refetching: false,
 };
 
 export default async function Form(req: NextApiRequest, res: NextApiResponse) {
@@ -29,7 +31,11 @@ export default async function Form(req: NextApiRequest, res: NextApiResponse) {
   let matchData;
   let fromCache;
   const expiresTime = IN_MEMORY_CACHE.expires?.getTime() || Date.now();
-  if (!IN_MEMORY_CACHE.cachedData || Date.now() >= expiresTime) {
+  if (
+    !IN_MEMORY_CACHE.cachedData ||
+    (Date.now() >= expiresTime && IN_MEMORY_CACHE.refetching === false)
+  ) {
+    IN_MEMORY_CACHE.refetching = true; // expire in 30 mintues
     const response = await fetch(`${URL_BASE}${ENDPOINT}`, {
       headers,
     });
@@ -37,6 +43,7 @@ export default async function Form(req: NextApiRequest, res: NextApiResponse) {
     fromCache = false;
     IN_MEMORY_CACHE.cachedData = matchData;
     IN_MEMORY_CACHE.expires = new Date(Date.now() + 30 * 60 * 1000); // expire in 30 mintues
+    IN_MEMORY_CACHE.refetching = false; // expire in 30 mintues
   } else {
     fromCache = true;
     matchData = IN_MEMORY_CACHE.cachedData;
