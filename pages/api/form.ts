@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { format } from "util";
-
 const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
 const ENDPOINT = `/v3/fixtures?from=2021-01-01&to=2021-12-31&season=2021&league=253`;
 const API_BASE = process.env.API_FOOTBALL_BASE;

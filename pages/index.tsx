@@ -77,3 +77,56 @@ function MatchCellDetails({
     </div>
   );
 }
+
+function Chart({
+  data,
+}: {
+  data: Results.ParsedData["teams"];
+}): React.ReactElement {
+  return (
+    <div className={styles.chart}>
+      {parseChartData(data).map(([team, ...points]) => {
+        return (
+          <div className={styles.chartRow}>
+            <div className={styles.chartTeam}>{team}</div>
+            {points.map((pointValue) => {
+              return (
+                <div>
+                  <span className={styles.chartPointText}>{pointValue}</span>
+                  <span
+                    className={styles.chartPointValue}
+                    style={{ height: `${(pointValue / 15) * 100}%` }}
+                  ></span>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function parseChartData(
+  teams: Results.ParsedData["teams"]
+): [string, ...number[]][] {
+  return Object.keys(teams)
+    .sort()
+    .map((team) => {
+      return [
+        team,
+        ...teams[team].slice(0, teams[team].length - 5).map((_, idx) => {
+          return teams[team]
+            .slice(idx, idx + 5)
+            .map((match) => getMatchPoints(match.result))
+            .reduce((prev, currentValue): number => {
+              return prev + currentValue;
+            }, 0);
+        }),
+      ];
+    });
+}
+
+function getMatchPoints(result: "W" | "D" | "L"): number {
+  return result === "W" ? 3 : result === "D" ? 1 : 0;
+}

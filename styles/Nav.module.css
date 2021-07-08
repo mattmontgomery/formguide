@@ -1,0 +1,25 @@
+.Nav {
+  display: grid;
+  grid-template-columns: repeat(12, max-content);
+  margin: 1rem;
+  grid-column-gap: 1rem;
+}
+.Nav > span > a {
+  background-color: #4a8d37;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  transition: background-color cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.125s;
+}
+.Nav > span > a:hover {
+  background-color: #4c7241;
+}
+
+.Footer {
+  padding: 1rem;
+  font-size: 10px;
+}
+.Footer a {
+  color: #4a8d37;
+}
