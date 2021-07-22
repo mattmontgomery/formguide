@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
@@ -50,7 +51,11 @@ export default async function Form(req: NextApiRequest, res: NextApiResponse) {
   }
   res.status(200);
   res.json({
-    meta: { fromCache, expires: IN_MEMORY_CACHE.expires },
+    meta: {
+      fromCache,
+      expires: IN_MEMORY_CACHE.expires,
+      refetching: IN_MEMORY_CACHE.refetching,
+    },
     data: parseRawData(matchData),
   });
 }
@@ -81,14 +86,18 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 scoreline: `${curr.goals.home}-${curr.goals.away}`,
                 result: getResult(curr.goals.home, curr.goals.away),
                 home: true,
+                team: homeTeam,
                 opponent: awayTeam,
+                opponentLogo: curr.teams.away.logo,
               }
             : {
                 date: formatDate(curr.fixture.date),
                 scoreline: null,
                 result: null,
                 home: true,
+                team: homeTeam,
                 opponent: awayTeam,
+                opponentLogo: curr.teams.away.logo,
               },
         ],
         [awayTeam]: [
@@ -99,14 +108,18 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 scoreline: `${curr.goals.away}-${curr.goals.home}`,
                 result: getResult(curr.goals.away, curr.goals.home),
                 home: false,
+                team: awayTeam,
                 opponent: homeTeam,
+                opponentLogo: curr.teams.home.logo,
               }
             : {
                 date: formatDate(curr.fixture.date),
                 scoreline: null,
                 result: null,
                 home: false,
+                team: awayTeam,
                 opponent: homeTeam,
+                opponentLogo: curr.teams.home.logo,
               },
         ],
       };
@@ -120,5 +133,5 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
 
 function formatDate(date: string) {
   const d = new Date(date);
-  return d.toLocaleDateString();
+  return format(d, "MM-dd-yyyy");
 }

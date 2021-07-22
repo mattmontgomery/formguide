@@ -3,7 +3,7 @@ import NavStyles from "../styles/Nav.module.css";
 import type { AppProps } from "next/app";
 import Link from "next/link";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MLSFormGuide({ Component, pageProps }: AppProps) {
   return (
     <div>
       <nav className={NavStyles.Nav}>
@@ -21,9 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <a href="https://github.com/mattmontgomery/formguide">
           Contribute on Github
         </a>
-        .
+        . Something not working? Send me a tweet.
       </footer>
     </div>
   );
 }
-export default MyApp;
+export default MLSFormGuide;

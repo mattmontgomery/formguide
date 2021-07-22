@@ -13,10 +13,12 @@ declare namespace Results {
       teams: {
         home: {
           name: string;
+          logo: string;
           winner: boolean;
         };
         away: {
           name: string;
+          logo: string;
           winner: boolean;
         };
       };
@@ -35,6 +37,8 @@ declare namespace Results {
     date: string;
     home: boolean;
     result: ResultType;
+    team: string;
     opponent: string;
+    opponentLogo: string;
   };
 }

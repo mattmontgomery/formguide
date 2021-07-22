@@ -62,6 +62,9 @@ function parseChartData(
         team,
         ...teams[team].slice(0, teams[team].length - 5).map((_, idx) => {
           const results = teams[team]
+            .sort((a, b) => {
+              return new Date(a.date) > new Date(b.date) ? 1 : -1;
+            })
             .slice(idx, idx + 5)
             .filter((match) => match.result !== null)
             .map((match) => getMatchPoints(match.result));
