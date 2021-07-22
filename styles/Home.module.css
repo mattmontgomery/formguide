@@ -34,7 +34,7 @@
   position: relative;
   cursor: pointer;
 }
-.gridRow > div[data-home="home"] {
+.gridRow > a[data-home="home"] {
   text-decoration: underline;
 }
 .gridRowHeaderCell {
