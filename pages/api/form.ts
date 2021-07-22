@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, startOfDay } from "date-fns";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
@@ -132,6 +132,7 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
 }
 
 function formatDate(date: string) {
-  const d = new Date(date);
+  const d = startOfDay(new Date(date));
+
   return format(d, "MM-dd-yyyy");
 }
