@@ -16,7 +16,7 @@ const shortNamesMap: Record<string, string> = {
   "Houston Dynamo": "hou",
   "Inter Miami": "mia",
   "Los Angeles FC": "lafc",
-  "Los Angeles Galaxy": "lag",
+  "Los Angeles Galaxy": "la",
   "Miami United": "mia",
   "Minnesota United FC": "min",
   "Montreal Impact": "mtl",
