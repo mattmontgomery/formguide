@@ -89,6 +89,9 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 team: homeTeam,
                 opponent: awayTeam,
                 opponentLogo: curr.teams.away.logo,
+                gd: curr.goals.home - curr.goals.away,
+                goalsScored: curr.goals.home,
+                goalsConceded: curr.goals.away,
               }
             : {
                 date: formatDate(curr.fixture.date),
@@ -111,6 +114,9 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 team: awayTeam,
                 opponent: homeTeam,
                 opponentLogo: curr.teams.home.logo,
+                gd: curr.goals.away - curr.goals.home,
+                goalsScored: curr.goals.away,
+                goalsConceded: curr.goals.home,
               }
             : {
                 date: formatDate(curr.fixture.date),
@@ -134,5 +140,5 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
 function formatDate(date: string) {
   const d = subHours(new Date(date), 8);
 
-  return format(d, "MM-dd-yyyy");
+  return d.toDateString();
 }

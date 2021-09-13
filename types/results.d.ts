@@ -40,5 +40,10 @@ declare namespace Results {
     team: string;
     opponent: string;
     opponentLogo: string;
+    gd?: number;
+    goalsScored?: number;
+    goalsConceded?: number;
   };
+
+  declare type RenderReadyData = [string, ...React.ReactElement[]][];
 }

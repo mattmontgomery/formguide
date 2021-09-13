@@ -4,7 +4,6 @@ import styles from "../styles/Home.module.css";
 import fetch from "unfetch";
 import MatchCell from "../components/MatchCell";
 import MatchGrid from "../components/MatchGrid";
-import {} from "date-fns";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 export default function Home() {
@@ -31,7 +30,17 @@ function dataParser(
   return Object.keys(data).map((team) => [
     team,
     ...data[team]
-      .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
-      .map((match, idx) => <MatchCell match={match} key={idx} />),
+      .sort((a, b) => {
+        return new Date(a.date) > new Date(b.date) ? 1 : -1;
+      })
+      .map((match, idx) => (
+        <MatchCell
+          match={match}
+          key={idx}
+          renderValue={(match) =>
+            typeof match.gd !== "undefined" ? match.gd : "-"
+          }
+        />
+      )),
   ]);
 }
