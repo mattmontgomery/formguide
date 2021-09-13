@@ -49,8 +49,8 @@ export default async function Form(req: NextApiRequest, res: NextApiResponse) {
     fromCache = true;
     matchData = IN_MEMORY_CACHE.cachedData;
   }
+  res.setHeader(`Cache-Control`, `s-maxage=${30 * 60}, stale-while-revalidate`);
   res.status(200);
-  res.setHeader(`Cache-Control`, `s-maxage=1, stale-while-revalidate`);
   res.json({
     meta: {
       fromCache,
