@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getMLSLink } from "../utils/getLinks";
 import styles from "../styles/Home.module.css";
+import Image from "next/image";
 
 export default function MatchCell({
   match,
@@ -34,7 +35,13 @@ function MatchCellDetails({
     <div className={styles.matchDetails}>
       <div>{match.home ? "Home" : "Away"}</div>
       <div className={styles.matchDetailsOpponent}>
-        <img src={match.opponentLogo} />
+        <div className={styles.matchDetailsLogo}>
+          <Image
+            src={match.opponentLogo}
+            alt={`${match.opponent} logo`}
+            layout="fill"
+          />
+        </div>
         vs. {match.opponent}
       </div>
       <div>{match.date}</div>

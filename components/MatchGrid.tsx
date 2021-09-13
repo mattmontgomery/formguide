@@ -14,18 +14,22 @@ export default function MatchGrid({
   return (
     <div className={styles.grid}>
       <div className={styles.chart}>
-        <div className={styles.gridRow}>
-          {[...new Array(35)].map((_, i) => (
-            <div className={styles.gridRowHeaderCell}>{i > 0 ? i : null}</div>
-          ))}
-        </div>
+        {showMatchdayHeader && (
+          <div className={styles.gridRow}>
+            {[...new Array(35)].map((_, i) => (
+              <div className={styles.gridRowHeaderCell} key={i}>
+                {i > 0 ? i : null}
+              </div>
+            ))}
+          </div>
+        )}
         {dataParser(data)
           .sort(([teamA], [teamB]) => {
             return teamA > teamB ? 1 : -1;
           })
-          .map(([team, ...cells]) => {
+          .map(([team, ...cells], idx) => {
             return (
-              <div className={rowClass}>
+              <div className={rowClass} key={idx}>
                 <div className={styles.chartTeam}>{team}</div>
                 {cells}
               </div>

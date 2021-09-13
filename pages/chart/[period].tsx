@@ -42,9 +42,9 @@ function dataParser(
   return parseChartData(data, periodLength).map(([team, ...points]) => {
     return [
       team,
-      ...points.map((pointValue) => {
+      ...points.map((pointValue, idx) => {
         return (
-          <div>
+          <div key={idx}>
             <span className={styles.chartPointText}>{pointValue}</span>
             <span
               className={styles.chartPointValue}

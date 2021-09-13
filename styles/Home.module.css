@@ -73,9 +73,11 @@
   display: flex;
   justify-content: flex-start;
 }
-.matchDetailsOpponent img {
-  height: 25px;
-  padding-right: 0.25rem;
+.matchDetailsLogo {
+  margin-right: 0.25rem;
+  height: 50px;
+  width: 50px;
+  position: relative;
 }
 
 .chart {
