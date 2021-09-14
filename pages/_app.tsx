@@ -6,6 +6,13 @@ import Link from "next/link";
 function MLSFormGuide({ Component, pageProps }: AppProps) {
   return (
     <div>
+      <nav className={NavStyles.ExternalNav}>
+        <strong>Soccer Blogger Tools</strong>
+        <Link href="https://lineup-graphic-builder.vercel.app">
+          Lineup Graphic Builder
+        </Link>
+        <Link href="https://formguide.vercel.app">MLS Form Guide</Link>
+      </nav>
       <nav className={NavStyles.Nav}>
         <span>
           <Link href="/">Form Guide</Link>

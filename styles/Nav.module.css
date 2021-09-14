@@ -1,9 +1,11 @@
 .Nav,
+.ExternalNav,
 .Footer,
 .Changelog {
   --nav-color: #4c7241;
 }
-.Nav {
+.Nav,
+.ExternalNav {
   display: grid;
   grid-template-columns: repeat(12, max-content);
   margin: 1rem;
@@ -39,4 +41,8 @@
 .Changelog {
   font-size: 9pt;
   padding: 0 1rem;
+}
+
+.ExternalNav a {
+  color: var(--nav-color);
 }
