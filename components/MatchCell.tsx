@@ -6,9 +6,11 @@ import Image from "next/image";
 export default function MatchCell({
   match,
   renderValue = (match) => match.result,
+  wide = false,
 }: {
   match: Results.Match;
   renderValue?: (match: Results.Match) => string | number;
+  wide?: boolean;
 }): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
   return (

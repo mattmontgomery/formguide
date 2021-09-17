@@ -5,14 +5,16 @@ export default function MatchGrid({
   dataParser,
   showMatchdayHeader = true,
   rowClass = styles.gridRow,
+  gridClass = styles.gridClass,
 }: {
   data: Results.ParsedData["teams"];
   dataParser: (data: Results.ParsedData["teams"]) => Results.RenderReadyData;
   showMatchdayHeader?: boolean;
   rowClass?: string;
+  gridClass?: string;
 }): React.ReactElement {
   return (
-    <div className={styles.grid}>
+    <div className={gridClass}>
       <div className={styles.chart}>
         {showMatchdayHeader && (
           <div className={styles.gridRow}>

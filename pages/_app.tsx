@@ -33,6 +33,9 @@ function MLSFormGuide({ Component, pageProps }: AppProps) {
         <span>
           <Link href="/goals-against">GA</Link>
         </span>
+        <span>
+          <Link href="/strength-of-schedule">PPG/Strength</Link>
+        </span>
       </nav>
       <Component {...pageProps} />
       <footer className={NavStyles.Footer}>
@@ -45,8 +48,14 @@ function MLSFormGuide({ Component, pageProps }: AppProps) {
       </footer>
       <footer className={NavStyles.Changelog}>
         <p>
-          <strong>2021-09-13</strong>: Fixed Safari issue with date sorting.
-          Added GD, GF, GA pages. Added options for more rolling-game charts.
+          <strong>2021-09-17</strong>:{" "}
+          {"Fixed match link. Added PPG/Strength page. You're welcome, Trevor."}
+        </p>
+        <p>
+          <strong>2021-09-13</strong>:{" "}
+          {
+            "Fixed Safari issue with date sorting. Added GD, GF, GA pages. Added options for more rolling-game charts."
+          }
         </p>
       </footer>
     </div>

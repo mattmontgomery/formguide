@@ -1,13 +1,17 @@
 .body {
   margin: 1rem;
 }
-.grid {
+.grid,
+.gridWide {
   display: grid;
   grid-row-gap: 0.125rem;
 }
 .gridRow {
   display: grid;
   grid-template-columns: 200px repeat(34, 28px);
+}
+.gridWide .gridRow {
+  grid-template-columns: 200px repeat(34, 40px);
 }
 .gridRow > :first-child {
   align-self: center;

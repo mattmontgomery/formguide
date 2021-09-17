@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import fetch from "unfetch";
 import MatchGrid from "../../components/MatchGrid";
+import getMatchPoints from "../../utils/getMatchPoints";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -86,8 +87,4 @@ function parseChartData(
           }),
       ];
     });
-}
-
-function getMatchPoints(result: "W" | "D" | "L"): number {
-  return result === "W" ? 3 : result === "D" ? 1 : 0;
 }

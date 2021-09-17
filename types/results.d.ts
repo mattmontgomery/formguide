@@ -44,6 +44,7 @@ declare namespace Results {
     goalsScored?: number;
     goalsConceded?: number;
   };
+  declare type ResultType = "W" | "D" | "L";
 
   declare type RenderReadyData = [string, ...React.ReactElement[]][];
 }

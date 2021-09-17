@@ -1,7 +1,10 @@
+import format from "date-fns/format";
+
 export function getMLSLink(match: Results.Match): string {
   const home = match.home ? match.team : match.opponent;
   const away = !match.home ? match.team : match.opponent;
-  return `https://www.mlssoccer.com/competitions/mls-regular-season/2021/matches/${shortNamesMap[home]}vs${shortNamesMap[away]}-${match.date}`;
+  const formattedDate = format(new Date(match.date), "MM-dd-yyyy");
+  return `https://www.mlssoccer.com/competitions/mls-regular-season/2021/matches/${shortNamesMap[home]}vs${shortNamesMap[away]}-${formattedDate}`;
 }
 
 const shortNamesMap: Record<string, string> = {
