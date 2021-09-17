@@ -67,7 +67,9 @@ function dataParser(
           renderValue={(match) => {
             const points = teamPoints[match.opponent]
               .filter(
-                (opponentMatch) => opponentMatch.date < new Date(match.date)
+                (opponentMatch) =>
+                  opponentMatch.date < new Date(match.date) &&
+                  opponentMatch.result !== null
               )
               .map((opponentPoints) => opponentPoints.points);
             return getArrayAverageFormatted(points);
@@ -94,7 +96,9 @@ function dataParserTeam(
           renderValue={(match) => {
             const points = teamPoints[team]
               .filter(
-                (opponentMatch) => opponentMatch.date < new Date(match.date)
+                (opponentMatch) =>
+                  opponentMatch.date < new Date(match.date) &&
+                  opponentMatch.result !== null
               )
               .map((opponentPoints) => opponentPoints.points);
             return getArrayAverageFormatted(points);
