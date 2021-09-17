@@ -6,11 +6,8 @@ import MatchCell from "../components/MatchCell";
 import MatchGrid from "../components/MatchGrid";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
-export default function Home() {
-  const { data, error } = useSWR<{ data: Results.ParsedData }>(
-    "/api/form",
-    fetcher
-  );
+export default function GoalDifference(): React.ReactElement {
+  const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
   return (
     <div className={styles.body}>
       <Head>

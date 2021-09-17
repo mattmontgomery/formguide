@@ -1,5 +1,6 @@
-import { format, subHours } from "date-fns";
+import { subHours } from "date-fns";
 import { NextApiRequest, NextApiResponse } from "next";
+import React from "react";
 
 const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
 const ENDPOINT = `/v3/fixtures?from=2021-01-01&to=2021-12-31&season=2021&league=253`;
@@ -16,7 +17,10 @@ const IN_MEMORY_CACHE: {
   refetching: false,
 };
 
-export default async function Form(req: NextApiRequest, res: NextApiResponse) {
+export default async function Form(
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> {
   if (!API_BASE || !API_KEY) {
     res.status(500);
     res.json({

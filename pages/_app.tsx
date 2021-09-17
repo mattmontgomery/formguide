@@ -3,7 +3,7 @@ import NavStyles from "../styles/Nav.module.css";
 import type { AppProps } from "next/app";
 import Link from "next/link";
 
-function MLSFormGuide({ Component, pageProps }: AppProps) {
+function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
   return (
     <div>
       <nav className={NavStyles.ExternalNav}>

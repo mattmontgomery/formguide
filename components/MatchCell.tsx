@@ -6,11 +6,9 @@ import Image from "next/image";
 export default function MatchCell({
   match,
   renderValue = (match) => match.result || "-",
-  wide = false,
 }: {
   match: Results.Match;
   renderValue?: (match: Results.Match) => string | number;
-  wide?: boolean;
 }): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
   return (
@@ -32,7 +30,6 @@ function MatchCellDetails({
 }: {
   match: Results.Match;
 }): React.ReactElement {
-  const date = new Date(match.date);
   return (
     <div className={styles.matchDetails}>
       <div>{match.home ? "Home" : "Away"}</div>

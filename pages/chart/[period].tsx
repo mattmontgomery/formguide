@@ -9,15 +9,12 @@ import getMatchPoints from "../../utils/getMatchPoints";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-export default function Chart() {
+export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const { data, error } = useSWR<{ data: Results.ParsedData }>(
-    "/api/form",
-    fetcher
-  );
+  const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
   return (
     <div className={styles.body}>
       <Head>
@@ -62,7 +59,7 @@ function dataParser(
 
 function parseChartData(
   teams: Results.ParsedData["teams"],
-  periodLength: number = 5
+  periodLength = 5
 ): [string, ...Array<number | null>][] {
   return Object.keys(teams)
     .sort()
