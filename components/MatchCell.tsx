@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function MatchCell({
   match,
-  renderValue = (match) => match.result,
+  renderValue = (match) => match.result || "-",
   wide = false,
 }: {
   match: Results.Match;

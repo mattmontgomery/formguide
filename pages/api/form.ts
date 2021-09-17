@@ -61,9 +61,7 @@ export default async function Form(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
-type ResultType = "W" | "L" | "D" | null;
-
-function getResult(goalsA: number, goalsB: number): ResultType {
+function getResult(goalsA: number, goalsB: number): Results.ResultType {
   if (goalsA > goalsB) {
     return "W";
   } else if (goalsB > goalsA) {
