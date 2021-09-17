@@ -13,7 +13,7 @@ export default function Home(): React.ReactElement {
       <Head>
         <title>MLS Form Guide 2021</title>
       </Head>
-      <h1>MLS Form Guide 2021</h1>
+      <h1>2021 MLS Form Guide | Goals Against</h1>
 
       {data?.data?.teams ? (
         <MatchGrid data={data.data.teams} dataParser={dataParser} />

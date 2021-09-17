@@ -4,28 +4,12 @@
 .Changelog {
   --nav-color: #4c7241;
 }
-.Nav,
+
 .ExternalNav {
   display: grid;
   grid-template-columns: repeat(12, max-content);
   margin: 1rem;
   grid-column-gap: 1rem;
-}
-.Nav > span > a {
-  background-color: var(--nav-color);
-  padding: 0.5rem 1rem;
-  color: white;
-  font-weight: bold;
-  border-radius: 0.25rem;
-  transition: filter cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.25s;
-}
-.Nav > span > a:hover {
-  filter: brightness(110%);
-}
-.NavGroupLabel {
-  font-weight: bold;
-  margin-right: 0.5rem;
-  color: var(--nav-color);
 }
 
 .Footer {

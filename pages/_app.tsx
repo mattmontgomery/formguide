@@ -1,43 +1,89 @@
 import "../styles/globals.css";
 import NavStyles from "../styles/Nav.module.css";
 import type { AppProps } from "next/app";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
+import {
+  Button,
+  ButtonGroup,
+  FormLabel,
+  Toolbar,
+  Typography,
+  Box,
+  LinkBaseProps,
+  ButtonProps,
+} from "@mui/material";
+import React from "react";
+
+/**
+ * We need to Omit from the MUI Button the {href} prop
+ * as we have to handle routing with Next.js Router
+ * so we block the possibility to specify an href.
+ */
+
+export type ButtonLinkProps = Omit<ButtonProps, "href" | "classes"> &
+  Pick<LinkProps, "href" | "as" | "prefetch">;
+
+const ButtonLink = React.forwardRef<ButtonLinkProps, any>(
+  ({ href, as, prefetch, ...props }, ref) => (
+    <Link href={href} as={as} prefetch={prefetch} passHref>
+      <Button ref={ref} {...props} />
+    </Link>
+  )
+);
+
+ButtonLink.displayName = "ButtonLink";
 
 function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
   return (
     <div>
       <nav className={NavStyles.ExternalNav}>
         <strong>Soccer Blogger Tools</strong>
-        <Link href="https://lineup-graphic-builder.vercel.app">
-          Lineup Graphic Builder
-        </Link>
-        <Link href="https://formguide.vercel.app">MLS Form Guide</Link>
+        <Link href="https://lineup.tools.football">Lineup Graphic Builder</Link>
+        <Link href="https://formguide.tools.football">MLS Form Guide</Link>
       </nav>
-      <nav className={NavStyles.Nav}>
-        <span>
-          <Link href="/">Form Guide</Link>
-        </span>
-        <span>
-          <span className={NavStyles.NavGroupLabel}>Rolling Chart</span>
-          <Link href="/chart/3">3</Link>
-          <Link href="/chart/5">5</Link>
-          <Link href="/chart/8">8</Link>
-          <Link href="/chart/11">11</Link>
-        </span>
-        <span>
-          <Link href="/goal-difference">GD</Link>
-        </span>
-        <span>
-          <Link href="/goals-for">GF</Link>
-        </span>
-        <span>
-          <Link href="/goals-against">GA</Link>
-        </span>
-        <span>
-          <Link href="/strength-of-schedule">PPG/Strength</Link>
-        </span>
-      </nav>
-      <Component {...pageProps} />
+      <Toolbar
+        sx={{
+          border: "1px solid #f0f0f0",
+          borderWidth: "1px 0 1px 0",
+        }}
+      >
+        <Box m={1}>
+          <Button variant="outlined">
+            <Link href="/">Form Guide</Link>
+          </Button>
+        </Box>
+        <Box m={1}>
+          <ButtonGroup>
+            <ButtonLink href="/chart/3">Rolling 3</ButtonLink>
+            <ButtonLink href="/chart/5">5</ButtonLink>
+            <ButtonLink href="/chart/8">8</ButtonLink>
+            <ButtonLink href="/chart/11">11</ButtonLink>
+          </ButtonGroup>
+        </Box>
+        <Box m={1}>
+          <ButtonLink variant="outlined" href="/goal-difference">
+            GD
+          </ButtonLink>
+        </Box>
+        <Box m={1}>
+          <ButtonLink variant="outlined" href="/goals-for">
+            GF
+          </ButtonLink>
+        </Box>
+        <Box m={1}>
+          <ButtonLink variant="outlined" href="/goals-against">
+            GA
+          </ButtonLink>
+        </Box>
+        <Box m={1}>
+          <ButtonLink variant="outlined" href="/strength-of-schedule">
+            PPG/Strength
+          </ButtonLink>
+        </Box>
+      </Toolbar>
+      <Box m={2}>
+        <Component {...pageProps} />
+      </Box>
       <footer className={NavStyles.Footer}>
         Created and maintained by{" "}
         <a href="https://twitter.com/thecrossbarrsl">Matt Montgomery</a>.{" "}
