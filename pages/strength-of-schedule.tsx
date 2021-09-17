@@ -42,7 +42,7 @@ export default function StrengthOfSchedule(): React.ReactElement {
         <li>{"//: Drew team with greater PPG"}</li>
         <li>{"/: Drew team with lesser PPG"}</li>
         <li>-: Lost to team with greater PPG</li>
-        <li>--: Lost to team with greater PPG</li>
+        <li>--: Lost to team with lesser PPG</li>
       </ul>
       {data?.data?.teams ? (
         <MatchGrid data={data.data.teams} dataParser={dataParserOutcomes} />
