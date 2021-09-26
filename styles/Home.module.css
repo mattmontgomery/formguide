@@ -8,12 +8,19 @@
 }
 .gridRow {
   display: grid;
-  grid-template-columns: 200px repeat(34, 28px);
+  grid-template-columns: 25px 200px repeat(34, 28px);
 }
 .gridWide .gridRow {
-  grid-template-columns: 200px repeat(34, 40px);
+  grid-template-columns: 25px 200px repeat(34, 40px);
 }
 .gridRow > :first-child {
+  align-self: center;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 1rem;
+  font-size: 14px;
+}
+.gridRow > :nth-child(2) {
   align-self: center;
   font-weight: bold;
   text-align: right;
@@ -46,6 +53,7 @@
   text-align: center;
   font-size: 9pt;
   font-weight: bold;
+  cursor: pointer;
 }
 .W {
   background-color: #8cca7a;
@@ -90,7 +98,7 @@
 }
 .chartRow {
   display: grid;
-  grid-template-columns: 200px repeat(34, 28px);
+  grid-template-columns: 25px 200px repeat(34, 28px);
   height: 30px;
 }
 .chartTeam {

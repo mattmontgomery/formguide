@@ -2,16 +2,7 @@ import "../styles/globals.css";
 import NavStyles from "../styles/Nav.module.css";
 import type { AppProps } from "next/app";
 import Link, { LinkProps } from "next/link";
-import {
-  Button,
-  ButtonGroup,
-  FormLabel,
-  Toolbar,
-  Typography,
-  Box,
-  LinkBaseProps,
-  ButtonProps,
-} from "@mui/material";
+import { Button, ButtonGroup, Toolbar, Box, ButtonProps } from "@mui/material";
 import React from "react";
 
 /**
@@ -66,14 +57,24 @@ function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
           </ButtonLink>
         </Box>
         <Box m={1}>
-          <ButtonLink variant="outlined" href="/goals-for">
-            GF
-          </ButtonLink>
+          <ButtonGroup>
+            <ButtonLink variant="outlined" href="/goals-for">
+              GF
+            </ButtonLink>
+            <ButtonLink variant="outlined" href="/goals-for-cumulative">
+              Cumulative
+            </ButtonLink>
+          </ButtonGroup>
         </Box>
         <Box m={1}>
-          <ButtonLink variant="outlined" href="/goals-against">
-            GA
-          </ButtonLink>
+          <ButtonGroup>
+            <ButtonLink variant="outlined" href="/goals-against">
+              GA
+            </ButtonLink>
+            <ButtonLink variant="outlined" href="/goals-against-cumulative">
+              Cumulative
+            </ButtonLink>
+          </ButtonGroup>
         </Box>
         <Box m={1}>
           <ButtonLink variant="outlined" href="/strength-of-schedule">
@@ -93,6 +94,10 @@ function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
         . Something not working? Send me a tweet.
       </footer>
       <footer className={NavStyles.Changelog}>
+        <p>
+          <strong>2021-09-26</strong>: Added cumulative tables. Added
+          header-clicking to sort given week.
+        </p>
         <p>
           <strong>2021-09-17</strong>:{" "}
           {"Fixed match link. Added PPG/Strength page. You're welcome, Trevor."}
