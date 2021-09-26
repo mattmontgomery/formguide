@@ -17,7 +17,7 @@ export type ButtonLinkProps = Omit<ButtonProps, "href" | "classes"> &
 const ButtonLink = React.forwardRef<ButtonLinkProps, any>(
   ({ href, as, prefetch, ...props }, ref) => (
     <Link href={href} as={as} prefetch={prefetch} passHref>
-      <Button ref={ref} {...props} />
+      <Button ref={ref} size="small" variant="outlined" {...props} />
     </Link>
   )
 );
@@ -39,9 +39,11 @@ function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
         }}
       >
         <Box m={1}>
-          <Button variant="outlined">
-            <Link href="/">Form Guide</Link>
-          </Button>
+          <ButtonGroup>
+            <ButtonLink href="/" variant="contained">
+              Form Guide
+            </ButtonLink>
+          </ButtonGroup>
         </Box>
         <Box m={1}>
           <ButtonGroup>
@@ -52,34 +54,31 @@ function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
           </ButtonGroup>
         </Box>
         <Box m={1}>
-          <ButtonLink variant="outlined" href="/goal-difference">
-            GD
-          </ButtonLink>
-        </Box>
-        <Box m={1}>
           <ButtonGroup>
-            <ButtonLink variant="outlined" href="/goals-for">
-              GF
-            </ButtonLink>
-            <ButtonLink variant="outlined" href="/goals-for-cumulative">
+            <ButtonLink href="/goal-difference">GD</ButtonLink>
+            <ButtonLink href="/goal-difference-cumulative">
               Cumulative
             </ButtonLink>
           </ButtonGroup>
         </Box>
         <Box m={1}>
           <ButtonGroup>
-            <ButtonLink variant="outlined" href="/goals-against">
-              GA
-            </ButtonLink>
-            <ButtonLink variant="outlined" href="/goals-against-cumulative">
-              Cumulative
-            </ButtonLink>
+            <ButtonLink href="/goals-for">GF</ButtonLink>
+            <ButtonLink href="/goals-for-cumulative">Cumulative</ButtonLink>
           </ButtonGroup>
         </Box>
         <Box m={1}>
-          <ButtonLink variant="outlined" href="/strength-of-schedule">
-            PPG/Strength
-          </ButtonLink>
+          <ButtonGroup>
+            <ButtonLink href="/goals-against">GA</ButtonLink>
+            <ButtonLink href="/goals-against-cumulative">Cumulative</ButtonLink>
+          </ButtonGroup>
+        </Box>
+        <Box m={1}>
+          <ButtonGroup>
+            <ButtonLink href="/ppg/opponent">vs. PPG</ButtonLink>
+            <ButtonLink href="/ppg/team">PPG</ButtonLink>
+            <ButtonLink href="/ppg/outcomes">Outcomes</ButtonLink>
+          </ButtonGroup>
         </Box>
       </Toolbar>
       <Box m={2}>
@@ -94,6 +93,11 @@ function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
         . Something not working? Send me a tweet.
       </footer>
       <footer className={NavStyles.Changelog}>
+        <p>
+          <strong>2021-09-27</strong>: Fixed bug on Expected Outcome page. Split
+          PPG pages into individual pages. Refactored grid pages. Made
+          navigation buttons smaller. Addded GD cumulative page.
+        </p>
         <p>
           <strong>2021-09-26</strong>: Added cumulative tables. Added
           header-clicking to sort given week.

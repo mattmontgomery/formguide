@@ -9,7 +9,7 @@ declare namespace Results {
           elapsed: number;
         };
       };
-      league: {};
+      league: unknown;
       teams: {
         home: {
           name: string;
@@ -47,4 +47,8 @@ declare namespace Results {
   declare type ResultType = "W" | "D" | "L" | null;
 
   declare type RenderReadyData = [string, ...React.ReactElement[]][];
+
+  declare type ParserFunction = (
+    teams: Results.ParsedData["teams"]
+  ) => Results.RenderReadyData;
 }

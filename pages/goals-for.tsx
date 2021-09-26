@@ -1,25 +1,8 @@
-import Head from "next/head";
-import useSWR from "swr";
-import styles from "../styles/Home.module.css";
-import fetch from "unfetch";
+import BasePage from "../components/BasePage";
 import MatchCell from "../components/MatchCell";
-import MatchGrid from "../components/MatchGrid";
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 export default function GoalsFor(): React.ReactElement {
-  const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
-  return (
-    <div className={styles.body}>
-      <Head>
-        <title>MLS Form Guide 2021</title>
-      </Head>
-      <h1>2021 MLS Form Guide | Goals For</h1>
-
-      {data?.data?.teams ? (
-        <MatchGrid data={data.data.teams} dataParser={dataParser} />
-      ) : null}
-    </div>
-  );
+  return <BasePage pageTitle="Goals For | By Match" dataParser={dataParser} />;
 }
 function dataParser(
   data: Results.ParsedData["teams"]

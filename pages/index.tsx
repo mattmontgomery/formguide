@@ -1,29 +1,8 @@
-import Head from "next/head";
-import useSWR from "swr";
-import styles from "../styles/Home.module.css";
-import fetch from "unfetch";
 import MatchCell from "../components/MatchCell";
-import MatchGrid from "../components/MatchGrid";
-import {} from "date-fns";
+import BasePage from "../components/BasePage";
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
-export default function Home() {
-  const { data, error } = useSWR<{ data: Results.ParsedData }>(
-    "/api/form",
-    fetcher
-  );
-  return (
-    <div className={styles.body}>
-      <Head>
-        <title>MLS Form Guide 2021</title>
-      </Head>
-      <h1>MLS Form Guide 2021</h1>
-
-      {data?.data?.teams ? (
-        <MatchGrid data={data.data.teams} dataParser={dataParser} />
-      ) : null}
-    </div>
-  );
+export default function Home(): React.ReactElement {
+  return <BasePage dataParser={dataParser} pageTitle="" />;
 }
 function dataParser(
   data: Results.ParsedData["teams"]
