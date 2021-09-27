@@ -8,7 +8,7 @@
 }
 .gridRow {
   display: grid;
-  grid-template-columns: 25px 200px repeat(34, 28px);
+  grid-template-columns: 25px 200px repeat(34, 32px);
 }
 .gridWide .gridRow {
   grid-template-columns: 25px 200px repeat(34, 40px);

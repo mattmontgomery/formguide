@@ -25,7 +25,7 @@ export default function MatchCell({
         position: `relative`,
         cursor: `pointer`,
         backgroundColor: !match.result
-          ? "rgb(213, 213, 213)"
+          ? "rgb(200, 200, 200)"
           : match.result === "W"
           ? "#8cca7a"
           : match.result === "L"
