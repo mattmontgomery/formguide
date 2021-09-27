@@ -1,6 +1,10 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
     date: "2021-09-26",
+    changelog: <>Adds support for dark mode, adds drawer for navigation</>,
+  },
+  {
+    date: "2021-09-26",
     changelog: (
       <>
         Fixed bug on Expected Outcome page. Split PPG pages into individual

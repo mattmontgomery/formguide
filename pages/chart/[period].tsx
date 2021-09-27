@@ -6,6 +6,7 @@ import styles from "../../styles/Home.module.css";
 import fetch from "unfetch";
 import MatchGrid from "../../components/MatchGrid";
 import getMatchPoints from "../../utils/getMatchPoints";
+import { Box } from "@mui/system";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -42,15 +43,24 @@ function dataParser(
       team,
       ...points.map((pointValue, idx) => {
         return (
-          <div key={idx}>
-            <span className={styles.chartPointText}>{pointValue}</span>
-            <span
+          <Box key={idx} sx={{ backgroundColor: "background.default" }}>
+            <Box className={styles.chartPointText} sx={{ fontWeight: "bold" }}>
+              {pointValue}
+            </Box>
+            <Box
               className={styles.chartPointValue}
-              style={{
+              sx={{
+                backgroundColor: "success.light",
+                fontWeight: "bold",
+                zIndex: 9,
+                position: `absolute`,
+                bottom: 0,
+                left: 0,
+                right: 0,
                 height: `${((pointValue || 0) / (periodLength * 3)) * 100}%`,
               }}
-            ></span>
-          </div>
+            ></Box>
+          </Box>
         );
       }),
     ];

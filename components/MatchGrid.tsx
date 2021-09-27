@@ -48,16 +48,19 @@ export default function MatchGrid({
             <div className={styles.gridRow}>
               <span></span>
               {[...new Array(35)].map((_, i) => (
-                <div
+                <Box
                   className={styles.gridRowHeaderCell}
                   key={i}
                   onClick={() => {
                     setSortStrategy(i > 0 ? "week" : "teamName");
                     setWeekSortIdx(i);
                   }}
+                  sx={{
+                    color: `text.primary`,
+                  }}
                 >
                   {i > 0 ? i : null}
-                </div>
+                </Box>
               ))}
             </div>
           )}
@@ -73,7 +76,18 @@ export default function MatchGrid({
               return (
                 <div className={rowClass} key={idx}>
                   <span>{sortStrategy === "week" ? idx + 1 : ""}</span>
-                  <div className={styles.chartTeam}>{team}</div>
+                  <Box
+                    sx={{
+                      textAlign: "right",
+                      alignSelf: `center`,
+                      fontWeight: `bold`,
+                      marginRight: `.5rem`,
+                      fontSize: "12px",
+                    }}
+                    className={styles.chartTeam}
+                  >
+                    {team}
+                  </Box>
                   {cells}
                 </div>
               );

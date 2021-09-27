@@ -13,59 +13,14 @@
 .gridWide .gridRow {
   grid-template-columns: 25px 200px repeat(34, 40px);
 }
-.gridRow > :first-child {
-  align-self: center;
-  font-weight: bold;
-  text-align: right;
-  margin-right: 1rem;
-  font-size: 14px;
-}
-.gridRow > :nth-child(2) {
-  align-self: center;
-  font-weight: bold;
-  text-align: right;
-  margin-right: 1rem;
-  font-size: 14px;
-}
-.gridRow > a:nth-child(2) {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-.gridRow > a:last-child {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-.gridRow > a:not(:first-child) {
-  padding: 0.25rem;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-  color: white;
-  border-right: 1px solid rgb(181, 181, 181);
-  position: relative;
-  cursor: pointer;
-}
 .gridRow > a[data-home="home"] {
   text-decoration: underline;
 }
 .gridRowHeaderCell {
-  color: black !important;
   text-align: center;
   font-size: 9pt;
   font-weight: bold;
   cursor: pointer;
-}
-.W {
-  background-color: #8cca7a;
-}
-.L {
-  background-color: #f3968f;
-}
-.D {
-  background-color: #f9c389;
-}
-.NA {
-  background-color: rgb(213, 213, 213);
 }
 
 .matchDetails {
@@ -114,12 +69,4 @@
   text-align: center;
   z-index: 10;
   font-size: 12px;
-}
-.chartRow > :not(.chartTeam) > .chartPointValue {
-  z-index: 9;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #8cca7a;
 }

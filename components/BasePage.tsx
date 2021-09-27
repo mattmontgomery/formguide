@@ -19,9 +19,8 @@ export default function BasePage({
   return (
     <div className={styles.body}>
       <Head>
-        <title>MLS Form Guide 2021</title>
+        <title>MLS Form Guide 2021 | {pageTitle}</title>
       </Head>
-      <h1>2021 MLS Form Guide</h1>
       {pageTitle && <h2>{pageTitle}</h2>}
       {children}
       {data?.data?.teams ? (

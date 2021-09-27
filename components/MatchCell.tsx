@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getMLSLink } from "../utils/getLinks";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 export default function MatchCell({
   match,
@@ -12,16 +13,36 @@ export default function MatchCell({
 }): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <a
-      data-home={match.home ? "home" : null}
-      href={getMLSLink(match)}
-      onMouseOver={() => setOpen(true)}
-      onMouseOut={() => setOpen(false)}
-      className={styles[match.result || "NA"]}
+    <Box
+      className={styles.gridRowCell}
+      sx={{
+        padding: `0.25rem`,
+        textAlign: `center`,
+        fontWeight: `bold`,
+        fontSize: `14px`,
+        color: `background.paper`,
+        borderRight: `1px solid rgb(181, 181, 181)`,
+        position: `relative`,
+        cursor: `pointer`,
+        backgroundColor: !match.result
+          ? "rgb(213, 213, 213)"
+          : match.result === "W"
+          ? "#8cca7a"
+          : match.result === "L"
+          ? "#f3968f"
+          : "#f9c389",
+      }}
     >
-      {open ? <MatchCellDetails match={match} /> : null}
-      {renderValue(match)}
-    </a>
+      <a
+        data-home={match.home ? "home" : null}
+        href={getMLSLink(match)}
+        onMouseOver={() => setOpen(true)}
+        onMouseOut={() => setOpen(false)}
+      >
+        {open ? <MatchCellDetails match={match} /> : null}
+        {renderValue(match)}
+      </a>
+    </Box>
   );
 }
 
