@@ -4,6 +4,8 @@ import type { AppProps } from "next/app";
 import Link, { LinkProps } from "next/link";
 import { Button, ButtonGroup, Toolbar, Box, ButtonProps } from "@mui/material";
 import React from "react";
+import Changelog from "../components/Changelog";
+import { useRouter } from "next/router";
 
 /**
  * We need to Omit from the MUI Button the {href} prop
@@ -15,11 +17,20 @@ export type ButtonLinkProps = Omit<ButtonProps, "href" | "classes"> &
   Pick<LinkProps, "href" | "as" | "prefetch">;
 
 const ButtonLink = React.forwardRef<ButtonLinkProps, any>(
-  ({ href, as, prefetch, ...props }, ref) => (
-    <Link href={href} as={as} prefetch={prefetch} passHref>
-      <Button ref={ref} size="small" variant="outlined" {...props} />
-    </Link>
-  )
+  ({ href, as, prefetch, ...props }, ref) => {
+    const { pathname } = useRouter();
+    return (
+      <Link href={href} as={as} prefetch={prefetch} passHref>
+        <Button
+          ref={ref}
+          size="small"
+          variant="outlined"
+          {...props}
+          color={pathname === href ? "secondary" : "primary"}
+        />
+      </Link>
+    );
+  }
 );
 
 ButtonLink.displayName = "ButtonLink";
@@ -93,25 +104,7 @@ function MLSFormGuide({ Component, pageProps }: AppProps): React.ReactElement {
         . Something not working? Send me a tweet.
       </footer>
       <footer className={NavStyles.Changelog}>
-        <p>
-          <strong>2021-09-27</strong>: Fixed bug on Expected Outcome page. Split
-          PPG pages into individual pages. Refactored grid pages. Made
-          navigation buttons smaller. Addded GD cumulative page.
-        </p>
-        <p>
-          <strong>2021-09-26</strong>: Added cumulative tables. Added
-          header-clicking to sort given week.
-        </p>
-        <p>
-          <strong>2021-09-17</strong>:{" "}
-          {"Fixed match link. Added PPG/Strength page. You're welcome, Trevor."}
-        </p>
-        <p>
-          <strong>2021-09-13</strong>:{" "}
-          {
-            "Fixed Safari issue with date sorting. Added GD, GF, GA pages. Added options for more rolling-game charts."
-          }
-        </p>
+        <Changelog />
       </footer>
     </div>
   );
