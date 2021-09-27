@@ -230,7 +230,7 @@ export default function MLSFormGuide({
               </Typography>
             </Toolbar>
           </AppBar>
-          <Box>
+          <Box sx={{ marginTop: 8 }}>
             <Component {...pageProps} />
           </Box>
           <Divider />
