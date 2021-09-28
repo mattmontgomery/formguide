@@ -1,4 +1,4 @@
-import BasePage from "../../components/BasePage";
+import BasePage from "../../components/BaseGridPage";
 import MatchCell from "../../components/MatchCell";
 
 export default function GoalsFor(): React.ReactElement {

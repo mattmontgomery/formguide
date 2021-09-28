@@ -1,6 +1,6 @@
 import MatchCell from "../../components/MatchCell";
 import getTeamPoints from "../../utils/getTeamPoints";
-import BasePage from "../../components/BasePage";
+import BasePage from "../../components/BaseGridPage";
 
 export default function PPGOutcomes(): React.ReactElement {
   return (

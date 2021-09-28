@@ -1,7 +1,7 @@
 import styles from "../../styles/Home.module.css";
 import MatchCell from "../../components/MatchCell";
 import getTeamPoints from "../../utils/getTeamPoints";
-import BasePage from "../../components/BasePage";
+import BasePage from "../../components/BaseGridPage";
 
 export default function PPGOpponent(): React.ReactElement {
   return (

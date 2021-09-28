@@ -86,6 +86,12 @@ export default function MLSFormGuide({
             main: "#f3968f",
           },
         },
+        typography: {
+          h4: {
+            fontSize: 24,
+            fontWeight: "bold",
+          },
+        },
       }),
     [darkMode]
   );
@@ -130,7 +136,8 @@ export default function MLSFormGuide({
           <Divider />
           <footer>
             <Box m={2}>
-              Created and maintained by{" "}
+              <MLink href="/changelog">Changelog</MLink> | Created and
+              maintained by{" "}
               <MLink href="https://twitter.com/thecrossbarrsl">
                 Matt Montgomery
               </MLink>
@@ -139,12 +146,6 @@ export default function MLSFormGuide({
                 Contribute on Github
               </MLink>
               . Something not working? Send me a tweet.
-            </Box>
-          </footer>
-          <Divider />
-          <footer className={NavStyles.Changelog}>
-            <Box m={2}>
-              <Changelog />
             </Box>
           </footer>
         </Box>

@@ -23,6 +23,8 @@ import {
   SvgIconComponent,
   HourglassEmpty,
   Timeline,
+  Lightbulb,
+  LightbulbOutlined,
 } from "@mui/icons-material";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
@@ -99,7 +101,7 @@ const NAV_CONFIG: (
     icon: HourglassEmpty,
   },
   {
-    href: "/results/halftime-after-leading",
+    href: "/results/halftime-after-drawing",
     title: "When drawing @ Half",
     icon: HourglassEmpty,
   },
@@ -107,6 +109,13 @@ const NAV_CONFIG: (
     href: "/results/halftime-after-losing",
     title: "When losing @ Half",
     icon: HourglassEmpty,
+  },
+  DIVIDER,
+  { subtitle: "First/Second Half" },
+  {
+    href: "/facts",
+    title: "Match Facts",
+    icon: LightbulbOutlined,
   },
   DIVIDER,
 ];

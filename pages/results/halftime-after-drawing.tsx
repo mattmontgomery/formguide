@@ -1,10 +1,10 @@
-import BasePage from "../../components/BasePage";
+import BasePage from "../../components/BaseGridPage";
 import MatchCell from "../../components/MatchCell";
 
 export default function GoalsFor(): React.ReactElement {
   return (
     <BasePage
-      pageTitle="When Leading at Halftime | By Match"
+      pageTitle="When Drawing at Halftime | By Match"
       dataParser={dataParser}
     />
   );
