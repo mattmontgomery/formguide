@@ -20,7 +20,7 @@ export default function Chart(): React.ReactElement {
       <Head>
         <title>MLS Form Guide 2021 | chart</title>
       </Head>
-      <h1>2021 MLS Form Guide | Rolling points ({period} game rolling)</h1>
+      <h1>2021 MLS Form Guide | Rolling GD ({period} game rolling)</h1>
       {data?.data?.teams ? (
         <MatchGrid
           data={data.data.teams}
