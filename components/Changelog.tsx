@@ -5,6 +5,8 @@ const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
       <>
         Adds first/second half grids. Adds &lsquo;shade when empty&rsquo; option
         for match grids, seen in when leading at half/when losing at half.
+        Refactors navigation for easier maintenance. Adds when
+        leading/losing/drawing @ half charts.
       </>
     ),
   },

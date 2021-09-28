@@ -17,9 +17,12 @@ import Link from "next/link";
 import {
   TableChart,
   BarChart,
+  HourglassTop,
+  HourglassBottom,
   SportsSoccerSharp,
-  SportsSoccerTwoTone,
-  SportsSoccerRounded,
+  SvgIconComponent,
+  HourglassEmpty,
+  Timeline,
 } from "@mui/icons-material";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
@@ -42,6 +45,72 @@ const ListItemLink = React.forwardRef<ListItemProps, any>(
 );
 ListItemLink.displayName = "ListItemLink";
 const DRAWER_WIDTH = 240;
+
+const DIVIDER = Symbol("divider");
+
+const NAV_CONFIG: (
+  | {
+      href?: string;
+      title?: React.ReactNode;
+      subtitle?: React.ReactNode;
+      icon?: SvgIconComponent;
+    }
+  | typeof DIVIDER
+)[] = [
+  { href: "/", title: "Form Guide", icon: TableChart },
+  DIVIDER,
+  { subtitle: "Rolling Charts" },
+  { href: "/chart/3", title: "3-game", icon: BarChart },
+  { href: "/chart/5", title: "5-game", icon: BarChart },
+  { href: "/chart/8", title: "8-game", icon: BarChart },
+  { href: "/chart/11", title: "11-game", icon: BarChart },
+  DIVIDER,
+  { subtitle: "Goal Difference" },
+  { href: "/gd", title: "GD", icon: SportsSoccerSharp },
+  { href: "/gd/cumulative", title: "Cumulative", icon: SportsSoccerSharp },
+  { href: "/gd-chart/3", title: "Rolling 3-game", icon: Timeline },
+  { href: "/gd-chart/5", title: "Rolling 5-game", icon: Timeline },
+  { href: "/gd-chart/8", title: "Rolling 8-game", icon: Timeline },
+  { href: "/gd-chart/11", title: "Rolling 11-game", icon: Timeline },
+  DIVIDER,
+  { subtitle: "Goals For" },
+  { href: "/gf", title: "GF", icon: SportsSoccerSharp },
+  { href: "/gf/cumulative", title: "Cumulative", icon: SportsSoccerSharp },
+  DIVIDER,
+  { subtitle: "Goals Against" },
+  { href: "/ga", title: "GA", icon: SportsSoccerSharp },
+  { href: "/ga/cumulative", title: "Cumulative", icon: SportsSoccerSharp },
+  DIVIDER,
+  { subtitle: "PPG/Strength of Schedule" },
+  { href: "/ppg/opponent", title: "Opponent PPG", icon: BarChart },
+  { href: "/ppg/team", title: "Team PPG", icon: BarChart },
+  { href: "/ppg/outcomes", title: "Expected Outcomes", icon: BarChart },
+  DIVIDER,
+  { subtitle: "First/Second Half" },
+  { href: "/results/first-half", title: "First-half only", icon: HourglassTop },
+  {
+    href: "/results/second-half",
+    title: "Second-half only",
+    icon: HourglassBottom,
+  },
+  {
+    href: "/results/halftime-after-leading",
+    title: "When leading @ Half",
+    icon: HourglassEmpty,
+  },
+  {
+    href: "/results/halftime-after-leading",
+    title: "When drawing @ Half",
+    icon: HourglassEmpty,
+  },
+  {
+    href: "/results/halftime-after-losing",
+    title: "When losing @ Half",
+    icon: HourglassEmpty,
+  },
+  DIVIDER,
+];
+
 export default function Nav({
   drawerOpen = true,
   darkMode,
@@ -66,145 +135,21 @@ export default function Nav({
     >
       <Box sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}>
         <List>
-          <ListItemLink href="/">
-            <ListItemIcon>
-              <TableChart />
-            </ListItemIcon>
-            <ListItemText>Form Guide</ListItemText>
-          </ListItemLink>
-          <Divider />
-          <ListSubheader>Rolling Charts</ListSubheader>
-          <ListItemLink href="/chart/3">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>3-game</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/chart/5">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>5-game</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/chart/8">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>8-game</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/chart/11">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>11-game</ListItemText>
-          </ListItemLink>
-          <Divider />
-          <ListSubheader>Goal Difference</ListSubheader>
-          <ListItemLink href="/gd">
-            <ListItemIcon>
-              <SportsSoccerRounded />
-            </ListItemIcon>
-            <ListItemText>GD</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/gd/cumulative">
-            <ListItemIcon>
-              <SportsSoccerRounded />
-            </ListItemIcon>
-            <ListItemText>Cumulative</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/gd-chart/3">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>Rolling 3-game</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/gd-chart/5">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>Rolling 5-game</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/gd-chart/8">
-            <ListItemIcon>
-              <BarChart />
-            </ListItemIcon>
-            <ListItemText>Rolling 8-game</ListItemText>
-          </ListItemLink>
-          <Divider />
-          <ListSubheader>Goals For</ListSubheader>
-          <ListItemLink href="/gf">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>GF</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/gf/cumulative">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>Cumulative</ListItemText>
-          </ListItemLink>
-          <Divider />
-          <ListSubheader>Goals Against</ListSubheader>
-          <ListItemLink href="/ga">
-            <ListItemIcon>
-              <SportsSoccerTwoTone />
-            </ListItemIcon>
-            <ListItemText>GA</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/ga/cumulative">
-            <ListItemIcon>
-              <SportsSoccerTwoTone />
-            </ListItemIcon>
-            <ListItemText>Cumulative</ListItemText>
-          </ListItemLink>
-          <Divider />
-          <ListSubheader>PPG/Strength of Schedule</ListSubheader>
-          <ListItemLink href="/ppg/opponent">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>Opponent PPG by match</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/ppg/team">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>Team PPG by match</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/ppg/team">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>Expected outcome by match</ListItemText>
-          </ListItemLink>
-          <Divider />
-          <ListSubheader>First/Second Half</ListSubheader>
-          <ListItemLink href="/results/first-half">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>First-Half Only</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/results/second-half">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>Second-Half Only</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/results/halftime-after-leading">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>When Leading at Half</ListItemText>
-          </ListItemLink>
-          <ListItemLink href="/results/halftime-after-losing">
-            <ListItemIcon>
-              <SportsSoccerSharp />
-            </ListItemIcon>
-            <ListItemText>When Losing at Half</ListItemText>
-          </ListItemLink>
-          <Divider />
+          {NAV_CONFIG.map((navItem) => {
+            if (typeof navItem === "symbol") {
+              return <Divider />;
+            } else if (navItem.subtitle) {
+              return <ListSubheader>{navItem.subtitle}</ListSubheader>;
+            } else if (navItem.href) {
+              const LinkIcon = navItem.icon;
+              return (
+                <ListItemLink href={navItem.href}>
+                  {LinkIcon && <ListItemIcon>{<LinkIcon />}</ListItemIcon>}
+                  <ListItemText>{navItem.title}</ListItemText>
+                </ListItemLink>
+              );
+            }
+          })}
           <ListItem>
             <FormControlLabel
               control={
