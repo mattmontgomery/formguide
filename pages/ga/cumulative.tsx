@@ -1,9 +1,9 @@
-import MatchCell from "../components/MatchCell";
-import BasePage from "../components/BasePage";
+import MatchCell from "../../components/MatchCell";
+import BasePage from "../../components/BasePage";
 
-export default function GoalsFor(): React.ReactElement {
+export default function GoalsAgainstCumulative(): React.ReactElement {
   return (
-    <BasePage pageTitle="Goals For | Cumulative" dataParser={dataParser} />
+    <BasePage pageTitle="Goals Against | Cumulative" dataParser={dataParser} />
   );
 }
 function dataParser(
@@ -20,7 +20,7 @@ function dataParser(
         cumulativeGoals[team] = cumulativeGoals[team] || [];
         cumulativeGoals[team][idx] =
           (cumulativeGoals?.[team]?.[idx - 1] || 0) +
-          (typeof match.goalsScored === "number" ? match.goalsScored : 0);
+          (typeof match.goalsConceded === "number" ? match.goalsConceded : 0);
         return (
           <MatchCell
             match={match}

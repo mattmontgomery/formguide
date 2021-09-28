@@ -1,5 +1,5 @@
-import MatchCell from "../components/MatchCell";
-import BasePage from "../components/BasePage";
+import MatchCell from "../../components/MatchCell";
+import BasePage from "../../components/BasePage";
 
 export default function GoalDifference(): React.ReactElement {
   return (

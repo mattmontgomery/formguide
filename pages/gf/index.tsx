@@ -1,10 +1,8 @@
-import MatchCell from "../components/MatchCell";
-import BasePage from "../components/BasePage";
+import BasePage from "../../components/BasePage";
+import MatchCell from "../../components/MatchCell";
 
-export default function Home(): React.ReactElement {
-  return (
-    <BasePage pageTitle="Goals Against | By Match" dataParser={dataParser} />
-  );
+export default function GoalsFor(): React.ReactElement {
+  return <BasePage pageTitle="Goals For | By Match" dataParser={dataParser} />;
 }
 function dataParser(
   data: Results.ParsedData["teams"]
@@ -20,9 +18,7 @@ function dataParser(
           match={match}
           key={idx}
           renderValue={() =>
-            typeof match.goalsConceded !== "undefined"
-              ? match.goalsConceded
-              : "-"
+            typeof match.goalsScored !== "undefined" ? match.goalsScored : "-"
           }
         />
       )),
