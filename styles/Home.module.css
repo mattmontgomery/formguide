@@ -63,7 +63,7 @@
 .chartRow > :not(.chartTeam) {
   position: relative;
 }
-.chartRow > :not(.chartTeam) > .chartPointText {
+.chartPointText {
   position: relative;
   display: block;
   text-align: center;

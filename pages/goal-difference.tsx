@@ -17,9 +17,7 @@ function dataParser(
         <MatchCell
           match={match}
           key={idx}
-          renderValue={(match) =>
-            typeof match.gd !== "undefined" ? match.gd : "-"
-          }
+          renderValue={() => (typeof match.gd !== "undefined" ? match.gd : "-")}
         />
       )),
   ]);

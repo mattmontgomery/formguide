@@ -89,6 +89,15 @@ export default function MLSFormGuide({
       createTheme({
         palette: {
           mode: darkMode ? "dark" : "light",
+          success: {
+            main: "#8cca7a",
+          },
+          warning: {
+            main: "#f9c389",
+          },
+          error: {
+            main: "#f3968f",
+          },
         },
       }),
     [darkMode]
@@ -159,6 +168,24 @@ export default function MLSFormGuide({
                 </ListItemIcon>
                 <ListItemText>Cumulative</ListItemText>
               </ListItemLink>
+              <ListItemLink href="/gd-chart/3">
+                <ListItemIcon>
+                  <BarChart />
+                </ListItemIcon>
+                <ListItemText>Rolling 3-game</ListItemText>
+              </ListItemLink>
+              <ListItemLink href="/gd-chart/5">
+                <ListItemIcon>
+                  <BarChart />
+                </ListItemIcon>
+                <ListItemText>Rolling 5-game</ListItemText>
+              </ListItemLink>
+              <ListItemLink href="/gd-chart/8">
+                <ListItemIcon>
+                  <BarChart />
+                </ListItemIcon>
+                <ListItemText>Rolling 8-game</ListItemText>
+              </ListItemLink>
               <Divider />
               <ListSubheader>Goals For</ListSubheader>
               <ListItemLink href="/goals-for">
@@ -187,23 +214,43 @@ export default function MLSFormGuide({
                 </ListItemIcon>
                 <ListItemText>Cumulative</ListItemText>
               </ListItemLink>
+              <Divider />
+              <ListSubheader>PPG/Strength of Schedule</ListSubheader>
+              <ListItemLink href="/ppg/opponent">
+                <ListItemIcon>
+                  <SportsSoccerSharp />
+                </ListItemIcon>
+                <ListItemText>Opponent PPG by match</ListItemText>
+              </ListItemLink>
+              <ListItemLink href="/ppg/team">
+                <ListItemIcon>
+                  <SportsSoccerSharp />
+                </ListItemIcon>
+                <ListItemText>Team PPG by match</ListItemText>
+              </ListItemLink>
+              <ListItemLink href="/ppg/team">
+                <ListItemIcon>
+                  <SportsSoccerSharp />
+                </ListItemIcon>
+                <ListItemText>Expected outcome by match</ListItemText>
+              </ListItemLink>
+              <Divider />
+              <ListItem>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={darkMode}
+                      onChange={(event) => setDarkMode(event.target.checked)}
+                    />
+                  }
+                  label="Dark Mode"
+                />
+              </ListItem>
+              <Divider />
+              <ListItemLink href="https://lineup.tools.football">
+                <ListItemText>Lineup Graphic Builder</ListItemText>
+              </ListItemLink>
             </List>
-            <Divider />
-            <ListItem>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={darkMode}
-                    onChange={(event) => setDarkMode(event.target.checked)}
-                  />
-                }
-                label="Dark Mode"
-              />
-            </ListItem>
-            <Divider />
-            <ListItemLink href="https://lineup.tools.football">
-              Lineup Graphic Builder
-            </ListItemLink>
           </Box>
         </Drawer>
         <Box

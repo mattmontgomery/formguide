@@ -19,7 +19,7 @@ function dataParser(
         <MatchCell
           match={match}
           key={idx}
-          renderValue={(match) =>
+          renderValue={() =>
             typeof match.goalsConceded !== "undefined"
               ? match.goalsConceded
               : "-"

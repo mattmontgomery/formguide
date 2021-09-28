@@ -27,10 +27,10 @@ export default function MatchCell({
         backgroundColor: !match.result
           ? "rgb(200, 200, 200)"
           : match.result === "W"
-          ? "#8cca7a"
+          ? "success.main"
           : match.result === "L"
-          ? "#f3968f"
-          : "#f9c389",
+          ? "error.main"
+          : "warning.main",
       }}
     >
       <a

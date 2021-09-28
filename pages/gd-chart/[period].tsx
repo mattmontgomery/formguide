@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import fetch from "unfetch";
 import MatchGrid from "../../components/MatchGrid";
-import getMatchPoints from "../../utils/getMatchPoints";
 import { Box } from "@mui/system";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -46,34 +45,22 @@ function dataParser(
           <Box
             key={idx}
             sx={{
-              backgroundColor:
-                typeof pointValue === "number"
-                  ? "grey.200"
-                  : "background.default",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor:
+                typeof pointValue !== "number"
+                  ? "background.primary"
+                  : pointValue === 0
+                  ? "warning.main"
+                  : pointValue > 0
+                  ? "success.main"
+                  : "error.main",
             }}
           >
-            <Box
-              className={styles.chartPointText}
-              sx={{ fontWeight: "bold", color: "grey.900" }}
-            >
+            <Box className={styles.chartPointText} sx={{ fontWeight: "bold" }}>
               {pointValue}
             </Box>
-            <Box
-              className={styles.chartPointValue}
-              sx={{
-                backgroundColor: "success.main",
-                fontWeight: "bold",
-                zIndex: 9,
-                position: `absolute`,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: `${((pointValue || 0) / (periodLength * 3)) * 100}%`,
-              }}
-            ></Box>
           </Box>
         );
       }),
@@ -99,7 +86,9 @@ function parseChartData(
               })
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null)
-              .map((match) => getMatchPoints(match.result));
+              .map(
+                (match) => (match.goalsScored || 0) - (match.goalsConceded || 0)
+              );
             return results.length !== periodLength
               ? null
               : results.reduce((prev, currentValue): number => {

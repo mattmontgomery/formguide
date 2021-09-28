@@ -18,8 +18,8 @@ function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
   if (!a || !b) {
     return 0;
   }
-  const aVal = a[week].props?.renderValue();
-  const bVal = b[week].props?.renderValue();
+  const aVal = a?.[week].props?.renderValue();
+  const bVal = b?.[week].props?.renderValue();
   return aVal < bVal ? 1 : bVal < aVal ? -1 : 0;
 }
 

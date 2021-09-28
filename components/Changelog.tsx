@@ -1,5 +1,15 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
+    date: "2021-09-27",
+    changelog: (
+      <>
+        Restores links to PPG/strength of schedule pages. Adds rolling GD
+        charts. Updates styling for success, error. Makes rolling form chart
+        slightly easier to read.
+      </>
+    ),
+  },
+  {
     date: "2021-09-26",
     changelog: <>Adds support for dark mode, adds drawer for navigation</>,
   },
