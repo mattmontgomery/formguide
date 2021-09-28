@@ -26,7 +26,16 @@ const ListItemLink = React.forwardRef<ListItemProps, any>(
   ({ href, as, ...props }, ref) => {
     return (
       <Link href={href} as={as} passHref>
-        <ListItem button ref={ref} {...props} />
+        <ListItem
+          button
+          ref={ref}
+          sx={{
+            [`.MuiListItemText-root .MuiTypography-root`]: {
+              fontSize: `.9rem`,
+            },
+          }}
+          {...props}
+        />
       </Link>
     );
   }
@@ -168,6 +177,32 @@ export default function Nav({
               <SportsSoccerSharp />
             </ListItemIcon>
             <ListItemText>Expected outcome by match</ListItemText>
+          </ListItemLink>
+          <Divider />
+          <ListSubheader>First/Second Half</ListSubheader>
+          <ListItemLink href="/results/first-half">
+            <ListItemIcon>
+              <SportsSoccerSharp />
+            </ListItemIcon>
+            <ListItemText>First-Half Only</ListItemText>
+          </ListItemLink>
+          <ListItemLink href="/results/second-half">
+            <ListItemIcon>
+              <SportsSoccerSharp />
+            </ListItemIcon>
+            <ListItemText>Second-Half Only</ListItemText>
+          </ListItemLink>
+          <ListItemLink href="/results/halftime-after-leading">
+            <ListItemIcon>
+              <SportsSoccerSharp />
+            </ListItemIcon>
+            <ListItemText>When Leading at Half</ListItemText>
+          </ListItemLink>
+          <ListItemLink href="/results/halftime-after-losing">
+            <ListItemIcon>
+              <SportsSoccerSharp />
+            </ListItemIcon>
+            <ListItemText>When Losing at Half</ListItemText>
           </ListItemLink>
           <Divider />
           <ListItem>

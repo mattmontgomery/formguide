@@ -94,6 +94,24 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 gd: curr.goals.home - curr.goals.away,
                 goalsScored: curr.goals.home,
                 goalsConceded: curr.goals.away,
+                firstHalf: {
+                  goalsScored: curr.score.halftime.home,
+                  goalsConceded: curr.score.halftime.away,
+                  result: getResult(
+                    curr.score.halftime.home,
+                    curr.score.halftime.away
+                  ),
+                },
+                secondHalf: {
+                  goalsScored:
+                    curr.score.fulltime.home - curr.score.halftime.home,
+                  goalsConceded:
+                    curr.score.fulltime.away - curr.score.halftime.away,
+                  result: getResult(
+                    curr.score.fulltime.home - curr.score.halftime.home,
+                    curr.score.fulltime.away - curr.score.halftime.away
+                  ),
+                },
               }
             : {
                 date: formatDate(curr.fixture.date),
@@ -119,6 +137,24 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
                 gd: curr.goals.away - curr.goals.home,
                 goalsScored: curr.goals.away,
                 goalsConceded: curr.goals.home,
+                firstHalf: {
+                  goalsScored: curr.score.halftime.away,
+                  goalsConceded: curr.score.halftime.home,
+                  result: getResult(
+                    curr.score.halftime.away,
+                    curr.score.halftime.home
+                  ),
+                },
+                secondHalf: {
+                  goalsScored:
+                    curr.score.fulltime.away - curr.score.halftime.away,
+                  goalsConceded:
+                    curr.score.fulltime.home - curr.score.halftime.home,
+                  result: getResult(
+                    curr.score.fulltime.away - curr.score.halftime.away,
+                    curr.score.fulltime.home - curr.score.halftime.home
+                  ),
+                },
               }
             : {
                 date: formatDate(curr.fixture.date),

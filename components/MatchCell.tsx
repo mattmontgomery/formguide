@@ -6,12 +6,26 @@ import { Box } from "@mui/material";
 
 export default function MatchCell({
   match,
-  renderValue = (match) => match.result || "-",
+  renderValue,
+  resultType = "full-match",
+  shadeEmpty = false,
 }: {
   match: Results.Match;
   renderValue?: (match: Results.Match) => string | number;
+  resultType?: "first-half" | "second-half" | "full-match";
+  shadeEmpty?: boolean;
 }): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
+  const result =
+    resultType === "first-half"
+      ? match.firstHalf?.result
+      : resultType === "second-half"
+      ? match.secondHalf?.result
+      : match.result;
+  const valueRenderer =
+    typeof renderValue !== "function" ? () => result || "-" : renderValue;
+  const renderedValue = valueRenderer(match);
+  console.log({ result, resultType });
   return (
     <Box
       className={styles.gridRowCell}
@@ -24,11 +38,15 @@ export default function MatchCell({
         borderRight: `1px solid rgb(181, 181, 181)`,
         position: `relative`,
         cursor: `pointer`,
-        backgroundColor: !match.result
+        opacity: Boolean(shadeEmpty && renderedValue === "-") ? 0.7 : 1,
+        filter: Boolean(shadeEmpty && renderedValue === "-")
+          ? "grayscale(0.5)"
+          : "none",
+        backgroundColor: !result
           ? "rgb(200, 200, 200)"
-          : match.result === "W"
+          : result === "W"
           ? "success.main"
-          : match.result === "L"
+          : result === "L"
           ? "error.main"
           : "warning.main",
       }}
@@ -40,7 +58,7 @@ export default function MatchCell({
         onMouseOut={() => setOpen(false)}
       >
         {open ? <MatchCellDetails match={match} /> : null}
-        {renderValue(match)}
+        {renderedValue}
       </a>
     </Box>
   );

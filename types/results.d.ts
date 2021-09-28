@@ -22,11 +22,18 @@ declare namespace Results {
           winner: boolean;
         };
       };
-      goals: {
-        home: number;
-        away: number;
+      goals: RawMatchGoals;
+      score: {
+        halftime: RawMatchGoals;
+        fulltime: RawMatchGoals;
+        extratime: RawMatchGoals;
+        penalty: RawMatchGoals;
       };
     }[];
+  };
+  declare type RawMatchGoals = {
+    home: number;
+    away: number;
   };
 
   declare type ParsedData = {
@@ -41,8 +48,13 @@ declare namespace Results {
     opponent: string;
     opponentLogo: string;
     gd?: number;
+    firstHalf?: MatchGoals;
+    secondHalf?: MatchGoals;
+  } & MatchGoals;
+  declare type MatchGoals = {
     goalsScored?: number;
     goalsConceded?: number;
+    result: ResultType;
   };
   declare type ResultType = "W" | "D" | "L" | null;
 

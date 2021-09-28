@@ -3,8 +3,17 @@ const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
     date: "2021-09-28",
     changelog: (
       <>
+        Adds first/second half grids. Adds &lsquo;shade when empty&rsquo; option
+        for match grids, seen in when leading at half/when losing at half.
+      </>
+    ),
+  },
+  {
+    date: "2021-09-28",
+    changelog: (
+      <>
         Adjusts paths for ease of use and organization, splits out Nav into
-        separate component
+        separate component.
       </>
     ),
   },

@@ -15,7 +15,12 @@ function teamNameSort(
   return a[0] > b[0] ? 1 : b[0] > a[0] ? -1 : 0;
 }
 function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
-  if (!a || !b) {
+  if (
+    !a ||
+    !b ||
+    typeof a?.[week].props?.renderValue !== "function" ||
+    typeof b?.[week].props?.renderValue !== "function"
+  ) {
     return 0;
   }
   const aVal = a?.[week].props?.renderValue();
