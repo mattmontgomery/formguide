@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import fetch from "unfetch";
 import MatchGrid from "../../components/MatchGrid";
-import { Box } from "@mui/system";
+import { Box, Divider, Typography } from "@mui/material";
 import BasePage from "../../components/BasePage";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -16,7 +16,7 @@ export default function Chart(): React.ReactElement {
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
   const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
   return (
-    <BasePage pageTitle={`Rolling GD (${period} game rolling)`}>
+    <BasePage pageTitle={`Rolling GA (${period} game rolling)`}>
       {data?.data?.teams ? (
         <MatchGrid
           data={data.data.teams}
@@ -25,6 +25,20 @@ export default function Chart(): React.ReactElement {
           rowClass={styles.chartRow}
         />
       ) : null}
+      <Divider />
+
+      <Box sx={{ marginTop: 2 }}>
+        <Typography variant="h6">Legend</Typography>
+        <Box sx={{ backgroundColor: "success.main" }} p={1}>
+          Giving up less than 1 goal per game
+        </Box>
+        <Box sx={{ backgroundColor: "warning.main" }} p={1}>
+          Giving up less than 2 goals per game
+        </Box>
+        <Box sx={{ backgroundColor: "error.main" }} p={1}>
+          Giving up more than 2 goals per game
+        </Box>
+      </Box>
     </BasePage>
   );
 }
@@ -47,10 +61,10 @@ function dataParser(
               backgroundColor:
                 typeof pointValue !== "number"
                   ? "background.primary"
-                  : pointValue === 0
-                  ? "warning.main"
-                  : pointValue > 0
+                  : pointValue < periodLength
                   ? "success.main"
+                  : pointValue < periodLength * 2
+                  ? "warning.main"
                   : "error.main",
             }}
           >
@@ -82,9 +96,7 @@ function parseChartData(
               })
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null)
-              .map(
-                (match) => (match.goalsScored || 0) - (match.goalsConceded || 0)
-              );
+              .map((match) => match.goalsConceded || 0);
             return results.length !== periodLength
               ? null
               : results.reduce((prev, currentValue): number => {

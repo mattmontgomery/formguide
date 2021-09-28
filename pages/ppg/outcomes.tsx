@@ -1,11 +1,12 @@
 import MatchCell from "../../components/MatchCell";
 import getTeamPoints from "../../utils/getTeamPoints";
 import BasePage from "../../components/BaseGridPage";
+import { Typography } from "@mui/material";
 
 export default function PPGOutcomes(): React.ReactElement {
   return (
     <BasePage dataParser={dataParser} pageTitle="Outcomes">
-      <h3>Key</h3>
+      <Typography variant="h6">Legend</Typography>
       <ul>
         <li>++: Beat team with greater PPG</li>
         <li>+: Beat team with lesser PPG</li>

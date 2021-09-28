@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import NavStyles from "../styles/Nav.module.css";
 import type { AppProps } from "next/app";
 import Link, { LinkProps } from "next/link";
 import {
@@ -22,7 +21,6 @@ import {
 
 import { Menu as MenuIcon } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import Changelog from "../components/Changelog";
 import Nav from "../components/Nav";
 import { useRouter } from "next/router";
 

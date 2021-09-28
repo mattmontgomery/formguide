@@ -1,6 +1,4 @@
 import useSWR from "swr";
-import styles from "../../styles/Home.module.css";
-import Head from "next/head";
 import { Box, Divider, Typography } from "@mui/material";
 import { format } from "date-fns";
 import BasePage from "../../components/BasePage";
