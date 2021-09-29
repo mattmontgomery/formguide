@@ -93,6 +93,7 @@ const NAV_CONFIG: (
   { subtitle: "PPG/Strength of Schedule" },
   { href: "/ppg/opponent", title: "Opponent PPG", icon: BarChart },
   { href: "/ppg/team", title: "Team PPG", icon: BarChart },
+  { href: "/ppg/differential", title: "PPG Differential", icon: BarChart },
   { href: "/ppg/outcomes", title: "Expected Outcomes", icon: BarChart },
   DIVIDER,
   { subtitle: "First/Second Half" },

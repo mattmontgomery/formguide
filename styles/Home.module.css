@@ -2,7 +2,8 @@
   margin: 1rem;
 }
 .grid,
-.gridWide {
+.gridWide,
+.gridExtraWide {
   display: grid;
   grid-row-gap: 0.125rem;
 }
@@ -15,6 +16,9 @@
 }
 .gridWide .gridRow {
   grid-template-columns: 25px 160px repeat(34, 40px);
+}
+.gridExtraWide .gridRow {
+  grid-template-columns: 25px 160px repeat(34, 50px);
 }
 .gridRow > a[data-home="home"] {
   text-decoration: underline;

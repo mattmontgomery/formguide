@@ -2,6 +2,7 @@ import styles from "../../styles/Home.module.css";
 import MatchCell from "../../components/MatchCell";
 import getTeamPoints from "../../utils/getTeamPoints";
 import BasePage from "../../components/BaseGridPage";
+import { getArrayAverageFormatted } from "../../utils/array";
 
 export default function PPGOpponent(): React.ReactElement {
   return (
@@ -39,14 +40,4 @@ function dataParser(
         />
       )),
   ]);
-}
-function getArrayAverageFormatted(values: number[]): string {
-  const average = getArrayAverage(values);
-  return (Math.round(average * 100) / 100).toFixed(2);
-}
-
-function getArrayAverage(values: number[]): number {
-  return values.length
-    ? values.reduce((sum, curr) => sum + curr, 0) / values.length
-    : 0;
 }
