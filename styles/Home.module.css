@@ -9,16 +9,16 @@
 }
 .gridRow {
   display: grid;
-  grid-template-columns: 25px 160px repeat(34, 32px);
+  grid-template-columns: 25px 160px repeat(40, 32px);
 }
 .gridRow > :first-child:empty {
   width: 1px;
 }
 .gridWide .gridRow {
-  grid-template-columns: 25px 160px repeat(34, 40px);
+  grid-template-columns: 25px 160px repeat(40, 40px);
 }
 .gridExtraWide .gridRow {
-  grid-template-columns: 25px 160px repeat(34, 50px);
+  grid-template-columns: 25px 160px repeat(40, 50px);
 }
 .gridRow > a[data-home="home"] {
   text-decoration: underline;
@@ -60,7 +60,7 @@
 }
 .chartRow {
   display: grid;
-  grid-template-columns: 25px 200px repeat(34, 28px);
+  grid-template-columns: 25px 200px repeat(40, 28px);
   height: 30px;
 }
 .chartTeam {

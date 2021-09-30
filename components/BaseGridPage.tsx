@@ -3,6 +3,8 @@ import styles from "../styles/Home.module.css";
 import MatchGrid from "./MatchGrid";
 import BasePage from "./BasePage";
 import { Box, Divider } from "@mui/material";
+import YearContext from "./YearContext";
+import { useContext } from "react";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 export default function BaseGridPage({
@@ -16,7 +18,11 @@ export default function BaseGridPage({
   gridClass?: string;
   children?: React.ReactNode;
 }): React.ReactElement {
-  const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
+  const year = useContext(YearContext);
+  const { data } = useSWR<{ data: Results.ParsedData }>(
+    [`/api/form?year=${year}`, year],
+    fetcher
+  );
   return (
     <BasePage pageTitle={pageTitle}>
       {data?.data?.teams ? (

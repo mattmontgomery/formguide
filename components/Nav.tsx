@@ -159,15 +159,17 @@ export default function Nav({
     >
       <Box sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}>
         <List>
-          {NAV_CONFIG.map((navItem) => {
+          {NAV_CONFIG.map((navItem, idx) => {
             if (typeof navItem === "symbol") {
-              return <Divider />;
+              return <Divider key={idx} />;
             } else if (navItem.subtitle) {
-              return <ListSubheader>{navItem.subtitle}</ListSubheader>;
+              return (
+                <ListSubheader key={idx}>{navItem.subtitle}</ListSubheader>
+              );
             } else if (navItem.href) {
               const LinkIcon = navItem.icon;
               return (
-                <ListItemLink href={navItem.href}>
+                <ListItemLink href={navItem.href} key={idx}>
                   {LinkIcon && <ListItemIcon>{<LinkIcon />}</ListItemIcon>}
                   <ListItemText>{navItem.title}</ListItemText>
                 </ListItemLink>

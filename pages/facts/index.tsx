@@ -2,6 +2,8 @@ import useSWR from "swr";
 import { Box, Divider, Typography } from "@mui/material";
 import { format } from "date-fns";
 import BasePage from "../../components/BasePage";
+import YearContext from "../../components/YearContext";
+import { useContext } from "react";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -32,7 +34,11 @@ export function Match({ match }: { match: Results.Match }): React.ReactElement {
   );
 }
 export default function MatchFacts(): React.ReactElement {
-  const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
+  const year = useContext(YearContext);
+  const { data } = useSWR<{ data: Results.ParsedData }>(
+    [`/api/form?year=${year}`, year],
+    fetcher
+  );
   return (
     <BasePage pageTitle="Match Facts">
       {data && (

@@ -1,6 +1,15 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
-    date: "2021-09-2",
+    date: "2021-09-29",
+    changelog: (
+      <>
+        Adds year selector (valid for 2012–present). Refactors pages to support
+        year context.
+      </>
+    ),
+  },
+  {
+    date: "2021-09-28",
     changelog: <>Adds PPG differential grid</>,
   },
   {

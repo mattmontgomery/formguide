@@ -7,6 +7,9 @@ import fetch from "unfetch";
 import MatchGrid from "../../components/MatchGrid";
 import getMatchPoints from "../../utils/getMatchPoints";
 import { Box } from "@mui/system";
+import { useContext } from "react";
+import YearContext from "../../components/YearContext";
+import BasePage from "../../components/BasePage";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -15,13 +18,13 @@ export default function Chart(): React.ReactElement {
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const { data } = useSWR<{ data: Results.ParsedData }>("/api/form", fetcher);
+  const year = useContext(YearContext);
+  const { data } = useSWR<{ data: Results.ParsedData }>(
+    [`/api/form?year=${year}`, year],
+    fetcher
+  );
   return (
-    <div className={styles.body}>
-      <Head>
-        <title>MLS Form Guide 2021 | chart</title>
-      </Head>
-      <h1>2021 MLS Form Guide | Rolling points ({period} game rolling)</h1>
+    <BasePage pageTitle={`Rolling points (${period} game rolling)`}>
       {data?.data?.teams ? (
         <MatchGrid
           data={data.data.teams}
@@ -30,7 +33,7 @@ export default function Chart(): React.ReactElement {
           rowClass={styles.chartRow}
         />
       ) : null}
-    </div>
+    </BasePage>
   );
 }
 
