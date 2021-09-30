@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import Head from "next/head";
 import type { AppProps } from "next/app";
 import Link, { LinkProps } from "next/link";
 import {
@@ -97,6 +98,14 @@ export default function MLSFormGuide({
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
   return (
     <ThemeProvider theme={theme}>
+      <Head>
+        <meta title="MLS Form Guide 2021" />
+        <meta
+          name="description"
+          content="A tool to replace the old MLS Form Guide that mlssoccer.com retired"
+        />
+        <meta />
+      </Head>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <Nav
