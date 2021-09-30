@@ -55,17 +55,7 @@ export default async function Form(
     });
     return;
   }
-  if (req.query.year && process.env.NODE_ENV !== "development") {
-    res.status(403);
-    res.json({
-      errors: [
-        {
-          message: "Cannot make year requests in non-development environments",
-        },
-      ],
-    });
-    return;
-  } else if (req.query.year) {
+  if (req.query.year) {
     year = Number(req.query.year?.toString() || 2021) || 2021;
     year = isNaN(year) ? 2021 : year;
   }
