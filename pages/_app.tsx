@@ -2,18 +2,13 @@ import "../styles/globals.css";
 
 import Head from "next/head";
 import type { AppProps } from "next/app";
-import Link, { LinkProps } from "next/link";
 import {
   AppBar,
   Box,
-  Button,
-  ButtonProps,
   Divider,
   CssBaseline,
   IconButton,
   Link as MLink,
-  ListItem,
-  ListItemProps,
   MenuItem,
   Select,
   ThemeProvider,
@@ -26,43 +21,9 @@ import {
 import { Menu as MenuIcon } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import { useRouter } from "next/router";
 import YearContext, { DEFAULT_YEAR } from "../components/YearContext";
 
 const DRAWER_WIDTH = 240;
-
-export type ButtonLinkProps = Omit<ButtonProps, "href" | "classes"> &
-  Pick<LinkProps, "href" | "as" | "prefetch">;
-
-const ListItemLink = React.forwardRef<ListItemProps, any>(
-  ({ href, as, ...props }, ref) => {
-    return (
-      <Link href={href} as={as} passHref>
-        <ListItem button ref={ref} {...props} />
-      </Link>
-    );
-  }
-);
-ListItemLink.displayName = "ListItemLink";
-
-const ButtonLink = React.forwardRef<ButtonLinkProps, any>(
-  ({ href, as, prefetch, ...props }, ref) => {
-    const { pathname } = useRouter();
-    return (
-      <Link href={href} as={as} prefetch={prefetch} passHref>
-        <Button
-          ref={ref}
-          size="small"
-          variant="outlined"
-          {...props}
-          color={pathname === href ? "secondary" : "primary"}
-        />
-      </Link>
-    );
-  }
-);
-
-ButtonLink.displayName = "ButtonLink";
 
 export default function MLSFormGuide({
   Component,
@@ -148,6 +109,9 @@ export default function MLSFormGuide({
                   MLS Form Guide (2012–2021)
                 </Typography>
                 <Select
+                  sx={{
+                    backgroundColor: "background.paper",
+                  }}
                   value={year}
                   onChange={(ev) => setYear(Number(ev.target.value))}
                 >
