@@ -24,6 +24,7 @@ import {
   HourglassEmpty,
   Timeline,
   LightbulbOutlined,
+  LaunchTwoTone,
 } from "@mui/icons-material";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
@@ -126,6 +127,12 @@ const NAV_CONFIG: (
     icon: LightbulbOutlined,
   },
   DIVIDER,
+  { subtitle: "Other Folks' Tools" },
+  {
+    href: "https://app.americansocceranalysis.com/",
+    title: "ASA interactive tables",
+    icon: LaunchTwoTone,
+  },
 ];
 
 export default function Nav({
