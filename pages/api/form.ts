@@ -139,10 +139,11 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
     (previousValue: Results.ParsedData["teams"], curr) => {
       const homeTeam = curr.teams.home.name;
       const awayTeam = curr.teams.away.name;
+      const prevHomeTeamValue: Results.Match[] = previousValue[homeTeam] || [];
       return {
         ...previousValue,
         [homeTeam]: [
-          ...(previousValue[homeTeam] || []),
+          ...prevHomeTeamValue,
           curr.fixture.status.short === "FT"
             ? {
                 date: formatDate(curr.fixture.date),

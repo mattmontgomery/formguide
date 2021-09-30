@@ -37,7 +37,7 @@ declare namespace Results {
   };
 
   declare type ParsedData = {
-    teams: Record<string, unknown>;
+    teams: Record<string, Match[]>;
   };
   declare type Match = {
     scoreline: string | null;
