@@ -18,7 +18,7 @@ export default function BasePage({
       <Head>
         <title>MLS Form Guide | 2012–2021 | {pageTitle}</title>
       </Head>
-      <Box p={2}>
+      <Box paddingBottom={2}>
         <Grid container>
           <Grid md={8} item>
             {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
@@ -29,8 +29,7 @@ export default function BasePage({
         </Grid>
       </Box>
       <Divider />
-      <Divider />
-      {children}
+      <Box paddingTop={2}>{children}</Box>
     </div>
   );
 }
