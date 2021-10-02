@@ -102,7 +102,7 @@ function parseChartData(
               })
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null)
-              .map((match) => match.goalsConceded || 0);
+              .map((match) => match.goalsScored || 0);
             return results.length !== periodLength
               ? null
               : results.reduce((prev, currentValue): number => {
