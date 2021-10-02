@@ -5,11 +5,13 @@ import Image from "next/image";
 import { Box } from "@mui/material";
 
 export default function MatchCell({
+  isShaded = () => false,
   match,
   renderValue,
   resultType = "full-match",
   shadeEmpty = false,
 }: {
+  isShaded: (match: Results.Match) => boolean;
   match: Results.Match;
   renderValue?: (match: Results.Match) => string | number;
   resultType?: "first-half" | "second-half" | "full-match";
@@ -25,7 +27,7 @@ export default function MatchCell({
   const valueRenderer =
     typeof renderValue !== "function" ? () => result || "-" : renderValue;
   const renderedValue = valueRenderer(match);
-  console.log({ result, resultType });
+
   return (
     <Box
       className={styles.gridRowCell}
@@ -38,10 +40,14 @@ export default function MatchCell({
         borderRight: `1px solid rgb(181, 181, 181)`,
         position: `relative`,
         cursor: `pointer`,
-        opacity: Boolean(shadeEmpty && renderedValue === "-") ? 0.7 : 1,
-        filter: Boolean(shadeEmpty && renderedValue === "-")
-          ? "grayscale(0.5)"
-          : "none",
+        opacity:
+          Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
+            ? 0.7
+            : 1,
+        filter:
+          Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
+            ? "grayscale(0.5)"
+            : "none",
         backgroundColor: !result
           ? "rgb(200, 200, 200)"
           : result === "W"

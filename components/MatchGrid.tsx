@@ -1,6 +1,12 @@
 import styles from "../styles/Home.module.css";
 
-import { Box } from "@mui/material";
+import {
+  Box,
+  Divider,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+} from "@mui/material";
 import React, { useState } from "react";
 
 type ProppyArray = [...{ props: { renderValue: () => number } }[]];
@@ -45,8 +51,35 @@ export default function MatchGrid({
     "teamName"
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
+  const [homeShaded, setHomeShaded] = useState<boolean>(false);
+  const [awayShaded, setAwayShaded] = useState<boolean>(false);
   return (
     <Box m={2}>
+      {showMatchdayHeader && (
+        <>
+          <FormGroup sx={{ flexDirection: "row" }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={!homeShaded}
+                  onChange={(ev) => setHomeShaded(!ev.target.checked)}
+                />
+              }
+              label="Home"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={!awayShaded}
+                  onChange={(ev) => setAwayShaded(!ev.target.checked)}
+                />
+              }
+              label="Away"
+            />
+          </FormGroup>
+          <Divider />
+        </>
+      )}
       <div className={gridClass}>
         <div className={styles.chart}>
           {showMatchdayHeader && (
@@ -93,7 +126,16 @@ export default function MatchGrid({
                   >
                     {team}
                   </Box>
-                  {cells}
+                  {React.Children.map(
+                    cells,
+                    (Cell: React.ReactElement, idx) => {
+                      return React.cloneElement(Cell, {
+                        isShaded: (match: Results.Match) =>
+                          (homeShaded && match.home) ||
+                          (awayShaded && !match.home),
+                      });
+                    }
+                  )}
                 </div>
               );
             })}
