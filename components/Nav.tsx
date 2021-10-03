@@ -25,6 +25,7 @@ import {
   Timeline,
   LightbulbOutlined,
   LaunchTwoTone,
+  CalendarViewMonth,
 } from "@mui/icons-material";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
@@ -91,7 +92,12 @@ const NAV_CONFIG: (
   { href: "/ga-chart/8", title: "Rolling 8-game", icon: Timeline },
   { href: "/ga-chart/11", title: "Rolling 11-game", icon: Timeline },
   DIVIDER,
-  { subtitle: "PPG/Strength of Schedule" },
+  { subtitle: "PPG/Schedule" },
+  {
+    href: "/game-days/since",
+    title: "Days Between Games",
+    icon: CalendarViewMonth,
+  },
   { href: "/ppg/opponent", title: "Opponent PPG", icon: BarChart },
   { href: "/ppg/team", title: "Team PPG", icon: BarChart },
   { href: "/ppg/differential", title: "PPG Differential", icon: BarChart },
