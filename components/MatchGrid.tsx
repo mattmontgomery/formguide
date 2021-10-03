@@ -126,16 +126,13 @@ export default function MatchGrid({
                   >
                     {team}
                   </Box>
-                  {React.Children.map(
-                    cells,
-                    (Cell: React.ReactElement, idx) => {
-                      return React.cloneElement(Cell, {
-                        isShaded: (match: Results.Match) =>
-                          (homeShaded && match.home) ||
-                          (awayShaded && !match.home),
-                      });
-                    }
-                  )}
+                  {React.Children.map(cells, (Cell: React.ReactElement) => {
+                    return React.cloneElement(Cell, {
+                      isShaded: (match: Results.Match) =>
+                        (homeShaded && match.home) ||
+                        (awayShaded && !match.home),
+                    });
+                  })}
                 </div>
               );
             })}
