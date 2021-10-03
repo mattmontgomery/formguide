@@ -103,14 +103,6 @@ function parseChartData(
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null)
               .map(() => {
-                console.log(
-                  teams[team][idx].date,
-                  teams[team][idx - 1]?.date,
-                  differenceInDays(
-                    new Date(teams[team][idx].date),
-                    new Date(teams[team][idx - 1]?.date)
-                  )
-                );
                 return teams[team][idx - 1]?.date
                   ? differenceInDays(
                       new Date(teams[team][idx].date),

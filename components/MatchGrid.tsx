@@ -54,29 +54,31 @@ export default function MatchGrid({
   const [homeShaded, setHomeShaded] = useState<boolean>(false);
   const [awayShaded, setAwayShaded] = useState<boolean>(false);
   return (
-    <Box m={2}>
+    <Box>
       {showMatchdayHeader && (
         <>
-          <FormGroup sx={{ flexDirection: "row" }}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={!homeShaded}
-                  onChange={(ev) => setHomeShaded(!ev.target.checked)}
-                />
-              }
-              label="Home"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={!awayShaded}
-                  onChange={(ev) => setAwayShaded(!ev.target.checked)}
-                />
-              }
-              label="Away"
-            />
-          </FormGroup>
+          <Box marginBottom={2}>
+            <FormGroup sx={{ flexDirection: "row" }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={!homeShaded}
+                    onChange={(ev) => setHomeShaded(!ev.target.checked)}
+                  />
+                }
+                label="Home"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={!awayShaded}
+                    onChange={(ev) => setAwayShaded(!ev.target.checked)}
+                  />
+                }
+                label="Away"
+              />
+            </FormGroup>
+          </Box>
           <Divider />
         </>
       )}
