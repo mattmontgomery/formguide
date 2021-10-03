@@ -114,7 +114,7 @@ function parseChartData(
               ? null
               : results.reduce((prev, currentValue): number => {
                   return prev + currentValue;
-                }, 0) / periodLength;
+                }, 0) / results.length;
           }),
       ];
     });
