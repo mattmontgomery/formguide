@@ -8,6 +8,7 @@ import { Box, Divider, Typography } from "@mui/material";
 import BasePage from "../../../components/BasePage";
 import { useContext } from "react";
 import YearContext from "../../../components/YearContext";
+import { getArrayAverage } from "../../../utils/array";
 import { differenceInDays } from "date-fns";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -29,6 +30,7 @@ export default function Chart(): React.ReactElement {
           data={data.data.teams}
           dataParser={(...args) => dataParser(periodLength, ...args)}
           showMatchdayHeader={false}
+          gridClass={styles.chartWide}
           rowClass={styles.chartRow}
         />
       ) : null}
@@ -36,13 +38,13 @@ export default function Chart(): React.ReactElement {
       <Box sx={{ marginTop: 2 }}>
         <Typography variant="h6">Legend</Typography>
         <Box sx={{ backgroundColor: "success.main" }} p={1}>
-          6-8 days between games
+          5.5-8 days between games
         </Box>
         <Box sx={{ backgroundColor: "warning.main" }} p={1}>
-          More than 6–8 days between days
+          More than 5.5–8 days between days
         </Box>
         <Box sx={{ backgroundColor: "error.main" }} p={1}>
-          Less than 6 days between games
+          Less than 5.5 days between games
         </Box>
       </Box>
     </BasePage>
@@ -69,13 +71,13 @@ function dataParser(
                   ? "background.primary"
                   : pointValue > 8
                   ? "warning.main"
-                  : pointValue < 6
+                  : pointValue < 5.5
                   ? "error.main"
                   : "success.main",
             }}
           >
             <Box className={styles.chartPointText} sx={{ fontWeight: "bold" }}>
-              {pointValue}
+              {pointValue?.toFixed(2)}
             </Box>
           </Box>
         );
@@ -102,19 +104,17 @@ function parseChartData(
               })
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null)
-              .map(() => {
+              .map((match, matchIdx) => {
                 return teams[team][idx - 1]?.date
                   ? differenceInDays(
-                      new Date(teams[team][idx].date),
-                      new Date(teams[team][idx - 1].date)
+                      new Date(teams[team][idx + matchIdx].date),
+                      new Date(teams[team][idx + matchIdx - 1].date)
                     )
                   : 0;
               });
             return results.length !== periodLength
               ? null
-              : results.reduce((prev, currentValue): number => {
-                  return prev + currentValue;
-                }, 0) / results.length;
+              : getArrayAverage(results);
           }),
       ];
     });

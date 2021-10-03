@@ -127,10 +127,10 @@ const NAV_CONFIG: (
     title: "Days Between Games",
     icon: CalendarViewMonth,
   },
-  // { href: "/game-days/since/3", title: "Rolling 3-game", icon: Timeline }, // disabled  these are still buggy!
-  // { href: "/game-days/since/5", title: "Rolling 5-game", icon: Timeline },
-  // { href: "/game-days/since/8", title: "Rolling 8-game", icon: Timeline },
-  // { href: "/game-days/since/11", title: "Rolling 11-game", icon: Timeline },
+  { href: "/game-days/since/3", title: "Rolling 3-game", icon: Timeline },
+  { href: "/game-days/since/5", title: "Rolling 5-game", icon: Timeline },
+  { href: "/game-days/since/8", title: "Rolling 8-game", icon: Timeline },
+  { href: "/game-days/since/11", title: "Rolling 11-game", icon: Timeline },
   DIVIDER,
   { subtitle: "Other" },
   {

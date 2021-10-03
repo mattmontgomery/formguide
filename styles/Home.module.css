@@ -63,6 +63,9 @@
   grid-template-columns: 25px 200px repeat(40, 28px);
   height: 30px;
 }
+.chartWide .chartRow {
+  grid-template-columns: 25px 200px repeat(40, 40px);
+}
 .chartTeam {
   font-weight: bold;
   align-items: baseline;
