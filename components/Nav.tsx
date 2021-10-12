@@ -63,7 +63,7 @@ const NAV_CONFIG: (
   { subtitle: "Points" },
   { href: "/", title: "Form Guide", icon: TableChart },
   { href: "/points/cumulative", title: "Cumulative Points", icon: TableChart },
-  { href: "/points/cumulative", title: "Points off Top", icon: TableChart },
+  { href: "/points/off-top", title: "Points off Top", icon: TableChart },
   DIVIDER,
   { subtitle: "Rolling Charts" },
   { href: "/chart/3", title: "3-game", icon: BarChart },
