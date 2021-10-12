@@ -1,5 +1,9 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
+    date: "2021-10-12",
+    changelog: <>Adds cumulative points, points off top pages</>,
+  },
+  {
     date: "2021-10-02",
     changelog: <>Adds Days Between Games page</>,
   },
