@@ -53,6 +53,7 @@ export default function MatchGrid({
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
   const [homeShaded, setHomeShaded] = useState<boolean>(false);
   const [awayShaded, setAwayShaded] = useState<boolean>(false);
+  const [teamShaded, setTeamShaded] = useState<string>();
   return (
     <Box>
       {showMatchdayHeader && (
@@ -123,16 +124,27 @@ export default function MatchGrid({
                       fontWeight: `bold`,
                       marginRight: `.5rem`,
                       fontSize: "12px",
+                      cursor: "pointer",
                     }}
                     className={styles.chartTeam}
+                    onClick={() =>
+                      teamShaded === team
+                        ? setTeamShaded("")
+                        : setTeamShaded(team)
+                    }
                   >
                     {team}
                   </Box>
                   {React.Children.map(cells, (Cell: React.ReactElement) => {
                     return React.cloneElement(Cell, {
                       isShaded: (match: Results.Match) =>
-                        (homeShaded && match.home) ||
-                        (awayShaded && !match.home),
+                        teamShaded
+                          ? match.team === teamShaded
+                            ? (homeShaded && match.home) ||
+                              (awayShaded && !match.home)
+                            : true
+                          : (homeShaded && match.home) ||
+                            (awayShaded && !match.home),
                     });
                   })}
                 </div>
