@@ -1,5 +1,11 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
+    date: "2021-10-18",
+    changelog: (
+      <>Adds projected points total through end of season (Projected/PPG page</>
+    ),
+  },
+  {
     date: "2021-10-16",
     changelog: <>Adds team highlighting</>,
   },
