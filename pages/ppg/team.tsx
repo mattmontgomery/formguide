@@ -8,7 +8,7 @@ export default function PPGTeam(): React.ReactElement {
   return (
     <BasePage
       dataParser={dataParser}
-      pageTitle="Opponent PPG before given match"
+      pageTitle="Team PPG before given match"
       gridClass={styles.gridWide}
     />
   );
