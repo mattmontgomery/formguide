@@ -16,6 +16,7 @@ import Data2017 from "../../data/2017.json";
 import Data2018 from "../../data/2018.json";
 import Data2019 from "../../data/2019.json";
 import Data2020 from "../../data/2020.json";
+import Data2021 from "../../data/2021.json";
 
 const DataSwitch: Record<number, Results.ParsedData> = {
   2012: { teams: Data2012.data.teams as Results.ParsedData["teams"] },
@@ -27,9 +28,10 @@ const DataSwitch: Record<number, Results.ParsedData> = {
   2018: { teams: Data2018.data.teams as Results.ParsedData["teams"] },
   2019: { teams: Data2019.data.teams as Results.ParsedData["teams"] },
   2020: { teams: Data2020.data.teams as Results.ParsedData["teams"] },
+  2021: { teams: Data2021.data.teams as Results.ParsedData["teams"] },
 };
 
-function getEndpoint(year = 2021): string {
+function getEndpoint(year = 2022): string {
   return format(ENDPOINT, `${year}-01-01`, `${year}-12-31`, year);
 }
 
@@ -47,7 +49,7 @@ export default async function Form(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  let year = 2021;
+  let year = 2022;
   if (!API_BASE || !API_KEY) {
     res.status(500);
     res.json({
@@ -56,10 +58,10 @@ export default async function Form(
     return;
   }
   if (req.query.year) {
-    year = Number(req.query.year?.toString() || 2021) || 2021;
-    year = isNaN(year) ? 2021 : year;
+    year = Number(req.query.year?.toString() || 2022) || 2022;
+    year = isNaN(year) ? 2022 : year;
   }
-  if (!(year >= 2012 && year <= 2021)) {
+  if (!(year >= 2012 && year <= 2022)) {
     res.status(404);
     res.json({
       errors: [

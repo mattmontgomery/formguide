@@ -16,7 +16,7 @@ export default function BasePage({
   return (
     <div className={styles.body}>
       <Head>
-        <title>MLS Form Guide | 2012–2021 | {pageTitle}</title>
+        <title>MLS Form Guide | 2012–2022 | {pageTitle}</title>
       </Head>
       <Box paddingBottom={2}>
         <Grid container>

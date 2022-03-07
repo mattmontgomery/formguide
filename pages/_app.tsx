@@ -67,7 +67,7 @@ export default function MLSFormGuide({
     <YearContext.Provider value={year}>
       <ThemeProvider theme={theme}>
         <Head>
-          <meta title="MLS Form Guide 2021" />
+          <meta title="MLS Form Guide 2022" />
           <meta
             name="description"
             content="A tool to replace the old MLS Form Guide that mlssoccer.com retired"
@@ -106,7 +106,7 @@ export default function MLSFormGuide({
                   component="div"
                   sx={{ flexGrow: 1 }}
                 >
-                  MLS Form Guide (2012–2021)
+                  MLS Form Guide (2012–2022)
                 </Typography>
                 <Select
                   sx={{
@@ -115,7 +115,7 @@ export default function MLSFormGuide({
                   value={year}
                   onChange={(ev) => setYear(Number(ev.target.value))}
                 >
-                  <MenuItem value={2021}>2021</MenuItem>
+                  <MenuItem value={2022}>2022</MenuItem>
                   <Divider />
                   <MenuItem value={2012}>2012</MenuItem>
                   <MenuItem value={2013}>2013</MenuItem>
@@ -126,6 +126,7 @@ export default function MLSFormGuide({
                   <MenuItem value={2018}>2018</MenuItem>
                   <MenuItem value={2019}>2019</MenuItem>
                   <MenuItem value={2020}>2020</MenuItem>
+                  <MenuItem value={2021}>2021</MenuItem>
                 </Select>
               </Toolbar>
             </AppBar>
