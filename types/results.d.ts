@@ -1,35 +1,36 @@
 declare namespace Results {
+  declare type RawResponse = {
+    fixture: {
+      date: string;
+      status: {
+        long: string;
+        short: string;
+        elapsed: number;
+      };
+    };
+    league: unknown;
+    teams: {
+      home: {
+        name: string;
+        logo: string;
+        winner: boolean;
+      };
+      away: {
+        name: string;
+        logo: string;
+        winner: boolean;
+      };
+    };
+    goals: RawMatchGoals;
+    score: {
+      halftime: RawMatchGoals;
+      fulltime: RawMatchGoals;
+      extratime: RawMatchGoals;
+      penalty: RawMatchGoals;
+    };
+  };
   declare type RawData = {
-    response: {
-      fixture: {
-        date: string;
-        status: {
-          long: string;
-          short: string;
-          elapsed: number;
-        };
-      };
-      league: unknown;
-      teams: {
-        home: {
-          name: string;
-          logo: string;
-          winner: boolean;
-        };
-        away: {
-          name: string;
-          logo: string;
-          winner: boolean;
-        };
-      };
-      goals: RawMatchGoals;
-      score: {
-        halftime: RawMatchGoals;
-        fulltime: RawMatchGoals;
-        extratime: RawMatchGoals;
-        penalty: RawMatchGoals;
-      };
-    }[];
+    response: RawResponse[];
   };
   declare type RawMatchGoals = {
     home: number;
