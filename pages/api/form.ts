@@ -126,6 +126,84 @@ function getResult(goalsA: number, goalsB: number): Results.ResultType {
   return "D";
 }
 
+function getData(
+  curr: Results.RawResponse,
+  homeOrAway: "home" | "away"
+): Results.Match {
+  const homeTeam = curr.teams.home.name;
+  const awayTeam = curr.teams.away.name;
+  return curr.fixture.status.short === "FT"
+    ? {
+        date: formatDate(curr.fixture.date),
+        rawDate: new Date(curr.fixture.date),
+        scoreline:
+          homeOrAway === "home"
+            ? `${curr.goals.home}-${curr.goals.away}`
+            : `${curr.goals.away}-${curr.goals.home}`,
+        result:
+          homeOrAway === "home"
+            ? getResult(curr.goals.home, curr.goals.away)
+            : getResult(curr.goals.away, curr.goals.home),
+        home: true,
+        team: homeOrAway === "home" ? homeTeam : awayTeam,
+        opponent: homeOrAway === "home" ? awayTeam : homeTeam,
+        opponentLogo:
+          homeOrAway === "home" ? curr.teams.away.logo : curr.teams.home.logo,
+        gd:
+          homeOrAway === "home"
+            ? curr.goals.home - curr.goals.away
+            : curr.goals.away - curr.goals.home,
+        goalsScored: homeOrAway === "home" ? curr.goals.home : curr.goals.away,
+        goalsConceded:
+          homeOrAway === "home" ? curr.goals.away : curr.goals.home,
+        firstHalf: {
+          goalsScored:
+            homeOrAway === "home"
+              ? curr.score.halftime.home
+              : curr.score.halftime.away,
+          goalsConceded:
+            homeOrAway === "home"
+              ? curr.score.halftime.away
+              : curr.score.halftime.home,
+          result:
+            homeOrAway === "home"
+              ? getResult(curr.score.halftime.home, curr.score.halftime.away)
+              : getResult(curr.score.halftime.away, curr.score.halftime.home),
+        },
+        secondHalf: {
+          goalsScored:
+            homeOrAway === "home"
+              ? curr.score.fulltime.home
+              : curr.score.fulltime.away,
+          goalsConceded:
+            homeOrAway === "home"
+              ? curr.score.fulltime.away
+              : curr.score.fulltime.home,
+          result:
+            homeOrAway === "home"
+              ? getResult(
+                  curr.score.fulltime.home - curr.score.halftime.home,
+                  curr.score.fulltime.away - curr.score.halftime.away
+                )
+              : getResult(
+                  curr.score.fulltime.away - curr.score.halftime.away,
+                  curr.score.fulltime.home - curr.score.halftime.home
+                ),
+        },
+      }
+    : {
+        date: formatDate(curr.fixture.date),
+        rawDate: curr.fixture.date,
+        scoreline: null,
+        result: null,
+        home: true,
+        team: homeOrAway === "home" ? homeTeam : awayTeam,
+        opponent: homeOrAway === "home" ? awayTeam : homeTeam,
+        opponentLogo:
+          homeOrAway === "home" ? curr.teams.away.logo : curr.teams.home.logo,
+      };
+}
+
 function parseRawData(data: Results.RawData): Results.ParsedData {
   const teams = data.response?.reduce(
     (previousValue: Results.ParsedData["teams"], curr) => {
@@ -134,92 +212,8 @@ function parseRawData(data: Results.RawData): Results.ParsedData {
       const prevHomeTeamValue: Results.Match[] = previousValue[homeTeam] || [];
       return {
         ...previousValue,
-        [homeTeam]: [
-          ...prevHomeTeamValue,
-          curr.fixture.status.short === "FT"
-            ? {
-                date: formatDate(curr.fixture.date),
-                scoreline: `${curr.goals.home}-${curr.goals.away}`,
-                result: getResult(curr.goals.home, curr.goals.away),
-                home: true,
-                team: homeTeam,
-                opponent: awayTeam,
-                opponentLogo: curr.teams.away.logo,
-                gd: curr.goals.home - curr.goals.away,
-                goalsScored: curr.goals.home,
-                goalsConceded: curr.goals.away,
-                firstHalf: {
-                  goalsScored: curr.score.halftime.home,
-                  goalsConceded: curr.score.halftime.away,
-                  result: getResult(
-                    curr.score.halftime.home,
-                    curr.score.halftime.away
-                  ),
-                },
-                secondHalf: {
-                  goalsScored:
-                    curr.score.fulltime.home - curr.score.halftime.home,
-                  goalsConceded:
-                    curr.score.fulltime.away - curr.score.halftime.away,
-                  result: getResult(
-                    curr.score.fulltime.home - curr.score.halftime.home,
-                    curr.score.fulltime.away - curr.score.halftime.away
-                  ),
-                },
-              }
-            : {
-                date: formatDate(curr.fixture.date),
-                scoreline: null,
-                result: null,
-                home: true,
-                team: homeTeam,
-                opponent: awayTeam,
-                opponentLogo: curr.teams.away.logo,
-              },
-        ],
-        [awayTeam]: [
-          ...(previousValue[awayTeam] || []),
-          curr.fixture.status.short === "FT"
-            ? {
-                date: formatDate(curr.fixture.date),
-                scoreline: `${curr.goals.away}-${curr.goals.home}`,
-                result: getResult(curr.goals.away, curr.goals.home),
-                home: false,
-                team: awayTeam,
-                opponent: homeTeam,
-                opponentLogo: curr.teams.home.logo,
-                gd: curr.goals.away - curr.goals.home,
-                goalsScored: curr.goals.away,
-                goalsConceded: curr.goals.home,
-                firstHalf: {
-                  goalsScored: curr.score.halftime.away,
-                  goalsConceded: curr.score.halftime.home,
-                  result: getResult(
-                    curr.score.halftime.away,
-                    curr.score.halftime.home
-                  ),
-                },
-                secondHalf: {
-                  goalsScored:
-                    curr.score.fulltime.away - curr.score.halftime.away,
-                  goalsConceded:
-                    curr.score.fulltime.home - curr.score.halftime.home,
-                  result: getResult(
-                    curr.score.fulltime.away - curr.score.halftime.away,
-                    curr.score.fulltime.home - curr.score.halftime.home
-                  ),
-                },
-              }
-            : {
-                date: formatDate(curr.fixture.date),
-                scoreline: null,
-                result: null,
-                home: false,
-                team: awayTeam,
-                opponent: homeTeam,
-                opponentLogo: curr.teams.home.logo,
-              },
-        ],
+        [homeTeam]: [...prevHomeTeamValue, getData(curr, "home")],
+        [awayTeam]: [...(previousValue[awayTeam] || []), getData(curr, "away")],
       };
     },
     {}

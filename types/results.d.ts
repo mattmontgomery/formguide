@@ -42,6 +42,7 @@ declare namespace Results {
   declare type Match = {
     scoreline: string | null;
     date: string;
+    rawDate?: date;
     home: boolean;
     result: ResultType;
     team: string;
