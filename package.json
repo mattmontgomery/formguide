@@ -19,7 +19,7 @@
     "next": "~12.1",
     "react": "~17.0",
     "react-dom": "~17.0",
-    "swr": "^0.5.7",
+    "swr": "^1.2.2",
     "unfetch": "~4.2"
   },
   "devDependencies": {
