@@ -72,7 +72,7 @@ export default function MLSFormGuide({
             name="description"
             content="A tool to replace the old MLS Form Guide that mlssoccer.com retired"
           />
-          <meta />
+          <link rel="canonical" href="https://formguide.tools.football" />
         </Head>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
