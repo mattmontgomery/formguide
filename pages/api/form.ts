@@ -144,7 +144,7 @@ function getData(
           homeOrAway === "home"
             ? getResult(curr.goals.home, curr.goals.away)
             : getResult(curr.goals.away, curr.goals.home),
-        home: true,
+        home: homeOrAway === "home",
         team: homeOrAway === "home" ? homeTeam : awayTeam,
         opponent: homeOrAway === "home" ? awayTeam : homeTeam,
         opponentLogo:
@@ -196,7 +196,7 @@ function getData(
         rawDate: curr.fixture.date,
         scoreline: null,
         result: null,
-        home: true,
+        home: homeOrAway === "home",
         team: homeOrAway === "home" ? homeTeam : awayTeam,
         opponent: homeOrAway === "home" ? awayTeam : homeTeam,
         opponentLogo:

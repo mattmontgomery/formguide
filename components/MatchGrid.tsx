@@ -54,6 +54,7 @@ export default function MatchGrid({
   const [homeShaded, setHomeShaded] = useState<boolean>(false);
   const [awayShaded, setAwayShaded] = useState<boolean>(false);
   const [teamShaded, setTeamShaded] = useState<string>();
+
   return (
     <Box>
       {showMatchdayHeader && (
@@ -138,7 +139,7 @@ export default function MatchGrid({
                   {React.Children.map(cells, (Cell: React.ReactElement) => {
                     return React.cloneElement(Cell, {
                       isShaded: (match: Results.Match) =>
-                        teamShaded
+                        typeof teamShaded !== "undefined" && teamShaded
                           ? match.team === teamShaded
                             ? (homeShaded && match.home) ||
                               (awayShaded && !match.home)
