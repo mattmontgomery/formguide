@@ -136,6 +136,13 @@ const NAV_CONFIG: (
   { href: "/game-days/since/8", title: "Rolling 8-game", icon: Timeline },
   { href: "/game-days/since/11", title: "Rolling 11-game", icon: Timeline },
   DIVIDER,
+  { subtitle: "Days Between Home Games" },
+  {
+    href: "/game-days/since-home",
+    title: "Days Between Home Games",
+    icon: CalendarViewMonth,
+  },
+  DIVIDER,
   { subtitle: "Other" },
   {
     href: "/facts",

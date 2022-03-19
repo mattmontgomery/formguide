@@ -8,12 +8,14 @@ export default function MatchCell({
   isShaded = () => false,
   match,
   renderValue,
+  prerenderedValue,
   resultType = "full-match",
   shadeEmpty = false,
 }: {
   isShaded?: (match: Results.Match) => boolean;
   match: Results.Match;
   renderValue?: (match: Results.Match) => string | number;
+  prerenderedValue?: string | number;
   resultType?: "first-half" | "second-half" | "full-match";
   shadeEmpty?: boolean;
 }): React.ReactElement {
@@ -26,7 +28,10 @@ export default function MatchCell({
       : match.result;
   const valueRenderer =
     typeof renderValue !== "function" ? () => result || "-" : renderValue;
-  const renderedValue = valueRenderer(match);
+  const renderedValue =
+    typeof prerenderedValue !== "undefined"
+      ? prerenderedValue
+      : valueRenderer(match);
 
   return (
     <Box
