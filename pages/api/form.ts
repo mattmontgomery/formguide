@@ -50,7 +50,6 @@ async function fetchData({
       "x-rapidapi-key": API_KEY,
       useQueryString: "true",
     });
-    console.log(redisKey, "Data not found, fetching from API");
     const response = await fetch(`${URL_BASE}${getEndpoint(year, league)}`, {
       headers,
     });
@@ -58,7 +57,6 @@ async function fetchData({
     await client.set(redisKey, JSON.stringify(matchData));
     return matchData;
   } else {
-    console.log(redisKey, "Data found, fetching from Redis");
     const data = await client.get(redisKey);
     await client.expire(redisKey, expires);
     if (!data) {
