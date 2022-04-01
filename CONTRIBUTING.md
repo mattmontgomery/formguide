@@ -1,4 +1,4 @@
-# Contributing to the MLS Form Guide
+# Contributing to the American Soccer Form Guide
 
 ## Getting started
 

@@ -94,16 +94,6 @@ function getEndpoint(year = 2022, league: Results.Leagues = "mls"): string {
   return format(ENDPOINT, `${year}-01-01`, `${year}-12-31`, year, leagueCode);
 }
 
-const IN_MEMORY_CACHE: {
-  cachedData: Record<number, Results.ParsedData>;
-  expires: Date | null;
-  refetching: boolean;
-} = {
-  cachedData: {},
-  expires: null,
-  refetching: false,
-};
-
 export default async function Form(
   req: NextApiRequest,
   res: NextApiResponse

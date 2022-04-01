@@ -72,7 +72,7 @@ export default function MLSFormGuide({
       <LeagueContext.Provider value={_league}>
         <ThemeProvider theme={theme}>
           <Head>
-            <meta title="MLS Form Guide 2022" />
+            <meta title="MLS and NWSL Form Guide 2022" />
             <meta
               name="description"
               content="A tool to replace the old MLS Form Guide that mlssoccer.com retired"
@@ -111,7 +111,7 @@ export default function MLSFormGuide({
                     component="div"
                     sx={{ flexGrow: 1 }}
                   >
-                    MLS Form Guide (2012–2022)
+                    American Soccer Form Guide (2012–2022)
                   </Typography>
                   <Select
                     sx={{
