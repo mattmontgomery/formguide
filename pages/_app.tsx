@@ -22,7 +22,7 @@ import { Menu as MenuIcon } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
 import YearContext, { DEFAULT_YEAR } from "@/components/YearContext";
-import LeagueContext from "@/components/LeagueContext";
+import LeagueContext, { DEFAULT_LEAGUE } from "@/components/LeagueContext";
 import { useRouter } from "next/router";
 
 const DRAWER_WIDTH = 240;
@@ -36,7 +36,9 @@ export default function MLSFormGuide({
   const [darkMode, setDarkMode] = useState<boolean>(prefersDarkMode);
   const router = useRouter();
   const [year, setYear] = useState<number>(DEFAULT_YEAR);
-  const [_league, setLeague] = useState<Results.Leagues>(league);
+  const [_league, setLeague] = useState<Results.Leagues>(
+    league ? league : DEFAULT_LEAGUE
+  );
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
 
   useEffect(() => {
