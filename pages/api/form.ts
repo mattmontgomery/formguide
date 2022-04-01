@@ -22,8 +22,6 @@ const thisYear = new Date().getFullYear(); // we are gonna make it
 
 import Redis from "ioredis";
 
-const client = new Redis(process.env.REDIS_URL);
-
 async function fetchData({
   year,
   league = "mls",
@@ -38,6 +36,9 @@ async function fetchData({
   ) {
     throw "Application not properly configured";
   }
+  const client = new Redis(process.env.REDIS_URL);
+
+  // keys differentiate by year and league
   const redisKey = `formguide:${league}:${year}`;
   const exists = await client.exists(redisKey);
   // cache for four weeks if it's not the current year. no need to hit the API
