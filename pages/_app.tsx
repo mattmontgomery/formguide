@@ -151,6 +151,7 @@ export default function MLSFormGuide({
                       });
                     }}
                   >
+                    <MenuItem>Select a league</MenuItem>
                     <MenuItem value="mls">MLS</MenuItem>
                     <MenuItem value="nwsl">NWSL</MenuItem>
                     <MenuItem value="mlsnp">MLS Next Pro</MenuItem>
