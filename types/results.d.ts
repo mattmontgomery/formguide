@@ -65,4 +65,6 @@ declare namespace Results {
   declare type ParserFunction = (
     teams: Results.ParsedData["teams"]
   ) => Results.RenderReadyData;
+
+  declare type Leagues = "mls" | "nwsl" | "mlsnp" | "usl1" | "usl2" | "uslc";
 }

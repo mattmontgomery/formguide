@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { getMLSLink } from "../utils/getLinks";
-import styles from "../styles/Home.module.css";
+import { getMLSLink } from "@/utils/getLinks";
+import styles from "@/styles/Home.module.css";
 import Image from "next/image";
 import { Box } from "@mui/material";
 

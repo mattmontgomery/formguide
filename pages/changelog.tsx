@@ -1,5 +1,5 @@
-import BasePage from "../components/BasePage";
-import Changelog from "../components/Changelog";
+import BasePage from "@/components/BasePage";
+import Changelog from "@/components/Changelog";
 
 export default function ChangelogPage(): React.ReactElement {
   return (

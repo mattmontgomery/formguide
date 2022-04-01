@@ -17,6 +17,7 @@
     "date-fns": "~2.28",
     "devmoji": "~2.3",
     "husky": "~7.0",
+    "ioredis": "^5.0.3",
     "next": "^12.1.4",
     "react": "~17.0",
     "react-dom": "~17.0",

@@ -28,6 +28,9 @@ import {
   CalendarViewMonth,
 } from "@mui/icons-material";
 
+import LeagueContext from "./LeagueContext";
+import { useContext } from "react";
+
 const ListItemLink = React.forwardRef<ListItemProps, any>(
   ({ href, as, ...props }, ref) => {
     return (
@@ -54,6 +57,7 @@ const DIVIDER = Symbol("divider");
 const NAV_CONFIG: (
   | {
       href?: string;
+      external?: boolean;
       title?: React.ReactNode;
       subtitle?: React.ReactNode;
       icon?: SvgIconComponent;
@@ -153,6 +157,7 @@ const NAV_CONFIG: (
   { subtitle: "Other Folks' Tools" },
   {
     href: "https://app.americansocceranalysis.com/",
+    external: true,
     title: "ASA interactive tables",
     icon: LaunchTwoTone,
   },
@@ -167,6 +172,7 @@ export default function Nav({
   darkMode: boolean;
   setDarkMode: (darkMode: boolean) => void;
 }): React.ReactElement {
+  const league = useContext(LeagueContext);
   return (
     <Drawer
       sx={{
@@ -192,7 +198,14 @@ export default function Nav({
             } else if (navItem.href) {
               const LinkIcon = navItem.icon;
               return (
-                <ListItemLink href={navItem.href} key={idx}>
+                <ListItemLink
+                  href={
+                    navItem.external
+                      ? navItem.href
+                      : `/${league}${navItem.href}`
+                  }
+                  key={idx}
+                >
                   {LinkIcon && <ListItemIcon>{<LinkIcon />}</ListItemIcon>}
                   <ListItemText>{navItem.title}</ListItemText>
                 </ListItemLink>

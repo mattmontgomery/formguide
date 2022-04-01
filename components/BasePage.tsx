@@ -1,8 +1,9 @@
-import styles from "../styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 import Head from "next/head";
 import { Divider, Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import YearContext from "./YearContext";
+import LeagueContext from "./LeagueContext";
 import { Box } from "@mui/system";
 
 export default function BasePage({
@@ -13,10 +14,13 @@ export default function BasePage({
   children?: React.ReactNode;
 }): React.ReactElement {
   const year = useContext(YearContext);
+  const league = useContext(LeagueContext);
   return (
     <div className={styles.body}>
       <Head>
-        <title>MLS Form Guide | 2012–2022 | {pageTitle}</title>
+        <title>
+          MLS Form Guide | 2012–2022 | {pageTitle} | Data for {league} in {year}
+        </title>
       </Head>
       <Box paddingBottom={2}>
         <Grid container>
@@ -24,7 +28,7 @@ export default function BasePage({
             {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
           </Grid>
           <Grid md={4} item sx={{ textAlign: "right" }}>
-            {year}
+            {year}:{league}
           </Grid>
         </Grid>
       </Box>

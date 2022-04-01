@@ -1,9 +1,10 @@
 import useSWR from "swr";
-import styles from "../styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 import MatchGrid from "./MatchGrid";
 import BasePage from "./BasePage";
 import { Box, Divider } from "@mui/material";
 import YearContext from "./YearContext";
+import LeagueContext from "./LeagueContext";
 import { useContext } from "react";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -19,8 +20,9 @@ export default function BaseGridPage({
   children?: React.ReactNode;
 }): React.ReactElement {
   const year = useContext(YearContext);
+  const league = useContext(LeagueContext);
   const { data } = useSWR<{ data: Results.ParsedData }>(
-    [`/api/form?year=${year}`, year],
+    [`/api/form?year=${year}&league=${league}`, year, league],
     fetcher
   );
   return (

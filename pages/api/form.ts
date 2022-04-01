@@ -3,7 +3,7 @@ import { format } from "util";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
-const ENDPOINT = `/v3/fixtures?from=%s&to=%s&season=%s&league=253`;
+const ENDPOINT = `/v3/fixtures?from=%s&to=%s&season=%s&league=%d`;
 const API_BASE = process.env.API_FOOTBALL_BASE;
 const API_KEY = process.env.API_FOOTBALL_KEY;
 
@@ -18,6 +18,55 @@ import Data2019 from "../../data/2019.json";
 import Data2020 from "../../data/2020.json";
 import Data2021 from "../../data/2021.json";
 
+const thisYear = new Date().getFullYear(); // we are gonna make it
+
+import Redis from "ioredis";
+
+const client = new Redis(process.env.REDIS_URL);
+
+async function fetchData({
+  year,
+  league = "mls",
+}: {
+  year: number;
+  league?: Results.Leagues;
+}): Promise<Results.ParsedData> {
+  if (
+    typeof process.env.REDIS_URL !== "string" ||
+    typeof API_BASE !== "string" ||
+    typeof API_KEY !== "string"
+  ) {
+    throw "Application not properly configured";
+  }
+  const redisKey = `formguide:${league}:${year}`;
+  const exists = await client.exists(redisKey);
+  // cache for four weeks if it's not the current year. no need to hit the API
+  const expires = year === thisYear ? 60 * 60 : 60 * 60 * 24 * 7 * 4;
+
+  if (!exists) {
+    const headers = new Headers({
+      "x-rapidapi-host": API_BASE,
+      "x-rapidapi-key": API_KEY,
+      useQueryString: "true",
+    });
+    console.log(redisKey, "Data not found, fetching from API");
+    const response = await fetch(`${URL_BASE}${getEndpoint(year, league)}`, {
+      headers,
+    });
+    const matchData = parseRawData((await response.json()) as Results.RawData);
+    await client.set(redisKey, JSON.stringify(matchData));
+    return matchData;
+  } else {
+    console.log(redisKey, "Data found, fetching from Redis");
+    const data = await client.get(redisKey);
+    await client.expire(redisKey, expires);
+    if (!data) {
+      throw "No data found";
+    }
+    return JSON.parse(data) as Results.ParsedData;
+  }
+}
+
 const DataSwitch: Record<number, Results.ParsedData> = {
   2012: { teams: Data2012.data.teams as Results.ParsedData["teams"] },
   2013: { teams: Data2013.data.teams as Results.ParsedData["teams"] },
@@ -31,8 +80,18 @@ const DataSwitch: Record<number, Results.ParsedData> = {
   2021: { teams: Data2021.data.teams as Results.ParsedData["teams"] },
 };
 
-function getEndpoint(year = 2022): string {
-  return format(ENDPOINT, `${year}-01-01`, `${year}-12-31`, year);
+const LeagueCodes: Record<Results.Leagues, number> = {
+  mls: 253,
+  nwsl: 254,
+  mlsnp: 909,
+  usl1: 489,
+  usl2: 256,
+  uslc: 255,
+};
+
+function getEndpoint(year = 2022, league: Results.Leagues = "mls"): string {
+  const leagueCode = LeagueCodes[league] || 253;
+  return format(ENDPOINT, `${year}-01-01`, `${year}-12-31`, year, leagueCode);
 }
 
 const IN_MEMORY_CACHE: {
@@ -50,13 +109,8 @@ export default async function Form(
   res: NextApiResponse
 ): Promise<void> {
   let year = 2022;
-  if (!API_BASE || !API_KEY) {
-    res.status(500);
-    res.json({
-      errors: [{ message: "Application not properly configured" }],
-    });
-    return;
-  }
+  const league: Results.Leagues =
+    (req.query.league?.toString() as Results.Leagues) || "mls";
   if (req.query.year) {
     year = Number(req.query.year?.toString() || 2022) || 2022;
     year = isNaN(year) ? 2022 : year;
@@ -71,50 +125,41 @@ export default async function Form(
         },
       ],
     });
-    return;
   }
-  const headers = new Headers({
-    "x-rapidapi-host": API_BASE,
-    "x-rapidapi-key": API_KEY,
-    useQueryString: "true",
-  });
-  let matchData;
-  let fromCache: boolean;
-  let fromFileCache = false;
-  const expiresTime = IN_MEMORY_CACHE.expires?.getTime() || Date.now();
-  if (year <= 2020 && !IN_MEMORY_CACHE.cachedData[year]) {
-    /* eslint-disable-next-line @typescript-eslint/no-var-requires */
-    fromCache = true;
-    fromFileCache = true;
-    matchData = DataSwitch[year];
-  } else if (
-    !IN_MEMORY_CACHE.cachedData[year] ||
-    (Date.now() >= expiresTime && IN_MEMORY_CACHE.refetching === false)
-  ) {
-    IN_MEMORY_CACHE.refetching = true; // expire in 30 mintues
-    const response = await fetch(`${URL_BASE}${getEndpoint(year)}`, {
-      headers,
+
+  try {
+    let matchData;
+    let fromCache = false;
+    let fromFileCache = false;
+    if (DataSwitch[year] && league === "mls") {
+      /* eslint-disable-next-line @typescript-eslint/no-var-requires */
+      fromCache = true;
+      fromFileCache = true;
+      matchData = DataSwitch[year];
+    } else if (year > 2012) {
+      matchData = await fetchData({
+        year,
+        league,
+      });
+    }
+    res.setHeader(
+      `Cache-Control`,
+      `s-maxage=${30 * 60}, stale-while-revalidate`
+    );
+    res.status(200);
+    res.json({
+      meta: {
+        fromFileCache,
+        fromCache,
+      },
+      data: matchData,
     });
-    matchData = parseRawData((await response.json()) as Results.RawData);
-    fromCache = false;
-    IN_MEMORY_CACHE.cachedData[year] = matchData;
-    IN_MEMORY_CACHE.expires = new Date(Date.now() + 30 * 60 * 1000); // expire in 30 mintues
-    IN_MEMORY_CACHE.refetching = false; // expire in 30 mintues
-  } else {
-    fromCache = true;
-    matchData = IN_MEMORY_CACHE.cachedData[year];
+  } catch (e) {
+    res.status(500);
+    res.json({
+      errors: [e],
+    });
   }
-  res.setHeader(`Cache-Control`, `s-maxage=${30 * 60}, stale-while-revalidate`);
-  res.status(200);
-  res.json({
-    meta: {
-      fromCache,
-      fromFileCache,
-      expires: IN_MEMORY_CACHE.expires,
-      refetching: IN_MEMORY_CACHE.refetching,
-    },
-    data: matchData,
-  });
 }
 
 function getResult(goalsA: number, goalsB: number): Results.ResultType {
