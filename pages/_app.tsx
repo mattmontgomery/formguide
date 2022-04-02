@@ -158,6 +158,7 @@ export default function MLSFormGuide({
                     <MenuItem value="uslc">USL Championship</MenuItem>
                     <MenuItem value="usl1">USL League One</MenuItem>
                     <MenuItem value="usl2">USL League Two</MenuItem>
+                    <MenuItem value="nisa">NISA</MenuItem>
                   </Select>
                 </Toolbar>
               </AppBar>
