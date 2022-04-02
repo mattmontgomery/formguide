@@ -66,5 +66,12 @@ declare namespace Results {
     teams: Results.ParsedData["teams"]
   ) => Results.RenderReadyData;
 
-  declare type Leagues = "mls" | "nwsl" | "mlsnp" | "usl1" | "usl2" | "uslc";
+  declare type Leagues =
+    | "mls"
+    | "nwsl"
+    | "mlsnp"
+    | "usl1"
+    | "usl2"
+    | "uslc"
+    | "nisa";
 }

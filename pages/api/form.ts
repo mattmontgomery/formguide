@@ -86,6 +86,7 @@ const LeagueCodes: Record<Results.Leagues, number> = {
   usl1: 489,
   usl2: 256,
   uslc: 255,
+  nisa: 523,
 };
 
 function getEndpoint(year = 2022, league: Results.Leagues = "mls"): string {
