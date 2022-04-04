@@ -7,6 +7,7 @@ on:
     paths:
       - "functions/src/**.ts"
       - "functions/package-lock.json"
+      - "functions/package.json"
 
 jobs:
   deploy:
