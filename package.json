@@ -31,7 +31,7 @@
     "@typescript-eslint/parser": "~4.33",
     "eslint": "~7.32",
     "eslint-config-next": "^12.1.4",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "stylelint": "^14.6.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-prettier": "^2.0.0",
