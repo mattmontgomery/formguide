@@ -13,6 +13,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: functions
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -24,5 +27,9 @@ jobs:
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      - run: npm install
-      - run: npm run deploy
+      - id: "deploy"
+        uses: "google-github-actions/deploy-cloud-functions@v0"
+        with:
+          name: "form"
+          runtime: "nodejs16"
+          region: "us-west3"
