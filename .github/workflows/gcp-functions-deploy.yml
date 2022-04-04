@@ -1,0 +1,27 @@
+name: Deploy GCP cloud function
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "functions/src/**.ts"
+      - "functions/package-lock.json"
+
+jobs:
+  deploy:
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: "auth"
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+
+      - id: "deploy"
+        uses: "google-github-actions/deploy-cloud-functions@v0"
+        with:
+          name: "form"
+          runtime: "nodejs16"
+          trigger: "http"
+          region: "us-west3"

@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "~11.8",
     "@emotion/styled": "~11.8",
+    "@google-cloud/functions-framework": "^3.1.0",
     "@mui/icons-material": "~5.5",
     "@mui/material": "^5.5.3",
     "date-fns": "~2.28",
