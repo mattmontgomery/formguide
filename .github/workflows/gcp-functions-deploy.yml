@@ -33,3 +33,4 @@ jobs:
           name: "form"
           runtime: "nodejs16"
           region: "us-west3"
+          source_dir: functions
