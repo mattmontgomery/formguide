@@ -8,6 +8,7 @@ on:
       - "functions/src/**.ts"
       - "functions/package-lock.json"
       - "functions/package.json"
+      - ".github/workflows/gcp-functions-deploy.yml"
 
 jobs:
   deploy:
@@ -25,5 +26,4 @@ jobs:
         with:
           name: "form"
           runtime: "nodejs16"
-          trigger: "http"
           region: "us-west3"
