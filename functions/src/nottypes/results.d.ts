@@ -1,4 +1,4 @@
-declare namespace Results {
+declare namespace OldResults {
   type RawResponse = {
     fixture: {
       date: string;
@@ -8,7 +8,15 @@ declare namespace Results {
         elapsed: number;
       };
     };
-    league: unknown;
+    league: {
+      id: number;
+      name: string;
+      country: string;
+      logo: string;
+      flag: string;
+      season: number;
+      round: string;
+    };
     teams: {
       home: {
         name: string;
@@ -41,6 +49,7 @@ declare namespace Results {
     teams: Record<string, Match[]>;
   };
   type Match = {
+    league: RawResponse["league"];
     scoreline: string | null;
     date: string;
     rawDate?: unknown;

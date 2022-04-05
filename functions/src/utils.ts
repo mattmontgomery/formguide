@@ -1,6 +1,7 @@
 import { subHours } from "date-fns";
 import { format } from "util";
-import { ENDPOINT, LeagueCodes } from "./constants";
+import { ENDPOINT } from "./constants";
+import { LeagueCodes } from "@/constants";
 
 export function formatDate(date: string) {
   const d = subHours(new Date(date), 8);
@@ -37,10 +38,23 @@ export function getData(
 ): Results.Match {
   const homeTeam = curr.teams.home.name;
   const awayTeam = curr.teams.away.name;
-  return curr.fixture.status.short === "FT"
+  const base = {
+    league: curr.league,
+    score: curr.score,
+    date: formatDate(curr.fixture.date),
+    rawDate: curr.fixture.date,
+    scoreline: null,
+    result: null,
+    status: curr.fixture.status,
+    home: homeOrAway === "home",
+    team: homeOrAway === "home" ? homeTeam : awayTeam,
+    opponent: homeOrAway === "home" ? awayTeam : homeTeam,
+    opponentLogo:
+      homeOrAway === "home" ? curr.teams.away.logo : curr.teams.home.logo,
+  };
+  return curr.fixture.status.long === "Match Finished"
     ? {
-        date: formatDate(curr.fixture.date),
-        rawDate: new Date(curr.fixture.date),
+        ...base,
         scoreline:
           homeOrAway === "home"
             ? `${curr.goals.home}-${curr.goals.away}`
@@ -49,11 +63,6 @@ export function getData(
           homeOrAway === "home"
             ? getResult(curr.goals.home, curr.goals.away)
             : getResult(curr.goals.away, curr.goals.home),
-        home: homeOrAway === "home",
-        team: homeOrAway === "home" ? homeTeam : awayTeam,
-        opponent: homeOrAway === "home" ? awayTeam : homeTeam,
-        opponentLogo:
-          homeOrAway === "home" ? curr.teams.away.logo : curr.teams.home.logo,
         gd:
           homeOrAway === "home"
             ? curr.goals.home - curr.goals.away
@@ -97,15 +106,7 @@ export function getData(
         },
       }
     : {
-        date: formatDate(curr.fixture.date),
-        rawDate: curr.fixture.date,
-        scoreline: null,
-        result: null,
-        home: homeOrAway === "home",
-        team: homeOrAway === "home" ? homeTeam : awayTeam,
-        opponent: homeOrAway === "home" ? awayTeam : homeTeam,
-        opponentLogo:
-          homeOrAway === "home" ? curr.teams.away.logo : curr.teams.home.logo,
+        ...base,
       };
 }
 

@@ -1,5 +1,5 @@
 declare namespace Results {
-  declare type RawResponse = {
+  type RawResponse = {
     fixture: {
       date: string;
       status: {
@@ -8,7 +8,15 @@ declare namespace Results {
         elapsed: number;
       };
     };
-    league: unknown;
+    league: {
+      id: number;
+      name: string;
+      country: string;
+      logo: string;
+      flag: string;
+      season: number;
+      round: string;
+    };
     teams: {
       home: {
         name: string;
@@ -29,21 +37,41 @@ declare namespace Results {
       penalty: RawMatchGoals;
     };
   };
-  declare type RawData = {
+  type RawData = {
     response: RawResponse[];
   };
-  declare type RawMatchGoals = {
+  type RawMatchGoals = {
     home: number;
     away: number;
   };
 
-  declare type ParsedData = {
+  type ParsedData = {
     teams: Record<string, Match[]>;
   };
-  declare type Match = {
+  type Match = {
     scoreline: string | null;
+    score: {
+      halftime: {
+        home: number;
+        away: number;
+      };
+      fulltime: {
+        home: number;
+        away: number;
+      };
+      extratime: {
+        home: number;
+        away: number;
+      };
+      penalty: {
+        home: number;
+        away: number;
+      };
+    };
+    status: RawResponse["fixture"]["status"];
+    league: RawResponse["league"];
     date: string;
-    rawDate?: date;
+    rawDate?: Date | string;
     home: boolean;
     result: ResultType;
     team: string;
@@ -53,25 +81,12 @@ declare namespace Results {
     firstHalf?: MatchGoals;
     secondHalf?: MatchGoals;
   } & MatchGoals;
-  declare type MatchGoals = {
+  type MatchGoals = {
     goalsScored?: number;
     goalsConceded?: number;
     result: ResultType;
   };
-  declare type ResultType = "W" | "D" | "L" | null;
+  type ResultType = "W" | "D" | "L" | null;
 
-  declare type RenderReadyData = [string, ...React.ReactElement[]][];
-
-  declare type ParserFunction = (
-    teams: Results.ParsedData["teams"]
-  ) => Results.RenderReadyData;
-
-  declare type Leagues =
-    | "mls"
-    | "nwsl"
-    | "mlsnp"
-    | "usl1"
-    | "usl2"
-    | "uslc"
-    | "nisa";
+  type Leagues = "mls" | "nwsl" | "mlsnp" | "usl1" | "usl2" | "uslc" | "nisa";
 }
