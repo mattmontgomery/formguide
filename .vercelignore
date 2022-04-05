@@ -1,4 +1,6 @@
 functions/build
+functions/index.ts
+functions/utils.ts
 functions/node_modules
 data
 .husky/
