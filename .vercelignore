@@ -1,4 +1,5 @@
 functions/
+!functions/src/constants.ts
 data/
 .husky/
 .github/
