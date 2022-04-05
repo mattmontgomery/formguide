@@ -1,7 +1,7 @@
 import { subHours } from "date-fns";
 import { format } from "util";
 import { ENDPOINT } from "./constants";
-import { LeagueCodes } from "./app-constants";
+import { LeagueCodes } from "./constants";
 
 export function formatDate(date: string) {
   const d = subHours(new Date(date), 8);
