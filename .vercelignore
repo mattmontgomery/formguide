@@ -1,5 +1,5 @@
-functions/
-!functions/src/constants.ts
-data/
+functions/build
+functions/node_modules
+data
 .husky/
 .github/
