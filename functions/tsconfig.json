@@ -14,12 +14,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2018",
-    "typeRoots": ["../types"],
-    "rootDir": "..",
-    "paths": {
-      "@/constants": ["../constants.ts"]
-    }
+    "rootDir": "."
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "test/**/*.ts", "../types/results.d.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }
