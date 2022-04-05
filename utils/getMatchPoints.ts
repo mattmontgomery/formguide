@@ -1,4 +1,4 @@
-import { LeagueCodesInverse } from "../functions/src/constants";
+import { LeagueCodesInverse } from "./LeagueCodes";
 
 export default function getMatchPoints(match: Results.Match): number {
   const result = match.result;
