@@ -5,9 +5,7 @@ import getMatchPoints from "@/utils/getMatchPoints";
 export default function GoalDifference(): React.ReactElement {
   return <BasePage dataParser={dataParser} pageTitle="Points (Cumulative)" />;
 }
-function dataParser(
-  data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
   const cumulative: Record<string, number[]> = {};
   return Object.keys(data).map((team) => [
     team,
@@ -18,7 +16,7 @@ function dataParser(
       .map((match, idx) => {
         cumulative[team] = cumulative[team] || [];
         cumulative[team][idx] =
-          (cumulative?.[team]?.[idx - 1] || 0) + getMatchPoints(match.result);
+          (cumulative?.[team]?.[idx - 1] || 0) + getMatchPoints(match);
         return (
           <MatchCell
             match={match}

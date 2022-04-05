@@ -6,9 +6,7 @@ export default function GoalsFor(): React.ReactElement {
     <BasePage pageTitle="Goals For | Cumulative" dataParser={dataParser} />
   );
 }
-function dataParser(
-  data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
   const cumulativeGoals: Record<string, number[]> = {};
   return Object.keys(data).map((team) => [
     team,

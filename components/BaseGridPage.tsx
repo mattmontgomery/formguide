@@ -8,13 +8,13 @@ import LeagueContext from "./LeagueContext";
 import { useContext } from "react";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
-export default function BaseGridPage({
+function BaseGridPage({
   dataParser,
   pageTitle,
   gridClass = styles.gridClass,
   children,
 }: {
-  dataParser: Results.ParserFunction;
+  dataParser: Render.ParserFunction;
   pageTitle: string;
   gridClass?: string;
   children?: React.ReactNode;
@@ -43,3 +43,4 @@ export default function BaseGridPage({
     </BasePage>
   );
 }
+export default BaseGridPage;

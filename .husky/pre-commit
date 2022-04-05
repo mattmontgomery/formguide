@@ -6,4 +6,6 @@ npm run lint:css
 
 FUNCTION_FILES=$(git diff --cached --name-only functions)
 
-[ -n "$FUNCTION_FILES" ] && npm test --prefix functions
+if test -n "$FUNCTION_FILES"; then
+  npm test --prefix functions
+fi

@@ -42,7 +42,7 @@ export default function MatchGrid({
   gridClass = styles.gridClass,
 }: {
   data: Results.ParsedData["teams"];
-  dataParser: (data: Results.ParsedData["teams"]) => Results.RenderReadyData;
+  dataParser: (data: Results.ParsedData["teams"]) => Render.RenderReadyData;
   showMatchdayHeader?: boolean;
   rowClass?: string;
   gridClass?: string;

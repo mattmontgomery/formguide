@@ -95,7 +95,12 @@ function MatchCellDetails({
       </div>
       <div>{match.date}</div>
       <div>
-        {match.result} {match.scoreline}
+        {match.result} {match.scoreline}{" "}
+        {match.status.short === "PEN"
+          ? `(PKs: ${match.score.penalty[match.home ? "home" : "away"]}–${
+              match.score.penalty[match.home ? "away" : "home"]
+            })`
+          : ""}
       </div>
     </div>
   );

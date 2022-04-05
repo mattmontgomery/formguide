@@ -41,7 +41,7 @@ export default function Chart(): React.ReactElement {
 function dataParser(
   periodLength: number,
   data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+): Render.RenderReadyData {
   return parseChartData(data, periodLength).map(([team, ...points]) => {
     return [
       team,
@@ -103,7 +103,7 @@ function parseChartData(
               })
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null)
-              .map((match) => getMatchPoints(match.result));
+              .map((match) => getMatchPoints(match));
             return results.length !== periodLength
               ? null
               : results.reduce((prev, currentValue): number => {

@@ -4,9 +4,7 @@ import BasePage from "@/components/BaseGridPage";
 export default function GoalDifference(): React.ReactElement {
   return <BasePage pageTitle="Goal Difference" dataParser={dataParser} />;
 }
-function dataParser(
-  data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
   return Object.keys(data).map((team) => [
     team,
     ...data[team]

@@ -54,7 +54,7 @@ export default function Chart(): React.ReactElement {
 function dataParser(
   periodLength: number,
   data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+): Render.RenderReadyData {
   return parseChartData(data, periodLength).map(([team, ...points]) => {
     return [
       team,

@@ -10,9 +10,7 @@ export default function Home(): React.ReactElement {
     />
   );
 }
-function dataParser(
-  data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
   return Object.keys(data).map((team) => {
     let lastHome: string;
     return [

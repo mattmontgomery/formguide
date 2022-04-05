@@ -11,7 +11,7 @@ export default function getTeamPoints(
       ...acc,
       [team]: data[team].map((match) => ({
         date: new Date(match.date),
-        points: getMatchPoints(match.result),
+        points: getMatchPoints(match),
         result: match.result,
         home: match.home,
       })),

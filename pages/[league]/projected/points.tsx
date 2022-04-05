@@ -16,9 +16,7 @@ export default function PPGOutcomes(): React.ReactElement {
     </BasePage>
   );
 }
-function dataParser(
-  data: Results.ParsedData["teams"]
-): Results.RenderReadyData {
+function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
   const teamPoints = getTeamPoints(data);
   const teamCumulativeProjectedPoints: Record<string, number[]> = {};
   Object.keys(data).map((team) => [
