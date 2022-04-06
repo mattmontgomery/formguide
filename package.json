@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@emotion/react": "~11.8",
+    "@emotion/react": "~11.9",
     "@emotion/styled": "~11.8",
     "@google-cloud/functions-framework": "^3.1.0",
     "@mui/icons-material": "~5.5",
