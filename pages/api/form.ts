@@ -9,16 +9,27 @@ export default async function form(
   res: NextApiResponse
 ): Promise<void> {
   const year = +req.query.year || 2022;
-  const response = await fetch(
-    `${FORM_API}?year=${year}&league=${
-      (req.query.league as Results.Leagues) || "mls"
-    }`
-  );
-  res.setHeader(
-    `Cache-Control`,
-    `s-maxage=${getExpires(year)}, stale-while-revalidate`
-  );
-  res.json(await response.json());
+  try {
+    const response = await fetch(
+      `${FORM_API}?year=${year}&league=${
+        (req.query.league as Results.Leagues) || "mls"
+      }`
+    );
+    res.setHeader(
+      `Cache-Control`,
+      `s-maxage=${getExpires(year)}, stale-while-revalidate`
+    );
+    if (response.status !== 200) {
+      throw `function response: ${response.statusText}`;
+    }
+    res.json(await response.json());
+  } catch (e) {
+    res.status(500);
+    res.json({
+      data: {},
+      errors: [String(e)],
+    });
+  }
 }
 
 function getExpires(year: number) {
