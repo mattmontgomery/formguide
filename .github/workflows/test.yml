@@ -12,6 +12,7 @@ on:
       - "**/*.tsx"
       - "package-lock.json"
       - "package.json"
+      - "tsconfig.json"
       - ".github/workflows/test.yml"
   pull_request:
     # The branches below must be a subset of the branches above
