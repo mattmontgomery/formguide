@@ -1,6 +1,18 @@
 name: Run tests
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "pages/**/*.ts"
+      - "utils/**/*.ts"
+      - "styles/**/*.ts"
+      - "types/**/*.ts"
+      - "**/*.tsx"
+      - "package-lock.json"
+      - "package.json"
+      - ".github/workflows/test.yml"
   pull_request:
     # The branches below must be a subset of the branches above
     paths:
