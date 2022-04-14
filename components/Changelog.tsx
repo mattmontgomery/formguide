@@ -1,5 +1,9 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
+    date: "2022-04-14",
+    changelog: <>Updated to React 18</>,
+  },
+  {
     date: "2022-04-01",
     changelog: (
       <>Refactored data fetching, added NWSL, MLS Next Pro, USL leagues</>
