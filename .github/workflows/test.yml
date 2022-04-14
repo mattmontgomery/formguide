@@ -1,0 +1,27 @@
+name: Run tests
+
+on:
+  pull_request:
+    # The branches below must be a subset of the branches above
+    paths:
+      - "pages/**/*.ts"
+      - "utils/**/*.ts"
+      - "styles/**/*.ts"
+      - "types/**/*.ts"
+      - "**/*.tsx"
+      - "package-lock.json"
+      - "package.json"
+      - ".github/workflows/test.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run lint:css
+      - run: npm run build
