@@ -78,7 +78,7 @@ const NAV_CONFIG: (
   DIVIDER,
   { subtitle: "Results Vs." },
   { href: "/versus", title: "PPG", icon: BarChart },
-  { href: "/versus", title: "GD", icon: BarChart },
+  { href: "/versus/gd", title: "GD", icon: BarChart },
   DIVIDER,
   { subtitle: "Goal Difference" },
   { href: "/gd", title: "GD", icon: SportsSoccerSharp },
