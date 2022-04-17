@@ -15,6 +15,7 @@
     "@google-cloud/functions-framework": "^3.1.0",
     "@mui/icons-material": "~5.6",
     "@mui/material": "^5.6.1",
+    "@mui/x-data-grid": "^5.9.0",
     "date-fns": "~2.28",
     "devmoji": "~2.3",
     "husky": "~7.0",

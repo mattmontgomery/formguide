@@ -20,6 +20,9 @@
 .gridExtraWide .gridRow {
   grid-template-columns: 25px 160px repeat(40, 50px);
 }
+.gridXXWide .gridRow {
+  grid-template-columns: 25px 160px repeat(40, 60px);
+}
 .gridRow > a[data-home="home"] {
   text-decoration: underline;
 }
@@ -70,6 +73,11 @@
   font-weight: bold;
   align-items: baseline;
 }
+.chartTeamSmall {
+  font-size: 9pt;
+  font-weight: bold;
+  align-items: baseline;
+}
 .chartRow > :not(.chartTeam) {
   position: relative;
 }
@@ -79,4 +87,9 @@
   text-align: center;
   z-index: 10;
   font-size: 12px;
+}
+
+.gridFilledGrey {
+  background-color: #e0e0e0;
+  text-align: center;
 }
