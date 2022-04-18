@@ -11,7 +11,7 @@ const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
 const REDIS_URL = process.env.REDIS_URL;
 const API_BASE = process.env.API_FOOTBALL_BASE;
 const API_KEY = process.env.API_FOOTBALL_KEY;
-const APP_VERSION = process.env.APP_VERSION || "v2.0.1";
+const APP_VERSION = process.env.APP_VERSION || "v2.0.2";
 const defaultLeague: Results.Leagues = "mls";
 
 http("form", async (req, res) => {
@@ -69,10 +69,10 @@ async function fetchData({
     });
     const matchData = parseRawData((await response.json()) as Results.RawData);
     await client.set(redisKey, JSON.stringify(matchData));
+    await client.expire(redisKey, getExpires(year));
     return matchData;
   } else {
     const data = await client.get(redisKey);
-    await client.expire(redisKey, getExpires(year));
     if (!data) {
       throw "No data found";
     }
