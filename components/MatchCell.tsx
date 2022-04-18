@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getMLSLink } from "@/utils/getLinks";
 import styles from "@/styles/Home.module.css";
-import Image from "next/image";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  ClickAwayListener,
+  Divider,
+  Typography,
+} from "@mui/material";
+import LeagueContext from "./LeagueContext";
+import { getPastTense } from "@/utils/getMatchResultString";
+import { format, parseISO } from "date-fns";
 
 export default function MatchCell({
   isShaded = () => false,
@@ -46,63 +58,110 @@ export default function MatchCell({
         cursor: `pointer`,
       }}
     >
-      {open ? <MatchCellDetails match={match} /> : null}
-      <Box
-        sx={{
-          backgroundColor: !result
-            ? "rgb(200, 200, 200)"
-            : result === "W"
-            ? "success.main"
-            : result === "L"
-            ? "error.main"
-            : "warning.main",
-          padding: "0.25rem",
-          filter:
-            Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
-              ? "grayscale(0.75) opacity(0.75)"
-              : "none",
-        }}
-      >
-        <a
-          data-home={match.home ? "home" : null}
-          href={getMLSLink(match)}
-          onMouseOver={() => setOpen(true)}
-          onMouseOut={() => setOpen(false)}
-        >
-          {renderedValue}
-        </a>
-      </Box>
+      <ClickAwayListener onClickAway={() => setOpen(false)}>
+        <Box>
+          {open ? (
+            <MatchCellDetails match={match} onClose={() => setOpen(false)} />
+          ) : null}
+          <Box
+            sx={{
+              backgroundColor: !result
+                ? "rgb(200, 200, 200)"
+                : result === "W"
+                ? "success.main"
+                : result === "L"
+                ? "error.main"
+                : "warning.main",
+              padding: "0.25rem",
+              filter:
+                Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
+                  ? "grayscale(0.75) opacity(0.75)"
+                  : "none",
+            }}
+            onClick={() => setOpen(true)}
+          >
+            <span data-home={match.home ? "home" : null}>{renderedValue}</span>
+          </Box>
+        </Box>
+      </ClickAwayListener>
     </Box>
   );
 }
 
 function MatchCellDetails({
   match,
+  onClose,
 }: {
   match: Results.Match;
+  onClose: () => void;
 }): React.ReactElement {
+  const league = useContext(LeagueContext);
   return (
-    <div className={styles.matchDetails}>
-      <div>{match.home ? "Home" : "Away"}</div>
-      <div className={styles.matchDetailsOpponent}>
-        <div className={styles.matchDetailsLogo}>
-          <Image
-            src={match.opponentLogo}
-            alt={`${match.opponent} logo`}
-            layout="fill"
+    <Box className={styles.matchDetails}>
+      <Card>
+        <Box sx={{ display: "flex" }}>
+          <CardMedia
+            sx={{
+              width: 100,
+              height: 100,
+              paddingLeft: 1,
+            }}
+            component="img"
+            image={match.opponentLogo}
+            alt={match.opponent}
           />
-        </div>
-        vs. {match.opponent}
-      </div>
-      <div>{match.date}</div>
-      <div>
-        {match.result} {match.scoreline}{" "}
-        {match.status.short === "PEN"
-          ? `(PKs: ${match.score.penalty[match.home ? "home" : "away"]}–${
-              match.score.penalty[match.home ? "away" : "home"]
-            })`
-          : ""}
-      </div>
-    </div>
+          <CardContent sx={{ flex: "1 0 auto", width: 250, paddingBottom: 0 }}>
+            <Typography
+              component="div"
+              variant="overline"
+              color="text.secondary"
+              sx={{ lineHeight: 1.4, paddingBottom: 1 }}
+            >
+              <>
+                <strong>
+                  {typeof match.rawDate === "string"
+                    ? format(parseISO(match.rawDate), "eee., MMM d, Y")
+                    : ""}
+                </strong>
+                <br />
+                {typeof match.rawDate === "string"
+                  ? format(parseISO(match.rawDate), "K:mm aaaa z")
+                  : ""}
+              </>
+            </Typography>
+            <Divider />
+            <Typography
+              component="div"
+              variant="subtitle2"
+              paddingY={1}
+              gutterBottom={false}
+            >
+              <strong>{match.home ? "Home" : "Away"}</strong> vs.{" "}
+              <strong>{match.opponent}</strong>
+            </Typography>
+            <Divider />
+            <Typography variant="subtitle1" paddingY={1}>
+              <strong>
+                {getPastTense(match)} {match.scoreline}{" "}
+                {match.status.short === "PEN"
+                  ? `(PKs: ${
+                      match.score.penalty[match.home ? "home" : "away"]
+                    }–${match.score.penalty[match.home ? "away" : "home"]})`
+                  : ""}
+              </strong>
+            </Typography>
+          </CardContent>
+          <span></span>
+        </Box>
+        <CardActions sx={{ justifyContent: "space-between" }}>
+          {league === "mls" && (
+            <Button href={getMLSLink(match)} variant="outlined">
+              MLS
+            </Button>
+          )}
+          <Button onClick={onClose}>Close</Button>
+        </CardActions>
+      </Card>
+    </Box>
   );
 }

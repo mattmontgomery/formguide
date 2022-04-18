@@ -37,15 +37,10 @@
   position: absolute;
   opacity: 1;
   filter: none;
-  background: white;
-  border: 2px solid lightgrey;
-  padding: 0.5rem 1rem;
   margin: 0;
-  color: black;
   text-align: left;
   left: 25px;
   z-index: 100;
-  width: 15rem;
   font-style: normal;
 }
 .matchDetailsOpponent {
