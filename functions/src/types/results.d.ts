@@ -88,5 +88,14 @@ declare namespace Results {
   };
   type ResultType = "W" | "D" | "L" | null;
 
-  type Leagues = "mls" | "nwsl" | "mlsnp" | "usl1" | "usl2" | "uslc" | "nisa";
+  type Leagues =
+    | "mls"
+    | "nwsl"
+    | "mlsnp"
+    | "usl1"
+    | "usl2"
+    | "uslc"
+    | "nisa"
+    | "epl"
+    | "wsl";
 }
