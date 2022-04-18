@@ -1,17 +1,15 @@
 import BaseDataPage from "@/components/BaseDataPage";
 import VersusGrid from "@/components/VersusGrid";
-import { getArrayAverage, getArrayAverageFormatted } from "@/utils/array";
+import { getArrayAverage, getArraySum } from "@/utils/array";
 
 export default function VersusPoints(): React.ReactElement {
   return (
     <BaseDataPage
-      pageTitle="Results vs. (PPG) | By Match"
+      pageTitle="Results vs. (GD) | By Match"
       renderComponent={(data) => (
         <VersusGrid
           data={data}
-          renderValue={(values) =>
-            `${values.length} / ${getArrayAverageFormatted(values, 1)}`
-          }
+          renderValue={(values) => `${values.length} / ${getArraySum(values)}`}
           getValue={(result) => result.gd || 0}
           getBackgroundColor={(points) => {
             if (!points || points.length === 0) {
