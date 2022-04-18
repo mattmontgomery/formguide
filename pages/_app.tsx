@@ -113,7 +113,7 @@ export default function MLSFormGuide({
                     component="div"
                     sx={{ flexGrow: 1 }}
                   >
-                    American Soccer Form Guide (2012–2022)
+                    Form Guide (2012–present)
                   </Typography>
                   <Select
                     sx={{

@@ -19,8 +19,7 @@ export default function BasePage({
     <div className={styles.body}>
       <Head>
         <title>
-          American Soccer Form Guide | 2012–2022 | {pageTitle} | Data for{" "}
-          {league} in {year}
+          Form Guide | 2012–2022 | {pageTitle} | Data for {league} in {year}
         </title>
       </Head>
       <Box paddingBottom={2}>

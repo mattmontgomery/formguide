@@ -1,4 +1,4 @@
-# American Soccer Form Guide
+# Form Guide
 
 Do you remember a day when MLS hosted their own form guide? I do. I missed it, so I built it, and hopefully, I've made it better.
 

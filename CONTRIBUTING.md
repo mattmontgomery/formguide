@@ -1,4 +1,4 @@
-# Contributing to the American Soccer Form Guide
+# Contributing to the Form Guide
 
 ## Getting started
 
