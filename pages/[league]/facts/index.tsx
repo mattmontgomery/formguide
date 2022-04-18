@@ -81,6 +81,28 @@ export default function MatchFacts(): React.ReactElement {
               ))}
             </ul>
           </Box>
+          <Divider />
+          <Box sx={{ marginTop: 2 }}>
+            <Typography variant="h5">
+              Biggest halftime deficit resulting in a win or draw
+            </Typography>
+            <ul>
+              {getBiggestTurnaround(data.data.teams).map((match, idx) => (
+                <li key={idx}>
+                  {(match.firstHalf?.goalsScored || 0) -
+                    (match.firstHalf?.goalsConceded || 0)}{" "}
+                  - <Match match={match} />
+                  <br />
+                  <strong>First Half: </strong>
+                  {match.firstHalf?.goalsScored}-
+                  {match.firstHalf?.goalsConceded} |{" "}
+                  <strong>Second Half: </strong>
+                  {match.secondHalf?.goalsScored}-
+                  {match.secondHalf?.goalsConceded}
+                </li>
+              ))}
+            </ul>
+          </Box>
         </>
       )}
     </BasePage>
@@ -91,8 +113,6 @@ function getMostGoalsConceded(
   results: Results.ParsedData["teams"]
 ): Results.Match[] {
   return flattenMatches(results)
-    .filter((match) => Boolean(match.result))
-    .filter((match) => Boolean(typeof match.goalsConceded === "number"))
     .sort((a, b) => {
       return (a.goalsConceded || 0) > (b.goalsConceded || 0)
         ? 1
@@ -106,8 +126,6 @@ function getMostGoalsConceded(
 
 function getBiggestGD(results: Results.ParsedData["teams"]): Results.Match[] {
   return flattenMatches(results)
-    .filter((match) => Boolean(match.result))
-    .filter((match) => Boolean(typeof match.goalsConceded === "number"))
     .sort((a, b) => {
       const gdA: number = typeof a.gd === "number" ? a.gd : 0;
       const gdB: number = typeof b.gd === "number" ? b.gd : 0;
@@ -120,8 +138,6 @@ function getMostGoalsScored(
   results: Results.ParsedData["teams"]
 ): Results.Match[] {
   return flattenMatches(results)
-    .filter((match) => Boolean(match.result))
-    .filter((match) => Boolean(typeof match.goalsScored === "number"))
     .sort((a, b) => {
       return (a.goalsScored || 0) > (b.goalsScored || 0)
         ? 1
@@ -134,7 +150,33 @@ function getMostGoalsScored(
 }
 
 function flattenMatches(results: Results.ParsedData["teams"]): Results.Match[] {
-  return Object.values(results).reduce((acc, curr) => {
-    return [...acc, ...curr];
-  }, []);
+  return Object.values(results)
+    .reduce((acc, curr) => {
+      return [...acc, ...curr];
+    }, [])
+    .filter((match) => Boolean(match.result))
+    .filter((match) => Boolean(typeof match.goalsConceded === "number"));
+}
+
+function getBiggestTurnaround(
+  results: Results.ParsedData["teams"]
+): Results.Match[] {
+  return flattenMatches(results)
+    .filter((match) => {
+      // only matches that are a turnaround result
+      return (
+        (match.firstHalf?.goalsScored || 0) <
+          (match.firstHalf?.goalsConceded || 0) &&
+        (match.goalsScored || 0) >= (match.goalsConceded || 0)
+      );
+    })
+    .sort((a, b): 1 | 0 | -1 => {
+      return (a.firstHalf?.goalsScored || 0) -
+        (a.firstHalf?.goalsConceded || 0) >
+        (b.firstHalf?.goalsScored || 0) - (b.firstHalf?.goalsConceded || 0)
+        ? 1
+        : a.goalsScored === b.goalsScored
+        ? 0
+        : -1;
+    });
 }
