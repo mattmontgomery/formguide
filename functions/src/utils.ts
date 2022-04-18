@@ -20,7 +20,11 @@ export function getEndpoint(
   league: Results.Leagues = "mls"
 ): string {
   const leagueCode = LeagueCodes[league] || 253;
-  return format(ENDPOINT, `${year}-01-01`, `${year}-12-31`, year, leagueCode);
+  // non-summer leagues
+  if (league === "epl") {
+    year = year - 1;
+  }
+  return format(ENDPOINT, year, leagueCode);
 }
 
 export function getResult(goalsA: number, goalsB: number): Results.ResultType {

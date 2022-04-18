@@ -11,6 +11,7 @@ const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
 const REDIS_URL = process.env.REDIS_URL;
 const API_BASE = process.env.API_FOOTBALL_BASE;
 const API_KEY = process.env.API_FOOTBALL_KEY;
+const APP_VERSION = process.env.APP_VERSION || "v2.0.1";
 const defaultLeague: Results.Leagues = "mls";
 
 http("form", async (req, res) => {
@@ -53,7 +54,7 @@ async function fetchData({
   const client = new Redis(REDIS_URL);
 
   // keys differentiate by year and league
-  const redisKey = `formguide:v1.0.8:${league}:${year}`;
+  const redisKey = `formguide:${APP_VERSION}:${league}:${year}`;
   const exists = await client.exists(redisKey);
   // cache for four weeks if it's not the current year. no need to hit the API
 
