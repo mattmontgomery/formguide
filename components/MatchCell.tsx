@@ -37,7 +37,6 @@ export default function MatchCell({
     <Box
       className={styles.gridRowCell}
       sx={{
-        padding: `0.25rem`,
         textAlign: `center`,
         fontWeight: `bold`,
         fontSize: `14px`,
@@ -45,32 +44,34 @@ export default function MatchCell({
         borderRight: `1px solid rgb(181, 181, 181)`,
         position: `relative`,
         cursor: `pointer`,
-        opacity:
-          Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
-            ? 0.7
-            : 1,
-        filter:
-          Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
-            ? "grayscale(0.5)"
-            : "none",
-        backgroundColor: !result
-          ? "rgb(200, 200, 200)"
-          : result === "W"
-          ? "success.main"
-          : result === "L"
-          ? "error.main"
-          : "warning.main",
       }}
     >
-      <a
-        data-home={match.home ? "home" : null}
-        href={getMLSLink(match)}
-        onMouseOver={() => setOpen(true)}
-        onMouseOut={() => setOpen(false)}
+      {open ? <MatchCellDetails match={match} /> : null}
+      <Box
+        sx={{
+          backgroundColor: !result
+            ? "rgb(200, 200, 200)"
+            : result === "W"
+            ? "success.main"
+            : result === "L"
+            ? "error.main"
+            : "warning.main",
+          padding: "0.25rem",
+          filter:
+            Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
+              ? "grayscale(0.75) opacity(0.75)"
+              : "none",
+        }}
       >
-        {open ? <MatchCellDetails match={match} /> : null}
-        {renderedValue}
-      </a>
+        <a
+          data-home={match.home ? "home" : null}
+          href={getMLSLink(match)}
+          onMouseOver={() => setOpen(true)}
+          onMouseOut={() => setOpen(false)}
+        >
+          {renderedValue}
+        </a>
+      </Box>
     </Box>
   );
 }

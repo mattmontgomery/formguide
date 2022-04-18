@@ -1,5 +1,15 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
+    date: "2022-04-18",
+    changelog: (
+      <>
+        Adds versus record, fixes issue with floating match details hiding
+        behind match result (who knew `filter` changes the stacking
+        properties??)
+      </>
+    ),
+  },
+  {
     date: "2022-04-17",
     changelog: <>Adds versus pages</>,
   },

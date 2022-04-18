@@ -35,6 +35,8 @@
 
 .matchDetails {
   position: absolute;
+  opacity: 1;
+  filter: none;
   background: white;
   border: 2px solid lightgrey;
   padding: 0.5rem 1rem;

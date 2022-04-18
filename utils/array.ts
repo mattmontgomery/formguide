@@ -12,3 +12,9 @@ export function getArrayAverage(values: number[]): number {
     ? values.reduce((sum, curr) => sum + curr, 0) / values.length
     : 0;
 }
+
+export function getRecord(values: number[]): string {
+  return `${values.filter((p) => p === 3).length}-${
+    values.filter((p) => p === 1).length
+  }-${values.filter((p) => p === 0).length}`;
+}

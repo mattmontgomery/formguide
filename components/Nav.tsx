@@ -77,6 +77,7 @@ const NAV_CONFIG: (
   { href: "/chart/11", title: "11-game", icon: BarChart },
   DIVIDER,
   { subtitle: "Results Vs." },
+  { href: "/versus/record", title: "Record", icon: BarChart },
   { href: "/versus", title: "PPG", icon: BarChart },
   { href: "/versus/gd", title: "GD", icon: BarChart },
   DIVIDER,
