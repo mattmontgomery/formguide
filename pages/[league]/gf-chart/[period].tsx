@@ -1,53 +1,34 @@
-import useSWR from "swr";
 import { useRouter } from "next/router";
 
 import styles from "@/styles/Home.module.css";
-import fetch from "unfetch";
 import MatchGrid from "@/components/MatchGrid";
-import { Box, Divider, Typography } from "@mui/material";
-import BasePage from "@/components/BasePage";
-import { useContext } from "react";
-import YearContext from "@/components/YearContext";
-import LeagueContext from "@/components/LeagueContext";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import { Box } from "@mui/material";
+import BaseDataPage from "@/components/BaseDataPage";
+import ColorKey from "@/components/ColorKey";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const year = useContext(YearContext);
-  const league = useContext(LeagueContext);
-  const { data } = useSWR<{ data: Results.ParsedData }>(
-    [`/api/form?year=${year}&league=${league}`, year, league],
-    fetcher
-  );
   return (
-    <BasePage pageTitle={`Rolling GF (${period} game rolling)`}>
-      {data?.data?.teams ? (
+    <BaseDataPage
+      pageTitle={`Rolling GF (${period} game rolling)`}
+      renderComponent={(data) => (
         <MatchGrid
-          data={data.data.teams}
+          data={data.teams}
           dataParser={(...args) => dataParser(periodLength, ...args)}
           showMatchdayHeader={false}
           rowClass={styles.chartRow}
         />
-      ) : null}
-      <Divider />
-
-      <Box sx={{ marginTop: 2 }}>
-        <Typography variant="h6">Legend</Typography>
-        <Box sx={{ backgroundColor: "success.main" }} p={1}>
-          Scoring more than 2 goals per game
-        </Box>
-        <Box sx={{ backgroundColor: "warning.main" }} p={1}>
-          Scoring more than 1 goal per game
-        </Box>
-        <Box sx={{ backgroundColor: "error.main" }} p={1}>
-          Scoring less than than 1 goal per game
-        </Box>
-      </Box>
-    </BasePage>
+      )}
+    >
+      <ColorKey
+        successText="Scoring more than 2 goals per game"
+        warningText="Scoring more than 1 goal per game"
+        errorText="Scoring less than than 1 goal per game"
+      />
+    </BaseDataPage>
   );
 }
 
@@ -58,30 +39,35 @@ function dataParser(
   return parseChartData(data, periodLength).map(([team, ...points]) => {
     return [
       team,
-      ...points.map((pointValue, idx) => {
-        return (
-          <Box
-            key={idx}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor:
-                typeof pointValue !== "number"
-                  ? "background.primary"
-                  : pointValue >= periodLength * 2
-                  ? "success.main"
-                  : pointValue >= periodLength
-                  ? "warning.main"
-                  : "error.main",
-            }}
-          >
-            <Box className={styles.chartPointText} sx={{ fontWeight: "bold" }}>
-              {pointValue}
+      ...points
+        .filter((pointValue) => typeof pointValue === "number")
+        .map((pointValue, idx) => {
+          return (
+            <Box
+              key={idx}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor:
+                  typeof pointValue !== "number"
+                    ? "background.primary"
+                    : pointValue >= periodLength * 2
+                    ? "success.main"
+                    : pointValue >= periodLength
+                    ? "warning.main"
+                    : "error.main",
+              }}
+            >
+              <Box
+                className={styles.chartPointText}
+                sx={{ fontWeight: "bold" }}
+              >
+                {pointValue}
+              </Box>
             </Box>
-          </Box>
-        );
-      }),
+          );
+        }),
     ];
   });
 }

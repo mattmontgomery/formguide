@@ -159,6 +159,8 @@ export default function MLSFormGuide({
                     <MenuItem value="usl1">USL League One</MenuItem>
                     <MenuItem value="usl2">USL League Two</MenuItem>
                     <MenuItem value="nisa">NISA</MenuItem>
+                    <Divider />
+                    <MenuItem value="epl">English Premier League</MenuItem>
                   </Select>
                 </Toolbar>
               </AppBar>

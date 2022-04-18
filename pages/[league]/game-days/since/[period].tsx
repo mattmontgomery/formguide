@@ -1,55 +1,37 @@
-import useSWR from "swr";
 import { useRouter } from "next/router";
 
 import styles from "@/styles/Home.module.css";
-import fetch from "unfetch";
 import MatchGrid from "@/components/MatchGrid";
-import { Box, Divider, Typography } from "@mui/material";
-import BasePage from "@/components/BasePage";
-import { useContext } from "react";
-import YearContext from "@/components/YearContext";
-import LeagueContext from "@/components/LeagueContext";
+import { Box } from "@mui/material";
 import { getArrayAverage } from "@/utils/array";
 import { differenceInDays } from "date-fns";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import BaseDataPage from "@/components/BaseDataPage";
+import ColorKey from "@/components/ColorKey";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const year = useContext(YearContext);
-  const league = useContext(LeagueContext);
-  const { data } = useSWR<{ data: Results.ParsedData }>(
-    [`/api/form?year=${year}&league=${league}`, year, league],
-    fetcher
-  );
   return (
-    <BasePage pageTitle={`Average days between games (${period} game rolling)`}>
-      {data?.data?.teams ? (
+    <BaseDataPage
+      pageTitle={`Average days between games (${period} game rolling)`}
+      renderComponent={(data) => (
         <MatchGrid
-          data={data.data.teams}
+          data={data.teams}
           dataParser={(...args) => dataParser(periodLength, ...args)}
           showMatchdayHeader={false}
           gridClass={styles.chartWide}
           rowClass={styles.chartRow}
         />
-      ) : null}
-      <Divider />
-      <Box sx={{ marginTop: 2 }}>
-        <Typography variant="h6">Legend</Typography>
-        <Box sx={{ backgroundColor: "success.main" }} p={1}>
-          5.5-8 days between games
-        </Box>
-        <Box sx={{ backgroundColor: "warning.main" }} p={1}>
-          More than 5.5–8 days between days
-        </Box>
-        <Box sx={{ backgroundColor: "error.main" }} p={1}>
-          Less than 5.5 days between games
-        </Box>
-      </Box>
-    </BasePage>
+      )}
+    >
+      <ColorKey
+        successText="5.5-8 days between games"
+        warningText="More than 5.5–8 days between days"
+        errorText="Less than 5.5 days between games"
+      />
+    </BaseDataPage>
   );
 }
 
@@ -60,30 +42,35 @@ function dataParser(
   return parseChartData(data, periodLength).map(([team, ...points]) => {
     return [
       team,
-      ...points.map((pointValue, idx) => {
-        return (
-          <Box
-            key={idx}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor:
-                typeof pointValue !== "number"
-                  ? "background.primary"
-                  : pointValue > 8
-                  ? "warning.main"
-                  : pointValue < 5.5
-                  ? "error.main"
-                  : "success.main",
-            }}
-          >
-            <Box className={styles.chartPointText} sx={{ fontWeight: "bold" }}>
-              {pointValue?.toFixed(2)}
+      ...points
+        .filter((pointValue) => typeof pointValue === "number")
+        .map((pointValue, idx) => {
+          return (
+            <Box
+              key={idx}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor:
+                  typeof pointValue !== "number"
+                    ? "background.primary"
+                    : pointValue > 8
+                    ? "warning.main"
+                    : pointValue < 5.5
+                    ? "error.main"
+                    : "success.main",
+              }}
+            >
+              <Box
+                className={styles.chartPointText}
+                sx={{ fontWeight: "bold" }}
+              >
+                {pointValue?.toFixed(2)}
+              </Box>
             </Box>
-          </Box>
-        );
-      }),
+          );
+        }),
     ];
   });
 }

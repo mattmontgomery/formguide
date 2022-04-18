@@ -65,11 +65,11 @@
 }
 .chartRow {
   display: grid;
-  grid-template-columns: 25px 200px repeat(40, 28px);
+  grid-template-columns: 25px 200px repeat(auto-fit, 28px);
   height: 30px;
 }
 .chartWide .chartRow {
-  grid-template-columns: 25px 200px repeat(40, 40px);
+  grid-template-columns: 25px 200px repeat(auto-fit, 40px);
 }
 .chartTeam {
   font-weight: bold;

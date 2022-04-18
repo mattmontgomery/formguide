@@ -1,12 +1,6 @@
-import useSWR from "swr";
 import { Box, Divider, Typography } from "@mui/material";
 import { format } from "date-fns";
-import BasePage from "@/components/BasePage";
-import YearContext from "@/components/YearContext";
-import LeagueContext from "@/components/LeagueContext";
-import { useContext } from "react";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import BaseDataPage from "@/components/BaseDataPage";
 
 export function Match({ match }: { match: Results.Match }): React.ReactElement {
   return (
@@ -35,77 +29,76 @@ export function Match({ match }: { match: Results.Match }): React.ReactElement {
   );
 }
 export default function MatchFacts(): React.ReactElement {
-  const year = useContext(YearContext);
-  const league = useContext(LeagueContext);
-  const { data } = useSWR<{ data: Results.ParsedData }>(
-    [`/api/form?year=${year}&league=${league}`, year, league],
-    fetcher
-  );
   return (
-    <BasePage pageTitle="Match Facts">
-      {data && (
-        <>
-          <Box>
-            <Typography variant="h5">
-              Most goals scored in a single match
-            </Typography>
-            <ul>
-              {getMostGoalsScored(data.data.teams).map((match, idx) => (
-                <li key={idx}>
-                  {match.goalsScored} — <Match match={match} />
-                </li>
-              ))}
-            </ul>
-          </Box>
-          <Divider />
-          <Box sx={{ marginTop: 2 }}>
-            <Typography variant="h5">
-              Most goals conceded in a single match
-            </Typography>
-            <ul>
-              {getMostGoalsConceded(data.data.teams).map((match, idx) => (
-                <li key={idx}>
-                  {match.goalsConceded} — <Match match={match} />
-                </li>
-              ))}
-            </ul>
-          </Box>
-          <Divider />
-          <Box sx={{ marginTop: 2 }}>
-            <Typography variant="h5">Biggest GD in a match</Typography>
-            <ul>
-              {getBiggestGD(data.data.teams).map((match, idx) => (
-                <li key={idx}>
-                  {match.gd || "-"} — <Match match={match} />
-                </li>
-              ))}
-            </ul>
-          </Box>
-          <Divider />
-          <Box sx={{ marginTop: 2 }}>
-            <Typography variant="h5">
-              Biggest halftime deficit resulting in a win or draw
-            </Typography>
-            <ul>
-              {getBiggestTurnaround(data.data.teams).map((match, idx) => (
-                <li key={idx}>
-                  {(match.firstHalf?.goalsScored || 0) -
-                    (match.firstHalf?.goalsConceded || 0)}{" "}
-                  - <Match match={match} />
-                  <br />
-                  <strong>First Half: </strong>
-                  {match.firstHalf?.goalsScored}-
-                  {match.firstHalf?.goalsConceded} |{" "}
-                  <strong>Second Half: </strong>
-                  {match.secondHalf?.goalsScored}-
-                  {match.secondHalf?.goalsConceded}
-                </li>
-              ))}
-            </ul>
-          </Box>
-        </>
-      )}
-    </BasePage>
+    <BaseDataPage
+      pageTitle="Match Facts"
+      renderComponent={(data) => {
+        return (
+          data && (
+            <>
+              <Box>
+                <Typography variant="h5">
+                  Most goals scored in a single match
+                </Typography>
+                <ul>
+                  {getMostGoalsScored(data.teams).map((match, idx) => (
+                    <li key={idx}>
+                      {match.goalsScored} — <Match match={match} />
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+              <Divider />
+              <Box sx={{ marginTop: 2 }}>
+                <Typography variant="h5">
+                  Most goals conceded in a single match
+                </Typography>
+                <ul>
+                  {getMostGoalsConceded(data.teams).map((match, idx) => (
+                    <li key={idx}>
+                      {match.goalsConceded} — <Match match={match} />
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+              <Divider />
+              <Box sx={{ marginTop: 2 }}>
+                <Typography variant="h5">Biggest GD in a match</Typography>
+                <ul>
+                  {getBiggestGD(data.teams).map((match, idx) => (
+                    <li key={idx}>
+                      {match.gd || "-"} — <Match match={match} />
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+              <Divider />
+              <Box sx={{ marginTop: 2 }}>
+                <Typography variant="h5">
+                  Biggest halftime deficit resulting in a win or draw
+                </Typography>
+                <ul>
+                  {getBiggestTurnaround(data.teams).map((match, idx) => (
+                    <li key={idx}>
+                      {(match.firstHalf?.goalsScored || 0) -
+                        (match.firstHalf?.goalsConceded || 0)}{" "}
+                      - <Match match={match} />
+                      <br />
+                      <strong>First Half: </strong>
+                      {match.firstHalf?.goalsScored}-
+                      {match.firstHalf?.goalsConceded} |{" "}
+                      <strong>Second Half: </strong>
+                      {match.secondHalf?.goalsScored}-
+                      {match.secondHalf?.goalsConceded}
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+            </>
+          )
+        );
+      }}
+    ></BaseDataPage>
   );
 }
 
