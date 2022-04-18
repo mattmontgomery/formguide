@@ -15,7 +15,12 @@ export default function VersusGrid({
   getValue: (result: Results.Match) => number;
   getBackgroundColor: (
     value: number[]
-  ) => "success.main" | "error.main" | "warning.main" | "#f0f0f0";
+  ) =>
+    | "success.main"
+    | "error.main"
+    | "warning.main"
+    | "#f0f0f0"
+    | "transparent";
 }): React.ReactElement {
   const [teamData, setTeamData] = useState<TeamData>({});
   useEffect(() => {
@@ -38,71 +43,70 @@ export default function VersusGrid({
   return (
     <>
       <div className={styles.gridExtraWide}>
-        <div className={styles.chart}>
-          <div
-            className={styles.gridRow}
-            style={{
-              position: "relative",
-              left: "-4.5rem",
-              paddingTop: "10rem",
-              fontSize: "9pt",
-              fontWeight: "bold",
-            }}
-          >
-            <span></span>
-            <span></span>
-            {Object.keys(teamData)
-              .sort()
-              .map((team, idx) => (
-                <span
-                  key={idx}
-                  style={{
-                    transform: "rotate(-90deg)",
-                    width: "12rem",
-                    textAlign: "left",
-                    position: "relative",
-                    bottom: "6rem",
-                  }}
-                >
-                  {team}
-                </span>
-              ))}
-          </div>
+        <div
+          className={styles.gridRow}
+          style={{
+            position: "relative",
+            left: "-4.5rem",
+            paddingTop: "10rem",
+            fontSize: "9pt",
+            fontWeight: "bold",
+          }}
+        >
+          <span></span>
+          <span></span>
           {Object.keys(teamData)
             .sort()
             .map((team, idx) => (
-              <div className={styles.gridRow} key={idx}>
-                <span></span>
-                <div className={styles.chartTeamSmall}>{team}</div>
-                {Object.keys(teamData)
-                  .sort()
-                  .map((t, idx) =>
-                    t === team ? (
-                      <div className={styles.gridFilledGrey} key={idx}>
-                        {"-"}
-                      </div>
-                    ) : (
-                      <Box
-                        sx={{
-                          textAlign: "center",
-                          fontSize: "9pt",
-                          alignContent: "middle",
-                          justifyContent: "middle",
-                          borderRight: "1px solid black",
-                          backgroundColor: getBackgroundColor(
-                            teamData[team][t]
-                          ),
-                        }}
-                      >
-                        {teamData[team][t]
-                          ? renderValue(teamData[team][t])
-                          : ""}
-                      </Box>
-                    )
-                  )}
-              </div>
+              <span
+                key={idx}
+                style={{
+                  transform: "rotate(-90deg)",
+                  width: "12rem",
+                  textAlign: "left",
+                  position: "relative",
+                  bottom: "6rem",
+                }}
+              >
+                {team}
+              </span>
             ))}
         </div>
+        {Object.keys(teamData)
+          .sort()
+          .map((team, idx) => (
+            <Box
+              className={styles.gridRow}
+              key={idx}
+              sx={{
+                backgroundColor: idx % 2 === 0 ? "#f0f0f0" : "#fff",
+              }}
+            >
+              <span></span>
+              <div className={styles.chartTeamSmall}>{team}</div>
+              {Object.keys(teamData)
+                .sort()
+                .map((t, idx) =>
+                  t === team ? (
+                    <div className={styles.gridFilledGrey} key={idx}>
+                      {"-"}
+                    </div>
+                  ) : (
+                    <Box
+                      sx={{
+                        textAlign: "center",
+                        fontSize: "9pt",
+                        paddingTop: "2px",
+                        borderRight: "1px solid black",
+                        backgroundColor: getBackgroundColor(teamData[team][t]),
+                      }}
+                    >
+                      {teamData[team][t] ? renderValue(teamData[team][t]) : ""}
+                    </Box>
+                  )
+                )}
+            </Box>
+          ))}
       </div>
     </>
   );

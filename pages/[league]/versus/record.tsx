@@ -14,7 +14,7 @@ export default function VersusPoints(): React.ReactElement {
           getValue={getMatchPoints}
           getBackgroundColor={(points) => {
             if (!points || points.length === 0) {
-              return "#f0f0f0";
+              return "transparent";
             }
             const avg = getArrayAverage(points);
             return avg >= 2
