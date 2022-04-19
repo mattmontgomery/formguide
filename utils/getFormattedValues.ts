@@ -11,3 +11,13 @@ export function getFormattedDate(
       )
     : "";
 }
+
+export function getFormattedEventName(event: Results.FixtureEvent): string {
+  if (event.type === "subst") {
+    return event.detail;
+  } else if (event.type === "Card") {
+    return event.detail;
+  } else {
+    return event.type;
+  }
+}

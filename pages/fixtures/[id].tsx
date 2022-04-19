@@ -1,5 +1,8 @@
 import BasePage from "@/components/BasePage";
-import { getFormattedDate } from "@/utils/getFormattedValues";
+import {
+  getFormattedDate,
+  getFormattedEventName,
+} from "@/utils/getFormattedValues";
 import {
   Box,
   Divider,
@@ -17,6 +20,7 @@ import {
   AutoGraph,
   CalendarMonth,
   FormatShapes,
+  SportsSoccerTwoTone,
   Timeline,
 } from "@mui/icons-material";
 
@@ -70,6 +74,78 @@ export default function Fixture(): React.ReactElement {
             {predictionData.predictions.advice}
           </ListItemText>
         </ListItem>
+        <Divider />
+        <ListItem sx={{ paddingBottom: 0 }}>
+          <ListItemIcon>
+            <SportsSoccerTwoTone />
+          </ListItemIcon>
+          <ListItemText>Events</ListItemText>
+        </ListItem>
+        <Box sx={{ padding: 2 }}>
+          <Grid container>
+            {fixtureData?.events.map((event, idx) => (
+              <Grid container key={idx}>
+                <Grid item sm={1} sx={{ textAlign: "right", paddingRight: 1 }}>
+                  {event.time.elapsed}
+                  {"'"}
+                </Grid>
+                <Grid item sm={1}>
+                  {event.team.name}
+                </Grid>
+                <Grid item sm={1}>
+                  <strong>{getFormattedEventName(event)}</strong>
+                </Grid>
+                <Grid item sm={3}>
+                  {event.type === "subst" ? "Off: " : ""}
+                  {event.player.name}
+                </Grid>
+                <Grid item sm={3}>
+                  {event.type === "Goal"
+                    ? `Assist: ${event.assist?.name || "N/A"}`
+                    : ""}
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        <Divider />
+        <ListItem sx={{ paddingBottom: 0 }}>
+          <ListItemIcon>
+            <SportsSoccerTwoTone />
+          </ListItemIcon>
+          <ListItemText>Lineup</ListItemText>
+        </ListItem>
+        <Box sx={{ padding: 2, maxWidth: 800 }}>
+          <Grid container>
+            {fixtureData?.lineups.map((lineup, idx) => (
+              <Grid container key={idx} sx={{ paddingBottom: 2 }}>
+                <Grid item sm={2}>
+                  <strong>{lineup.team.name}</strong>
+                </Grid>
+                <Grid item sm={5}>
+                  <Box sx={{ paddingBottom: 1 }}>
+                    <strong>Starting XI</strong>
+                  </Box>
+                  {lineup.startXI.map((p, idx) => (
+                    <Box key={idx}>
+                      {p.player.name} ({p.player.pos})
+                    </Box>
+                  ))}
+                </Grid>
+                <Grid item sm={5}>
+                  <Box sx={{ paddingBottom: 1 }}>
+                    <strong>Substitutes</strong>
+                  </Box>
+                  {lineup.substitutes.map((p, idx) => (
+                    <Box key={idx}>
+                      {p.player.name} ({p.player.pos})
+                    </Box>
+                  ))}
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
         <Divider />
         <ListItem sx={{ paddingBottom: 0 }}>
           <ListItemIcon>

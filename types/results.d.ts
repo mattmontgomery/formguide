@@ -105,28 +105,29 @@ declare namespace Results {
     };
     status: RawResponse["fixture"]["status"];
   };
+  type FixtureEvent = {
+    time: { elapsed: number; extra: number };
+    team: Pick<Team, "id" | "name" | "logo">;
+    player: {
+      id: number;
+      name: string;
+    };
+    assist?: {
+      id: number;
+      name: string;
+    };
+    type: "subst" | "Card" | "Goal";
+    detail: string;
+    comments: string | null;
+  };
   type FixtureApi = {
     fixture: Fixture;
     league: League;
     teams: Record<"home" | "away", Team>;
     goals: Record<"home" | "away", number>;
     score: RawResponse["score"];
-    events: {
-      time: { elapsed: number; extra: number };
-      team: Pick<Team, "id" | "name" | "logo">;
-      player: {
-        id: number;
-        name: string;
-      };
-      assist?: {
-        id: number;
-        name: string;
-      };
-      type: "subst" | "Card" | "Goal";
-      detail: string;
-      comments: string | null;
-    }[];
-    lineup: {
+    events: FixtureEvent[];
+    lineups: {
       team: Pick<Team, "id" | "name" | "logo"> & {
         colors: Record<
           "player" | "goalkeeper",
