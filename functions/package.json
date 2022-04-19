@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "concurrently \"tsc -w\" \"nodemon --watch ./build/ --exec npm run start\"",
-    "start": "functions-framework --source=build/src/ --target=form",
+    "start": "functions-framework --source=build/src/ --target=$APPLICATION",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",

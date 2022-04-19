@@ -1,4 +1,5 @@
 import { subHours } from "date-fns";
+import Redis from "ioredis";
 import { format } from "util";
 import { ENDPOINT } from "./constants";
 import { LeagueCodes } from "./constants";
@@ -43,6 +44,7 @@ export function getData(
   const homeTeam = curr.teams.home.name;
   const awayTeam = curr.teams.away.name;
   const base = {
+    fixtureId: curr.fixture.id,
     league: curr.league,
     score: curr.score,
     date: formatDate(curr.fixture.date),
@@ -131,4 +133,33 @@ export function parseRawData(data: Results.RawData): Results.ParsedData {
   return {
     teams,
   };
+}
+
+export async function fetchCachedOrFresh<T>(
+  key: string,
+  fetch: () => Promise<T>,
+  expire: number | ((data: T) => number)
+): Promise<T | null> {
+  const REDIS_URL = process.env.REDIS_URL;
+  const APP_VERSION = process.env.APP_VERSION || "v3.0.1";
+  if (!REDIS_URL) {
+    throw "Application is not properly configured";
+  }
+  const client = new Redis(REDIS_URL);
+
+  // keys differentiate by year and league
+  const redisKey = `${key}:${APP_VERSION}`;
+  const exists = await client.exists(redisKey);
+  if (exists) {
+    const data = await client.get(redisKey);
+    return data ? (JSON.parse(data) as T) : null;
+  } else {
+    const data = await fetch();
+    await client.set(redisKey, JSON.stringify(data));
+    await client.expire(
+      redisKey,
+      typeof expire === "number" ? expire : expire(data)
+    );
+    return data;
+  }
 }
