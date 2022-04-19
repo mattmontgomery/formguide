@@ -4,6 +4,8 @@ import { format } from "util";
 import { ENDPOINT } from "./constants";
 import { LeagueCodes } from "./constants";
 
+const redisClient = new Redis(process.env.REDIS_URL || "redis://localhost");
+
 export function formatDate(date: string) {
   const d = subHours(new Date(date), 8);
 
@@ -145,18 +147,17 @@ export async function fetchCachedOrFresh<T>(
   if (!REDIS_URL) {
     throw "Application is not properly configured";
   }
-  const client = new Redis(REDIS_URL);
 
   // keys differentiate by year and league
   const redisKey = `${key}:${APP_VERSION}`;
-  const exists = await client.exists(redisKey);
+  const exists = await redisClient.exists(redisKey);
   if (exists) {
-    const data = await client.get(redisKey);
+    const data = await redisClient.get(redisKey);
     return data ? (JSON.parse(data) as T) : null;
   } else {
     const data = await fetch();
-    await client.set(redisKey, JSON.stringify(data));
-    await client.expire(
+    await redisClient.set(redisKey, JSON.stringify(data));
+    await redisClient.expire(
       redisKey,
       typeof expire === "number" ? expire : expire(data)
     );
