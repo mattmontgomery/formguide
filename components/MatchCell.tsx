@@ -15,6 +15,7 @@ import {
 import LeagueContext from "./LeagueContext";
 import { getPastTense } from "@/utils/getMatchResultString";
 import { format, parseISO } from "date-fns";
+import Link from "next/link";
 
 export default function MatchCell({
   isShaded = () => false,
@@ -160,7 +161,9 @@ function MatchCellDetails({
             </Button>
           )}
           {process.env.NEXT_PUBLIC_ALLOW_FIXTURE_PAGE && (
-            <Button href={`/fixtures/${match.fixtureId}`}>Fixture</Button>
+            <Link href={`/fixtures/${match.fixtureId}`} passHref>
+              <Button>Fixture</Button>
+            </Link>
           )}
           <Button onClick={onClose}>Close</Button>
         </CardActions>
