@@ -159,6 +159,9 @@ function MatchCellDetails({
               MLS
             </Button>
           )}
+          {process.env.NEXT_PUBLIC_ALLOW_FIXTURE_PAGE && (
+            <Button href={`/fixtures/${match.fixtureId}`}>Fixture</Button>
+          )}
           <Button onClick={onClose}>Close</Button>
         </CardActions>
       </Card>
