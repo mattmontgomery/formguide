@@ -14,10 +14,7 @@ declare namespace Results {
     };
     teams: Record<
       "home" | "away",
-      {
-        id: number;
-        name: string;
-        logo: string;
+      Team & {
         winner: boolean;
       }
     >;
@@ -81,14 +78,152 @@ declare namespace Results {
     logo: string;
     flag: string;
     season: number;
+    round?: number;
   };
   type Team = {
     id: number;
     name: string;
+    logo: string;
   };
   type Totals<T = number> = { home: T; away: T; total: T };
-
   type Fixture = {
+    id: number;
+    referee: string;
+    timezone: string;
+    date: string;
+    timestamp: number;
+    periods: {
+      first: number;
+      second: number;
+    };
+    venue: {
+      id: number;
+      name: string;
+      city: string;
+    };
+    status: RawResponse["fixture"]["status"];
+  };
+  type FixtureApi = {
+    fixture: Fixture;
+    league: League;
+    teams: Record<"home" | "away", Team>;
+    goals: Record<"home" | "away", number>;
+    score: RawResponse["score"];
+    events: {
+      time: { elapsed: number; extra: number };
+      team: Pick<Team, "id" | "name" | "logo">;
+      player: {
+        id: number;
+        name: string;
+      };
+      assist?: {
+        id: number;
+        name: string;
+      };
+      type: "subst" | "Card" | "Goal";
+      detail: string;
+      comments: string | null;
+    }[];
+    lineup: {
+      team: Pick<Team, "id" | "name" | "logo"> & {
+        colors: Record<
+          "player" | "goalkeeper",
+          Record<"primary" | "number" | "border", string>
+        >;
+      };
+      coach: {
+        id: number;
+        name: string;
+        photo: string;
+      };
+      formation: string;
+      startXI: {
+        player: {
+          id: number;
+          name: string;
+          number: number;
+          pos: "G" | "D" | "M" | "F";
+          grid: string | null;
+        };
+      }[];
+      substitutes: {
+        player: {
+          id: number;
+          name: string;
+          number: number;
+          pos: "G" | "D" | "M" | "F";
+          grid: string | null;
+        };
+      }[];
+    }[];
+    statistics: {
+      team: Pick<Team, "id" | "name" | "logo">;
+      statistics: Record<string, { type: string; value: number }>;
+    }[];
+    players: {
+      player: {
+        id: number;
+        name: string;
+        photo: string;
+      };
+      statistics: {
+        games: {
+          minutes: number;
+          number: number;
+          position: string;
+          rating: string;
+          captain: boolean;
+          substitute: boolean;
+        };
+        offsides: number;
+        shots: {
+          total: number;
+          on: number;
+        };
+        goals: {
+          total: number | null;
+          conceded: number | null;
+          assists: number | null;
+          saves: number | null;
+        };
+        passes: {
+          total: number | null;
+          key: number | null;
+          accuracy: string;
+        };
+        tackles: {
+          total: number | null;
+          blocks: number | null;
+          interceptions: number | null;
+        };
+        duels: {
+          total: number | null;
+          won: number | null;
+        };
+        dribbles: {
+          attempts: number | null;
+          success: number | null;
+          past: number | null;
+        };
+        fouls: {
+          drawn: number | null;
+          committed: number | null;
+        };
+        cards: {
+          yellow: number;
+          red: number;
+        };
+        penalty: {
+          won: number | null;
+          commited: number | null;
+          scored: number;
+          missed: number;
+          saved: number;
+        };
+      }[];
+    }[];
+  };
+  type PredictionApi = {
     predictions: {
       winner: Results.Team & { comment: string };
       win_or_draw: boolean;
@@ -100,10 +235,10 @@ declare namespace Results {
       advice: string;
       percent: string;
     };
-    league: Results.League;
+    league: League;
     teams: Record<
       "home" | "away",
-      Results.Team & {
+      Team & {
         last_5: {
           form: string;
           att: string;
@@ -169,23 +304,7 @@ declare namespace Results {
       Record<"home" | "away", string>
     >;
     h2h: {
-      fixture: {
-        id: number;
-        referee: string;
-        timezone: string;
-        date: string;
-        timestamp: number;
-        periods: {
-          first: number;
-          second: number;
-        };
-        venue: {
-          id: number;
-          name: string;
-          city: string;
-        };
-        status: RawResponse["fixture"]["status"];
-      };
+      fixture: Fixture;
       league: RawResponse["league"];
       teams: RawResponse["teams"];
       goals: RawMatchGoals;

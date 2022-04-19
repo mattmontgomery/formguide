@@ -1,6 +1,6 @@
 import { http } from "@google-cloud/functions-framework";
 import { config } from "dotenv";
-import { getPredictionsForFixture } from "./football-api";
+import { getFixture, getPredictionsForFixture } from "./football-api";
 import { fetchCachedOrFresh } from "./utils";
 
 config();
@@ -21,14 +21,19 @@ http("prediction", async (req, res) => {
     return;
   }
   try {
-    const predictionData = await fetchCachedOrFresh<{}[]>(
+    const fixtureData = await fetchCachedOrFresh<Results.FixtureApi[]>(
+      `fixtures:${fixture}`,
+      async () => getFixture(fixture),
+      60 * 60 * 24
+    );
+    const predictionData = await fetchCachedOrFresh<Results.PredictionApi[]>(
       `predictions:${fixture}`,
       async () => getPredictionsForFixture(fixture),
       60 * 60 * 24
     );
     res.json({
       errors: [],
-      data: predictionData,
+      data: { fixtureData, predictionData },
       meta: { fixture },
     });
   } catch (e) {

@@ -141,7 +141,7 @@ export async function fetchCachedOrFresh<T>(
   expire: number | ((data: T) => number)
 ): Promise<T | null> {
   const REDIS_URL = process.env.REDIS_URL;
-  const APP_VERSION = process.env.APP_VERSION || "v3.0.1";
+  const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
   if (!REDIS_URL) {
     throw "Application is not properly configured";
   }
