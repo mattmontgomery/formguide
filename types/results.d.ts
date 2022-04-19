@@ -320,6 +320,5 @@ declare namespace Results {
     | "usl2"
     | "uslc"
     | "nisa"
-    | "epl"
-    | "wsl";
+    | "epl";
 }
