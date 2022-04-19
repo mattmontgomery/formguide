@@ -71,7 +71,8 @@ declare namespace Results {
     goalsConceded?: number;
     result: ResultType;
   };
-  type ResultType = "W" | "D" | "L" | null;
+  type ResultTypes = "W" | "D" | "L";
+  type ResultType = ResultTypes | null;
   type League = {
     id: number;
     name: string;
