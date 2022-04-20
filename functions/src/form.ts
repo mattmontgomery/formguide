@@ -3,7 +3,13 @@ import { config } from "dotenv";
 import Redis from "ioredis";
 import fetch from "node-fetch-commonjs";
 
-import { getEndpoint, getExpires, parseRawData, thisYear } from "./utils";
+import {
+  fetchCachedOrFresh,
+  getEndpoint,
+  getExpires,
+  parseRawData,
+  thisYear,
+} from "./utils";
 
 config();
 
@@ -51,31 +57,27 @@ async function fetchData({
   ) {
     throw "Application not properly configured";
   }
-  const client = new Redis(REDIS_URL);
 
   // keys differentiate by year and league
   const redisKey = `formguide:${APP_VERSION}:${league}:${year}`;
-  const exists = await client.exists(redisKey);
-  // cache for four weeks if it's not the current year. no need to hit the API
-
-  if (!exists) {
-    const headers = {
-      "x-rapidapi-host": API_BASE,
-      "x-rapidapi-key": API_KEY,
-      useQueryString: "true",
-    };
-    const response = await fetch(`${URL_BASE}${getEndpoint(year, league)}`, {
-      headers,
-    });
-    const matchData = parseRawData((await response.json()) as Results.RawData);
-    await client.set(redisKey, JSON.stringify(matchData));
-    await client.expire(redisKey, getExpires(year));
-    return matchData;
-  } else {
-    const data = await client.get(redisKey);
-    if (!data) {
-      throw "No data found";
-    }
-    return JSON.parse(data) as Results.ParsedData;
+  const matchData = await fetchCachedOrFresh(
+    redisKey,
+    async (): Promise<Results.ParsedData> => {
+      const headers = {
+        "x-rapidapi-host": API_BASE,
+        "x-rapidapi-key": API_KEY,
+        useQueryString: "true",
+      };
+      // cache for four weeks if it's not the current year. no need to hit the API
+      const response = await fetch(`${URL_BASE}${getEndpoint(year, league)}`, {
+        headers,
+      });
+      return parseRawData((await response.json()) as Results.RawData);
+    },
+    getExpires(year)
+  );
+  if (!matchData) {
+    throw "no data found";
   }
+  return matchData;
 }
