@@ -85,24 +85,37 @@ export default function Fixture(): React.ReactElement {
           <Grid container>
             {fixtureData?.events.map((event, idx) => (
               <Grid container key={idx}>
-                <Grid item sm={1} sx={{ textAlign: "right", paddingRight: 1 }}>
+                <Grid
+                  item
+                  xs={0}
+                  sm={1}
+                  sx={{ textAlign: { sm: "right" }, paddingRight: 1 }}
+                >
                   {event.time.elapsed}
                   {"'"}
                 </Grid>
-                <Grid item sm={1}>
+                <Grid item xs={5} sm={1}>
                   {event.team.name}
                 </Grid>
-                <Grid item sm={1}>
+                <Grid item xs={6} sm={1}>
                   <strong>{getFormattedEventName(event)}</strong>
                 </Grid>
-                <Grid item sm={3}>
+                <Grid item xs={12} sm={3}>
                   {event.type === "subst" ? "Off: " : ""}
                   {event.player.name}
                 </Grid>
-                <Grid item sm={3}>
+                <Grid item xs={12} sm={3}>
                   {event.type === "Goal"
                     ? `Assist: ${event.assist?.name || "N/A"}`
                     : ""}
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  paddingY={2}
+                  sx={{ display: { sm: "none" } }}
+                >
+                  <Divider />
                 </Grid>
               </Grid>
             ))}
@@ -119,10 +132,10 @@ export default function Fixture(): React.ReactElement {
           <Grid container>
             {fixtureData?.lineups.map((lineup, idx) => (
               <Grid container key={idx} sx={{ paddingBottom: 2 }}>
-                <Grid item sm={2}>
+                <Grid item xs={12} sm={2}>
                   <strong>{lineup.team.name}</strong>
                 </Grid>
-                <Grid item sm={5}>
+                <Grid item xs={6} sm={5}>
                   <Box sx={{ paddingBottom: 1 }}>
                     <strong>Starting XI</strong>
                   </Box>
@@ -132,7 +145,7 @@ export default function Fixture(): React.ReactElement {
                     </Box>
                   ))}
                 </Grid>
-                <Grid item sm={5}>
+                <Grid item xs={6} sm={5}>
                   <Box sx={{ paddingBottom: 1 }}>
                     <strong>Substitutes</strong>
                   </Box>
