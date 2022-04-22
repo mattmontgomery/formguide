@@ -187,7 +187,34 @@ export default function Fixture(): React.ReactElement {
         </List>
         <ListItem sx={{ paddingBottom: 0 }}>
           <ListItemIcon>
-            <CalendarMonth />
+            <CalendarMonth
+              sx={{ cursor: "pointer" }}
+              onClick={() => {
+                const last10 = predictionData.h2h
+                  .map(
+                    (match) =>
+                      `<li>${getFormattedDate(match.fixture, false)}: ${
+                        match.teams.home.winner
+                          ? `<strong>${match.teams.home.name}</strong>`
+                          : match.teams.home.name
+                      } ${match.score.fulltime.home}-${
+                        match.score.fulltime.away
+                      } ${
+                        match.teams.away.winner
+                          ? `<strong>${match.teams.away.name}</strong>`
+                          : match.teams.away.name
+                      }</i>`
+                  )
+                  .join(`\n`);
+                const htmlBlob = new Blob([`<ul>${last10}</ul>`], {
+                  type: "text/html",
+                });
+                const clipped = new ClipboardItem({
+                  [htmlBlob.type]: htmlBlob,
+                });
+                navigator.clipboard.write([clipped]);
+              }}
+            />
           </ListItemIcon>
           <ListItemText>H2H</ListItemText>
         </ListItem>
