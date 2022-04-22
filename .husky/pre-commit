@@ -1,6 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+git pull
+
 npm run lint
 npm run lint:css
 
