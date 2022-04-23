@@ -1,15 +1,23 @@
 import { format, parseISO } from "date-fns";
 
 export function getFormattedDate(
-  match: Results.Fixture,
+  match: Results.Fixture | Results.Match,
   showTime = true
 ): string {
-  return typeof match.date === "string"
-    ? format(
-        parseISO(match.date),
-        `eee., MMM d, Y${showTime ? ", K:mm aaaa z" : ""}`
-      )
+  const date = (match as Results.Match).rawDate
+    ? (match as Results.Match).rawDate
+    : match.date;
+  return typeof date === "string"
+    ? format(parseISO(date), `eee., MMM d, Y${showTime ? ", K:mm aaaa z" : ""}`)
     : "";
+}
+export function getFormattedTime(
+  match: Results.Fixture | Results.Match
+): string {
+  const date = (match as Results.Match).rawDate
+    ? (match as Results.Match).rawDate
+    : match.date;
+  return typeof date === "string" ? format(parseISO(date), "K:mm aaaa z") : "";
 }
 
 export function getFormattedEventName(event: Results.FixtureEvent): string {

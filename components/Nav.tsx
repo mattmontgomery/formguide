@@ -26,6 +26,7 @@ import {
   LightbulbOutlined,
   LaunchTwoTone,
   CalendarViewMonth,
+  HourglassFull,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
@@ -69,6 +70,9 @@ const NAV_CONFIG: (
   { href: "/points/cumulative", title: "Cumulative Points", icon: TableChart },
   { href: "/points/off-top", title: "Points off Top", icon: TableChart },
   { href: "/projected/points", title: "Projected (PPG)", icon: TableChart },
+  DIVIDER,
+  { subtitle: "Fixtures" },
+  { href: "/fixtures", title: "Today's Fixtures", icon: HourglassFull },
   DIVIDER,
   { subtitle: "Rolling Charts" },
   { href: "/chart/3", title: "3-game", icon: BarChart },

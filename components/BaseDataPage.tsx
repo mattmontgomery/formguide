@@ -32,7 +32,7 @@ function BaseDataPage({
       ) : (
         <Box
           sx={{
-            padding: 8,
+            paddingY: 8,
             textAlign: "center",
           }}
         >
