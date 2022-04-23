@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import BasePage from "./BasePage";
-import { Box, Divider } from "@mui/material";
+import { Box, CircularProgress, Divider } from "@mui/material";
 import YearContext from "./YearContext";
 import LeagueContext from "./LeagueContext";
 import { useContext } from "react";
@@ -23,12 +23,21 @@ function BaseDataPage({
   );
   return (
     <BasePage pageTitle={pageTitle}>
-      {data && (
+      {data && data?.data ? (
         <>
-          {data?.data && renderComponent(data.data)}
+          {renderComponent(data.data)}
           <Divider />
           <Box sx={{ marginTop: 2 }}>{children}</Box>
         </>
+      ) : (
+        <Box
+          sx={{
+            padding: 8,
+            textAlign: "center",
+          }}
+        >
+          <CircularProgress color="success" />
+        </Box>
       )}
     </BasePage>
   );

@@ -30,10 +30,14 @@ export default function BasePage({
           <Grid md={4} item sx={{ textAlign: "right" }}>
             {year}:{league}
           </Grid>
+          <Grid xs={12}>
+            <Divider />
+          </Grid>
+          <Grid xs={12} item>
+            <Box paddingTop={2}>{children}</Box>
+          </Grid>
         </Grid>
       </Box>
-      <Divider />
-      <Box paddingTop={2}>{children}</Box>
     </div>
   );
 }
