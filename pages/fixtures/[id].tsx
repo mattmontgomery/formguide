@@ -1,10 +1,12 @@
 import BasePage from "@/components/BasePage";
+import Link from "next/link";
 import {
   getFormattedDate,
   getFormattedEventName,
 } from "@/utils/getFormattedValues";
 import {
   Box,
+  Button,
   Divider,
   Grid,
   List,
@@ -209,8 +211,32 @@ export default function Fixture(): React.ReactElement {
                 const htmlBlob = new Blob([`<ul>${last10}</ul>`], {
                   type: "text/html",
                 });
+                const plainTextBlob = new Blob(
+                  [
+                    predictionData.h2h
+                      .map(
+                        (match) =>
+                          `- ${getFormattedDate(match.fixture, false)}: ${
+                            match.teams.home.winner
+                              ? `*${match.teams.home.name}*`
+                              : match.teams.home.name
+                          } ${match.score.fulltime.home}-${
+                            match.score.fulltime.away
+                          } ${
+                            match.teams.away.winner
+                              ? `*${match.teams.away.name}*`
+                              : match.teams.away.name
+                          }`
+                      )
+                      .join(`\n`),
+                  ],
+                  {
+                    type: "text/plain",
+                  }
+                );
                 const clipped = new ClipboardItem({
                   [htmlBlob.type]: htmlBlob,
+                  [plainTextBlob.type]: plainTextBlob,
                 });
                 navigator.clipboard.write([clipped]);
               }}
@@ -223,7 +249,9 @@ export default function Fixture(): React.ReactElement {
             <ListItem key={idx}>
               <Grid container>
                 <Grid item sm={2}>
-                  <Box>{getFormattedDate(match.fixture, false)}</Box>
+                  <Link href={`/fixtures/${match.fixture.id}`} passHref>
+                    <Button>{getFormattedDate(match.fixture, false)}</Button>
+                  </Link>
                 </Grid>
                 <Grid item sm={2}>
                   <Box

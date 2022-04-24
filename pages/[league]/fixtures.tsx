@@ -1,3 +1,4 @@
+import Link from "next/link";
 import BaseDataPage from "@/components/BaseDataPage";
 import { getFormattedTime } from "@/utils/getFormattedValues";
 import {
@@ -50,7 +51,9 @@ export default function Fixtures(): React.ReactElement {
                       </Typography>
                     </Box>
                     <Box sx={{ alignItems: "center", display: "flex" }}>
-                      <Button sx={{ marginRight: 2 }}>{"Fixture"}</Button>
+                      <Link href={`/fixtures/${match.fixtureId}`} passHref>
+                        <Button sx={{ marginRight: 2 }}>{"Fixture"}</Button>
+                      </Link>
                       {match.home ? `${match.team}` : match.opponent}{" "}
                       {match.scoreline || "vs."}{" "}
                       {match.home ? match.opponent : match.team}
