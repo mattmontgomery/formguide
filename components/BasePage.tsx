@@ -24,13 +24,13 @@ export default function BasePage({
       </Head>
       <Box paddingBottom={2}>
         <Grid container>
-          <Grid md={8} item>
+          <Grid md={8} item paddingBottom={1}>
             {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
           </Grid>
           <Grid md={4} item sx={{ textAlign: "right" }}>
             {year}:{league}
           </Grid>
-          <Grid xs={12}>
+          <Grid xs={12} item>
             <Divider />
           </Grid>
           <Grid xs={12} item>

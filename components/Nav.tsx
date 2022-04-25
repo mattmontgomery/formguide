@@ -138,6 +138,27 @@ const NAV_CONFIG: (
     icon: HourglassEmpty,
   },
   DIVIDER,
+  { subtitle: "Games since X" },
+  {
+    href: "/since-result/W",
+    title: "Games since a win",
+    icon: CalendarViewMonth,
+  },
+  {
+    href: "/since-result/D",
+    title: "Games since a draw",
+    icon: CalendarViewMonth,
+  },
+  {
+    href: "/since-result/W,D",
+    title: "Games since a win or draw",
+    icon: CalendarViewMonth,
+  },
+  {
+    href: "/since-result/L",
+    title: "Games since a loss",
+    icon: CalendarViewMonth,
+  },
   { subtitle: "Days Between Games" },
   {
     href: "/game-days/since",

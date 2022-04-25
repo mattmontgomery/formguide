@@ -120,12 +120,12 @@ function MatchCellDetails({
             >
               <>
                 <strong>
-                  {typeof match.rawDate === "string"
+                  {match.rawDate
                     ? format(parseISO(match.rawDate), "eee., MMM d, Y")
                     : ""}
                 </strong>
                 <br />
-                {typeof match.rawDate === "string"
+                {match.rawDate
                   ? format(parseISO(match.rawDate), "K:mm aaaa z")
                   : ""}
               </>

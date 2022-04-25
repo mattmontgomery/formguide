@@ -1,5 +1,14 @@
 const CHANGELOG_ENTRIES: { date: string; changelog: React.ReactNode }[] = [
   {
+    date: "2022-04-25",
+    changelog: (
+      <>
+        Added Games Since Result pages, minor style updates, package updates
+        galore, etc etc
+      </>
+    ),
+  },
+  {
     date: "2022-04-18",
     changelog: (
       <>
