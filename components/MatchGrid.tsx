@@ -130,10 +130,10 @@ export default function MatchGrid({
                     sx={{
                       textAlign: "right",
                       alignSelf: `center`,
-                      fontWeight: `bold`,
-                      marginRight: `.5rem`,
-                      fontSize: "12px",
+                      marginRight: 1,
+                      fontSize: 13,
                       cursor: "pointer",
+                      whiteSpace: "nowrap",
                     }}
                     className={styles.chartTeam}
                     onClick={() =>

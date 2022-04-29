@@ -13,7 +13,7 @@ export default function VersusPoints(): React.ReactElement {
           getValue={(result) => result.gd || 0}
           getBackgroundColor={(points) => {
             if (!points || points.length === 0) {
-              return "#f0f0f0";
+              return "transparent";
             }
             const avg = getArrayAverage(points);
             return avg >= 1
@@ -21,6 +21,17 @@ export default function VersusPoints(): React.ReactElement {
               : avg >= 0
               ? "warning.main"
               : "error.main";
+          }}
+          getForegroundColor={(points) => {
+            if (!points || points.length === 0) {
+              return "text.primary";
+            }
+            const avg = getArrayAverage(points);
+            return avg >= 1
+              ? "success.contrastText"
+              : avg >= 0
+              ? "warning.contrastText"
+              : "error.contrastText";
           }}
         />
       )}

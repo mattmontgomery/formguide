@@ -9,6 +9,7 @@ export default function VersusGrid({
   renderValue,
   getValue,
   getBackgroundColor,
+  getForegroundColor,
 }: {
   data: Results.ParsedData;
   renderValue: (values: number[]) => number | string;
@@ -16,10 +17,19 @@ export default function VersusGrid({
   getBackgroundColor: (
     value: number[]
   ) =>
+    | "common.white"
     | "success.main"
     | "error.main"
     | "warning.main"
-    | "#f0f0f0"
+    | "background.paper"
+    | "transparent";
+  getForegroundColor: (
+    value: number[]
+  ) =>
+    | "success.contrastText"
+    | "error.contrastText"
+    | "warning.contrastText"
+    | "text.primary"
     | "transparent";
 }): React.ReactElement {
   const [teamData, setTeamData] = useState<TeamData>({});
@@ -78,27 +88,46 @@ export default function VersusGrid({
             <Box
               className={styles.gridRow}
               key={idx}
-              sx={{
-                backgroundColor: idx % 2 === 0 ? "#f0f0f0" : "#fff",
-              }}
+              sx={{ backgroundColor: idx % 2 ? "grey.50" : "grey.200" }}
             >
               <span></span>
-              <div className={styles.chartTeamSmall}>{team}</div>
+              <Box
+                sx={{
+                  color: "common.black",
+                  textAlign: "right",
+                  fontSize: 12,
+                  alignSelf: "center",
+                  paddingRight: 1,
+                  "white-space": "nowrap",
+                }}
+              >
+                {team}
+              </Box>
               {Object.keys(teamData)
                 .sort()
                 .map((t, idx) =>
                   t === team ? (
-                    <div className={styles.gridFilledGrey} key={idx}>
+                    <Box
+                      sx={{
+                        backgroundColor: "grey.400",
+                        textAlign: "center",
+                      }}
+                      key={idx}
+                    >
                       {"-"}
-                    </div>
+                    </Box>
                   ) : (
                     <Box
                       sx={{
                         textAlign: "center",
                         fontSize: "9pt",
+                        fontWeight: "bold",
                         paddingTop: "2px",
-                        borderRight: "1px solid black",
+                        borderWidth: "1px 1px 0 1px",
+                        borderStyle: "solid",
+                        borderColor: "grey.300",
                         backgroundColor: getBackgroundColor(teamData[team][t]),
+                        foregroundColor: getForegroundColor(teamData[team][t]),
                       }}
                     >
                       {teamData[team][t] ? renderValue(teamData[team][t]) : ""}
