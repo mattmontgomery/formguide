@@ -66,10 +66,6 @@
 .chartWide .chartRow {
   grid-template-columns: 25px 200px repeat(auto-fit, 40px);
 }
-.chartTeam {
-  font-weight: bold;
-  align-items: baseline;
-}
 .chartTeamSmall {
   font-size: 9pt;
   font-weight: bold;

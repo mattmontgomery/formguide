@@ -50,14 +50,15 @@ export default function MLSFormGuide({
         palette: {
           mode: darkMode ? "dark" : "light",
           success: {
-            main: "#8cca7a",
+            main: darkMode ? "#8cca7a" : "#8cca7a",
           },
           warning: {
-            main: "#f9c389",
+            main: darkMode ? "#f9c389" : "#f9c389",
           },
           error: {
-            main: "#f3968f",
+            main: darkMode ? "#f3968f" : "#f3968f",
           },
+          tonalOffset: 0.8,
         },
         typography: {
           h4: {
