@@ -18,7 +18,7 @@
     "@mui/x-data-grid": "^5.10.0",
     "date-fns": "~2.28",
     "devmoji": "~2.3",
-    "husky": "~7.0",
+    "husky": "~8.0",
     "ioredis": "^5.0.4",
     "next": "^12.1.6",
     "react": "~18.1",
