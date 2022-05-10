@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "lint": "next lint",
-    "lint:css": "stylelint **/*.css",
+    "lint": "run-p lint:*",
+    "lint:next": "next lint",
+    "lint:style": "stylelint **/*.css",
+    "lint:css": "csslint **/*.css",
     "build": "next build",
     "start": "next start"
   },
@@ -31,8 +33,10 @@
     "@types/react": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "~4.33",
     "@typescript-eslint/parser": "~4.33",
+    "csslint": "^1.0.5",
     "eslint": "~7.32",
     "eslint-config-next": "^12.1.6",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "stylelint": "^14.8.2",
     "stylelint-config-prettier": "^9.0.3",

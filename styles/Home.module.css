@@ -3,9 +3,10 @@
 }
 .grid,
 .gridWide,
-.gridExtraWide {
+.gridExtraWide,
+.chart {
   display: grid;
-  grid-row-gap: 0.125rem;
+  row-gap: 0.125rem;
 }
 .gridRow {
   display: grid;
@@ -54,10 +55,6 @@
   position: relative;
 }
 
-.chart {
-  display: grid;
-  grid-row-gap: 0.125rem;
-}
 .chartRow {
   display: grid;
   grid-template-columns: 25px 200px repeat(auto-fit, 28px);
