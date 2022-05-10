@@ -48,12 +48,14 @@ export default function MatchGrid({
   showMatchdayHeader = true,
   rowClass = styles.gridRow,
   gridClass = styles.gridClass,
+  chartClass = styles.chart,
 }: {
   data: Results.ParsedData["teams"];
   dataParser: (data: Results.ParsedData["teams"]) => Render.RenderReadyData;
   showMatchdayHeader?: boolean;
   rowClass?: string;
   gridClass?: string;
+  chartClass?: string;
 }): React.ReactElement {
   const [sortStrategy, setSortStrategy] = useState<"teamName" | "week">(
     "teamName"
@@ -93,7 +95,7 @@ export default function MatchGrid({
         </>
       )}
       <div className={gridClass}>
-        <div className={styles.chart}>
+        <div className={chartClass}>
           {showMatchdayHeader && (
             <div className={styles.gridRow}>
               <span></span>

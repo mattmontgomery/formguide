@@ -37,7 +37,6 @@ jobs:
           region: "us-west3"
           source_dir: functions
           env_vars: REDIS_URL=${{secrets.REDIS_URL}},API_FOOTBALL_BASE=${{secrets.API_FOOTBALL_BASE}},API_FOOTBALL_KEY=${{secrets.API_FOOTBALL_KEY}}
-          version: 2
 
       - id: "deploy-prediction"
         uses: "google-github-actions/deploy-cloud-functions@v0"
@@ -47,4 +46,3 @@ jobs:
           region: "us-west3"
           source_dir: functions
           env_vars: REDIS_URL=${{secrets.REDIS_URL}},API_FOOTBALL_BASE=${{secrets.API_FOOTBALL_BASE}},API_FOOTBALL_KEY=${{secrets.API_FOOTBALL_KEY}}
-          version: 2
