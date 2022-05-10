@@ -8,7 +8,7 @@ declare namespace Render {
   type RollingParser<
     T = {
       value: number | null;
-      matches: { date: Date; title: string }[];
+      matches: Results.Match[];
     }
   > = (
     data: Results.ParsedData["teams"],

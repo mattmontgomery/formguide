@@ -6,8 +6,9 @@ import {
   Typography,
 } from "@mui/material";
 import styles from "@/styles/Home.module.css";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { useState } from "react";
+import MatchDescriptor from "../MatchDescriptor";
 
 export default function RollingBox({
   value,
@@ -24,7 +25,7 @@ export default function RollingBox({
 }: {
   value: number | null;
   periodLength: number;
-  matches?: { date: Date; title: string }[];
+  matches?: Results.Match[];
   isStaticHeight: boolean;
   getBackgroundColor: (value: number | null, periodLength: number) => string;
   numberFormat?: (value: number | null) => string;
@@ -51,7 +52,7 @@ export default function RollingBox({
               position: "absolute",
               zIndex: 99,
               top: 0,
-              left: 30,
+              left: 32,
               width: 500,
               overflow: "auto",
               cursor: "auto",
@@ -61,11 +62,10 @@ export default function RollingBox({
               <ol>
                 {matches.map((match, idx) => (
                   <li key={idx}>
-                    <Typography variant="overline">
-                      {format(match.date, "yyy-MM-dd")}
-                    </Typography>
-                    <br />
-                    <Typography>{match.title}</Typography>
+                    <strong>
+                      {format(parseISO(match.rawDate), "yyy-MM-dd")}
+                    </strong>
+                    : <MatchDescriptor match={match} />
                   </li>
                 ))}
               </ol>

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { getMatchDescriptor } from "@/utils/getMatchResultString";
 import { parseISO } from "date-fns";
 
 export default function Chart(): React.ReactElement {
@@ -48,17 +47,13 @@ function parseChartData(
             const results = resultSet.map(
               (match) => (match.goalsScored || 0) - (match.goalsConceded || 0)
             );
-            const matches = resultSet.map((match) => ({
-              date: parseISO(match.rawDate),
-              title: getMatchDescriptor(match),
-            }));
             const value =
               results.length !== periodLength
                 ? null
                 : results.reduce((prev, currentValue): number => {
                     return prev + currentValue;
                   }, 0);
-            return { value, matches };
+            return { value, matches: resultSet };
           }),
       ];
     });
