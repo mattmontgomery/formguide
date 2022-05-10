@@ -16,7 +16,7 @@ export default function RollingBox({
   isStaticHeight = true,
   getBackgroundColor,
   numberFormat = (value: number | null): string =>
-    value
+    typeof value === "number"
       ? Number.isInteger(value)
         ? value.toString()
         : value?.toFixed(1)

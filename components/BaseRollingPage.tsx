@@ -81,7 +81,8 @@ function dataParser({
               key={idx}
               {...(isWide
                 ? {
-                    numberFormat: (value) => (value ? value.toFixed(1) : ""),
+                    numberFormat: (value) =>
+                      value !== null ? value.toFixed(1) : "",
                   }
                 : {})}
             />
