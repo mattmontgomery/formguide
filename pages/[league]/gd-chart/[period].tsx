@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { parseISO } from "date-fns";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();

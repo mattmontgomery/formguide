@@ -1,10 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  ClickAwayListener,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, ClickAwayListener } from "@mui/material";
 import styles from "@/styles/Home.module.css";
 import { format, parseISO } from "date-fns";
 import { useState } from "react";

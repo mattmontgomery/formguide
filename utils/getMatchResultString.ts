@@ -1,5 +1,3 @@
-import { format } from "util";
-
 type PastTenseResult = "Won" | "Lost" | "Drew";
 
 const PastTenseFormatMap: Record<Results.ResultTypes, PastTenseResult> = {
