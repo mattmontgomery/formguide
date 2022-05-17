@@ -11,11 +11,11 @@ import React, { useState } from "react";
 
 type ProppyArray = [...{ props: { renderValue: () => number } }[]];
 
-function convertHyphenToZero(value: string | number): string | number {
+function convertToNumber(value: string | number): string | number {
   if (value === "-") {
     return 0;
   } else {
-    return value;
+    return +value;
   }
 }
 
@@ -37,8 +37,8 @@ function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
   ) {
     return 0;
   }
-  const aVal = convertHyphenToZero(a?.[week].props?.renderValue());
-  const bVal = convertHyphenToZero(b?.[week].props?.renderValue());
+  const aVal = convertToNumber(a?.[week].props?.renderValue());
+  const bVal = convertToNumber(b?.[week].props?.renderValue());
   return aVal < bVal ? 1 : bVal < aVal ? -1 : 0;
 }
 

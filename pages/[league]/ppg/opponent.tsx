@@ -25,7 +25,7 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
         <MatchCell
           match={match}
           key={idx}
-          renderValue={(match) => {
+          renderValue={() => {
             const points = teamPoints[match.opponent]
               .filter(
                 (opponentMatch) =>

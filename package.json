@@ -7,7 +7,7 @@
     "lint": "run-p lint:*",
     "lint:next": "next lint",
     "lint:style": "stylelint **/*.css",
-    "lint:css": "csslint **/*.css",
+    "_lint:css": "csslint **/*.css",
     "build": "next build",
     "start": "next start"
   },

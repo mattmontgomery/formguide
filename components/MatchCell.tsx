@@ -21,6 +21,7 @@ export default function MatchCell({
   isShaded = () => false,
   match,
   renderValue,
+  renderRawValue,
   prerenderedValue,
   resultType = "full-match",
   shadeEmpty = false,
@@ -28,6 +29,7 @@ export default function MatchCell({
   isShaded?: (match: Results.Match) => boolean;
   match: Results.Match;
   renderValue?: (match: Results.Match) => string | number;
+  renderRawValue?: () => number;
   prerenderedValue?: string | number;
   resultType?: "first-half" | "second-half" | "full-match";
   shadeEmpty?: boolean;

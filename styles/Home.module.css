@@ -28,10 +28,10 @@
   text-decoration: underline;
 }
 .gridRowHeaderCell {
-  text-align: center;
+  cursor: pointer;
   font-size: 9pt;
   font-weight: bold;
-  cursor: pointer;
+  text-align: center;
 }
 
 .matchDetails {

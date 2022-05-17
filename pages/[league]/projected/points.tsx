@@ -59,8 +59,8 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
         <MatchCell
           match={match}
           key={idx}
-          renderValue={(match) =>
-            match.result
+          renderValue={() =>
+            match && match.result
               ? teamCumulativeProjectedPoints[team][idx]
               : teamCumulativeProjectedPoints[team][idx].toFixed(2)
           }

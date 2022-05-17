@@ -30,7 +30,7 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
         <MatchCell
           match={match}
           key={idx}
-          renderValue={(match) => {
+          renderValue={() => {
             const points = getArraySum(
               teamPoints[match.opponent]
                 .filter(
