@@ -58,7 +58,6 @@ export default function MLSFormGuide({
           error: {
             main: darkMode ? "#f3968f" : "#f3968f",
           },
-          tonalOffset: 0.8,
         },
         typography: {
           h4: {
