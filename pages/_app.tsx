@@ -27,14 +27,14 @@ import { useRouter } from "next/router";
 
 const DRAWER_WIDTH = 240;
 
-export default function MLSFormGuide({
+export function MLSFormGuide({
   Component,
   league,
   pageProps,
 }: AppProps & { league: Results.Leagues }): React.ReactElement {
+  const router = useRouter();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [darkMode, setDarkMode] = useState<boolean>(prefersDarkMode);
-  const router = useRouter();
   const [year, setYear] = useState<number>(DEFAULT_YEAR);
   const [_league, setLeague] = useState<Results.Leagues>(
     league ? league : DEFAULT_LEAGUE
@@ -187,6 +187,22 @@ export default function MLSFormGuide({
         </ThemeProvider>
       </LeagueContext.Provider>
     </YearContext.Provider>
+  );
+}
+
+export default function RouterWrapped(
+  props: React.PropsWithChildren<{
+    Component: React.ReactElement;
+    pageProps: unknown;
+  }> &
+    AppProps
+): React.ReactElement {
+  const router = useRouter();
+  const league = router.query.league?.toString();
+  return (
+    <>
+      {league && <MLSFormGuide {...props} league={league as Results.Leagues} />}
+    </>
   );
 }
 
