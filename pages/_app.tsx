@@ -190,6 +190,6 @@ export default function MLSFormGuide({
   );
 }
 
-MLSFormGuide.getInitialProps = async (ctx: AppContext) => {
+MLSFormGuide.getStaticProps = async (ctx: AppContext) => {
   return { league: ctx.router.query.league };
 };

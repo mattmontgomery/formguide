@@ -4,7 +4,7 @@ import getConsecutiveGames from "@/utils/getConsecutiveGames";
 export default function MatchFactsNames(): React.ReactElement {
   return (
     <BaseGridPage
-      pageTitle="Match Facts"
+      pageTitle="Match Facts | future matches with alphabetically consecutive names"
       dataParser={(data) =>
         getConsecutiveGames(
           data,
