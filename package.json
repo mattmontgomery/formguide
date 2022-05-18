@@ -10,7 +10,7 @@
     "_lint:css": "csslint **/*.css",
     "build": "next build",
     "start": "next start",
-    "postinstall": "run-p setup:*",
+    "setup": "run-p setup:*",
     "setup:functions": "npm install --prefix ./functions"
   },
   "dependencies": {
