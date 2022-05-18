@@ -204,7 +204,9 @@ export default function RouterWrapped(
       : (router.query.league?.toString() as Results.Leagues);
   return (
     <>
-      {league && <MLSFormGuide {...props} league={league as Results.Leagues} />}
+      {router.isReady && (
+        <MLSFormGuide {...props} league={league as Results.Leagues} />
+      )}
     </>
   );
 }

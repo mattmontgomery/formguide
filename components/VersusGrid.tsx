@@ -118,6 +118,7 @@ export default function VersusGrid({
                     </Box>
                   ) : (
                     <Box
+                      key={idx}
                       sx={{
                         textAlign: "center",
                         fontSize: "9pt",
