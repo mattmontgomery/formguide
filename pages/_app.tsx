@@ -198,7 +198,10 @@ export default function RouterWrapped(
     AppProps
 ): React.ReactElement {
   const router = useRouter();
-  const league = router.query.league?.toString();
+  const league: Results.Leagues | undefined =
+    router.pathname === "/"
+      ? "mls"
+      : (router.query.league?.toString() as Results.Leagues);
   return (
     <>
       {league && <MLSFormGuide {...props} league={league as Results.Leagues} />}
