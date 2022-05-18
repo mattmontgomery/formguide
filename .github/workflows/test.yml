@@ -36,5 +36,4 @@ jobs:
           node-version: 16
       - run: npm ci
       - run: npm run lint
-      - run: npm run lint:css
       - run: npm run build

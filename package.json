@@ -9,7 +9,9 @@
     "lint:style": "stylelint **/*.css",
     "_lint:css": "csslint **/*.css",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "run-p setup:*",
+    "setup:functions": "npm install --prefix ./functions"
   },
   "dependencies": {
     "@emotion/react": "~11.9",
@@ -21,7 +23,6 @@
     "date-fns": "~2.28",
     "devmoji": "~2.3",
     "husky": "~8.0",
-    "ioredis": "^5.0.4",
     "next": "^12.1.6",
     "react": "~18.1",
     "react-dom": "~18.1",
