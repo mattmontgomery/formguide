@@ -18,7 +18,7 @@
     "@emotion/styled": "~11.8",
     "@google-cloud/functions-framework": "^3.1.1",
     "@mui/icons-material": "^5.8.2",
-    "@mui/material": "^5.8.1",
+    "@mui/material": "^5.8.2",
     "@mui/x-data-grid": "^5.11.1",
     "date-fns": "~2.28",
     "devmoji": "~2.3",
