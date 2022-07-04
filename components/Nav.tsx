@@ -168,6 +168,7 @@ const NAV_CONFIG: (
     title: "Games since a loss",
     icon: CalendarViewMonth,
   },
+  DIVIDER,
   { subtitle: "Days Between Games" },
   {
     href: "/game-days/since",
