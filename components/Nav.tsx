@@ -27,10 +27,12 @@ import {
   LaunchTwoTone,
   CalendarViewMonth,
   HourglassFull,
+  CalendarViewWeek,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
 import { useContext } from "react";
+import { format, startOfYear } from "date-fns";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
   ({ href, as, ...props }, ref) => {
@@ -136,6 +138,13 @@ const NAV_CONFIG: (
     href: "/results/halftime-after-losing",
     title: "When losing @ Half",
     icon: HourglassEmpty,
+  },
+  DIVIDER,
+  { subtitle: "Record since date" },
+  {
+    href: `/record/since/${format(startOfYear(new Date()), "yyy-MM-dd")}`,
+    title: "Record since selected date",
+    icon: CalendarViewWeek,
   },
   DIVIDER,
   { subtitle: "Games since X" },
