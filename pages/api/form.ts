@@ -8,7 +8,7 @@ export default async function form(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const year = +req.query.year || 2022;
+  const year = +String(req.query.year) || 2022;
   try {
     const response = await fetch(
       `${FORM_API}?year=${year}&league=${

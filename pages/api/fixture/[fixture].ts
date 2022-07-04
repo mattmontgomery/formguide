@@ -6,7 +6,7 @@ export default async function form(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const fixture = +req.query.fixture;
+  const fixture = +String(req.query.fixture);
   try {
     const response = await fetch(`${ENDPOINT}?fixture=${fixture}`);
     res.setHeader(
