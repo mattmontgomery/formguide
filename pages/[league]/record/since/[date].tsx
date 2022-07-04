@@ -59,10 +59,12 @@ export default function RecordSinceDate(): React.ReactElement {
           type="date"
           sx={{ marginLeft: 1 }}
           onChange={(ev) => {
-            router.push({
-              pathname: router.basePath,
-              query: { ...router.query, date: ev.target.value },
-            });
+            if (ev.target.value) {
+              router.push({
+                pathname: router.basePath,
+                query: { ...router.query, date: ev.target.value },
+              });
+            }
           }}
         />
       </div>
