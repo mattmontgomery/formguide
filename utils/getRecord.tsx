@@ -1,4 +1,6 @@
-export function getRecord(matches: Results.Match[]): [number, number, number] {
+export type RecordPoints = [number, number, number];
+
+export function getRecord(matches: Results.Match[]): RecordPoints {
   return matches
     .filter((match) => match.status.long === "Match Finished")
     .reduce(
@@ -13,4 +15,8 @@ export function getRecord(matches: Results.Match[]): [number, number, number] {
       },
       [0, 0, 0]
     );
+}
+
+export function getRecordPoints(record: RecordPoints): number {
+  return record[0] * 3 + record[1];
 }
