@@ -37,7 +37,10 @@ export default function RecordSinceDate(): React.ReactElement {
       pageTitle={`Points earned when ${readableResult} at halftime`}
       renderComponent={(data) => {
         const records = Object.keys(data.teams).map((team): Records => {
-          const matches = data.teams[team].filter(matchFilter);
+          const matches = data.teams[team]
+            .filter((match) => match.status.long === "Match Finished")
+            .filter(matchFilter);
+          console.log({ team, matches });
           const record = getRecord(matches);
           return [team, record, getRecordPoints(record), matches];
         });
@@ -99,3 +102,7 @@ export default function RecordSinceDate(): React.ReactElement {
     </BaseDataPage>
   );
 }
+
+/**
+ * - RSL also one of the least successful teams when leading at halftime — only Nashville, Montreal (8 each) and FC Dallas (9) have dropped more points.
+ */
