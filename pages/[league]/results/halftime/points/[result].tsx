@@ -40,7 +40,6 @@ export default function RecordSinceDate(): React.ReactElement {
           const matches = data.teams[team]
             .filter((match) => match.status.long === "Match Finished")
             .filter(matchFilter);
-          console.log({ team, matches });
           const record = getRecord(matches);
           return [team, record, getRecordPoints(record), matches];
         });
