@@ -8,7 +8,7 @@ type Records = [string, RecordPoints, number, Results.Match[]];
 
 export default function RecordSinceDate(): React.ReactElement {
   const [sort, setSort] = useState<
-    "points" | "alpha" | "matches" | "pointsMatches"
+    "points" | "alpha" | "matches" | "pointsMatches" | "pointsDropped"
   >("points");
   const router = useRouter();
   const { result } = router.query as { result: "w" | "d" | "l" };
@@ -65,13 +65,22 @@ export default function RecordSinceDate(): React.ReactElement {
                         ? -1
                         : 0;
                     }
+                  : sort === "pointsDropped"
+                  ? (a: Records, b: Records) => {
+                      return a[3].length * 3 - a[2] < b[3].length * 3 - b[2]
+                        ? 1
+                        : a[3].length * 3 - a[2] > b[3].length * 3 - b[2]
+                        ? -1
+                        : 0;
+                    }
                   : undefined
               )
               .map(([team, record, points, matches]: Records, idx) => {
                 return (
                   <li key={idx}>
-                    <strong>{team}</strong> ({points} pts., {matches.length}{" "}
-                    matches) — {record[0]}–{record[1]}–{record[2]}
+                    <strong>{team}</strong> {record[0]}–{record[1]}–{record[2]}
+                    <br />({points} pts., {matches.length} matches,{" "}
+                    {matches.length * 3 - points} pts. dropped)
                   </li>
                 );
               })}
@@ -85,6 +94,7 @@ export default function RecordSinceDate(): React.ReactElement {
         <Button onClick={() => setSort("points")}>Points</Button>
         <Button onClick={() => setSort("matches")}>Matches</Button>
         <Button onClick={() => setSort("pointsMatches")}>PPM</Button>
+        <Button onClick={() => setSort("pointsDropped")}>Points Dropped</Button>
       </div>
     </BaseDataPage>
   );
