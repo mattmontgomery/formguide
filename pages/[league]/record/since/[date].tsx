@@ -27,7 +27,6 @@ export default function RecordSinceDate(): React.ReactElement {
         return (
           <ul>
             {records
-              .sort()
               .sort(
                 sort === "points"
                   ? (a, b) => {

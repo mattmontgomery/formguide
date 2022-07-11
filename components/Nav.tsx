@@ -28,6 +28,7 @@ import {
   CalendarViewMonth,
   HourglassFull,
   CalendarViewWeek,
+  ListSharp,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
@@ -138,6 +139,21 @@ const NAV_CONFIG: (
     href: "/results/halftime-after-losing",
     title: "When losing @ Half",
     icon: HourglassEmpty,
+  },
+  {
+    href: "/results/halftime/points/w",
+    title: "Points when leading",
+    icon: ListSharp,
+  },
+  {
+    href: "/results/halftime/points/d",
+    title: "Points when drawing",
+    icon: ListSharp,
+  },
+  {
+    href: "/results/halftime/points/l",
+    title: "Points when losing",
+    icon: ListSharp,
   },
   DIVIDER,
   { subtitle: "Record since date" },
