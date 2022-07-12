@@ -26,7 +26,7 @@
     "deploy": "gcloud functions deploy form --trigger-http --runtime nodejs16 --allow-unauthenticated --region us-west3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.5"
+    "@typescript-eslint/eslint-plugin": "^5.30.6"
   },
   "main": "build/src/index.js"
 }
