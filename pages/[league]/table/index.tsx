@@ -8,13 +8,7 @@ import {
   LeagueSorts,
   DefaultLeagueSort,
 } from "@/utils/LeagueConferences";
-import {
-  Box,
-  FormControlLabel,
-  Input,
-  Switch,
-  ToggleButton,
-} from "@mui/material";
+import { Box, FormControlLabel, Input, Switch } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { setYear, startOfYear, endOfYear, format } from "date-fns";
@@ -83,18 +77,24 @@ function LeagueTable({
     startOfYear(setYear(new Date(), meta.year))
   );
   const [to, setTo] = useState<Date>(endOfYear(setYear(new Date(), meta.year)));
-  const [useConferences, setUseConferences] = useState<boolean>(true);
+  const [useConferences, setUseConferences] = useState<boolean>(
+    typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
+  );
   useEffect(() => {
     setFrom(startOfYear(setYear(new Date(), meta.year)));
     setTo(endOfYear(setYear(new Date(), meta.year)));
   }, [meta.year]);
+  useEffect(() => {
+    setUseConferences(
+      typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
+    );
+  }, [meta.league, meta.year]);
   const conferences = (useConferences &&
   ConferencesByYear[meta.league]?.[meta.year]
     ? Conferences[meta.league]
     : null) ?? ["All"];
   const teams: Record<string, string> =
-    (useConferences &&
-    typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
+    (useConferences
       ? ConferencesByYear[meta.league]?.[meta.year]
       : Object.keys(data.teams).reduce(
           (acc, curr) => ({
