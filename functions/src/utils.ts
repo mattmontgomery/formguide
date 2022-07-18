@@ -1,4 +1,4 @@
-import { subHours } from "date-fns";
+import { addMinutes, differenceInSeconds, isAfter, subHours } from "date-fns";
 import Redis from "ioredis";
 import { format } from "util";
 import { ENDPOINT } from "./constants";
@@ -12,8 +12,38 @@ export function formatDate(date: string) {
   return d.toDateString();
 }
 
-export function getExpires(year: number) {
-  return year === thisYear ? 60 * 60 : 60 * 60 * 24 * 7 * 4;
+export function getExpires(year: number, data: Results.ParsedData) {
+  if (year !== thisYear) {
+    return 60 * 60 * 24 * 7 * 4;
+  } else {
+    const nextMatches = Object.keys(data.teams).map((t) =>
+      data.teams[t]
+        .filter((match) => match.status.long !== "Match Finished")
+        .find(() => true)
+    );
+    const nextMatch: Results.Match | undefined = nextMatches
+      .sort((a, b) =>
+        a &&
+        b &&
+        isAfter(new Date(String(a.rawDate)), new Date(String(b.rawDate)))
+          ? 1
+          : a &&
+            b &&
+            isAfter(new Date(String(a.rawDate)), new Date(String(b.rawDate)))
+          ? -1
+          : 0
+      )
+      .find((m) => m);
+    // expires 90 minutes + 15 minutes with a padding of 15 minutes after the next match ... should be a little nicer than what's currently in place
+    const diff = nextMatch
+      ? differenceInSeconds(
+          addMinutes(new Date(String(nextMatch.rawDate)), 90 + 15 + 15),
+          new Date()
+        )
+      : 60 * 60;
+    return diff;
+  }
+  // return year === thisYear ? 60 * 60 : 60 * 60 * 24 * 7 * 4;
 }
 
 export const thisYear = new Date().getFullYear(); // we are gonna make it
@@ -151,6 +181,7 @@ export async function fetchCachedOrFresh<T>(
   // keys differentiate by year and league
   const redisKey = `${key}:${APP_VERSION}`;
   const exists = await redisClient.exists(redisKey);
+
   if (exists) {
     const data = await redisClient.get(redisKey);
     return data ? (JSON.parse(data) as T) : null;

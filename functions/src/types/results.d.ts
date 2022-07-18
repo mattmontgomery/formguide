@@ -4,7 +4,7 @@ declare namespace Results {
       id: number;
       date: string;
       status: {
-        long: string;
+        long: string | "Match Finished";
         short: string;
         elapsed: number;
       };
