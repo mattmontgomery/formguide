@@ -5,8 +5,16 @@ import {
   Conferences,
   ConferencesByYear,
   ConferenceDisplayNames,
+  LeagueSorts,
+  DefaultLeagueSort,
 } from "@/utils/LeagueConferences";
-import { Box, Input } from "@mui/material";
+import {
+  Box,
+  FormControlLabel,
+  Input,
+  Switch,
+  ToggleButton,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { setYear, startOfYear, endOfYear, format } from "date-fns";
@@ -75,15 +83,26 @@ function LeagueTable({
     startOfYear(setYear(new Date(), meta.year))
   );
   const [to, setTo] = useState<Date>(endOfYear(setYear(new Date(), meta.year)));
+  const [useConferences, setUseConferences] = useState<boolean>(true);
   useEffect(() => {
     setFrom(startOfYear(setYear(new Date(), meta.year)));
     setTo(endOfYear(setYear(new Date(), meta.year)));
   }, [meta.year]);
-  const conferences = (ConferencesByYear[meta.league]?.[meta.year]
+  const conferences = (useConferences &&
+  ConferencesByYear[meta.league]?.[meta.year]
     ? Conferences[meta.league]
     : null) ?? ["All"];
-  const teams =
-    ConferencesByYear[meta.league]?.[meta.year] ??
+  const teams: Record<string, string> =
+    (useConferences &&
+    typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
+      ? ConferencesByYear[meta.league]?.[meta.year]
+      : Object.keys(data.teams).reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr]: "All",
+          }),
+          {}
+        )) ??
     Object.keys(data.teams).reduce(
       (acc, curr) => ({
         ...acc,
@@ -95,21 +114,13 @@ function LeagueTable({
     return Object.keys(teams)
       ?.filter((t: string) => teams[t] === conference || conference === "All")
       .map((t) => getRow(t, data.teams[t], from, to))
-      .sort((a, b) => {
-        return a.points > b.points
-          ? 1
-          : a.points < b.points
-          ? -1
-          : a.w > b.w
-          ? 1
-          : a.w < b.w
-          ? -1
-          : a.gd > b.gd
-          ? 1
-          : a.gd < b.gd
-          ? -1
-          : 0;
-      })
+      .sort(
+        meta.league &&
+          typeof LeagueSorts[meta.league] === "function" &&
+          LeagueSorts[meta.league]
+          ? LeagueSorts[meta.league]
+          : DefaultLeagueSort
+      )
       .reverse()
       .map((record, idx) => ({
         ...record,
@@ -119,18 +130,31 @@ function LeagueTable({
   return table && conferences ? (
     <>
       <Box m={[4, 0]}>
-        From:{" "}
-        <Input
-          type="date"
-          value={format(from, "yyyy-MM-dd")}
-          onChange={(ev) => setFrom(new Date(ev.currentTarget.value))}
-        />
-        To:{" "}
-        <Input
-          type="date"
-          value={format(to, "yyyy-MM-dd")}
-          onChange={(ev) => setTo(new Date(ev.currentTarget.value))}
-        />
+        <Box m={[4, 0]}>
+          From:{" "}
+          <Input
+            type="date"
+            value={format(from, "yyyy-MM-dd")}
+            onChange={(ev) => setFrom(new Date(ev.currentTarget.value))}
+          />
+          To:{" "}
+          <Input
+            type="date"
+            value={format(to, "yyyy-MM-dd")}
+            onChange={(ev) => setTo(new Date(ev.currentTarget.value))}
+          />
+        </Box>
+        <Box m={[4, 0]}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={useConferences}
+                onChange={() => setUseConferences(!useConferences)}
+              />
+            }
+            label="Use Conferences"
+          />
+        </Box>
       </Box>
       {conferences.map((c, idx) => {
         return (
