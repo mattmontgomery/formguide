@@ -11,21 +11,24 @@ function BaseDataPage({
   renderComponent,
   pageTitle,
 }: {
-  renderComponent: (data: Results.ParsedData) => React.ReactNode;
+  renderComponent: (
+    data: Results.ParsedData,
+    meta: Results.ParsedMeta
+  ) => React.ReactNode;
   pageTitle: string;
   children?: React.ReactNode;
 }): React.ReactElement {
   const year = useContext(YearContext);
   const league = useContext(LeagueContext);
-  const { data } = useSWR<{ data: Results.ParsedData }>(
-    [`/api/form?year=${year}&league=${league}`, year, league],
-    fetcher
-  );
+  const { data } = useSWR<{
+    data: Results.ParsedData;
+    meta: Results.ParsedMeta;
+  }>([`/api/form?year=${year}&league=${league}`, year, league], fetcher);
   return (
     <BasePage pageTitle={pageTitle}>
       {data && data?.data ? (
         <>
-          {renderComponent(data.data)}
+          {renderComponent(data.data, data.meta)}
           <Divider />
           <Box sx={{ marginTop: 2 }}>{children}</Box>
         </>

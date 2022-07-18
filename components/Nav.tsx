@@ -70,6 +70,7 @@ const NAV_CONFIG: (
 )[] = [
   { subtitle: "Points" },
   { href: "/", title: "Form Guide", icon: TableChart },
+  { href: "/table", title: "League Table", icon: TableChart },
   { href: "/points/cumulative", title: "Cumulative Points", icon: TableChart },
   { href: "/points/off-top", title: "Points off Top", icon: TableChart },
   { href: "/projected/points", title: "Projected (PPG)", icon: TableChart },
@@ -95,6 +96,14 @@ const NAV_CONFIG: (
   { href: "/gd-chart/5", title: "Rolling 5-game", icon: Timeline },
   { href: "/gd-chart/8", title: "Rolling 8-game", icon: Timeline },
   { href: "/gd-chart/11", title: "Rolling 11-game", icon: Timeline },
+  DIVIDER,
+  { subtitle: "Goals scored 2H - 1H" },
+  { href: "/gd/team-by-half", title: "Scored", icon: SportsSoccerSharp },
+  {
+    href: "/gd/team-by-half-conceded",
+    title: "Conceded",
+    icon: SportsSoccerSharp,
+  },
   DIVIDER,
   { subtitle: "Goals For" },
   { href: "/gf", title: "GF", icon: SportsSoccerSharp },

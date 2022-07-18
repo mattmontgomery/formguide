@@ -9,11 +9,10 @@ export default async function form(
   res: NextApiResponse
 ): Promise<void> {
   const year = +String(req.query.year) || 2022;
+  const league = String(req.query.league) as Results.Leagues;
   try {
     const response = await fetch(
-      `${FORM_API}?year=${year}&league=${
-        (req.query.league as Results.Leagues) || "mls"
-      }`
+      `${FORM_API}?year=${year}&league=${league || "mls"}`
     );
     res.setHeader(
       `Cache-Control`,
@@ -22,7 +21,11 @@ export default async function form(
     if (response.status !== 200) {
       throw `function response: ${response.statusText}`;
     }
-    res.json(await response.json());
+    const responseBody = await response.json();
+    res.json({
+      ...responseBody,
+      meta: { ...(responseBody.meta || {}), year, league },
+    });
   } catch (e) {
     res.status(500);
     res.json({

@@ -16,8 +16,8 @@
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.2",
     "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.7",
-    "@mui/x-data-grid": "^5.13.0",
+    "@mui/material": "^5.9.0",
+    "@mui/x-data-grid": "^5.13.1",
     "date-fns": "~2.28",
     "devmoji": "~2.3",
     "husky": "~8.0",
@@ -30,8 +30,8 @@
   "devDependencies": {
     "@types/node": "~16",
     "@types/react": "^18.0.15",
-    "@typescript-eslint/eslint-plugin": "^5.30.4",
-    "@typescript-eslint/parser": "^5.30.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
     "csslint": "^1.0.5",
     "eslint": "^8.19.0",
     "eslint-config-next": "^12.2.2",

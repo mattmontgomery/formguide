@@ -1,5 +1,5 @@
 {
-  "extends": ["plugin:@typescript-eslint/recommended", "./node_modules/gts/"],
+  "extends": ["plugin:@typescript-eslint/recommended"],
   "root": true,
   "rules": {
     "quotes": [1, "double", { "allowTemplateLiterals": true }]
