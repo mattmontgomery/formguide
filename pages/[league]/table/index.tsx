@@ -48,11 +48,13 @@ function getRow(
   });
   const [gf, ga, gd] = getGoals(matches);
   const points = getRecordPoints([w, d, l]);
+  const gp = w + d + l;
   return {
     id: team,
     team: team,
+    gp,
     points: points,
-    ppg: w + d + l > 0 ? (points / (w + d + l)).toFixed(2) : "-",
+    ppg: gp > 0 ? (points / gp).toFixed(2) : "-",
     w,
     d,
     l,
