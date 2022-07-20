@@ -176,6 +176,11 @@ function LeagueTable({
                     width: 100,
                   },
                   {
+                    field: "gp",
+                    headerName: "GP",
+                    width: 100,
+                  },
+                  {
                     field: "ppg",
                     headerName: "Points Per Game",
                     width: 100,
