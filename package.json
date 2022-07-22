@@ -18,7 +18,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.0",
     "@mui/x-data-grid": "^5.13.1",
-    "date-fns": "~2.28",
+    "date-fns": "~2.29",
     "devmoji": "~2.3",
     "husky": "~8.0",
     "next": "^12.2.2",
