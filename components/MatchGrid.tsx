@@ -154,6 +154,7 @@ export default function MatchGrid({
                     cells,
                     (Cell: React.ReactElement, cellIndex) => {
                       const shouldHaveRightBorder =
+                        LeagueSeparators[league] &&
                         LeagueSeparators[league]?.indexOf(cellIndex + 1) !== -1;
                       return React.cloneElement(Cell, {
                         rightBorder: shouldHaveRightBorder,
