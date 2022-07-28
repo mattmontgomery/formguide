@@ -160,6 +160,9 @@ export function MLSFormGuide({
                     <MenuItem value="usl2">USL League Two</MenuItem>
                     <MenuItem value="nisa">NISA</MenuItem>
                     <Divider />
+                    <MenuItem value="ligamx">Liga MX</MenuItem>
+                    <MenuItem value="ligamx_ex">Liga de Expansión MX</MenuItem>
+                    <Divider />
                     <MenuItem value="epl">English Premier League</MenuItem>
                   </Select>
                 </Toolbar>

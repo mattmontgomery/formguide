@@ -323,5 +323,7 @@ declare namespace Results {
     | "usl2"
     | "uslc"
     | "nisa"
-    | "epl";
+    | "epl"
+    | "ligamx"
+    | "ligamx_ex";
 }

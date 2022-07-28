@@ -7,6 +7,8 @@ export const LeagueCodes: Record<Results.Leagues, number> = {
   uslc: 255,
   nisa: 523,
   epl: 39,
+  ligamx: 262,
+  ligamx_ex: 263,
 };
 
 export const LeagueCodesInverse: Record<number, Results.Leagues> =
