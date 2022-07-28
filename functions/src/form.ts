@@ -1,6 +1,5 @@
 import { http } from "@google-cloud/functions-framework";
 import { config } from "dotenv";
-import Redis from "ioredis";
 import fetch from "node-fetch-commonjs";
 
 import {
@@ -24,7 +23,7 @@ http("form", async (req, res) => {
   res.header("Content-Type", "application/json");
   const year = req.query.year ? Number(req.query.year) : thisYear;
   const league: Results.Leagues = req.query.league
-    ? (String(req.query.league).slice(0, 5) as Results.Leagues)
+    ? (String(req.query.league).slice(0, 16) as Results.Leagues)
     : defaultLeague;
   try {
     const data = await fetchData({ year, league });
@@ -57,6 +56,7 @@ async function fetchData({
   ) {
     throw "Application not properly configured";
   }
+  console.log({ league });
 
   // keys differentiate by year and league
   const redisKey = `formguide:${APP_VERSION}:${league}:${year}`;
