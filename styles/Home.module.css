@@ -10,19 +10,19 @@
 }
 .gridRow {
   display: grid;
-  grid-template-columns: 25px 160px repeat(40, 32px);
+  grid-template-columns: 25px 160px repeat(46, 32px);
 }
 .gridRow > :first-child:empty {
   width: 1px;
 }
 .gridWide .gridRow {
-  grid-template-columns: 25px 160px repeat(40, 40px);
+  grid-template-columns: 25px 160px repeat(46, 40px);
 }
 .gridExtraWide .gridRow {
-  grid-template-columns: 25px 160px repeat(40, 50px);
+  grid-template-columns: 25px 160px repeat(46, 50px);
 }
 .gridXXWide .gridRow {
-  grid-template-columns: 25px 160px repeat(40, 60px);
+  grid-template-columns: 25px 160px repeat(46, 60px);
 }
 .gridRow > a[data-home="home"] {
   text-decoration: underline;

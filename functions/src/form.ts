@@ -56,7 +56,6 @@ async function fetchData({
   ) {
     throw "Application not properly configured";
   }
-  console.log({ league });
 
   // keys differentiate by year and league
   const redisKey = `formguide:${APP_VERSION}:${league}:${year}`;

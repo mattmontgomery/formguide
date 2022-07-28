@@ -25,6 +25,7 @@ export default function MatchCell({
   prerenderedValue,
   resultType = "full-match",
   shadeEmpty = false,
+  rightBorder = false,
 }: {
   isShaded?: (match: Results.Match) => boolean;
   match: Results.Match;
@@ -32,6 +33,7 @@ export default function MatchCell({
   renderRawValue?: () => number;
   prerenderedValue?: string | number;
   resultType?: "first-half" | "second-half" | "full-match";
+  rightBorder?: boolean;
   shadeEmpty?: boolean;
 }): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
@@ -56,7 +58,9 @@ export default function MatchCell({
         fontWeight: `bold`,
         fontSize: `14px`,
         color: `background.paper`,
-        borderRight: `1px solid rgb(181, 181, 181)`,
+        borderRight: rightBorder
+          ? `4px solid black`
+          : `1px solid rgb(181, 181, 181)`,
         position: `relative`,
         cursor: `pointer`,
       }}

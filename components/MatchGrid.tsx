@@ -1,4 +1,5 @@
 import styles from "@/styles/Home.module.css";
+import { LeagueSeparators } from "@/utils/Leagues";
 
 import {
   Box,
@@ -7,7 +8,8 @@ import {
   FormGroup,
   Switch,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import LeagueContext from "./LeagueContext";
 
 type ProppyArray = [...{ props: { renderValue: () => number } }[]];
 
@@ -64,6 +66,8 @@ export default function MatchGrid({
   const [homeShaded, setHomeShaded] = useState<boolean>(false);
   const [awayShaded, setAwayShaded] = useState<boolean>(false);
   const [teamShaded, setTeamShaded] = useState<string>();
+
+  const league = useContext(LeagueContext);
 
   return (
     <Box>
@@ -146,18 +150,24 @@ export default function MatchGrid({
                   >
                     {team}
                   </Box>
-                  {React.Children.map(cells, (Cell: React.ReactElement) => {
-                    return React.cloneElement(Cell, {
-                      isShaded: (match: Results.Match) =>
-                        typeof teamShaded !== "undefined" && teamShaded
-                          ? match.team === teamShaded
-                            ? (homeShaded && match.home) ||
-                              (awayShaded && !match.home)
-                            : true
-                          : (homeShaded && match.home) ||
-                            (awayShaded && !match.home),
-                    });
-                  })}
+                  {React.Children.map(
+                    cells,
+                    (Cell: React.ReactElement, cellIndex) => {
+                      const shouldHaveRightBorder =
+                        LeagueSeparators[league]?.indexOf(cellIndex + 1) !== -1;
+                      return React.cloneElement(Cell, {
+                        rightBorder: shouldHaveRightBorder,
+                        isShaded: (match: Results.Match) =>
+                          typeof teamShaded !== "undefined" && teamShaded
+                            ? match.team === teamShaded
+                              ? (homeShaded && match.home) ||
+                                (awayShaded && !match.home)
+                              : true
+                            : (homeShaded && match.home) ||
+                              (awayShaded && !match.home),
+                      });
+                    }
+                  )}
                 </div>
               );
             })}
