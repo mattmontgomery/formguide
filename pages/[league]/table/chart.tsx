@@ -1,5 +1,4 @@
 import BaseDataPage from "@/components/BaseDataPage";
-import { getRecord, getGoals, getRecordPoints } from "@/utils/getRecord";
 
 import {
   Grid,
@@ -13,10 +12,9 @@ import {
 import { curveCatmullRom } from "@visx/curve";
 import { getCumulativeTeamPointsArray } from "@/utils/getTeamPoints";
 import { Box } from "@mui/system";
-import { Legend, LegendOrdinal } from "@visx/legend";
-import { scaleLinear } from "@visx/scale";
+import { LegendOrdinal } from "@visx/legend";
 import { useContext, useState } from "react";
-import { Button, Checkbox, FormControlLabel, InputLabel } from "@mui/material";
+import { Button, Checkbox, FormControlLabel } from "@mui/material";
 
 export default function Table() {
   return (
@@ -29,13 +27,12 @@ export default function Table() {
   );
 }
 const accessors = {
-  xAccessor: (d) => d.x,
-  yAccessor: (d) => d.y,
+  xAccessor: (d: unknown) => d.x,
+  yAccessor: (d: unknown) => d.y,
 };
 
 function LeagueTable({
   data,
-  meta,
 }: {
   data: Results.ParsedData;
   meta: Results.ParsedMeta;
