@@ -76,7 +76,7 @@ function LeagueTable({
   meta: Results.ParsedMeta;
 }): React.ReactElement {
   const [from, setFrom] = useState<Date>(
-    startOfYear(setYear(new Date(), meta.year))
+    startOfYear(meta?.year ? setYear(new Date(), meta.year) : new Date())
   );
   const [to, setTo] = useState<Date>(endOfYear(setYear(new Date(), meta.year)));
   const [useConferences, setUseConferences] = useState<boolean>(
@@ -91,6 +91,23 @@ function LeagueTable({
       typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
     );
   }, [meta.league, meta.year]);
+  useEffect(() => {
+    if (
+      useConferences &&
+      ConferencesByYear[meta.league]?.[meta.year] &&
+      Object.keys(ConferencesByYear[meta.league]?.[meta.year] ?? {}).length !==
+        Object.keys(data.teams).length
+    ) {
+      console.group("Table error!");
+      console.warn("Some teams are missing");
+      Object.keys(data.teams).forEach((team) => {
+        if (!ConferencesByYear[meta.league]?.[meta.year]?.[team]) {
+          console.warn(`${team} missing`);
+        }
+      });
+      console.groupEnd();
+    }
+  }, [useConferences, meta, data.teams]);
   const conferences = (useConferences &&
   ConferencesByYear[meta.league]?.[meta.year]
     ? Conferences[meta.league]
