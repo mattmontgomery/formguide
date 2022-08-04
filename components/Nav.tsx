@@ -71,7 +71,7 @@ const NAV_CONFIG: (
   { subtitle: "Points" },
   { href: "/", title: "Form Guide", icon: TableChart },
   { href: "/table", title: "League Table", icon: TableChart },
-  { href: "/table/points", title: "Points over Time", icon: Timeline },
+  { href: "/table/chart", title: "Points over Time", icon: Timeline },
   { href: "/points/cumulative", title: "Cumulative Points", icon: TableChart },
   { href: "/points/off-top", title: "Points off Top", icon: TableChart },
   { href: "/projected/points", title: "Projected (PPG)", icon: TableChart },
