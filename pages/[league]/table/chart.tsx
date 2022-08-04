@@ -13,7 +13,13 @@ import { curveCatmullRom } from "@visx/curve";
 import { getCumulativeTeamPointsArray } from "@/utils/getTeamPoints";
 import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
-import { useContext, useState } from "react";
+import React, {
+  useContext,
+  useDeferredValue,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Button, Checkbox, FormControlLabel } from "@mui/material";
 
 export default function Table() {
@@ -48,25 +54,25 @@ function LeagueTable({
       >
         <XYChart
           height={600}
-          //   width={600}
           margin={{ top: 30, bottom: 30, left: 20, right: 40 }}
         >
           <Grid columns={false} numTicks={8} />
-          {Object.keys(data.teams).map((team, idx) => (
-            <LineSeries
-              key={idx}
-              {...accessors}
-              curve={curveCatmullRom}
-              dataKey={team}
-              display={selectedTeams.includes(team) ? "" : "none"}
-              data={getCumulativeTeamPointsArray(data.teams[team]).map(
-                (points, idx) => ({
-                  x: idx,
-                  y: points,
-                })
-              )}
-            />
-          ))}
+          {Object.keys(data.teams)
+            .filter((team) => selectedTeams.includes(team))
+            .map((team, idx) => (
+              <LineSeries
+                key={idx}
+                {...accessors}
+                curve={curveCatmullRom}
+                dataKey={team}
+                data={getCumulativeTeamPointsArray(data.teams[team]).map(
+                  (points, idx) => ({
+                    x: idx,
+                    y: points,
+                  })
+                )}
+              />
+            ))}
           <Axis orientation="bottom" />
           <Axis orientation="right" hideAxisLine numTicks={4} />
           <Tooltip
@@ -75,7 +81,10 @@ function LeagueTable({
             showVerticalCrosshair
             showSeriesGlyphs
             renderTooltip={({ tooltipData, colorScale }) =>
-              tooltipData && tooltipData.nearestDatum && colorScale ? (
+              tooltipData &&
+              tooltipData.nearestDatum &&
+              colorScale &&
+              selectedTeams.includes(tooltipData?.nearestDatum?.key) ? (
                 <div>
                   <Box
                     style={{ color: colorScale(tooltipData.nearestDatum.key) }}
@@ -105,6 +114,7 @@ function LeagueTable({
             }
           }}
           selectedTeams={selectedTeams}
+          allTeams={Object.keys(data.teams)}
         />
         <Button
           onClick={() =>
@@ -123,9 +133,11 @@ function LeagueTable({
 export function ChartLegend({
   onSelectTeam,
   selectedTeams = [],
+  allTeams = [],
 }: {
   onSelectTeam: (team: string) => void;
   selectedTeams: string[];
+  allTeams: string[];
 }): React.ReactElement {
   const { colorScale } = useContext(DataContext);
   return colorScale ? (
@@ -142,31 +154,32 @@ export function ChartLegend({
       }}
     >
       {(labels) => {
-        return labels
-          .sort((a, b) => (a.text > b.text ? 1 : a.text < b.text ? -1 : 0))
-          .map((l) => (
-            <>
+        return allTeams.sort().map((team, idx) => {
+          const l = labels.find((label) => label.text === team);
+          return (
+            <React.Fragment key={idx}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={selectedTeams.includes(l.text)}
-                    onChange={() => onSelectTeam(l.text)}
+                    checked={selectedTeams.includes(team)}
+                    onChange={() => onSelectTeam(team)}
                   />
                 }
                 label={
                   <Box
                     sx={{
-                      borderBottomColor: colorScale(l.text),
+                      borderBottomColor: l ? colorScale(l.text) : "#ddd",
                       borderBottomWidth: 4,
                       borderBottomStyle: "solid",
                     }}
                   >
-                    {l.text}
+                    {team}
                   </Box>
                 }
               />
-            </>
-          ));
+            </React.Fragment>
+          );
+        });
       }}
     </LegendOrdinal>
   ) : (
