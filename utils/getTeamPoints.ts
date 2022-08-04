@@ -1,3 +1,4 @@
+import { getArraySum } from "./array";
 import getMatchPoints from "./getMatchPoints";
 
 export default function getTeamPoints(
@@ -17,4 +18,18 @@ export default function getTeamPoints(
       })),
     };
   }, {});
+}
+
+export function getTeamPointsArray(matches: Results.Match[]): number[] {
+  return matches.map(getMatchPoints);
+}
+
+export function getCumulativeTeamPointsArray(
+  matches: Results.Match[]
+): number[] {
+  const points = matches.map(getMatchPoints);
+  const cumulativePoints = points.map((_, idx) => {
+    return getArraySum(points.slice(0, idx));
+  });
+  return cumulativePoints;
 }
