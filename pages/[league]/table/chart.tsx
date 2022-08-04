@@ -27,8 +27,8 @@ export default function Table() {
   );
 }
 const accessors = {
-  xAccessor: (d: unknown) => d.x,
-  yAccessor: (d: unknown) => d.y,
+  xAccessor: (d: any) => d?.x,
+  yAccessor: (d: any) => d?.y,
 };
 
 function LeagueTable({
