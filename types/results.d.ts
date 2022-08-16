@@ -10,7 +10,7 @@ declare namespace Results {
       };
     };
     league: League & {
-      round: string;
+      round?: string;
     };
     teams: Record<
       "home" | "away",
@@ -55,9 +55,9 @@ declare namespace Results {
       };
     };
     status: RawResponse["fixture"]["status"];
-    league?: RawResponse["league"];
+    league: RawResponse["league"];
     date: string;
-    rawDate?: string;
+    rawDate: string;
     home: boolean;
     result: ResultType;
     team: string;

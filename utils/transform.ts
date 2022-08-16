@@ -1,3 +1,5 @@
+import { LeagueCodes } from "@/utils/LeagueCodes";
+
 export function transformXGMatchIntoASAMatch(
   match: ASA.XGWithGame & ASA.HomeAway
 ): Results.Match {
@@ -45,5 +47,13 @@ export function transformXGMatchIntoASAMatch(
     },
     scoreline: `${match.home_goals}-${match.away_goals}`,
     team: match.isHome ? match.homeTeam : match.awayTeam,
+    league: {
+      country: "USA",
+      flag: "",
+      id: LeagueCodes.mls,
+      logo: "",
+      name: "Major League Soccer",
+      season: -1,
+    },
   };
 }
