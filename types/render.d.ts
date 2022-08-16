@@ -5,6 +5,8 @@ declare namespace Render {
     teams: Results.ParsedData["teams"]
   ) => Render.RenderReadyData;
 
+  type GenericParserFunction<M> = (data: M) => Render.RenderReadyData;
+
   type RollingParser<
     T = {
       value: number | null;

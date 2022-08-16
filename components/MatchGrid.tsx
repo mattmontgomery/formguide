@@ -34,30 +34,44 @@ function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
   if (
     !a ||
     !b ||
-    typeof a?.[week].props?.renderValue !== "function" ||
-    typeof b?.[week].props?.renderValue !== "function"
+    typeof a?.[week]?.props?.renderValue !== "function" ||
+    typeof b?.[week]?.props?.renderValue !== "function"
   ) {
     return 0;
   }
-  const aVal = convertToNumber(a?.[week].props?.renderValue());
-  const bVal = convertToNumber(b?.[week].props?.renderValue());
+  const aVal = convertToNumber(a?.[week]?.props?.renderValue());
+  const bVal = convertToNumber(b?.[week]?.props?.renderValue());
   return aVal < bVal ? 1 : bVal < aVal ? -1 : 0;
 }
 
-export default function MatchGrid({
+export default function MatchGrid<T = Results.ParsedData["teams"]>({
   data,
   dataParser,
   showMatchdayHeader = true,
   rowClass = styles.gridRow,
   gridClass = styles.gridClass,
   chartClass = styles.chart,
+  sortMethod = (sortStrategy, weekSortIdx) => (a: unknown, b: unknown) => {
+    return sortStrategy === "teamName"
+      ? teamNameSort(
+          a as [string, ...React.ReactElement[]],
+          b as [string, ...React.ReactElement[]]
+        )
+      : sortStrategy === "week"
+      ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
+      : 0;
+  },
 }: {
-  data: Results.ParsedData["teams"];
-  dataParser: (data: Results.ParsedData["teams"]) => Render.RenderReadyData;
+  data: T;
+  dataParser: (data: T) => Render.RenderReadyData;
   showMatchdayHeader?: boolean;
   rowClass?: string;
   gridClass?: string;
   chartClass?: string;
+  sortMethod?: (
+    sortStrategy: string,
+    weekSortIdx: number
+  ) => (a: unknown, b: unknown) => 1 | -1 | 0;
 }): React.ReactElement {
   const [sortStrategy, setSortStrategy] = useState<"teamName" | "week">(
     "teamName"
@@ -121,13 +135,7 @@ export default function MatchGrid({
             </div>
           )}
           {dataParser(data)
-            .sort((a, b) => {
-              return sortStrategy === "teamName"
-                ? teamNameSort(a, b)
-                : sortStrategy === "week"
-                ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
-                : 0;
-            })
+            .sort(sortMethod(sortStrategy, weekSortIdx))
             .map(([team, ...cells], idx) => {
               return (
                 <div className={rowClass} key={idx}>

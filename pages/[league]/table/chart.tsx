@@ -13,13 +13,7 @@ import { curveCatmullRom } from "@visx/curve";
 import { getCumulativeTeamPointsArray } from "@/utils/getTeamPoints";
 import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
-import React, {
-  useContext,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useState } from "react";
 import { Button, Checkbox, FormControlLabel } from "@mui/material";
 
 export default function Table() {

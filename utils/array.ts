@@ -18,3 +18,10 @@ export function getRecord(values: number[]): string {
     values.filter((p) => p === 1).length
   }-${values.filter((p) => p === 0).length}`;
 }
+export function sortByDate(field: string) {
+  return (a: Record<string, unknown>, b: Record<string, unknown>) => {
+    const dateA = new Date(String(a[field]));
+    const dateB = new Date(String(b[field]));
+    return dateA > dateB ? 1 : dateA < dateB ? -1 : 0;
+  };
+}

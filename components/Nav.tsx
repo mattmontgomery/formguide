@@ -29,6 +29,7 @@ import {
   HourglassFull,
   CalendarViewWeek,
   ListSharp,
+  SportsSoccerOutlined,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
@@ -205,6 +206,23 @@ const NAV_CONFIG: (
   { href: "/game-days/since/5", title: "Rolling 5-game", icon: Timeline },
   { href: "/game-days/since/8", title: "Rolling 8-game", icon: Timeline },
   { href: "/game-days/since/11", title: "Rolling 11-game", icon: Timeline },
+  DIVIDER,
+  { subtitle: "XG" },
+  {
+    href: "/xg/for",
+    title: "XG For",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/against",
+    title: "XG Against",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/difference",
+    title: "XG Difference",
+    icon: SportsSoccerOutlined,
+  },
   DIVIDER,
   { subtitle: "Days Between Home Games" },
   {

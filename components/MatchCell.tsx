@@ -21,7 +21,6 @@ export default function MatchCell({
   isShaded = () => false,
   match,
   renderValue,
-  renderRawValue,
   prerenderedValue,
   resultType = "full-match",
   shadeEmpty = false,
@@ -107,16 +106,18 @@ function MatchCellDetails({
     <Box className={styles.matchDetails}>
       <Card>
         <Box sx={{ display: "flex" }}>
-          <CardMedia
-            sx={{
-              width: 100,
-              height: 100,
-              paddingLeft: 1,
-            }}
-            component="img"
-            image={match.opponentLogo}
-            alt={match.opponent}
-          />
+          {match.opponentLogo && (
+            <CardMedia
+              sx={{
+                width: 100,
+                height: 100,
+                paddingLeft: 1,
+              }}
+              component="img"
+              image={match.opponentLogo}
+              alt={match.opponent}
+            />
+          )}
           <CardContent sx={{ flex: "1 0 auto", width: 250, paddingBottom: 0 }}>
             <Typography
               component="div"
@@ -166,7 +167,7 @@ function MatchCellDetails({
               MLS
             </Button>
           )}
-          {process.env.NEXT_PUBLIC_ALLOW_FIXTURE_PAGE && (
+          {match.fixtureId !== -1 && (
             <Link href={`/fixtures/${match.fixtureId}`} passHref>
               <Button>Fixture</Button>
             </Link>
