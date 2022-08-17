@@ -16,6 +16,17 @@ declare namespace Render {
     data: Results.ParsedData["teams"],
     periodLength: number
   ) => [string, ...Array<T>][];
+  type ASARollingParser<
+    DataType,
+    T = {
+      value: number | null;
+      matches: Results.Match[];
+    }
+  > = (
+    data: DataType,
+    periodLength: number,
+    stat: ASA.ValidStats
+  ) => [string, ...Array<T>][];
 
   type GetBackgroundColor = (
     value: number | null,

@@ -223,6 +223,90 @@ const NAV_CONFIG: (
     title: "XG Difference",
     icon: SportsSoccerOutlined,
   },
+  { subtitle: "X Points" },
+  {
+    href: "/xg/rolling/xpoints/3",
+    title: "Rolling 3-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/xpoints/5",
+    title: "Rolling 5-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/xpoints/8",
+    title: "Rolling 8-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/xpoints/11",
+    title: "Rolling 11-game",
+    icon: SportsSoccerOutlined,
+  },
+  { subtitle: "XG For" },
+  {
+    href: "/xg/rolling/for/3",
+    title: "Rolling 3-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/for/5",
+    title: "Rolling 5-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/for/8",
+    title: "Rolling 8-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/for/11",
+    title: "Rolling 11-game",
+    icon: SportsSoccerOutlined,
+  },
+  { subtitle: "XG Against" },
+  {
+    href: "/xg/rolling/against/3",
+    title: "Rolling 3-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/against/5",
+    title: "Rolling 5-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/against/8",
+    title: "Rolling 8-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/against/11",
+    title: "Rolling 11-game",
+    icon: SportsSoccerOutlined,
+  },
+  { subtitle: "XG Difference" },
+  {
+    href: "/xg/rolling/difference/3",
+    title: "Rolling 3-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/difference/5",
+    title: "Rolling 5-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/difference/8",
+    title: "Rolling 8-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/difference/11",
+    title: "Rolling 11-game",
+    icon: SportsSoccerOutlined,
+  },
   DIVIDER,
   { subtitle: "Days Between Home Games" },
   {

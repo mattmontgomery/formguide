@@ -54,6 +54,7 @@ declare namespace Results {
         away: number;
       };
     };
+    asa?: ASA.XGWithGame;
     status: RawResponse["fixture"]["status"];
     league: RawResponse["league"];
     date: string;

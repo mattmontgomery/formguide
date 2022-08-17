@@ -55,5 +55,6 @@ export function transformXGMatchIntoASAMatch(
       name: "Major League Soccer",
       season: -1,
     },
+    asa: match,
   };
 }

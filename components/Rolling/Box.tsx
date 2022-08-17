@@ -16,6 +16,8 @@ export default function RollingBox({
         ? value.toString()
         : value?.toFixed(1)
       : "",
+  heightCalc = (value, periodLength) =>
+    `${((value || 0) / (periodLength * 3)) * 100}%`,
 }: {
   value: number | null;
   periodLength: number;
@@ -23,6 +25,7 @@ export default function RollingBox({
   isStaticHeight: boolean;
   getBackgroundColor: (value: number | null, periodLength: number) => string;
   numberFormat?: (value: number | null) => string;
+  heightCalc?: (value: number | null, periodLength: number) => string;
 }): React.ReactElement {
   const [showCard, setShowCard] = useState<boolean>(false);
   return (
@@ -83,9 +86,7 @@ export default function RollingBox({
           bottom: 0,
           left: 0,
           right: 0,
-          height: isStaticHeight
-            ? "100%"
-            : `${((value || 0) / (periodLength * 3)) * 100}%`,
+          height: isStaticHeight ? "100%" : heightCalc(value, periodLength),
         }}
       ></Box>
     </Box>

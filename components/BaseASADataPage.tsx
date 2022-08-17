@@ -26,7 +26,6 @@ function BaseASADataPage<
     data: T;
     meta: U;
   }>([endpoint(String(year), league), year, league], fetcher);
-  console.log({ data });
   return (
     <BasePage pageTitle={pageTitle}>
       {data && data?.data ? (

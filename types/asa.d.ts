@@ -90,4 +90,6 @@ declare namespace ASA {
     knockout_game: boolean;
     last_updated_utc: string;
   };
+
+  type ValidStats = "xpoints" | "for" | "against" | "difference";
 }
