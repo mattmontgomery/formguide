@@ -9,6 +9,7 @@ const VALID_STATS: ASA.ValidStats[] = [
   "for",
   "against",
   "difference",
+  "xpointsDifference",
 ];
 
 const statMap: Record<
@@ -16,7 +17,20 @@ const statMap: Record<
   (asa: ASA.XGWithGame, isHome: boolean) => number
 > = {
   xpoints: (asa, isHome) => (isHome ? asa.home_xpoints : asa.away_xpoints),
-
+  xpointsDifference: (asa, isHome) => {
+    const actualPoints = isHome
+      ? asa.home_goals > asa.away_goals
+        ? 3
+        : asa.home_goals === asa.away_goals
+        ? 0
+        : 1
+      : asa.away_goals > asa.home_goals
+      ? 3
+      : asa.away_goals === asa.home_goals
+      ? 0
+      : 1;
+    return actualPoints - (isHome ? asa.home_xpoints : asa.away_xpoints);
+  },
   for: (asa, isHome) => (isHome ? asa.home_team_xgoals : asa.away_team_xgoals),
 
   against: (asa, isHome) =>
@@ -32,12 +46,20 @@ const titleMap: Record<ASA.ValidStats, string> = {
   for: "Expected Goals For",
   against: "Expected Goals Against",
   difference: "Expected Goal Difference",
+  xpointsDifference: "Expected Points Difference",
 };
 const statHeightMap: Record<ASA.ValidStats, number> = {
   xpoints: 3,
   for: 4,
   against: 4,
   difference: 2,
+  xpointsDifference: 1.5,
+};
+const statHeightCalc: Partial<
+  Record<ASA.ValidStats, (value: number | null, periodLength: number) => string>
+> = {
+  xpointsDifference: (value, periodLength) =>
+    `${(((value || 0) + 8) / (periodLength * 3)) * 100}%`,
 };
 
 export default function Chart(): React.ReactElement {
@@ -126,8 +148,14 @@ function dataParser({
             getBackgroundColor={getBackgroundColor}
             periodLength={periodLength}
             value={s.value}
-            heightCalc={(value, periodLength) =>
-              `${((value || 0) / (periodLength * statHeightMap[stat])) * 100}%`
+            heightCalc={
+              typeof statHeightCalc[stat] === "function"
+                ? statHeightCalc[stat]
+                : (value, periodLength) =>
+                    `${
+                      ((value || 0) / (periodLength * statHeightMap[stat])) *
+                      100
+                    }%`
             }
           />
         );

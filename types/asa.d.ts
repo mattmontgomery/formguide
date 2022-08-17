@@ -91,5 +91,10 @@ declare namespace ASA {
     last_updated_utc: string;
   };
 
-  type ValidStats = "xpoints" | "for" | "against" | "difference";
+  type ValidStats =
+    | "xpoints"
+    | "for"
+    | "against"
+    | "difference"
+    | "xpointsDifference";
 }

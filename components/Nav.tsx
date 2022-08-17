@@ -244,6 +244,27 @@ const NAV_CONFIG: (
     title: "Rolling 11-game",
     icon: SportsSoccerOutlined,
   },
+  { subtitle: "X Points Difference" },
+  {
+    href: "/xg/rolling/xpointsDifference/3",
+    title: "Rolling 3-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/xpointsDifference/5",
+    title: "Rolling 5-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/xpointsDifference/8",
+    title: "Rolling 8-game",
+    icon: SportsSoccerOutlined,
+  },
+  {
+    href: "/xg/rolling/xpointsDifference/11",
+    title: "Rolling 11-game",
+    icon: SportsSoccerOutlined,
+  },
   { subtitle: "XG For" },
   {
     href: "/xg/rolling/for/3",
