@@ -65,7 +65,6 @@ const statHeightCalc: Partial<
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5, stat = "for" } = router.query;
-  console.log(router.query);
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
   if (

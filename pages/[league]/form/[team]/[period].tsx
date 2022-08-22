@@ -20,7 +20,6 @@ function TeamFormByPeriodChart({
   periodLength: number;
   team: string;
 }): React.ReactElement {
-  console.log(Object.keys(data.teams));
   const lines = data.teams[team]
     .slice(0, data.teams[team].length - periodLength)
     .map((_, idx): [string, number, number[]] => {
@@ -33,7 +32,6 @@ function TeamFormByPeriodChart({
       return [team, idx, resultSet.map((match) => getMatchPoints(match))];
     })
     .map(([team, seriesIdx, pointSeries], idx) => {
-      console.log({ team, pointSeries });
       return (
         <LineSeries
           {...accessors}

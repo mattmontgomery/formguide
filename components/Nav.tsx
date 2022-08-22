@@ -338,6 +338,11 @@ const NAV_CONFIG: (
   DIVIDER,
   { subtitle: "Other" },
   {
+    href: "/mls-player-stats/minutes",
+    title: "MLS Player Minutes by Age",
+    icon: LightbulbOutlined,
+  },
+  {
     href: "/facts",
     title: "Match Facts",
     icon: LightbulbOutlined,

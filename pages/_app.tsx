@@ -107,12 +107,7 @@ export function MLSFormGuide({
                   >
                     <MenuIcon />
                   </IconButton>
-                  <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{ flexGrow: 1 }}
-                  >
+                  <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
                     Form Guide (2012–present)
                   </Typography>
                   <Select
@@ -215,5 +210,5 @@ export default function RouterWrapped(
 }
 
 MLSFormGuide.getStaticProps = async (ctx: AppContext) => {
-  return { league: ctx.router.query.league };
+  return { league: ctx.router.query?.league };
 };
