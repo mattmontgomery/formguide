@@ -7,14 +7,10 @@ import path from "path";
 
 export default async function playerStats(
   req: NextApiRequest,
-  res: NextApiResponse<PlayerStats.ApiResponse<PlayerStats.Minutes[]>>
+  res: NextApiResponse
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    const csvFilePath = path.resolve(
-      __dirname,
-      "../../../../../",
-      "data/mls/20220822_playerStats.csv"
-    );
+    const csvFilePath = path.resolve("mls-data/", "20220822_playerStats.csv");
 
     const parser = parse({
       columns: true,
@@ -22,17 +18,26 @@ export default async function playerStats(
     });
     try {
       const csvData = await readFile(csvFilePath, "utf8");
-      parser.write(csvData);
+      parser.write(csvData, "utf8", (e) => {
+        if (e) {
+          console.error(e);
+          res.json({
+            errors: [{ message: e }],
+          });
+
+          throw e;
+        }
+      });
     } catch (e) {
       console.error(e);
       res.json({
-        data: [],
-        meta: {},
-        errors: [{ message: String(e) }],
+        errors: [{ message: e }],
       });
       reject();
+      return;
     }
-    const records: PlayerStats.Minutes[] = [];
+    parser.end();
+    const records: unknown[] = [];
     parser.on("readable", () => {
       let record;
       while ((record = parser.read()) !== null) {
@@ -42,8 +47,6 @@ export default async function playerStats(
     parser.on("error", function (err) {
       console.error(err.message);
       res.json({
-        data: [],
-        meta: {},
         errors: [{ message: err.message }],
       });
       reject();
@@ -51,11 +54,8 @@ export default async function playerStats(
     parser.on("end", () => {
       res.json({
         data: records,
-        errors: [],
-        meta: {},
       });
       resolve();
     });
-    parser.end();
   });
 }

@@ -16,7 +16,6 @@
     "incremental": true,
     "paths": {
       "@/components/*": ["components/*"],
-      "@/data/*": ["data/*"],
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"]
     },
