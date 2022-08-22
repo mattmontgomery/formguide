@@ -17,13 +17,13 @@
     "@google-cloud/functions-framework": "^3.1.2",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.10.0",
-    "@mui/x-data-grid": "^5.15.2",
+    "@mui/x-data-grid": "^5.15.3",
     "@visx/curve": "^2.1.0",
     "@visx/legend": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/tooltip": "^2.10.0",
     "@visx/xychart": "^2.12.2",
-    "date-fns": "^2.29.1",
+    "date-fns": "^2.29.2",
     "devmoji": "~2.3",
     "husky": "~8.0",
     "ioredis": "^5.2.2",
@@ -35,7 +35,7 @@
     "unfetch": "~4.2"
   },
   "devDependencies": {
-    "@types/node": "^16.11.49",
+    "@types/node": "^16.11.52",
     "@types/react": "^18.0.17",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
@@ -44,7 +44,7 @@
     "eslint-config-next": "^12.2.5",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
-    "stylelint": "^14.10.0",
+    "stylelint": "^14.11.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-prettier": "^2.0.0",
     "typescript": "^4.7.4"

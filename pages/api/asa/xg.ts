@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import Client from "itscalledsoccer";
+import Client, { ValidLeagues } from "itscalledsoccer";
 import { sortByDate } from "@/utils/array";
 import { fetchCachedOrFresh } from "@/utils/cache";
 
@@ -8,8 +8,20 @@ export default async function XGApi(
   req: NextApiRequest,
   res: NextApiResponse<ASA.XgByGameApi>
 ): Promise<void> {
-  const { year, league } = req.query;
+  const { year, league: _league } = req.query;
   const client = new Client();
+  if (typeof _league !== "string" && typeof year !== "string") {
+    res.json({
+      data: {
+        teams: [],
+        xg: {},
+      },
+      meta: {},
+      errors: [{ message: "Improper query, year and league must be strings" }],
+    });
+    return;
+  }
+  const league: string = _league as string;
   try {
     const [teams = [], teamsById = {}, xg = []] =
       (await fetchCachedOrFresh<

@@ -1,11 +1,12 @@
 import { LeagueCodes } from "@/utils/LeagueCodes";
+import { parseJSON } from "date-fns";
 
 export function transformXGMatchIntoASAMatch(
   match: ASA.XGWithGame & ASA.HomeAway
 ): Results.Match {
   return {
     date: match.date_time_utc,
-    rawDate: new Date(match.date_time_utc).toISOString(),
+    rawDate: parseJSON(match.date_time_utc).toISOString(),
     fixtureId: -1,
     home: match.isHome,
     opponent: match.isHome ? match.awayTeam : match.homeTeam,
