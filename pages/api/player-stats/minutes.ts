@@ -10,7 +10,11 @@ export default async function playerStats(
   res: NextApiResponse<PlayerStats.ApiResponse<PlayerStats.Minutes[]>>
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    const csvFilePath = path.resolve("data/mls/20220822_playerStats.csv");
+    const csvFilePath = path.resolve(
+      __dirname,
+      "../../../../../",
+      "data/mls/20220822_playerStats.csv"
+    );
 
     const parser = parse({
       columns: true,
