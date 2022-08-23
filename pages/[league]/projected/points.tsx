@@ -3,20 +3,43 @@ import MatchCell from "@/components/MatchCell";
 import getTeamPoints from "@/utils/getTeamPoints";
 import BasePage from "@/components/BaseGridPage";
 import { getArrayAverage, getArraySum } from "@/utils/array";
+import { Box, FormControlLabel, Switch } from "@mui/material";
+import { useState } from "react";
 
 export default function PPGOutcomes(): React.ReactElement {
+  const [newProjection, setNewProjection] = useState<boolean>(true);
   return (
     <BasePage
-      dataParser={dataParser}
+      dataParser={(data) => dataParser(data, newProjection)}
       pageTitle="Projected Points based on home/away ppg"
       gridClass={styles.gridExtraWide}
     >
-      Calculation: Match result for finished matches, summed with the PPG for
-      home/away. Gets more accurate through the season.
+      <Box>
+        Calculation: Match result for finished matches, summed with the PPG for
+        home/away. Gets more accurate through the season.
+      </Box>
+      <Box>
+        New projection method: Only takes PPG for finished games into
+        consideration, not projected games
+      </Box>
+      <Box>
+        <FormControlLabel
+          label="Use new projection method"
+          control={
+            <Switch
+              checked={newProjection}
+              onChange={(ev) => setNewProjection(ev.currentTarget.checked)}
+            />
+          }
+        />
+      </Box>
     </BasePage>
   );
 }
-function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
+function dataParser(
+  data: Results.ParsedData["teams"],
+  newProjection = true
+): Render.RenderReadyData {
   const teamPoints = getTeamPoints(data);
   const teamCumulativeProjectedPoints: Record<string, number[]> = {};
   Object.keys(data).map((team) => [
@@ -40,11 +63,13 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
               ? getArrayAverage(
                   teamPoints[team]
                     .filter((m) => m.date < new Date(match.date) && m.home)
+                    .filter((m) => (newProjection ? !!m.result : true))
                     .map((p) => p.points)
                 )
               : getArrayAverage(
                   teamPoints[team]
                     .filter((m) => m.date < new Date(match.date) && !m.home)
+                    .filter((m) => (newProjection ? !!m.result : true))
                     .map((p) => p.points)
                 ));
       }),

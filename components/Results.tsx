@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { KBarResults, useMatches } from "kbar";
 
 export default function Results({ darkMode }: { darkMode: boolean }) {
