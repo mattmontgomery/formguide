@@ -29,9 +29,11 @@
     "husky": "~8.0",
     "ioredis": "^5.2.2",
     "itscalledsoccer": "^1.0.1",
+    "kbar": "^0.1.0-beta.36",
     "next": "^12.2.5",
     "react": "~18.2",
     "react-dom": "~18.2",
+    "react-use-cookie": "^1.4.0",
     "swr": "^1.3.0",
     "unfetch": "~4.2"
   },

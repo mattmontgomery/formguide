@@ -4,7 +4,7 @@ import getTeamPoints from "@/utils/getTeamPoints";
 import BaseGridPage from "@/components/BaseGridPage";
 import { getArrayAverageFormatted } from "@/utils/array";
 import { useState } from "react";
-import { FormControlLabel, FormLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch } from "@mui/material";
 
 export default function PPGOpponent(): React.ReactElement {
   const [useHomeAway, setUseHomeAway] = useState<boolean>(true);
@@ -15,6 +15,7 @@ export default function PPGOpponent(): React.ReactElement {
       gridClass={styles.gridWide}
     >
       <FormControlLabel
+        checked={useHomeAway}
         label="Use Home/Away PPG"
         control={
           <Switch onChange={(ev) => setUseHomeAway(ev.currentTarget.checked)} />

@@ -30,6 +30,7 @@ import {
   CalendarViewWeek,
   ListSharp,
   SportsSoccerOutlined,
+  Elderly,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
@@ -55,20 +56,22 @@ const ListItemLink = React.forwardRef<ListItemProps, any>(
   }
 );
 ListItemLink.displayName = "ListItemLink";
-const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 300;
 
 const DIVIDER = Symbol("divider");
 
-const NAV_CONFIG: (
-  | {
-      href?: string;
-      external?: boolean;
-      title?: React.ReactNode;
-      subtitle?: React.ReactNode;
-      icon?: SvgIconComponent;
-    }
-  | typeof DIVIDER
-)[] = [
+export type NavItem = {
+  href: string;
+  icon: SvgIconComponent;
+  title: string;
+  external?: boolean;
+};
+
+export type Subtitle = {
+  subtitle: React.ReactNode;
+};
+
+export const NAV_CONFIG: (NavItem | Subtitle | typeof DIVIDER)[] = [
   { subtitle: "Points" },
   { href: "/", title: "Form Guide", icon: TableChart },
   { href: "/table", title: "League Table", icon: TableChart },
@@ -81,59 +84,71 @@ const NAV_CONFIG: (
   { href: "/fixtures", title: "Today's Fixtures", icon: HourglassFull },
   DIVIDER,
   { subtitle: "Rolling Charts" },
-  { href: "/chart/3", title: "3-game", icon: BarChart },
-  { href: "/chart/5", title: "5-game", icon: BarChart },
-  { href: "/chart/8", title: "8-game", icon: BarChart },
-  { href: "/chart/11", title: "11-game", icon: BarChart },
+  { href: "/chart/3", title: "Rolling Points, 3-game", icon: BarChart },
+  { href: "/chart/5", title: "Rolling Points, 5-game", icon: BarChart },
+  { href: "/chart/8", title: "Rolling Points, 8-game", icon: BarChart },
+  { href: "/chart/11", title: "Rolling Points, 11-game", icon: BarChart },
   DIVIDER,
   { subtitle: "Results Vs." },
-  { href: "/versus/record", title: "Record", icon: BarChart },
-  { href: "/versus", title: "PPG", icon: BarChart },
-  { href: "/versus/gd", title: "GD", icon: BarChart },
+  { href: "/versus/record", title: "Record vs.", icon: BarChart },
+  { href: "/versus", title: "PPG vs.", icon: BarChart },
+  { href: "/versus/gd", title: "GD vs.", icon: BarChart },
   DIVIDER,
   { subtitle: "Goal Difference" },
-  { href: "/gd", title: "GD", icon: SportsSoccerSharp },
-  { href: "/gd/cumulative", title: "Cumulative", icon: SportsSoccerSharp },
-  { href: "/gd-chart/3", title: "Rolling 3-game", icon: Timeline },
-  { href: "/gd-chart/5", title: "Rolling 5-game", icon: Timeline },
-  { href: "/gd-chart/8", title: "Rolling 8-game", icon: Timeline },
-  { href: "/gd-chart/11", title: "Rolling 11-game", icon: Timeline },
+  { href: "/gd", title: "GD By Game", icon: SportsSoccerSharp },
+  { href: "/gd/cumulative", title: "GD Cumulative", icon: SportsSoccerSharp },
+  { href: "/gd-chart/3", title: "GD Rolling 3-game", icon: Timeline },
+  { href: "/gd-chart/5", title: "GD Rolling 5-game", icon: Timeline },
+  { href: "/gd-chart/8", title: "GD Rolling 8-game", icon: Timeline },
+  { href: "/gd-chart/11", title: "GD Rolling 11-game", icon: Timeline },
   DIVIDER,
   { subtitle: "Goals scored 2H - 1H" },
-  { href: "/gd/team-by-half", title: "Scored", icon: SportsSoccerSharp },
+  {
+    href: "/gd/team-by-half",
+    title: "Goals Scored By Half",
+    icon: SportsSoccerSharp,
+  },
   {
     href: "/gd/team-by-half-conceded",
-    title: "Conceded",
+    title: "Goals Conceded By Half",
     icon: SportsSoccerSharp,
   },
   DIVIDER,
   { subtitle: "Goals For" },
-  { href: "/gf", title: "GF", icon: SportsSoccerSharp },
-  { href: "/gf/cumulative", title: "Cumulative", icon: SportsSoccerSharp },
-  { href: "/gf-chart/3", title: "Rolling 3-game", icon: Timeline },
-  { href: "/gf-chart/5", title: "Rolling 5-game", icon: Timeline },
-  { href: "/gf-chart/8", title: "Rolling 8-game", icon: Timeline },
-  { href: "/gf-chart/11", title: "Rolling 11-game", icon: Timeline },
+  { href: "/gf", title: "GF By Game", icon: SportsSoccerSharp },
+  { href: "/gf/cumulative", title: "GF Cumulative", icon: SportsSoccerSharp },
+  { href: "/gf-chart/3", title: "GF Rolling 3-game", icon: Timeline },
+  { href: "/gf-chart/5", title: "GF Rolling 5-game", icon: Timeline },
+  { href: "/gf-chart/8", title: "GF Rolling 8-game", icon: Timeline },
+  { href: "/gf-chart/11", title: "GF Rolling 11-game", icon: Timeline },
   DIVIDER,
   { subtitle: "Goals Against" },
-  { href: "/ga", title: "GA", icon: SportsSoccerSharp },
-  { href: "/ga/cumulative", title: "Cumulative", icon: SportsSoccerSharp },
-  { href: "/ga-chart/3", title: "Rolling 3-game", icon: Timeline },
-  { href: "/ga-chart/5", title: "Rolling 5-game", icon: Timeline },
-  { href: "/ga-chart/8", title: "Rolling 8-game", icon: Timeline },
-  { href: "/ga-chart/11", title: "Rolling 11-game", icon: Timeline },
+  { href: "/ga", title: "GA By Game", icon: SportsSoccerSharp },
+  { href: "/ga/cumulative", title: "GA Cumulative", icon: SportsSoccerSharp },
+  { href: "/ga-chart/3", title: "GA Rolling 3-game", icon: Timeline },
+  { href: "/ga-chart/5", title: "GA Rolling 5-game", icon: Timeline },
+  { href: "/ga-chart/8", title: "GA Rolling 8-game", icon: Timeline },
+  { href: "/ga-chart/11", title: "GA Rolling 11-game", icon: Timeline },
   DIVIDER,
   { subtitle: "PPG/Schedule" },
-  { href: "/ppg/opponent", title: "Opponent PPG", icon: BarChart },
-  { href: "/ppg/team", title: "Team PPG", icon: BarChart },
-  { href: "/ppg/differential", title: "PPG Differential", icon: BarChart },
+  { href: "/ppg/opponent", title: "Opponent PPG By Game", icon: BarChart },
+  { href: "/ppg/team", title: "Team PPG By Game", icon: BarChart },
+  {
+    href: "/ppg/differential",
+    title: "PPG Differential By Game",
+    icon: BarChart,
+  },
   { href: "/ppg/outcomes", title: "Expected Outcomes", icon: BarChart },
   DIVIDER,
   { subtitle: "First/Second Half" },
-  { href: "/results/first-half", title: "First-half only", icon: HourglassTop },
+  {
+    href: "/results/first-half",
+    title: "First-half results only",
+    icon: HourglassTop,
+  },
   {
     href: "/results/second-half",
-    title: "Second-half only",
+    title: "Second-half results only",
     icon: HourglassBottom,
   },
   {
@@ -202,10 +217,26 @@ const NAV_CONFIG: (
     title: "Days Between Games",
     icon: CalendarViewMonth,
   },
-  { href: "/game-days/since/3", title: "Rolling 3-game", icon: Timeline },
-  { href: "/game-days/since/5", title: "Rolling 5-game", icon: Timeline },
-  { href: "/game-days/since/8", title: "Rolling 8-game", icon: Timeline },
-  { href: "/game-days/since/11", title: "Rolling 11-game", icon: Timeline },
+  {
+    href: "/game-days/since/3",
+    title: "Days Between, Rolling 3-game",
+    icon: Timeline,
+  },
+  {
+    href: "/game-days/since/5",
+    title: "Days Between, Rolling 5-game",
+    icon: Timeline,
+  },
+  {
+    href: "/game-days/since/8",
+    title: "Days Between, Rolling 8-game",
+    icon: Timeline,
+  },
+  {
+    href: "/game-days/since/11",
+    title: "Days Between, Rolling 11-game",
+    icon: Timeline,
+  },
   DIVIDER,
   { subtitle: "XG" },
   {
@@ -226,38 +257,38 @@ const NAV_CONFIG: (
   { subtitle: "X Points" },
   {
     href: "/xg/rolling/xpoints/3",
-    title: "Rolling 3-game",
+    title: "X Points Rolling 3-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/xpoints/5",
-    title: "Rolling 5-game",
+    title: "X Points Rolling 5-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/xpoints/8",
-    title: "Rolling 8-game",
+    title: "X Points Rolling 8-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/xpoints/11",
-    title: "Rolling 11-game",
+    title: "X Points Rolling 11-game",
     icon: SportsSoccerOutlined,
   },
   { subtitle: "X Points Difference" },
   {
     href: "/xg/rolling/xpointsDifference/3",
-    title: "Rolling 3-game",
+    title: "X Points Diff Rolling 3-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/xpointsDifference/5",
-    title: "Rolling 5-game",
+    title: "X Points DiffRolling 5-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/xpointsDifference/8",
-    title: "Rolling 8-game",
+    title: "X Points Diff Rolling 8-game",
     icon: SportsSoccerOutlined,
   },
   {
@@ -268,64 +299,64 @@ const NAV_CONFIG: (
   { subtitle: "XG For" },
   {
     href: "/xg/rolling/for/3",
-    title: "Rolling 3-game",
+    title: "XGf Rolling 3-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/for/5",
-    title: "Rolling 5-game",
+    title: "XGf Rolling 5-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/for/8",
-    title: "Rolling 8-game",
+    title: "XGf Rolling 8-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/for/11",
-    title: "Rolling 11-game",
+    title: "XGf Rolling 11-game",
     icon: SportsSoccerOutlined,
   },
   { subtitle: "XG Against" },
   {
     href: "/xg/rolling/against/3",
-    title: "Rolling 3-game",
+    title: "XGa Rolling 3-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/against/5",
-    title: "Rolling 5-game",
+    title: "XGa Rolling 5-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/against/8",
-    title: "Rolling 8-game",
+    title: "XGa Rolling 8-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/against/11",
-    title: "Rolling 11-game",
+    title: "XGa Rolling 11-game",
     icon: SportsSoccerOutlined,
   },
   { subtitle: "XG Difference" },
   {
     href: "/xg/rolling/difference/3",
-    title: "Rolling 3-game",
+    title: "XGd Rolling 3-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/difference/5",
-    title: "Rolling 5-game",
+    title: "XGd Rolling 5-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/difference/8",
-    title: "Rolling 8-game",
+    title: "XGd Rolling 8-game",
     icon: SportsSoccerOutlined,
   },
   {
     href: "/xg/rolling/difference/11",
-    title: "Rolling 11-game",
+    title: "XGd Rolling 11-game",
     icon: SportsSoccerOutlined,
   },
   DIVIDER,
@@ -339,8 +370,9 @@ const NAV_CONFIG: (
   { subtitle: "Other" },
   {
     href: "/mls-player-stats/minutes",
+    external: true,
     title: "MLS Player Minutes by Age",
-    icon: LightbulbOutlined,
+    icon: Elderly,
   },
   {
     href: "/facts",
@@ -385,23 +417,26 @@ export default function Nav({
           {NAV_CONFIG.map((navItem, idx) => {
             if (typeof navItem === "symbol") {
               return <Divider key={idx} />;
-            } else if (navItem.subtitle) {
+            }
+            if ((navItem as Subtitle).subtitle) {
               return (
-                <ListSubheader key={idx}>{navItem.subtitle}</ListSubheader>
+                <ListSubheader key={idx}>
+                  {(navItem as Subtitle).subtitle}
+                </ListSubheader>
               );
-            } else if (navItem.href) {
-              const LinkIcon = navItem.icon;
+            }
+            const item = navItem as NavItem;
+            if (item.href) {
+              const LinkIcon = item.icon;
               return (
                 <ListItemLink
-                  href={
-                    navItem.external
-                      ? navItem.href
-                      : `/${league}${navItem.href}`
-                  }
+                  href={item.external ? item.href : `/${league}${item.href}`}
                   key={idx}
                 >
                   {LinkIcon && <ListItemIcon>{<LinkIcon />}</ListItemIcon>}
-                  <ListItemText>{navItem.title}</ListItemText>
+                  <ListItemText sx={{ fontSize: "0.725rem" }}>
+                    {item.title}
+                  </ListItemText>
                 </ListItemLink>
               );
             }

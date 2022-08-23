@@ -30,7 +30,7 @@ export default function MLSMinutes(): React.ReactElement {
         components={{ Pagination: () => <></> }}
         autoHeight
         columns={[
-          { field: "team", width: 250 },
+          { field: "team", width: 250, pinnable: true },
           { field: "all", headerName: "All minutes" },
           { field: "90s", headerName: "90s" },
           { field: "minutes18", headerName: "<= 18" },
