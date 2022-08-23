@@ -17,7 +17,6 @@ import {
   createTheme,
   useMediaQuery,
   Input,
-  Icon,
 } from "@mui/material";
 
 import {
@@ -42,6 +41,7 @@ import {
 import Results from "@/components/Results";
 
 import useCookie from "react-use-cookie";
+import { LeagueOptions } from "@/utils/Leagues";
 
 export function MLSFormGuide({
   Component,
@@ -89,27 +89,45 @@ export function MLSFormGuide({
     <YearContext.Provider value={year}>
       <LeagueContext.Provider value={_league}>
         <KBarProvider
-          actions={NAV_CONFIG.filter(
-            (action) =>
-              typeof action === "object" && Boolean((action as NavItem)?.href)
-          ).map((action) => {
-            const navItem = action as NavItem;
-            return {
-              id: navItem.href || navItem.title,
-              name: navItem.title,
-              perform: () => {
-                if (navItem.href.includes("http")) {
-                  window.location.href = navItem.href;
-                } else {
+          actions={[
+            ...NAV_CONFIG.filter(
+              (action) =>
+                typeof action === "object" && Boolean((action as NavItem)?.href)
+            ).map((action) => {
+              const navItem = action as NavItem;
+              return {
+                id: navItem.href || navItem.title,
+                name: navItem.title,
+                perform: () => {
+                  if (navItem.href.includes("http")) {
+                    window.location.href = navItem.href;
+                  } else {
+                    router.push({
+                      pathname: navItem.external
+                        ? navItem.href
+                        : `/${_league}${navItem.href}`,
+                    });
+                  }
+                },
+              };
+            }),
+            ...Object.entries(LeagueOptions).map(([l, leagueName]) => {
+              return {
+                id: `select-${l}`,
+                name: `Select League: ${leagueName}`,
+                perform: () => {
+                  setLeague(l as Results.Leagues);
                   router.push({
-                    pathname: navItem.external
-                      ? navItem.href
-                      : `/${_league}${navItem.href}`,
+                    pathname: router.pathname,
+                    query: {
+                      ...router.query,
+                      league: l,
+                    },
                   });
-                }
-              },
-            };
-          })}
+                },
+              };
+            }),
+          ]}
         >
           <ThemeProvider theme={theme}>
             <KBarPortal>
@@ -254,6 +272,13 @@ export function MLSFormGuide({
                       }}
                     >
                       <MenuItem>Select a league</MenuItem>
+                      {Object.entries(LeagueOptions).map(
+                        ([l, leagueName], idx) => (
+                          <MenuItem key={idx} value={l}>
+                            {leagueName}
+                          </MenuItem>
+                        )
+                      )}
                       <MenuItem value="mls">MLS</MenuItem>
                       <MenuItem value="nwsl">NWSL</MenuItem>
                       <MenuItem value="mlsnp">MLS Next Pro</MenuItem>
