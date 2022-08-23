@@ -25,8 +25,8 @@ export default function Chart(): React.ReactElement {
       <ToggleButtonGroup
         value={homeAway}
         exclusive
-        onChange={(ev, value) => {
-          setHomeAway(value);
+        onChange={(_, value) => {
+          setHomeAway(value ?? "all");
         }}
       >
         <ToggleButton value="all">All</ToggleButton>,
