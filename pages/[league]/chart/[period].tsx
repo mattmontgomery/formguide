@@ -1,26 +1,53 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 import getMatchPoints from "@/utils/getMatchPoints";
 import BaseRollingPage from "@/components/BaseRollingPage";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+
+type HomeAway = "home" | "away" | "all";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
+  const [homeAway, setHomeAway] = useState<HomeAway>("all");
   return (
     <BaseRollingPage
       isStaticHeight={false}
       pageTitle={`Rolling points (%s game rolling)`}
-      parser={parseChartData}
+      parser={(teams, periodLength) =>
+        parseChartData(teams, periodLength, homeAway)
+      }
       periodLength={periodLength}
-    />
+    >
+      <ToggleButtonGroup
+        value={homeAway}
+        exclusive
+        onChange={(ev, value) => {
+          setHomeAway(value);
+        }}
+      >
+        <ToggleButton value="all">All</ToggleButton>,
+        <ToggleButton value="home">Home</ToggleButton>,
+        <ToggleButton value="away">Away</ToggleButton>,
+      </ToggleButtonGroup>
+    </BaseRollingPage>
+    /**
+     * {
+    value: alignment,
+    onChange: handleChange,
+    exclusive: true,
+  };
+     */
   );
 }
 
 function parseChartData(
   teams: Results.ParsedData["teams"],
-  periodLength = 5
+  periodLength = 5,
+  homeAway: HomeAway = "all"
 ): ReturnType<Render.RollingParser> {
   return Object.keys(teams)
     .sort()
@@ -34,6 +61,9 @@ function parseChartData(
               .sort((a, b) => {
                 return new Date(a.date) > new Date(b.date) ? 1 : -1;
               })
+              .filter((m) =>
+                homeAway === "all" ? true : m.home === (homeAway === "home")
+              )
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null);
             const results = resultSet.map((match) => getMatchPoints(match));
