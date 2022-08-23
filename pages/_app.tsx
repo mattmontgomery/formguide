@@ -104,7 +104,7 @@ export function MLSFormGuide({
                   router.push({
                     pathname: navItem.external
                       ? navItem.href
-                      : `/${league}${navItem.href}`,
+                      : `/${_league}${navItem.href}`,
                   });
                 }
               },
