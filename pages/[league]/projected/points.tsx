@@ -5,7 +5,6 @@ import BasePage from "@/components/BaseGridPage";
 import { getArrayAverage, getArraySum } from "@/utils/array";
 import {
   Box,
-  Button,
   FormControlLabel,
   Switch,
   ToggleButton,

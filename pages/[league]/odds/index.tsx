@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { SportsSoccerOutlined } from "@mui/icons-material";
 import { format, parseISO } from "date-fns";
+import { LeagueOptions } from "@/utils/Leagues";
 
 export default function LeagueOdds(): React.ReactElement {
   const league = useContext(LeagueContext);
@@ -45,7 +46,7 @@ export default function LeagueOdds(): React.ReactElement {
   );
 
   return (
-    <BasePage pageTitle={`${league} odds`}>
+    <BasePage pageTitle={`${LeagueOptions[league]} odds`}>
       <ButtonGroup>
         <Button
           onClick={() => setOddsFormat("american")}
@@ -60,25 +61,28 @@ export default function LeagueOdds(): React.ReactElement {
           Decimal
         </Button>
       </ButtonGroup>
-      <ul>
-        {entries.map((entry, idx) => {
-          const startTime = parseISO(entry.commence_time);
-          return (
-            <li key={idx}>
-              <Link href={`#${entry.id}`}>
-                {format(startTime, "MM/dd")} {entry.home_team} vs.{" "}
-                {entry.away_team}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <Box sx={{ py: 2, fontSize: 14 }}>
+        <ul>
+          {entries.map((entry, idx) => {
+            const startTime = parseISO(entry.commence_time);
+            return (
+              <li key={idx}>
+                <Link href={`#${entry.id}`}>
+                  {format(startTime, "MM/dd")} {entry.home_team} vs.{" "}
+                  {entry.away_team}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Box>
+      <Divider />
       <List>
         {entries.map((entry, idx) => {
           const startTime = parseISO(entry.commence_time);
           return (
-            <>
-              <ListItem key={idx} id={entry.id}>
+            <span key={idx}>
+              <ListItem id={entry.id}>
                 <ListItemIcon
                   sx={{ alignSelf: "flex-start", paddingTop: ".5rem" }}
                 >
@@ -125,7 +129,7 @@ export default function LeagueOdds(): React.ReactElement {
                 </ListItemText>
               </ListItem>
               <Divider />
-            </>
+            </span>
           );
         })}
       </List>

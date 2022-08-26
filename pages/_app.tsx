@@ -27,17 +27,12 @@ import {
   SearchSharp,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import Nav, { DRAWER_WIDTH, NavItem, NAV_CONFIG } from "@/components/Nav";
+import Nav, { DRAWER_WIDTH } from "@/components/Nav";
 import YearContext, { DEFAULT_YEAR } from "@/components/YearContext";
 import LeagueContext, { DEFAULT_LEAGUE } from "@/components/LeagueContext";
 import { useRouter } from "next/router";
-import {
-  KBarAnimator,
-  KBarPortal,
-  KBarPositioner,
-  KBarProvider,
-  KBarSearch,
-} from "kbar";
+import { KBarAnimator, KBarPortal, KBarPositioner, KBarSearch } from "kbar";
+import KBarProvider from "@/components/KBarProvider";
 import Results from "@/components/Results";
 
 import useCookie from "react-use-cookie";
@@ -88,48 +83,8 @@ export function MLSFormGuide({
   return (
     <YearContext.Provider value={year}>
       <LeagueContext.Provider value={_league}>
-        <KBarProvider
-          actions={[
-            ...NAV_CONFIG.filter(
-              (action) =>
-                typeof action === "object" && Boolean((action as NavItem)?.href)
-            ).map((action) => {
-              const navItem = action as NavItem;
-              return {
-                id: navItem.href || navItem.title,
-                name: navItem.title,
-                perform: () => {
-                  if (navItem.href.includes("http")) {
-                    window.location.href = navItem.href;
-                  } else {
-                    router.push({
-                      pathname: navItem.external
-                        ? navItem.href
-                        : `/${_league}${navItem.href}`,
-                    });
-                  }
-                },
-              };
-            }),
-            ...Object.entries(LeagueOptions).map(([l, leagueName]) => {
-              return {
-                id: `select-${l}`,
-                name: `Select League: ${leagueName}`,
-                perform: () => {
-                  setLeague(l as Results.Leagues);
-                  router.push({
-                    pathname: router.pathname,
-                    query: {
-                      ...router.query,
-                      league: l,
-                    },
-                  });
-                },
-              };
-            }),
-          ]}
-        >
-          <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <KBarProvider onSetLeague={(league) => setLeague(league)}>
             <KBarPortal>
               <KBarPositioner>
                 <KBarAnimator
@@ -271,7 +226,7 @@ export function MLSFormGuide({
                         });
                       }}
                     >
-                      <MenuItem>Select a league</MenuItem>
+                      <MenuItem disabled>Select a league</MenuItem>
                       {Object.entries(LeagueOptions).map(
                         ([l, leagueName], idx) => (
                           <MenuItem key={idx} value={l}>
@@ -279,20 +234,6 @@ export function MLSFormGuide({
                           </MenuItem>
                         )
                       )}
-                      <MenuItem value="mls">MLS</MenuItem>
-                      <MenuItem value="nwsl">NWSL</MenuItem>
-                      <MenuItem value="mlsnp">MLS Next Pro</MenuItem>
-                      <MenuItem value="uslc">USL Championship</MenuItem>
-                      <MenuItem value="usl1">USL League One</MenuItem>
-                      <MenuItem value="usl2">USL League Two</MenuItem>
-                      <MenuItem value="nisa">NISA</MenuItem>
-                      <Divider />
-                      <MenuItem value="ligamx">Liga MX</MenuItem>
-                      <MenuItem value="ligamx_ex">
-                        Liga de Expansión MX
-                      </MenuItem>
-                      <Divider />
-                      <MenuItem value="epl">English Premier League</MenuItem>
                     </Select>
                   </Toolbar>
                 </AppBar>
@@ -316,8 +257,8 @@ export function MLSFormGuide({
                 </footer>
               </Box>
             </Box>
-          </ThemeProvider>
-        </KBarProvider>
+          </KBarProvider>
+        </ThemeProvider>
       </LeagueContext.Provider>
     </YearContext.Provider>
   );

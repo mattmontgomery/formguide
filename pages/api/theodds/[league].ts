@@ -1,10 +1,10 @@
 import { fetchCachedOrFresh } from "@/utils/cache";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const ALLOWED_LEAGUES: Results.Leagues[] = ["mls"];
-
 const TheOddsMapping: Partial<Record<Results.Leagues, string>> = {
   mls: "soccer_usa_mls",
+  epl: "soccer_epl",
+  ligamx: "soccer_mexico_ligamx",
 };
 
 const getEndpoint = (
@@ -25,10 +25,7 @@ export default async function LeagueOdds(
   res: NextApiResponse<FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>>
 ): Promise<void> {
   const league = String(req.query.league) as Results.Leagues;
-  if (
-    !ALLOWED_LEAGUES.includes(league) ||
-    typeof TheOddsMapping[league] !== "string"
-  ) {
+  if (typeof TheOddsMapping[league] !== "string") {
     res.json({
       data: null,
       meta: null,
