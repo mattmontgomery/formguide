@@ -22,7 +22,7 @@ const getEndpoint = (
 
 export default async function LeagueOdds(
   req: NextApiRequest,
-  res: NextApiResponse<FormGuideAPI.BaseAPI<TheOdds.Entry[]>>
+  res: NextApiResponse<FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>>
 ): Promise<void> {
   const league = String(req.query.league) as Results.Leagues;
   if (

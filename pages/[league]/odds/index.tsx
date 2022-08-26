@@ -12,14 +12,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography,
 } from "@mui/material";
 import { SportsSoccerOutlined } from "@mui/icons-material";
 import { format, parseISO } from "date-fns";
 
 export default function LeagueOdds(): React.ReactElement {
   const league = useContext(LeagueContext);
-  const { data } = useSWR<FormGuideAPI.BaseAPI<TheOdds.Entry[]>>(
+  const { data } = useSWR<FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>>(
     [`/api/theodds/${league}`, league],
     fetcher
   );
