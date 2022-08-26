@@ -8,6 +8,7 @@ import {
   Button,
   ButtonGroup,
   Divider,
+  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -64,10 +65,10 @@ export default function LeagueOdds(): React.ReactElement {
           const startTime = parseISO(entry.commence_time);
           return (
             <li key={idx}>
-              <a href={`#${entry.id}`}>
+              <Link href={`#${entry.id}`}>
                 {format(startTime, "MM/dd")} {entry.home_team} vs.{" "}
                 {entry.away_team}
-              </a>
+              </Link>
             </li>
           );
         })}
