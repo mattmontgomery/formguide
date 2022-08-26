@@ -21,12 +21,17 @@ export async function fetchCachedOrFresh<T>(
     const data = await redisClient.get(redisKey);
     return data ? (JSON.parse(data) as T) : null;
   } else {
-    const data = await fetch();
-    await redisClient.set(redisKey, JSON.stringify(data));
-    await redisClient.expire(
-      redisKey,
-      typeof expire === "number" ? expire : expire(data)
-    );
-    return data;
+    try {
+      const data = await fetch();
+      await redisClient.set(redisKey, JSON.stringify(data));
+      await redisClient.expire(
+        redisKey,
+        typeof expire === "number" ? expire : expire(data)
+      );
+      return data;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 }

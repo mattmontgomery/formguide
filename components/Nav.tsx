@@ -31,6 +31,7 @@ import {
   ListSharp,
   SportsSoccerOutlined,
   Elderly,
+  Money,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
@@ -378,6 +379,11 @@ export const NAV_CONFIG: (NavItem | Subtitle | typeof DIVIDER)[] = [
     href: "/facts",
     title: "Match Facts",
     icon: LightbulbOutlined,
+  },
+  {
+    href: "/odds",
+    title: "Odds",
+    icon: Money,
   },
   DIVIDER,
   { subtitle: "Other Folks' Tools" },
