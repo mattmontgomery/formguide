@@ -39,13 +39,13 @@ export default async function LeagueOdds(
   const leagueCode = TheOddsMapping[league] ?? `${TheOddsMapping["mls"]}`;
 
   const data = await fetchCachedOrFresh(
-    `odds:${leagueCode}:v0.2`,
+    `odds:${leagueCode}:v1`,
     async () => {
       const endpoint = getEndpoint(leagueCode);
       const res = await fetch(endpoint);
       return res.json();
     },
-    60
+    60 * 60 * 1 // cache for 1 hour
   );
   res.json({
     data: data,

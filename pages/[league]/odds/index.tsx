@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import useSWR from "swr";
 import LeagueContext from "@/components/LeagueContext";
 import fetcher from "@/utils/fetcher";
@@ -6,7 +6,7 @@ import BasePage from "@/components/BasePage";
 import {
   Box,
   Button,
-  Collapse,
+  ButtonGroup,
   Divider,
   List,
   ListItem,
@@ -25,9 +25,41 @@ export default function LeagueOdds(): React.ReactElement {
   );
   const entries = data?.data ?? [];
 
+  const [oddsFormat, setOddsFormat] = useState<"decimal" | "american">(
+    "american"
+  );
+
+  const oddsFormatter = useCallback(
+    (odds: number): number | string => {
+      switch (oddsFormat) {
+        case "american":
+          const _odds = Math.round(
+            odds >= 2 ? (odds - 1) * 100 : -100 / (odds - 1)
+          );
+          return _odds > 0 ? `+${_odds}` : _odds;
+        case "decimal":
+          return odds;
+      }
+    },
+    [oddsFormat]
+  );
+
   return (
     <BasePage pageTitle={`${league} odds`}>
-      <Typography variant="h3">Matches</Typography>
+      <ButtonGroup>
+        <Button
+          onClick={() => setOddsFormat("american")}
+          variant={oddsFormat === "american" ? "contained" : "outlined"}
+        >
+          American
+        </Button>
+        <Button
+          onClick={() => setOddsFormat("decimal")}
+          variant={oddsFormat === "decimal" ? "contained" : "outlined"}
+        >
+          Decimal
+        </Button>
+      </ButtonGroup>
       <ul>
         {entries.map((entry, idx) => {
           const startTime = parseISO(entry.commence_time);
@@ -73,7 +105,8 @@ export default function LeagueOdds(): React.ReactElement {
                                     {market.outcomes.map((outcome, idx) => {
                                       return (
                                         <Box key={idx}>
-                                          {outcome.name}: {outcome.price}
+                                          {outcome.name}:{" "}
+                                          {oddsFormatter(outcome.price)}
                                           {outcome.point
                                             ? `, Point: ${outcome.point}`
                                             : ""}
