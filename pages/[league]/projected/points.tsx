@@ -3,14 +3,22 @@ import MatchCell from "@/components/MatchCell";
 import getTeamPoints from "@/utils/getTeamPoints";
 import BasePage from "@/components/BaseGridPage";
 import { getArrayAverage, getArraySum } from "@/utils/array";
-import { Box, FormControlLabel, Switch } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Switch,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import { useState } from "react";
 
 export default function PPGOutcomes(): React.ReactElement {
   const [newProjection, setNewProjection] = useState<boolean>(true);
+  const [periodLength, setPeriodLength] = useState<number>(8);
   return (
     <BasePage
-      dataParser={(data) => dataParser(data, newProjection)}
+      dataParser={(data) => dataParser(data, newProjection, periodLength)}
       pageTitle="Projected Points based on home/away ppg"
       gridClass={styles.gridExtraWide}
     >
@@ -33,12 +41,28 @@ export default function PPGOutcomes(): React.ReactElement {
           }
         />
       </Box>
+      <Box>
+        Rolling Length{" "}
+        <ToggleButtonGroup
+          color="primary"
+          value={periodLength}
+          exclusive
+          onChange={(_, value) => setPeriodLength(value)}
+        >
+          <ToggleButton value={0}>All matches</ToggleButton>
+          <ToggleButton value={3}>3-game</ToggleButton>
+          <ToggleButton value={5}>5 -game</ToggleButton>
+          <ToggleButton value={8}>8-game</ToggleButton>
+          <ToggleButton value={11}>11-game</ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
     </BasePage>
   );
 }
 function dataParser(
   data: Results.ParsedData["teams"],
-  newProjection = true
+  newProjection = true,
+  periodLength = 0
 ): Render.RenderReadyData {
   const teamPoints = getTeamPoints(data);
   const teamCumulativeProjectedPoints: Record<string, number[]> = {};
@@ -65,12 +89,22 @@ function dataParser(
                     .filter((m) => m.date < new Date(match.date) && m.home)
                     .filter((m) => (newProjection ? !!m.result : true))
                     .map((p) => p.points)
+                    .reverse()
+                    .slice(
+                      0,
+                      periodLength > 0 ? periodLength : teamPoints[team].length
+                    )
                 )
               : getArrayAverage(
                   teamPoints[team]
                     .filter((m) => m.date < new Date(match.date) && !m.home)
                     .filter((m) => (newProjection ? !!m.result : true))
                     .map((p) => p.points)
+                    .reverse()
+                    .slice(
+                      0,
+                      periodLength > 0 ? periodLength : teamPoints[team].length
+                    )
                 ));
       }),
   ]);
