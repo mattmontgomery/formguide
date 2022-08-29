@@ -1,14 +1,13 @@
 import BaseGridPage from "@/components/BaseGridPage";
 import MatchCell from "@/components/MatchCell";
-import React, { useState } from "react";
+import React from "react";
 
 import styles from "@/styles/Home.module.css";
-import { FormControlLabel, Switch } from "@mui/material";
 
 export default function GameStates(): React.ReactElement {
   return (
     <BaseGridPage<Results.ParsedDataGoals>
-      pageTitle={`Comeback Positions`}
+      pageTitle={`Positions Leading to Comebacks`}
       dataParser={(data) => dataParser(data)}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}

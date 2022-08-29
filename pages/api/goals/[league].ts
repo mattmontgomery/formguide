@@ -79,11 +79,6 @@ export default async function Goals(
   if (logged.length) {
     console.log(`[${key}] finished`);
   }
-
-  console.log(
-    prepared?.filter(({ fromCache }) => !fromCache).map((m) => m.fixtureId)
-  );
-
   res.json({
     data: {
       teams: Object.entries(data.teams).reduce(
