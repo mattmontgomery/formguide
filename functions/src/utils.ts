@@ -181,10 +181,9 @@ export async function fetchCachedOrFresh<T>(
 
   // keys differentiate by year and league
   const redisKey = `${key}:${APP_VERSION}`;
-  const exists = await redisClient.exists(redisKey);
+  const data = await redisClient.get(redisKey);
 
-  if (exists) {
-    const data = await redisClient.get(redisKey);
+  if (data) {
     return data ? (JSON.parse(data) as T) : null;
   } else {
     const data = await fetch();
