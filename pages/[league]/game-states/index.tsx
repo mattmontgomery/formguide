@@ -1,17 +1,31 @@
 import BaseGridPage from "@/components/BaseGridPage";
 import MatchCell from "@/components/MatchCell";
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "@/styles/Home.module.css";
+import { FormControlLabel, Switch } from "@mui/material";
 
 export default function GameStates(): React.ReactElement {
+  const [show, setShow] = useState<"worst" | "best">("best");
   return (
     <BaseGridPage<Results.ParsedDataGoals>
-      pageTitle="Worst Game States"
-      dataParser={(data) => dataParser(data, "worst")}
+      pageTitle={`${show} game states`}
+      dataParser={(data) => dataParser(data, show)}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}
-    ></BaseGridPage>
+    >
+      <FormControlLabel
+        checked={show === "best"}
+        label="Off: Worst, On: Best"
+        control={
+          <Switch
+            onChange={(ev) =>
+              setShow(ev.currentTarget.checked ? "best" : "worst")
+            }
+          />
+        }
+      ></FormControlLabel>
+    </BaseGridPage>
   );
 }
 
@@ -40,15 +54,10 @@ function dataParser(
                   isFirst ? last[0] + 1 : last[0],
                   isFirst ? last[1] : last[1] + 1,
                 ];
-                console.log({ last, next, isFirst });
                 return [...previousValue, next];
               },
               [[0, 0]]
             );
-
-            if (gameStates.length > 1)
-              console.log({ gameStates: [...gameStates], g: match.goalsData });
-
             return gameStates
               .sort((a, b) => {
                 const [aTeam, aOpp] = a;
@@ -67,25 +76,6 @@ function dataParser(
               })
               .reverse()?.[0]
               ?.join("-");
-            // const points = getArrayAverage(
-            //   teamPoints[match.opponent]
-            //     .filter(
-            //       (opponentMatch) => opponentMatch.date < new Date(match.date)
-            //     )
-            //     .map((opponentPoints) => opponentPoints.points)
-            // );
-            // const ownPoints = getArrayAverage(
-            //   teamPoints[match.team]
-            //     .filter(
-            //       (opponentMatch) => opponentMatch.date < new Date(match.date)
-            //     )
-            //     .map((opponentPoints) => opponentPoints.points)
-            // );
-            // if (!match.result) {
-            //   return "-";
-            // } else {
-            //   return (points - ownPoints).toFixed(2);
-            // }
           }}
         />
       )),

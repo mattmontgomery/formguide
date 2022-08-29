@@ -22,7 +22,7 @@ http("prediction", async (req, res) => {
   }
   try {
     const fixtureData = await fetchCachedOrFresh<Results.FixtureApi[]>(
-      `fixtures:${fixture}`,
+      `prediction-api:fixture:${fixture}`,
       async () => getFixture(fixture),
       (data) =>
         data?.[0].fixture.status.long === "Match Finished"
@@ -32,7 +32,12 @@ http("prediction", async (req, res) => {
     const predictionData = await fetchCachedOrFresh<Results.PredictionApi[]>(
       `predictions:${fixture}`,
       async () => getPredictionsForFixture(fixture),
-      60 * 60 * 24 * 7
+      (data) =>
+        fixtureData?.[0].fixture.status.long === "Match Finished"
+          ? 0 // store in perpetuity if match is finished
+          : Boolean(data)
+          ? 60 * 60 * 24
+          : 60 * 60 // one minute if failed, 24 hours if not
     );
     res.json({
       errors: [],

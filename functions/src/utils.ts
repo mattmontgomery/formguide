@@ -189,10 +189,13 @@ export async function fetchCachedOrFresh<T>(
   } else {
     const data = await fetch();
     await redisClient.set(redisKey, JSON.stringify(data));
-    await redisClient.expire(
-      redisKey,
-      typeof expire === "number" ? expire : expire(data)
-    );
+    const expireTime = typeof expire === "number" ? expire : expire(data);
+    if (expireTime > 0) {
+      await redisClient.expire(
+        redisKey,
+        typeof expire === "number" ? expire : expire(data)
+      );
+    }
     return data;
   }
 }

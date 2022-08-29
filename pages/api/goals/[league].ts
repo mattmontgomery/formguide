@@ -6,9 +6,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import getExpires from "@/utils/getExpires";
 
 import { createHash } from "crypto";
+import getFixtureData from "@/utils/api/getFixtureData";
 
 const FORM_API = process.env.FORM_API;
-const FIXTURES_ENDPOINT = process.env.PREDICTIONS_API;
 
 export default async function Goals(
   req: NextApiRequest,
@@ -20,7 +20,7 @@ export default async function Goals(
   if (!(league in LeagueCodes)) {
     res.status(500);
     res.json({
-      errors: [{ message: "Requested league not available " }],
+      errors: [{ message: "Requested league not available" }],
     });
     return;
   }
@@ -36,14 +36,16 @@ export default async function Goals(
 
   const matches = getAllFixtureIds(data);
 
-  const interval = setInterval(() => console.log("fetching"), 5000);
-
   const hash = createHash("md5");
-  const key = `fixture-data:v1.0.3#${hash
-    .update(JSON.stringify(matches))
+  const key = `fixture-data:v1.0.7#${hash
+    .update(JSON.stringify([matches, league]))
     .digest("hex")}`;
+  const logged = [];
 
-  console.log({ key });
+  const interval = setInterval(() => {
+    logged.push(key);
+    console.log(`[${key}] Fetching`);
+  }, 5000);
 
   const [prepared, preparedFromCache] = await fetchCachedOrFreshV2(
     key,
@@ -55,20 +57,7 @@ export default async function Goals(
       }[] = [];
 
       for await (const fixture of matches) {
-        const [data, fromCache] = await fetchCachedOrFreshV2<{
-          fixtureData: Results.FixtureApi[];
-          predictionsData: Results.PredictionApi[];
-        }>(
-          `fixture-data:v1.0.4:${fixture.fixtureId}`,
-          async () => {
-            const response = await fetch(
-              `${FIXTURES_ENDPOINT}?fixture=${fixture.fixtureId}`
-            );
-            const { data } = await response.json();
-            return data;
-          },
-          fixture.status.long === "Match Finished" ? 0 : 60 * 60 * 6 // six hours if completed, no expiration if not
-        );
+        const [data, fromCache] = await getFixtureData(fixture.fixtureId);
 
         if (data?.fixtureData?.[0]) {
           prepared.push({
@@ -87,6 +76,10 @@ export default async function Goals(
 
   clearInterval(interval);
 
+  if (logged.length) {
+    console.log(`[${key}] finished`);
+  }
+
   res.json({
     data: {
       teams: Object.entries(data.teams).reduce(
@@ -95,7 +88,7 @@ export default async function Goals(
             ...previousValue,
             [team]: matches.map((m) => ({
               ...m,
-              goalsData: prepared.find((f) => m.fixtureId === f.fixtureId),
+              goalsData: prepared?.find((f) => m.fixtureId === f.fixtureId),
             })),
           };
         },
@@ -104,6 +97,9 @@ export default async function Goals(
     },
     meta: {
       fixtureIds: matches.map((f) => f.fixtureId),
+      preparedFromCache,
     },
   });
 }
+
+// EVAL "return redis.call('del', unpack(redis.call('keys', ARGV[1])))" 0 prefix:[expire:*]

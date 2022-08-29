@@ -24,5 +24,10 @@ declare namespace FormGuideAPI {
       goals: Results.FixtureEvent[];
     };
     type Goals = BaseApiV2<Goal[]>;
+    type Fixture = {
+      fixtureData: Results.FixtureApi[];
+      predictionData: Results.PredictionApi[];
+    };
+    type FixtureEndpoint = BaseApiV2<Fixture>;
   }
 }
