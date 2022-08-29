@@ -172,7 +172,7 @@ export async function fetchCachedOrFresh<T>(
   key: string,
   fetch: () => Promise<T>,
   expire: number | ((data: T) => number)
-): Promise<T | null> {
+): Promise<[T | null, boolean]> {
   const REDIS_URL = process.env.REDIS_URL;
   const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
   if (!REDIS_URL) {
@@ -184,7 +184,7 @@ export async function fetchCachedOrFresh<T>(
   const data = await redisClient.get(redisKey);
 
   if (data) {
-    return data ? (JSON.parse(data) as T) : null;
+    return [JSON.parse(data) as T, true];
   } else {
     const data = await fetch();
     await redisClient.set(redisKey, JSON.stringify(data));
@@ -195,6 +195,6 @@ export async function fetchCachedOrFresh<T>(
         typeof expire === "number" ? expire : expire(data)
       );
     }
-    return data;
+    return [data, false];
   }
 }

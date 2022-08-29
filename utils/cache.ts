@@ -43,7 +43,13 @@ export async function fetchCachedOrFreshV2<T>(
   key: string,
   fetch: () => Promise<T>,
   expire: number | ((data: T) => number),
-  retryOnEmptyData = true
+  {
+    checkEmpty,
+    retryOnEmptyData = true,
+  }: {
+    checkEmpty?: (arg0: string | null) => boolean;
+    retryOnEmptyData?: boolean;
+  } = {}
 ): Promise<FetchCachedOrFreshReturnType<T>> {
   try {
     const REDIS_URL = process.env.REDIS_URL;
@@ -57,21 +63,27 @@ export async function fetchCachedOrFreshV2<T>(
     const exists = await redisClient.exists(redisKey);
     const data = await redisClient.get(redisKey);
 
-    if (exists && (data || !retryOnEmptyData)) {
+    const isEmpty = typeof checkEmpty === "function" ? checkEmpty(data) : !data;
+
+    if (exists && (!isEmpty || !retryOnEmptyData)) {
       return [data ? (JSON.parse(data) as T) : null, true];
     } else {
       try {
         const data = await fetch();
-        await redisClient.set(redisKey, JSON.stringify(data));
-        if (expire !== 0) {
-          await redisClient.expire(
-            redisKey,
-            typeof expire === "number" ? expire : expire(data)
-          );
+        if (
+          typeof checkEmpty === "function" &&
+          checkEmpty(JSON.stringify(data))
+        ) {
+          throw `Data for ${redisKey} could not be found`; // error instead of setting data improperly
+        }
+        const OK = await redisClient.set(redisKey, JSON.stringify(data));
+        const expireTime = typeof expire === "number" ? expire : expire(data);
+        if (expireTime) {
+          await redisClient.expire(redisKey, expireTime);
         }
         return [data, false];
       } catch (e) {
-        console.error(e);
+        console.debug(e);
         throw e;
       }
     }

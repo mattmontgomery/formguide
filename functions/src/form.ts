@@ -59,7 +59,7 @@ async function fetchData({
 
   // keys differentiate by year and league
   const redisKey = `formguide:${APP_VERSION}:${league}:${year}`;
-  const matchData = await fetchCachedOrFresh(
+  const [matchData] = await fetchCachedOrFresh(
     redisKey,
     async (): Promise<Results.ParsedData> => {
       const headers = {

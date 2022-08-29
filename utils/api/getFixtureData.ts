@@ -6,7 +6,7 @@ export default async function getFixtureData(
   fixture: number
 ): Promise<FetchCachedOrFreshReturnType<FormGuideAPI.Responses.Fixture>> {
   return fetchCachedOrFreshV2<FormGuideAPI.Responses.Fixture>(
-    `fixture-data:v1.0.6:${fixture}`,
+    `fixture-data:v1.0.10:${fixture}`,
     async () => {
       const response = await fetch(`${ENDPOINT}?fixture=${fixture}`);
       if (response.status !== 200) {
@@ -21,6 +21,26 @@ export default async function getFixtureData(
     (data: FormGuideAPI.Responses.Fixture) =>
       data.fixtureData?.[0].fixture.status.long === "Match Finished"
         ? 0
-        : 60 * 60 * 24 // 24 hour cache for incomplete matches
+        : 60 * 60 * 24, // 24 hour cache for incomplete matches
+    {
+      checkEmpty: (data) => {
+        if (!data) return true;
+        try {
+          const d = JSON.parse(data) as FormGuideAPI.Responses.Fixture;
+          if (
+            !d ||
+            !d.fixtureData ||
+            (typeof d.fixtureData === "object" &&
+              Object.keys(d.fixtureData).length === 0)
+          ) {
+            return true;
+          }
+          return false;
+        } catch (e) {
+          return true;
+        }
+      },
+      retryOnEmptyData: true,
+    }
   );
 }

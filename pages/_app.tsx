@@ -130,7 +130,7 @@ export function MLSFormGuide({
               </KBarPositioner>
             </KBarPortal>
             <Head>
-              <meta title="MLS and NWSL Form Guide 2022" />
+              <meta title="MLS, NWSL and More | Soccer Form Guide" />
               <meta
                 name="description"
                 content="A tool to replace the old MLS Form Guide that mlssoccer.com retired"

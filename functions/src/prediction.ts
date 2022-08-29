@@ -21,8 +21,10 @@ http("prediction", async (req, res) => {
     return;
   }
   try {
-    const fixtureData = await fetchCachedOrFresh<Results.FixtureApi[]>(
-      `prediction-api:fixture:${fixture}`,
+    const [fixtureData, fromCache] = await fetchCachedOrFresh<
+      Results.FixtureApi[]
+    >(
+      `prediction-api:v2:fixture:${fixture}`,
       async () => getFixture(fixture),
       (data) =>
         !data
@@ -33,8 +35,9 @@ http("prediction", async (req, res) => {
           ? 60 * 60 * 4 // 4 hours if the match has not started
           : 60 * 15 // 15 minutes if the match has started
     );
-    const predictionData = await fetchCachedOrFresh<Results.PredictionApi[]>(
-      `predictions:${fixture}`,
+    console.log("Fetching data", fixture, Boolean(fixtureData), fromCache);
+    const [predictionData] = await fetchCachedOrFresh<Results.PredictionApi[]>(
+      `prediction-api:v2:predictions:${fixture}`,
       async () => getPredictionsForFixture(fixture),
       (data) =>
         fixtureData?.[0].fixture.status.long === "Match Finished"

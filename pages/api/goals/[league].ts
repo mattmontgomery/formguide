@@ -37,7 +37,7 @@ export default async function Goals(
   const matches = getAllFixtureIds(data);
 
   const hash = createHash("md5");
-  const key = `fixture-data:v1.0.7#${hash
+  const key = `fixture-data:v1.0.10#${hash
     .update(JSON.stringify([matches, league]))
     .digest("hex")}`;
   const logged = [];
@@ -79,6 +79,10 @@ export default async function Goals(
   if (logged.length) {
     console.log(`[${key}] finished`);
   }
+
+  console.log(
+    prepared?.filter(({ fromCache }) => !fromCache).map((m) => m.fixtureId)
+  );
 
   res.json({
     data: {

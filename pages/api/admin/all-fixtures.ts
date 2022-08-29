@@ -18,10 +18,10 @@ export default async function LoadFixturesEndpoint(
     return;
   }
 
-  const keys = await redisClient.keys("fixtures:*");
+  const keys = await redisClient.keys("fixture-data:v1.0.10:*");
 
   res.json({
-    data: keys.map((k) => Number(k.match(/\d+/)?.[0]) ?? 0).filter(Boolean),
+    data: keys.map((k) => Number(k.match(/\d{6,7}/)?.[0]) ?? 0).filter(Boolean),
     errors: [],
     meta: {},
   });
