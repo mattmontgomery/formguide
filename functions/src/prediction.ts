@@ -26,8 +26,10 @@ http("prediction", async (req, res) => {
       async () => getFixture(fixture),
       (data) =>
         data?.[0].fixture.status.long === "Match Finished"
-          ? 60 * 60 * 24 * 7 * 52
-          : 60 * 60
+          ? 0
+          : data?.[0].fixture.status.short === "NS"
+          ? 60 * 60 * 4 // 4 hours if the match has not started
+          : 60 * 15 // 15 minutes if the match has started
     );
     const predictionData = await fetchCachedOrFresh<Results.PredictionApi[]>(
       `predictions:${fixture}`,
