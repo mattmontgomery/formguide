@@ -25,7 +25,9 @@ http("prediction", async (req, res) => {
       `prediction-api:fixture:${fixture}`,
       async () => getFixture(fixture),
       (data) =>
-        data?.[0].fixture.status.long === "Match Finished"
+        !data
+          ? 30
+          : data?.[0].fixture.status.long === "Match Finished"
           ? 0
           : data?.[0].fixture.status.short === "NS"
           ? 60 * 60 * 4 // 4 hours if the match has not started
