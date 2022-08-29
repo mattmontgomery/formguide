@@ -27,7 +27,7 @@ on:
       - ".github/workflows/test.yml"
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
