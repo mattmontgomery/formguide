@@ -1,8 +1,7 @@
+import getExpires from "@/utils/getExpires";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const FORM_API = process.env.FORM_API;
-
-const thisYear = new Date().getFullYear();
 
 export default async function form(
   req: NextApiRequest,
@@ -33,8 +32,4 @@ export default async function form(
       errors: [String(e)],
     });
   }
-}
-
-function getExpires(year: number) {
-  return year === thisYear ? 60 * 60 : 60 * 60 * 24 * 7 * 4;
 }

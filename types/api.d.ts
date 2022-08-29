@@ -18,4 +18,11 @@ declare namespace FormGuideAPI {
         errors: { message: string; [key: string]: string }[];
         meta?: null;
       };
+  namespace Responses {
+    type Goal = {
+      fixtureId: number;
+      goals: Results.FixtureEvent[];
+    };
+    type Goals = BaseApiV2<Goal[]>;
+  }
 }

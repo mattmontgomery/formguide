@@ -32,6 +32,18 @@ declare namespace Results {
   type ParsedData = {
     teams: Record<string, Match[]>;
   };
+  type ParsedDataGoals = {
+    teams: Record<
+      string,
+      (Match & {
+        goalsData?: {
+          fixtureId: number;
+          fromCache: boolean;
+          goals: FixtureEvent[];
+        };
+      })[]
+    >;
+  };
   type ParsedMeta = { league: Results.Leagues; year: number };
   type Match = {
     fixtureId: number;
