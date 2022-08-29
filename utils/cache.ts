@@ -1,6 +1,4 @@
-import Redis from "ioredis";
-
-const redisClient = new Redis(process.env.REDIS_URL || "redis://localhost");
+import redisClient from "./redis";
 
 export async function fetchCachedOrFresh<T>(
   key: string,

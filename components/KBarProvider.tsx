@@ -1,5 +1,4 @@
 import { LeagueOptions } from "@/utils/Leagues";
-import { useTheme } from "@mui/material";
 import { KBarProvider, KBarProviderProps } from "kbar";
 import { NextRouter, useRouter } from "next/router";
 import React, { useContext } from "react";
@@ -59,7 +58,7 @@ export type ProviderProps = KBarProviderProps & {
 } & PropsWithChildren;
 
 const Provider = React.forwardRef<typeof KBarProvider, ProviderProps>(
-  function Provider(props) {
+  function Provider(props, ref) {
     const router = useRouter();
     const league = useContext(LeagueContext);
 

@@ -29,3 +29,9 @@ export function getFormattedEventName(event: Results.FixtureEvent): string {
     return event.type;
   }
 }
+
+export function getMatchTitle(match: Results.Match) {
+  return `${match.home ? match.team : match.opponent} ${
+    match.scoreline ?? "vs."
+  } ${match.home ? match.opponent : match.team}`;
+}

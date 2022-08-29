@@ -10,12 +10,12 @@ declare namespace FormGuideAPI {
   type BaseAPIV2<T> =
     | {
         data: T;
-        errors: never[];
+        errors?: never[];
         meta: U;
       }
     | {
-        data: null;
+        data?: null;
         errors: { message: string; [key: string]: string }[];
-        meta: null;
+        meta?: null;
       };
 }

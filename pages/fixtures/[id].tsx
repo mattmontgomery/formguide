@@ -7,6 +7,7 @@ import {
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   Grid,
   List,
@@ -42,10 +43,14 @@ export default function Fixture(): React.ReactElement {
   const fixtureData: Results.FixtureApi | null =
     data?.data?.fixtureData?.[0] || null;
   const predictionData: Results.PredictionApi | null =
-    data?.data?.predictionData?.[0] || null;
-  return !fixtureData || !predictionData ? (
+    data?.data?.predictionData?.[0] ?? null;
+  return !fixtureData ? (
     <BasePage pageTitle="">
-      {(data?.errors?.length || 0) > 0 ? "Could not load data" : null}
+      {(data?.errors?.length || 0) > 0 ? (
+        "Could not load data"
+      ) : (
+        <CircularProgress color="success" />
+      )}
     </BasePage>
   ) : (
     <BasePage
@@ -65,17 +70,22 @@ export default function Fixture(): React.ReactElement {
             <strong>Referee</strong>: {fixtureData?.fixture.referee || "TBA"}
           </ListItemText>
         </ListItem>
-        <ListItem>
-          <ListItemText>
-            <strong>Over/Under</strong>: {predictionData.predictions.under_over}
-          </ListItemText>
-        </ListItem>
-        <ListItem>
-          <ListItemText>
-            <strong>API-FOOTBALL advice</strong>:{" "}
-            {predictionData.predictions.advice}
-          </ListItemText>
-        </ListItem>
+        {predictionData && (
+          <ListItem>
+            <ListItemText>
+              <strong>Over/Under</strong>:{" "}
+              {predictionData.predictions.under_over}
+            </ListItemText>
+          </ListItem>
+        )}
+        {predictionData && (
+          <ListItem>
+            <ListItemText>
+              <strong>API-FOOTBALL advice</strong>:{" "}
+              {predictionData.predictions.advice}
+            </ListItemText>
+          </ListItem>
+        )}
         <Divider />
         <ListItem sx={{ paddingBottom: 0 }}>
           <ListItemIcon>
@@ -168,140 +178,205 @@ export default function Fixture(): React.ReactElement {
           </ListItemIcon>
           <ListItemText>Predictions</ListItemText>
         </ListItem>
-        <List sx={{ paddingLeft: 2 }}>
-          <ListItem>
-            <ListItemText>
-              <strong>Home win %</strong>:{" "}
-              {predictionData.predictions.percent.home}
-            </ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemText>
-              <strong>Draw %</strong>: {predictionData.predictions.percent.draw}
-            </ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemText>
-              <strong>Away win %</strong>:{" "}
-              {predictionData.predictions.percent.away}
-            </ListItemText>
-          </ListItem>
-        </List>
+
+        {predictionData && (
+          <List sx={{ paddingLeft: 2 }}>
+            <ListItem>
+              <ListItemText>
+                <strong>Home win %</strong>:{" "}
+                {predictionData.predictions.percent.home}
+              </ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText>
+                <strong>Draw %</strong>:{" "}
+                {predictionData.predictions.percent.draw}
+              </ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText>
+                <strong>Away win %</strong>:{" "}
+                {predictionData.predictions.percent.away}
+              </ListItemText>
+            </ListItem>
+          </List>
+        )}
         <ListItem sx={{ paddingBottom: 0 }}>
-          <ListItemIcon>
-            <CalendarMonth
-              sx={{ cursor: "pointer" }}
-              onClick={() => {
-                const last10 = predictionData.h2h
-                  .map(
-                    (match) =>
-                      `<li>${getFormattedDate(match.fixture, false)}: ${
-                        match.teams.home.winner
-                          ? `<strong>${match.teams.home.name}</strong>`
-                          : match.teams.home.name
-                      } ${match.score.fulltime.home}-${
-                        match.score.fulltime.away
-                      } ${
-                        match.teams.away.winner
-                          ? `<strong>${match.teams.away.name}</strong>`
-                          : match.teams.away.name
-                      }</i>`
-                  )
-                  .join(`\n`);
-                const htmlBlob = new Blob([`<ul>${last10}</ul>`], {
-                  type: "text/html",
-                });
-                const plainTextBlob = new Blob(
-                  [
-                    predictionData.h2h
-                      .map(
-                        (match) =>
-                          `- ${getFormattedDate(match.fixture, false)}: ${
-                            match.teams.home.winner
-                              ? `*${match.teams.home.name}*`
-                              : match.teams.home.name
-                          } ${match.score.fulltime.home}-${
-                            match.score.fulltime.away
-                          } ${
-                            match.teams.away.winner
-                              ? `*${match.teams.away.name}*`
-                              : match.teams.away.name
-                          }`
-                      )
-                      .join(`\n`),
-                  ],
-                  {
-                    type: "text/plain",
-                  }
-                );
-                const clipped = new ClipboardItem({
-                  [htmlBlob.type]: htmlBlob,
-                  [plainTextBlob.type]: plainTextBlob,
-                });
-                navigator.clipboard.write([clipped]);
-              }}
-            />
-          </ListItemIcon>
+          {predictionData && (
+            <ListItemIcon>
+              <CalendarMonth
+                sx={{ cursor: "pointer" }}
+                onClick={() => {
+                  const last10 = predictionData.h2h
+                    .map(
+                      (match) =>
+                        `<li>${getFormattedDate(match.fixture, false)}: ${
+                          match.teams.home.winner
+                            ? `<strong>${match.teams.home.name}</strong>`
+                            : match.teams.home.name
+                        } ${match.score.fulltime.home}-${
+                          match.score.fulltime.away
+                        } ${
+                          match.teams.away.winner
+                            ? `<strong>${match.teams.away.name}</strong>`
+                            : match.teams.away.name
+                        }</i>`
+                    )
+                    .join(`\n`);
+                  const htmlBlob = new Blob([`<ul>${last10}</ul>`], {
+                    type: "text/html",
+                  });
+                  const plainTextBlob = new Blob(
+                    [
+                      predictionData.h2h
+                        .map(
+                          (match) =>
+                            `- ${getFormattedDate(match.fixture, false)}: ${
+                              match.teams.home.winner
+                                ? `*${match.teams.home.name}*`
+                                : match.teams.home.name
+                            } ${match.score.fulltime.home}-${
+                              match.score.fulltime.away
+                            } ${
+                              match.teams.away.winner
+                                ? `*${match.teams.away.name}*`
+                                : match.teams.away.name
+                            }`
+                        )
+                        .join(`\n`),
+                    ],
+                    {
+                      type: "text/plain",
+                    }
+                  );
+                  const clipped = new ClipboardItem({
+                    [htmlBlob.type]: htmlBlob,
+                    [plainTextBlob.type]: plainTextBlob,
+                  });
+                  navigator.clipboard.write([clipped]);
+                }}
+              />
+            </ListItemIcon>
+          )}
           <ListItemText>H2H</ListItemText>
         </ListItem>
-        <List sx={{ paddingLeft: 2 }}>
-          {predictionData.h2h.map((match, idx) => (
-            <ListItem key={idx}>
-              <Grid container>
-                <Grid item sm={2}>
-                  <Link href={`/fixtures/${match.fixture.id}`} passHref>
-                    <Button>{getFormattedDate(match.fixture, false)}</Button>
-                  </Link>
+
+        {predictionData && (
+          <List sx={{ paddingLeft: 2 }}>
+            {predictionData.h2h.map((match, idx) => (
+              <ListItem key={idx}>
+                <Grid container>
+                  <Grid item sm={2}>
+                    <Link href={`/fixtures/${match.fixture.id}`} passHref>
+                      <Button>{getFormattedDate(match.fixture, false)}</Button>
+                    </Link>
+                  </Grid>
+                  <Grid item sm={2}>
+                    <Box
+                      sx={{
+                        color: match.teams.home.winner ? "success.main" : "",
+                      }}
+                    >
+                      {match.teams.home.name}
+                    </Box>
+                  </Grid>
+                  <Grid item sm={1}>
+                    {match.score.fulltime.home}-{match.score.fulltime.away}
+                  </Grid>
+                  <Grid item sm={2}>
+                    <Box
+                      sx={{
+                        color: match.teams.away.winner ? "success.main" : "",
+                      }}
+                    >
+                      {match.teams.away.name}
+                    </Box>
+                  </Grid>
                 </Grid>
-                <Grid item sm={2}>
-                  <Box
-                    sx={{
-                      color: match.teams.home.winner ? "success.main" : "",
-                    }}
-                  >
-                    {match.teams.home.name}
-                  </Box>
-                </Grid>
-                <Grid item sm={1}>
-                  {match.score.fulltime.home}-{match.score.fulltime.away}
-                </Grid>
-                <Grid item sm={2}>
-                  <Box
-                    sx={{
-                      color: match.teams.away.winner ? "success.main" : "",
-                    }}
-                  >
-                    {match.teams.away.name}
-                  </Box>
-                </Grid>
-              </Grid>
-            </ListItem>
-          ))}
-        </List>
+              </ListItem>
+            ))}
+          </List>
+        )}
         <ListItem sx={{ paddingBottom: 0 }}>
           <ListItemIcon>
             <Timeline />
           </ListItemIcon>
           <ListItemText>Timeline / Goals For</ListItemText>
         </ListItem>
-        <List sx={{ paddingLeft: 2 }}>
-          <ListItem>
-            <ListItemText>
-              <Grid container>
-                <Grid item sm={1}>
-                  Time segment
+
+        {predictionData && (
+          <List sx={{ paddingLeft: 2 }}>
+            <ListItem>
+              <ListItemText>
+                <Grid container>
+                  <Grid item sm={1}>
+                    Time segment
+                  </Grid>
+                  <Grid item sm={2}>
+                    {fixtureData.teams.home.name}
+                  </Grid>
+                  <Grid item sm={2}>
+                    {fixtureData.teams.away.name}
+                  </Grid>
                 </Grid>
-                <Grid item sm={2}>
-                  {fixtureData.teams.home.name}
+              </ListItemText>
+            </ListItem>
+            {Object.keys(predictionData.teams.home.league.goals.for.minute).map(
+              (segment, idx) => (
+                <ListItem key={idx}>
+                  <ListItemText>
+                    <Grid container>
+                      <Grid item sm={1}>
+                        {segment}
+                      </Grid>
+                      <Grid item sm={2}>
+                        {
+                          predictionData.teams.home.league.goals.for.minute[
+                            segment
+                          ].total
+                        }
+                      </Grid>
+                      <Grid item sm={2}>
+                        {
+                          predictionData.teams.away.league.goals.for.minute[
+                            segment
+                          ].total
+                        }
+                      </Grid>
+                    </Grid>
+                  </ListItemText>
+                </ListItem>
+              )
+            )}
+          </List>
+        )}
+        <ListItem sx={{ paddingBottom: 0 }}>
+          <ListItemIcon>
+            <Timeline />
+          </ListItemIcon>
+          <ListItemText>Timeline / Goals Against</ListItemText>
+        </ListItem>
+
+        {predictionData && (
+          <List sx={{ paddingLeft: 2 }}>
+            <ListItem>
+              <ListItemText>
+                <Grid container>
+                  <Grid item sm={1}>
+                    Time segment
+                  </Grid>
+                  <Grid item sm={2}>
+                    {fixtureData.teams.home.name}
+                  </Grid>
+                  <Grid item sm={2}>
+                    {fixtureData.teams.away.name}
+                  </Grid>
                 </Grid>
-                <Grid item sm={2}>
-                  {fixtureData.teams.away.name}
-                </Grid>
-              </Grid>
-            </ListItemText>
-          </ListItem>
-          {Object.keys(predictionData.teams.home.league.goals.for.minute).map(
-            (segment, idx) => (
+              </ListItemText>
+            </ListItem>
+            {Object.keys(
+              predictionData.teams.home.league.goals.against.minute
+            ).map((segment, idx) => (
               <ListItem key={idx}>
                 <ListItemText>
                   <Grid container>
@@ -310,14 +385,14 @@ export default function Fixture(): React.ReactElement {
                     </Grid>
                     <Grid item sm={2}>
                       {
-                        predictionData.teams.home.league.goals.for.minute[
+                        predictionData.teams.home.league.goals.against.minute[
                           segment
                         ].total
                       }
                     </Grid>
                     <Grid item sm={2}>
                       {
-                        predictionData.teams.away.league.goals.for.minute[
+                        predictionData.teams.away.league.goals.against.minute[
                           segment
                         ].total
                       }
@@ -325,103 +400,59 @@ export default function Fixture(): React.ReactElement {
                   </Grid>
                 </ListItemText>
               </ListItem>
-            )
-          )}
-        </List>
-        <ListItem sx={{ paddingBottom: 0 }}>
-          <ListItemIcon>
-            <Timeline />
-          </ListItemIcon>
-          <ListItemText>Timeline / Goals Against</ListItemText>
-        </ListItem>
-        <List sx={{ paddingLeft: 2 }}>
-          <ListItem>
-            <ListItemText>
-              <Grid container>
-                <Grid item sm={1}>
-                  Time segment
-                </Grid>
-                <Grid item sm={2}>
-                  {fixtureData.teams.home.name}
-                </Grid>
-                <Grid item sm={2}>
-                  {fixtureData.teams.away.name}
-                </Grid>
-              </Grid>
-            </ListItemText>
-          </ListItem>
-          {Object.keys(
-            predictionData.teams.home.league.goals.against.minute
-          ).map((segment, idx) => (
-            <ListItem key={idx}>
-              <ListItemText>
-                <Grid container>
-                  <Grid item sm={1}>
-                    {segment}
-                  </Grid>
-                  <Grid item sm={2}>
-                    {
-                      predictionData.teams.home.league.goals.against.minute[
-                        segment
-                      ].total
-                    }
-                  </Grid>
-                  <Grid item sm={2}>
-                    {
-                      predictionData.teams.away.league.goals.against.minute[
-                        segment
-                      ].total
-                    }
-                  </Grid>
-                </Grid>
-              </ListItemText>
-            </ListItem>
-          ))}
-        </List>
+            ))}
+          </List>
+        )}
         <ListItem sx={{ paddingBottom: 0 }}>
           <ListItemIcon>
             <FormatShapes />
           </ListItemIcon>
           <ListItemText>{fixtureData.teams.home.name} formations</ListItemText>
         </ListItem>
-        <List sx={{ paddingLeft: 2 }}>
-          {predictionData.teams.home.league.lineups.map((l, idx) => (
-            <ListItem key={idx}>
-              <ListItemText>
-                <Grid container>
-                  <Grid item sm={1}>
-                    {l.formation}
+
+        {predictionData && (
+          <List sx={{ paddingLeft: 2 }}>
+            {predictionData.teams.home.league.lineups.map((l, idx) => (
+              <ListItem key={idx}>
+                <ListItemText>
+                  <Grid container>
+                    <Grid item sm={1}>
+                      {l.formation}
+                    </Grid>
+                    <Grid item sm={2}>
+                      {l.played}
+                    </Grid>
                   </Grid>
-                  <Grid item sm={2}>
-                    {l.played}
-                  </Grid>
-                </Grid>
-              </ListItemText>
-            </ListItem>
-          ))}
-        </List>
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
+        )}
         <ListItem sx={{ paddingBottom: 0 }}>
           <ListItemIcon>
             <FormatShapes />
           </ListItemIcon>
           <ListItemText>{fixtureData.teams.away.name} formations</ListItemText>
         </ListItem>
-        <List sx={{ paddingLeft: 2 }}>
-          {predictionData.teams.away.league.lineups.map((l, idx) => (
-            <ListItem key={idx}>
-              <ListItemText>
-                <Grid container>
-                  <Grid item sm={1}>
-                    {l.formation}
+
+        {predictionData && (
+          <List sx={{ paddingLeft: 2 }}>
+            {predictionData.teams.away.league.lineups.map((l, idx) => (
+              <ListItem key={idx}>
+                <ListItemText>
+                  <Grid container>
+                    <Grid item sm={1}>
+                      {l.formation}
+                    </Grid>
+                    <Grid item sm={2}>
+                      {l.played}
+                    </Grid>
                   </Grid>
-                  <Grid item sm={2}>
-                    {l.played}
-                  </Grid>
-                </Grid>
-              </ListItemText>
-            </ListItem>
-          ))}
-        </List>
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
+        )}
       </List>
     </BasePage>
   );
