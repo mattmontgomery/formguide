@@ -48,7 +48,7 @@ export function MLSFormGuide({
   const [darkMode, setDarkMode] = useState<boolean>(prefersDarkMode);
   const [year, setYear] = useState<number>(DEFAULT_YEAR);
   const [_league, setLeague] = useState<Results.Leagues>(
-    league ? league : DEFAULT_LEAGUE
+    league ?? DEFAULT_LEAGUE
   );
   const [drawerOpen, setDrawerOpen] = useCookie("drawer-open", "open");
 
@@ -91,7 +91,7 @@ export function MLSFormGuide({
                   style={{
                     zIndex: 9999,
                     borderRadius: "0.25rem",
-                    boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
+                    boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
                     position: "absolute",
                     width: "80%",
                     maxWidth: "600px",
@@ -273,19 +273,21 @@ export default function RouterWrapped(
     AppProps
 ): React.ReactElement {
   const router = useRouter();
-  const league: Results.Leagues | undefined =
-    router.pathname === "/"
-      ? "mls"
-      : (router.query.league?.toString() as Results.Leagues);
-  return (
-    <>
-      {router.isReady && (
-        <MLSFormGuide {...props} league={league as Results.Leagues} />
-      )}
-    </>
-  );
+  const [league, setLeague] = useState<Results.Leagues>();
+
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+    if (router.pathname === "/") {
+      setLeague("mls");
+    } else {
+      setLeague(String(router.query.league) as Results.Leagues);
+    }
+  }, [router.isReady, router.query, router.pathname, setLeague]);
+  return league ? <MLSFormGuide {...props} league={league} /> : <></>;
 }
 
 MLSFormGuide.getStaticProps = async (ctx: AppContext) => {
-  return { league: ctx.router.query?.league };
+  return { league: ctx.router.query?.league ?? "mls" };
 };

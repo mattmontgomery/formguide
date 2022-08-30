@@ -23,7 +23,7 @@ const getActions = ({
       id: navItem.href || navItem.title,
       name: navItem.title,
       perform: () => {
-        if (navItem.href.includes("http")) {
+        if (navItem.href.includes("http") && typeof window !== "undefined") {
           window.location.href = navItem.href;
         } else {
           router.push({
