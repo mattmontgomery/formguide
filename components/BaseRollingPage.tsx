@@ -1,6 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import MatchGrid from "@/components/MatchGrid";
-import BaseDataPage from "@/components/BaseDataPage";
+import BaseDataPage, { DataPageProps } from "@/components/BaseDataPage";
 import RollingBox from "@/components/Rolling/Box";
 import { format } from "util";
 
@@ -12,6 +12,8 @@ export default function BaseRollingPage({
   getBackgroundColor = () => "success.main",
   isStaticHeight = true,
   isWide = false,
+  getEndpoint,
+  heightCalc,
 }: React.PropsWithChildren<{
   pageTitle: string;
   periodLength: number;
@@ -19,9 +21,16 @@ export default function BaseRollingPage({
   getBackgroundColor?: Render.GetBackgroundColor;
   isStaticHeight?: boolean;
   isWide?: boolean;
+  getEndpoint?: DataPageProps["getEndpoint"];
+  heightCalc?: (value: number | null, periodLength: number) => string;
 }>): React.ReactElement {
   return (
     <BaseDataPage
+      {...(getEndpoint
+        ? {
+            getEndpoint,
+          }
+        : {})}
       pageTitle={format(pageTitle, periodLength)}
       renderComponent={(data) =>
         data?.teams ? (
@@ -36,6 +45,7 @@ export default function BaseRollingPage({
                 data,
                 isStaticHeight,
                 isWide,
+                heightCalc,
               })
             }
             showMatchdayHeader={false}
@@ -57,6 +67,7 @@ function dataParser({
   getBackgroundColor,
   isStaticHeight,
   isWide,
+  heightCalc,
 }: {
   parser: Render.RollingParser;
   periodLength: number;
@@ -64,6 +75,7 @@ function dataParser({
   getBackgroundColor: Render.GetBackgroundColor;
   isStaticHeight: boolean;
   isWide: boolean;
+  heightCalc?: (value: number | null, periodLength: number) => string;
 }): Render.RenderReadyData {
   return parser(data, periodLength).map(([team, ...points]) => {
     return [
@@ -73,6 +85,7 @@ function dataParser({
         .map((points, idx) => {
           return (
             <RollingBox
+              heightCalc={heightCalc}
               isStaticHeight={isStaticHeight}
               getBackgroundColor={getBackgroundColor}
               value={points.value}

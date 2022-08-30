@@ -32,6 +32,11 @@ import {
   SportsSoccerOutlined,
   Elderly,
   Money,
+  Alarm,
+  LockClock,
+  TimeToLeave,
+  Timer10Sharp,
+  Watch,
 } from "@mui/icons-material";
 
 import LeagueContext from "./LeagueContext";
@@ -384,6 +389,65 @@ export const NAV_CONFIG: (NavItem | Subtitle | typeof DIVIDER)[] = [
     href: "/odds",
     title: "Odds",
     icon: Money,
+  },
+  DIVIDER,
+  {
+    subtitle: "Game States",
+  },
+  {
+    href: "/game-states",
+    title: "Best/Worst Game States",
+    icon: Alarm,
+  },
+  {
+    href: "/game-states/comebacks",
+    title: "Comebacks",
+    icon: Alarm,
+  },
+  {
+    href: "/game-states/lost-leads",
+    title: "Lost Leads",
+    icon: Alarm,
+  },
+  {
+    href: "/first-goal/gf",
+    title: "First Goal Scored",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/ga",
+    title: "First Goal Conceded",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/rolling/gf/3",
+    title: "Rolling First Goal Scored (3-game)",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/rolling/gf/5",
+    title: "Rolling First Goal Scored (5-game)",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/rolling/gf/8",
+    title: "Rolling First Goal Scored (8-game)",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/rolling/ga/3",
+    title: "Rolling First Goal Conceded (3-game)",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/rolling/ga/5",
+    title: "Rolling First Goal Conceded (5-game)",
+    icon: Watch,
+  },
+  {
+    href: "/first-goal/rolling/ga/8",
+    title: "Rolling First Goal Conceded (8-game)",
+    icon: Watch,
   },
   DIVIDER,
   { subtitle: "Other Folks' Tools" },
