@@ -10,6 +10,7 @@ import {
   CardMedia,
   ClickAwayListener,
   Divider,
+  SxProps,
   Typography,
 } from "@mui/material";
 import LeagueContext from "./LeagueContext";
@@ -17,24 +18,30 @@ import { getPastTense } from "@/utils/getMatchResultString";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
 
-export default function MatchCell({
-  isShaded = () => false,
-  match,
-  renderValue,
-  prerenderedValue,
-  resultType = "full-match",
-  shadeEmpty = false,
-  rightBorder = false,
-}: {
+export type MatchCellProps = {
   isShaded?: (match: Results.Match) => boolean;
   match: Results.Match;
+  onClick?: (match: Results.Match) => void;
   renderValue?: (match: Results.Match) => string | number;
   renderRawValue?: () => number;
   prerenderedValue?: string | number;
   resultType?: "first-half" | "second-half" | "full-match";
   rightBorder?: boolean;
   shadeEmpty?: boolean;
-}): React.ReactElement {
+  sx?: SxProps;
+};
+
+export default function MatchCell({
+  isShaded = () => false,
+  match,
+  onClick,
+  renderValue,
+  prerenderedValue,
+  resultType = "full-match",
+  shadeEmpty = false,
+  rightBorder = false,
+  sx = {},
+}: MatchCellProps): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
   const result =
     resultType === "first-half"
@@ -62,6 +69,7 @@ export default function MatchCell({
           : `1px solid rgb(181, 181, 181)`,
         position: `relative`,
         cursor: `pointer`,
+        ...sx,
       }}
     >
       <ClickAwayListener onClickAway={() => setOpen(false)}>
@@ -84,7 +92,12 @@ export default function MatchCell({
                   ? "grayscale(0.75) opacity(0.75)"
                   : "none",
             }}
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              if (typeof onClick === "function") {
+                onClick(match);
+              }
+              setOpen(true);
+            }}
           >
             <span data-home={match.home ? "home" : null}>{renderedValue}</span>
           </Box>

@@ -1,7 +1,6 @@
 import { LeagueCodesInverse } from "./LeagueCodes";
 
 export default function getMatchPoints(match: Results.Match): number {
-  const result = match.result;
   if (
     LeagueCodesInverse[match?.league?.id] === "mlsnp" &&
     match.status.short === "PEN"
@@ -12,5 +11,9 @@ export default function getMatchPoints(match: Results.Match): number {
       : 1;
   }
 
+  return getPointsForResult(match.result);
+}
+
+export function getPointsForResult(result: Results.ResultType) {
   return result === "W" ? 3 : result === "D" ? 1 : 0;
 }

@@ -1,19 +1,16 @@
 import BaseDataPage from "@/components/BaseDataPage";
-import { getRecord, getGoals, getRecordPoints } from "@/utils/getRecord";
 
 import {
-  Conferences,
   ConferencesByYear,
   ConferenceDisplayNames,
-  LeagueSorts,
-  DefaultLeagueSort,
 } from "@/utils/LeagueConferences";
 import { Box, FormControlLabel, Input, Switch } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { setYear, startOfYear, endOfYear, format } from "date-fns";
+import { getTable } from "@/utils/table";
+import Table from "@/components/Table";
 
-export default function Table() {
+export default function TablePage() {
   return (
     <BaseDataPage
       pageTitle="Table"
@@ -22,50 +19,6 @@ export default function Table() {
       }}
     />
   );
-}
-
-function getRow(
-  team: string,
-  matches: Results.Match[],
-  from?: Date,
-  to?: Date
-) {
-  const [w, d, l] = getRecord(matches, {
-    from,
-    to,
-  });
-  const [hw, hd, hl] = getRecord(matches, {
-    home: true,
-    away: false,
-    from,
-    to,
-  });
-  const [aw, ad, al] = getRecord(matches, {
-    home: false,
-    away: true,
-    from,
-    to,
-  });
-  const [gf, ga, gd] = getGoals(matches);
-  const points = getRecordPoints([w, d, l]);
-  const gp = w + d + l;
-  return {
-    id: team,
-    team: team,
-    gp,
-    points: points,
-    ppg: gp > 0 ? (points / gp).toFixed(2) : "-",
-    w,
-    d,
-    l,
-    gf,
-    ga,
-    gd,
-    homeRecord: `${hw}-${hd}-${hl}`,
-    awayRecord: `${aw}-${ad}-${al}`,
-    homePoints: getRecordPoints([hw, hd, hl]),
-    awayPoints: getRecordPoints([aw, ad, al]),
-  };
 }
 
 function LeagueTable({
@@ -108,45 +61,14 @@ function LeagueTable({
       console.groupEnd();
     }
   }, [useConferences, meta, data.teams]);
-  const conferences = (useConferences &&
-  ConferencesByYear[meta.league]?.[meta.year]
-    ? Conferences[meta.league]
-    : null) ?? ["All"];
-  const teams: Record<string, string> =
-    (useConferences
-      ? ConferencesByYear[meta.league]?.[meta.year]
-      : Object.keys(data.teams).reduce(
-          (acc, curr) => ({
-            ...acc,
-            [curr]: "All",
-          }),
-          {}
-        )) ??
-    Object.keys(data.teams).reduce(
-      (acc, curr) => ({
-        ...acc,
-        [curr]: "All",
-      }),
-      {}
-    );
-  const table = conferences.map((conference) => {
-    return Object.keys(teams)
-      ?.filter((t: string) => teams[t] === conference || conference === "All")
-      .map((t) => getRow(t, data.teams[t], from, to))
-      .sort(
-        meta.league &&
-          typeof LeagueSorts[meta.league] === "function" &&
-          LeagueSorts[meta.league]
-          ? LeagueSorts[meta.league]
-          : DefaultLeagueSort
-      )
-      .reverse()
-      .map((record, idx) => ({
-        ...record,
-        rank: idx + 1,
-      }));
+  const { table, conferences } = getTable(data.teams, {
+    useConferences,
+    league: meta.league,
+    year: meta.year,
+    from,
+    to,
   });
-  return table && conferences ? (
+  return table ? (
     <>
       <Box m={[4, 0]}>
         <Box m={[4, 0]}>
@@ -180,81 +102,7 @@ function LeagueTable({
           <Box key={idx}>
             <h3>{ConferenceDisplayNames[c]}</h3>
             <Box>
-              <DataGrid
-                autoHeight
-                pageSize={100}
-                components={{ Pagination: () => <></> }}
-                columns={[
-                  { field: "rank", headerName: "Rank", width: 100 },
-                  { field: "id", headerName: "Team", width: 250 },
-                  {
-                    field: "points",
-                    headerName: "Points",
-                    width: 100,
-                  },
-                  {
-                    field: "gp",
-                    headerName: "GP",
-                    width: 100,
-                  },
-                  {
-                    field: "ppg",
-                    headerName: "Points Per Game",
-                    width: 100,
-                  },
-                  {
-                    field: "w",
-                    headerName: "W",
-                    width: 100,
-                  },
-                  {
-                    field: "d",
-                    headerName: "D",
-                    width: 100,
-                  },
-                  {
-                    field: "l",
-                    headerName: "L",
-                    width: 100,
-                  },
-                  {
-                    field: "gf",
-                    headerName: "GF",
-                    width: 100,
-                  },
-                  {
-                    field: "ga",
-                    headerName: "GA",
-                    width: 100,
-                  },
-                  {
-                    field: "gd",
-                    headerName: "GD",
-                    width: 100,
-                  },
-                  {
-                    field: "homeRecord",
-                    headerName: "Home",
-                    width: 100,
-                  },
-                  {
-                    field: "homePoints",
-                    headerName: "Home Points",
-                    width: 100,
-                  },
-                  {
-                    field: "awayRecord",
-                    headerName: "Away",
-                    width: 100,
-                  },
-                  {
-                    field: "awayPoints",
-                    headerName: "Away Points",
-                    width: 100,
-                  },
-                ]}
-                rows={table[idx]}
-              ></DataGrid>
+              <Table data={table[idx]} />
             </Box>
           </Box>
         );

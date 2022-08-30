@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import LeagueContext from "./LeagueContext";
+import { MatchCellProps } from "./MatchCell";
 
 type ProppyArray = [...{ props: { renderValue: () => number } }[]];
 
@@ -51,6 +52,7 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
   rowClass = styles.gridRow,
   gridClass = styles.gridClass,
   chartClass = styles.chart,
+  getMatchCellProps,
   sortMethod = (sortStrategy, weekSortIdx) => (a: unknown, b: unknown) => {
     return sortStrategy === "teamName"
       ? teamNameSort(
@@ -68,6 +70,7 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
   rowClass?: string;
   gridClass?: string;
   chartClass?: string;
+  getMatchCellProps?: (match: Results.Match) => Partial<MatchCellProps>;
   sortMethod?: (
     sortStrategy: string,
     weekSortIdx: number
@@ -165,6 +168,9 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                         LeagueSeparators[league] &&
                         LeagueSeparators[league]?.indexOf(cellIndex + 1) !== -1;
                       return React.cloneElement(Cell, {
+                        ...(typeof getMatchCellProps === "function"
+                          ? getMatchCellProps(Cell.props.match)
+                          : {}),
                         rightBorder: shouldHaveRightBorder,
                         isShaded: (match: Results.Match) =>
                           typeof teamShaded !== "undefined" && teamShaded
