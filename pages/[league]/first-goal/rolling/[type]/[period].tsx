@@ -25,10 +25,7 @@ export default function Chart(): React.ReactElement {
         parseChartData(teams, periodLength, homeAway, goalType)
       }
       periodLength={periodLength}
-      heightCalc={(value) => {
-        console.log({ value });
-        return `${value ? 100 - Math.round(value) : 100}%`;
-      }}
+      heightCalc={(value) => `${value ? 100 - Math.round(value) : 100}%`}
     >
       <ToggleButtonGroup
         value={homeAway}

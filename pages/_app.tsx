@@ -86,9 +86,10 @@ export function MLSFormGuide({
         <ThemeProvider theme={theme}>
           <KBarProvider onSetLeague={(league) => setLeague(league)}>
             <KBarPortal>
-              <KBarPositioner>
+              <KBarPositioner style={{ zIndex: 1 }}>
                 <KBarAnimator
                   style={{
+                    zIndex: 9999,
                     borderRadius: "0.25rem",
                     boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
                     position: "absolute",
@@ -137,7 +138,7 @@ export function MLSFormGuide({
               />
               <link rel="canonical" href="https://formguide.tools.football" />
             </Head>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", position: "relative", zIndex: 1 }}>
               <CssBaseline />
               <Nav
                 drawerOpen={drawerOpen === "open"}
