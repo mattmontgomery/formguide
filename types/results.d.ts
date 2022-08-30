@@ -33,7 +33,7 @@ declare namespace Results {
     teams: Record<string, Match[]>;
   };
   type ParsedDataGoals = {
-    teams: Record<string, GoalsMatch[]>;
+    teams: Record<string, MatchWithGoalData[]>;
   };
   type ParsedMeta = { league: Results.Leagues; year: number };
   type Match = {
