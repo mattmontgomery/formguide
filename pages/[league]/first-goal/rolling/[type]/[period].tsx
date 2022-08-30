@@ -27,7 +27,7 @@ export default function Chart(): React.ReactElement {
       periodLength={periodLength}
       heightCalc={(value) => {
         console.log({ value });
-        return `${value ? 100 - Math.round(value) : 0}%`;
+        return `${value ? 100 - Math.round(value) : 100}%`;
       }}
     >
       <ToggleButtonGroup
