@@ -95,6 +95,7 @@ export function MLSFormGuide({
                     position: "absolute",
                     width: "80%",
                     maxWidth: "600px",
+                    minHeight: "400px",
                     backgroundColor: darkMode
                       ? "rgba(0,0,0,0.9)"
                       : "rgba(255,255,255,0.9)",

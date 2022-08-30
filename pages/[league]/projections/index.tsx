@@ -158,12 +158,14 @@ function dataParser(
 function getInverseResult(result: Results.ResultTypes): Results.ResultTypes {
   return result === "W" ? "L" : result === "L" ? "W" : "D";
 }
-function stepResult(result: Results.ResultTypes): Results.ResultTypes {
+function stepResult(result: Results.ResultTypes): Results.ResultType {
   if (result === "W") {
     return "D";
   } else if (result === "D") {
     return "L";
-  } else {
+  } else if (result === "L") {
     return "W";
+  } else {
+    return null;
   }
 }
