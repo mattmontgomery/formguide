@@ -91,6 +91,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                           { field: "11", sort: "desc" },
                           { field: "12", sort: "desc" },
                           { field: "13", sort: "desc" },
+                          { field: "14", sort: "desc" },
                         ],
                       },
                     }}
@@ -111,6 +112,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                       { field: "11", ...fieldDefinition },
                       { field: "12", ...fieldDefinition },
                       { field: "13", ...fieldDefinition },
+                      { field: "14", ...fieldDefinition },
                     ]}
                     rows={preparedData.filter(
                       (r) =>
