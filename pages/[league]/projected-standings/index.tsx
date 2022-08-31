@@ -41,7 +41,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
     <BaseDataPage<FormGuideAPI.Data.Simulations, FormGuideAPI.Meta.Simulations>
       pageTitle="League final standings simulations"
       getEndpoint={(year, league) =>
-        `/api/projected-standings?league=${league}`
+        `/api/projected-standings?league=${league}&year=${year}`
       }
       renderComponent={(data, meta) => {
         const preparedData = Object.entries(data).map(([team, results]) => {

@@ -29,3 +29,7 @@ export const LeagueProbabilities: Partial<
     awayWin: 0.25,
   },
 };
+
+export const LeagueYearOffset: Partial<Record<Results.Leagues, number>> = {
+  epl: 1,
+};

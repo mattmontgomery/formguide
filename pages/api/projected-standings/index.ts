@@ -3,7 +3,7 @@ import { getAllFixtures } from "@/utils/getAllFixtureIds";
 import { parseISO } from "date-fns";
 import { getRow, getTeamRank, Row } from "@/utils/table";
 import { fetchCachedOrFreshV2, getHash } from "@/utils/cache";
-import { LeagueProbabilities } from "@/utils/Leagues";
+import { LeagueProbabilities, LeagueYearOffset } from "@/utils/Leagues";
 const FORM_API = process.env.FORM_API;
 
 export type Possibility = {
@@ -26,8 +26,11 @@ export default async function LoadFixturesEndpoint(
   ) as Results.Leagues;
 
   const year = Number(req.query.year ?? 2022);
+  const yearOffset = LeagueYearOffset[league] ?? 0;
 
-  const response = await fetch(`${FORM_API}?year=${year}&league=${league}`);
+  const response = await fetch(
+    `${FORM_API}?year=${year + yearOffset}&league=${league}`
+  );
 
   const { data } = (await response.json()) as { data: Results.ParsedData };
 
