@@ -43,17 +43,19 @@ export default async function LoadFixturesEndpoint(
 
   const simulations =
     fixtureIds.length > 0
-      ? fixtureIds.length < 50
-        ? 5000
-        : fixtureIds.length < 100
-        ? 10000
-        : 15000
+      ? fixtureIds.length > 300
+        ? 1000
+        : fixtureIds.length > 200
+        ? 2000
+        : fixtureIds.length > 100
+        ? 3000
+        : 10000
       : 0;
-  // [0,.4], [.4, .7],
+  const _from = new Date();
 
   const [projectedStandingsData, fromCache] =
     await fetchCachedOrFreshV2<FormGuideAPI.Data.Simulations>(
-      `projected-standings:v1.0.1:${simulations}:${getHash([
+      `projected-standings:v1.0.2:${simulations}:${getHash([
         fixtureIds,
         ConferencesByYear[league]?.[year],
       ])}`,
@@ -175,6 +177,7 @@ export default async function LoadFixturesEndpoint(
       meta: {
         simulations,
         fromCache,
+        took: Number(new Date()) - Number(_from),
       },
     });
   }

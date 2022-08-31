@@ -56,7 +56,9 @@ export default function ProjectedStandingsPage(): React.ReactElement {
           <>
             <Box>
               <Typography variant="overline">
-                Simulations: {Number(meta.simulations).toLocaleString()}
+                Simulations: {Number(meta.simulations).toLocaleString()} (number
+                of simulations increases as number of games already played
+                increases)
               </Typography>
             </Box>
             <Box>

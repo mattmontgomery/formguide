@@ -35,7 +35,7 @@ declare namespace FormGuideAPI {
     type Simulations = Record<string, Record<number, number>>;
   }
   namespace Meta {
-    type Generic = { fromCache?: boolean };
+    type Generic = { fromCache?: boolean; took?: number };
     type Simulations = Generic & { simulations: number };
   }
 }
