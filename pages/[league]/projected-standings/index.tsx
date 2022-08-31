@@ -112,7 +112,8 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                     ]}
                     rows={preparedData.filter(
                       (r) =>
-                        ConferencesByYear[league]?.[year]?.[r.id] === conference
+                        ConferencesByYear[league]?.[year]?.[r.id] ===
+                          conference || conference === "All"
                     )}
                   ></DataGrid>
                 </Box>

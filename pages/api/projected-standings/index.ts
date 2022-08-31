@@ -31,13 +31,20 @@ export default async function LoadFixturesEndpoint(
 
   const { data } = (await response.json()) as { data: Results.ParsedData };
 
-  const simulations = 50000;
-
   const fixtureIds = getAllFixtures(
     data,
     (m) => m.status.long !== "Match Finished"
   );
   const { homeWin = 0.4, awayWin = 0.3 } = LeagueProbabilities[league] ?? {};
+
+  const simulations =
+    fixtureIds.length > 0
+      ? fixtureIds.length < 50
+        ? 5000
+        : fixtureIds.length < 1000
+        ? 10000
+        : 50000
+      : 0;
   // [0,.4], [.4, .7],
 
   const [projectedStandingsData, fromCache] =
