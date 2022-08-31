@@ -7,6 +7,7 @@ import getExpires from "@/utils/getExpires";
 
 import { createHash } from "crypto";
 import getFixtureData from "@/utils/api/getFixtureData";
+import { chunk } from "@/utils/array";
 
 const FORM_API = process.env.FORM_API;
 
@@ -37,14 +38,17 @@ export default async function Goals(
   const matches = getAllFixtureIds(data);
 
   const hash = createHash("md5");
-  const key = `fixture-data:v1.0.10#${hash
+  const key = `fixture-data:v1.0.14#${hash
     .update(JSON.stringify([matches, league]))
     .digest("hex")}`;
   const logged = [];
 
+  let preparedLength = 0;
+  let preparedLengthFromCache = 0;
+
   const interval = setInterval(() => {
     logged.push(key);
-    console.log(`[${key}] Fetching`);
+    console.log(`[${key}] Fetching`, preparedLength, preparedLengthFromCache);
   }, 5000);
 
   const [prepared, preparedFromCache] = await fetchCachedOrFreshV2(
@@ -56,19 +60,34 @@ export default async function Goals(
         fromCache: boolean;
       }[] = [];
 
-      for await (const fixture of matches) {
-        const [data, fromCache] = await getFixtureData(fixture.fixtureId);
+      const chunks = chunk(matches, 10);
 
-        if (data?.fixtureData?.[0]) {
-          prepared.push({
-            fixtureId: fixture.fixtureId,
-            fromCache,
-            goals: data?.fixtureData[0].events.filter(
-              (event) => event.type === "Goal"
-            ),
-          });
-        }
+      for await (const matchChunk of chunks) {
+        const matches = await Promise.all(
+          matchChunk.map(async (fixture) => {
+            const [data, fromCache] = await getFixtureData(fixture.fixtureId);
+
+            if (data?.fixtureData?.[0]) {
+              preparedLength++;
+              preparedLengthFromCache += fromCache ? 1 : 0;
+              return {
+                fixtureId: fixture.fixtureId,
+                fromCache,
+                goals: data?.fixtureData[0].events.filter(
+                  (event) => event.type === "Goal"
+                ),
+              };
+            }
+            return {
+              fixtureId: fixture.fixtureId,
+              fromCache,
+              goals: [],
+            };
+          })
+        );
+        prepared.push(...matches.filter((m) => m !== null));
       }
+
       return prepared;
     },
     60 * 60 * 4

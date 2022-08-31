@@ -25,3 +25,15 @@ export function sortByDate(field: string) {
     return dateA > dateB ? 1 : dateA < dateB ? -1 : 0;
   };
 }
+
+export function chunk<T = unknown>(arr: T[], len = 10): T[][] {
+  const chunks = [];
+  const n = arr.length;
+  let i = 0;
+
+  while (i < n) {
+    chunks.push(arr.slice(i, (i += len)));
+  }
+
+  return chunks;
+}

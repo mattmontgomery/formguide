@@ -9,7 +9,7 @@ export default function GameStates(): React.ReactElement {
   const [show, setShow] = useState<"worst" | "best">("best");
   return (
     <BaseGridPage<Results.ParsedDataGoals>
-      pageTitle={`${show} game states`}
+      pageTitle={`${show} game states (may take multiple retries to fully generate)`}
       dataParser={(data) => dataParser(data, show)}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}
