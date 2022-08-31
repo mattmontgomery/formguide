@@ -62,7 +62,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
             <Box>
               <Typography variant="caption">
                 Home win odds: {homeWin}, away win odds: {awayWin}, draw odds:{" "}
-                {1 - homeWin + awayWin}
+                {Number(1 - homeWin - awayWin).toPrecision(2)}
               </Typography>
             </Box>
 

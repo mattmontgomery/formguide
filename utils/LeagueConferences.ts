@@ -1,5 +1,6 @@
 const Conferences: Partial<Record<Results.Leagues, string[]>> = {
   mls: ["west", "east"],
+  mlsnp: ["west", "east"],
 };
 const ConferencesByYear: Partial<
   Record<Results.Leagues, Record<number, Record<string, string>>>
@@ -34,6 +35,35 @@ const ConferencesByYear: Partial<
       "Sporting Kansas City": "west",
       "Toronto FC": "east",
       "Vancouver Whitecaps": "west",
+    },
+  },
+  mlsnp: {
+    2022: {
+      "Chicago FC United": "east",
+      "Colorado Rapids II": "west",
+      "Columbus Crew II": "east",
+      "Rochester Rhinos": "east",
+      "FC Cincinnati II": "east",
+
+      "North Texas": "west",
+      "Houston Dynamo FC II": "west",
+      "Fort Lauderdale CF": "east",
+      "Minnesota United II": "west",
+      "New England II": "east",
+
+      "New York City II": "east",
+      "Orlando City II": "east",
+      "Bethlehem Steel": "east",
+      "Real Monarchs": "west",
+      "Portland Timbers II": "west",
+
+      "San Jose Earthquakes II": "west",
+      "Tacoma Defiance": "west",
+      "St. Louis City II": "west",
+
+      "Swope PArk Rangers": "west",
+      "Toronto II": "east",
+      "Whitecaps II": "west",
     },
   },
 };

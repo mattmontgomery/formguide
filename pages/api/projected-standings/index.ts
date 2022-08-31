@@ -4,6 +4,7 @@ import { parseISO } from "date-fns";
 import { getRow, getTeamRank, Row } from "@/utils/table";
 import { fetchCachedOrFreshV2, getHash } from "@/utils/cache";
 import { LeagueProbabilities, LeagueYearOffset } from "@/utils/Leagues";
+import { ConferencesByYear } from "@/utils/LeagueConferences";
 const FORM_API = process.env.FORM_API;
 
 export type Possibility = {
@@ -52,7 +53,10 @@ export default async function LoadFixturesEndpoint(
 
   const [projectedStandingsData, fromCache] =
     await fetchCachedOrFreshV2<FormGuideAPI.Data.Simulations>(
-      `projected-standings:v1.0.1:${simulations}:${getHash(fixtureIds)}`,
+      `projected-standings:v1.0.1:${simulations}:${getHash([
+        fixtureIds,
+        ConferencesByYear[league]?.[year],
+      ])}`,
       async () => {
         const possibleTables = [];
 
