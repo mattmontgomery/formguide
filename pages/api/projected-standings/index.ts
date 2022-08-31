@@ -49,7 +49,7 @@ export default async function LoadFixturesEndpoint(
         ? 2000
         : fixtureIds.length > 100
         ? 3000
-        : 10000
+        : 5000
       : 0;
   const _from = new Date();
 
