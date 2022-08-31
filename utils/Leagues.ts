@@ -20,3 +20,12 @@ export const LeagueOptions: Record<Results.Leagues, string> = {
   ligamx_ex: "Liga de Expansión MX",
   epl: "English Premier League",
 };
+
+export const LeagueProbabilities: Partial<
+  Record<Results.Leagues, { homeWin: number; awayWin: number }>
+> = {
+  mls: {
+    homeWin: 0.5,
+    awayWin: 0.25,
+  },
+};

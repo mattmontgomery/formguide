@@ -1,4 +1,5 @@
 import redisClient from "./redis";
+import { createHash } from "crypto";
 
 export async function fetchCachedOrFresh<T>(
   key: string,
@@ -154,4 +155,9 @@ export async function fetchCachedOrFreshGraceful<T>(
       throw e;
     }
   }
+}
+
+export function getHash(data: unknown): string {
+  const hash = createHash("md5");
+  return hash.update(JSON.stringify(data)).digest("hex");
 }

@@ -24,6 +24,7 @@ export type Row = {
   homePoints: number;
   awayPoints: number;
   rank?: number;
+  conferenceRank?: number;
 };
 
 export function getRow(
@@ -231,4 +232,25 @@ export function getSortStrategy(league: Results.Leagues) {
     LeagueSorts[league]
     ? LeagueSorts[league]
     : DefaultLeagueSort;
+}
+
+export function getTeamRank(
+  rows: Row[],
+  league: Results.Leagues,
+  year = new Date().getFullYear()
+): Row[] {
+  const conferencesByYear = ConferencesByYear[league]?.[year] ?? {};
+  const sorted = [...rows].sort(getSortStrategy(league)).reverse();
+  return sorted.map((row, idx) => ({
+    ...row,
+    rank: idx,
+    conferenceRank:
+      Object.keys(conferencesByYear).length > 0
+        ? sorted
+            .filter(
+              (sR) => conferencesByYear[row.team] === conferencesByYear[sR.team]
+            )
+            .findIndex((sR) => sR.team === row.team) + 1
+        : undefined, //
+  }));
 }

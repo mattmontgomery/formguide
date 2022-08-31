@@ -7,7 +7,7 @@ declare namespace FormGuideAPI {
     errors: { message: string; [key: string]: string }[];
     meta: U;
   };
-  type BaseAPIV2<T> =
+  type BaseAPIV2<T, U = Record<string, unknown>> =
     | {
         data: T;
         errors?: never[];
@@ -29,5 +29,13 @@ declare namespace FormGuideAPI {
       predictionData: Results.PredictionApi[];
     };
     type FixtureEndpoint = BaseApiV2<Fixture>;
+    type SimulationsEndpoint = BaseAPIV2<Data.Simulations, Meta.Simulations>;
+  }
+  namespace Data {
+    type Simulations = Record<string, Record<number, number>>;
+  }
+  namespace Meta {
+    type Generic = { fromCache?: boolean };
+    type Simulations = Generic & { simulations: number };
   }
 }

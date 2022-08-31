@@ -5,28 +5,28 @@ import YearContext from "./YearContext";
 import LeagueContext from "./LeagueContext";
 import { useContext } from "react";
 
-export type DataPageProps = {
-  renderComponent: (
-    data: Results.ParsedData,
-    meta: Results.ParsedMeta
-  ) => React.ReactNode;
+export type DataPageProps<
+  Data = Results.ParsedData,
+  Meta = Results.ParsedMeta
+> = {
+  renderComponent: (data: Data, meta: Meta) => React.ReactNode;
   pageTitle: string;
   children?: React.ReactNode;
   getEndpoint?: (year: number, league: string) => string;
 };
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
-function BaseDataPage({
+function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
   children,
   renderComponent,
   pageTitle,
   getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
-}: DataPageProps): React.ReactElement {
+}: DataPageProps<Data, Meta>): React.ReactElement {
   const year = useContext(YearContext);
   const league = useContext(LeagueContext);
   const { data } = useSWR<{
-    data: Results.ParsedData;
-    meta: Results.ParsedMeta;
+    data: Data;
+    meta: Meta;
   }>([getEndpoint(year, league), year, league], fetcher);
   return (
     <BasePage pageTitle={pageTitle}>
