@@ -45,9 +45,9 @@ export default async function LoadFixturesEndpoint(
     fixtureIds.length > 0
       ? fixtureIds.length < 50
         ? 5000
-        : fixtureIds.length < 1000
+        : fixtureIds.length < 100
         ? 10000
-        : 50000
+        : 15000
       : 0;
   // [0,.4], [.4, .7],
 
