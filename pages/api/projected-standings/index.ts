@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAllFixtures } from "@/utils/getAllFixtureIds";
-import { parseISO } from "date-fns";
+import { getAllFixtures, MatchWithTeams } from "@/utils/getAllFixtureIds";
 import { getRow, getTeamRank, Row } from "@/utils/table";
 import { fetchCachedOrFreshV2, getHash } from "@/utils/cache";
 import { LeagueProbabilities, LeagueYearOffset } from "@/utils/Leagues";
@@ -15,7 +14,6 @@ export type Possibility = {
   awayPoints: number | 3 | 1 | 0;
   homeResult: Results.ResultTypes;
   awayResult: Results.ResultTypes;
-  date: Date;
 };
 
 export default async function LoadFixturesEndpoint(
@@ -47,10 +45,15 @@ export default async function LoadFixturesEndpoint(
         ? 1000
         : fixtureIds.length > 200
         ? 2000
-        : fixtureIds.length > 100
+        : fixtureIds.length > 150
         ? 3000
-        : 5000
-      : 0;
+        : fixtureIds.length > 100
+        ? 5000
+        : fixtureIds.length > 50
+        ? 10100
+        : 15000
+      : 1;
+
   const _from = new Date();
 
   const [projectedStandingsData, fromCache] =
@@ -63,56 +66,12 @@ export default async function LoadFixturesEndpoint(
         const possibleTables = [];
 
         for (let i = 0; i < simulations; i++) {
-          const possibilities: Possibility[] = fixtureIds
-            .map((m) => ({
-              ...m,
-              home: m.home,
-              away: m.away,
-              date: parseISO(m.date),
-            }))
-            .map((m): (() => Possibility) => {
-              return () => {
-                const r = Math.random();
-                const projectedResult =
-                  r <= homeWin ? 0 : r > homeWin && r <= awayWin ? 2 : 1;
-                return [
-                  {
-                    fixtureId: m.fixtureId,
-                    home: m.home,
-                    away: m.away,
-                    date: m.date,
-                    homeResult: "W" as Results.ResultTypes,
-                    awayResult: "L" as Results.ResultTypes,
-                    homePoints: 3,
-                    awayPoints: 0,
-                  },
-                  {
-                    fixtureId: m.fixtureId,
-                    home: m.home,
-                    away: m.away,
-                    date: m.date,
-                    homeResult: "D" as Results.ResultTypes,
-                    awayResult: "D" as Results.ResultTypes,
-                    homePoints: 1,
-                    awayPoints: 1,
-                  },
-                  {
-                    fixtureId: m.fixtureId,
-                    home: m.home,
-                    away: m.away,
-                    date: m.date,
-                    homeResult: "L" as Results.ResultTypes,
-                    awayResult: "W" as Results.ResultTypes,
-                    homePoints: 0,
-                    awayPoints: 3,
-                  },
-                ][projectedResult];
-              };
-            })
-            .map((p) => p());
+          const possibilities: Possibility[] = fixtureIds.map((m) =>
+            getMatchOutcome(m, homeWin, awayWin)
+          );
 
-          const table = Object.entries(data.teams)
-            .map(([team, results]): [string, Row] => {
+          const table = Object.entries(data.teams).reduce(
+            (acc: Record<string, Row>, [team, results]) => {
               const projectedResults = results.map((r) => {
                 const pR = possibilities.find(
                   (p) => p.fixtureId === r.fixtureId
@@ -129,14 +88,10 @@ export default async function LoadFixturesEndpoint(
                   result: pR.home === r.team ? pR.homeResult : pR.awayResult,
                 };
               });
-              return [team, getRow(team, projectedResults)];
-            })
-            .reduce((acc, [team, results]) => {
-              return {
-                ...acc,
-                [team]: results,
-              };
-            }, {});
+              return { ...acc, [team]: getRow(team, projectedResults) };
+            },
+            {}
+          );
 
           possibleTables.push(
             getTeamRank(Object.values(table), league as Results.Leagues)
@@ -181,4 +136,43 @@ export default async function LoadFixturesEndpoint(
       },
     });
   }
+}
+
+function getMatchOutcome(
+  m: MatchWithTeams,
+  homeWin: number,
+  awayWin: number
+): Possibility {
+  const r = Math.random();
+  const projectedResult =
+    r <= homeWin ? 0 : r > homeWin && r <= awayWin + homeWin ? 2 : 1;
+  return [
+    {
+      fixtureId: m.fixtureId,
+      home: m.home,
+      away: m.away,
+      homeResult: "W" as Results.ResultTypes,
+      awayResult: "L" as Results.ResultTypes,
+      homePoints: 3,
+      awayPoints: 0,
+    },
+    {
+      fixtureId: m.fixtureId,
+      home: m.home,
+      away: m.away,
+      homeResult: "D" as Results.ResultTypes,
+      awayResult: "D" as Results.ResultTypes,
+      homePoints: 1,
+      awayPoints: 1,
+    },
+    {
+      fixtureId: m.fixtureId,
+      home: m.home,
+      away: m.away,
+      homeResult: "L" as Results.ResultTypes,
+      awayResult: "W" as Results.ResultTypes,
+      homePoints: 0,
+      awayPoints: 3,
+    },
+  ][projectedResult];
 }

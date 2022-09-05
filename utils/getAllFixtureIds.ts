@@ -1,3 +1,4 @@
+import { parseISO } from "date-fns";
 import { getMatchTitle } from "./getFormattedValues";
 
 type Match = {
@@ -6,11 +7,11 @@ type Match = {
   status: Results.Fixture["status"];
   date: string;
 };
-type MatchWithTeams = {
+export type MatchWithTeams = {
   fixtureId: number;
   title: string;
   status: Results.Fixture["status"];
-  date: string;
+  date: Date;
   home: string;
   away: string;
 };
@@ -50,7 +51,7 @@ export function getAllFixtures(
             fixtureId: match.fixtureId,
             home: match.home ? match.team : match.opponent,
             away: !match.home ? match.team : match.opponent,
-            date: match.rawDate,
+            date: parseISO(match.rawDate),
             title: getMatchTitle(match),
             status: match.status,
           })),
