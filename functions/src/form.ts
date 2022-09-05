@@ -16,7 +16,7 @@ const URL_BASE = `https://${process.env.API_FOOTBALL_BASE}`;
 const REDIS_URL = process.env.REDIS_URL;
 const API_BASE = process.env.API_FOOTBALL_BASE;
 const API_KEY = process.env.API_FOOTBALL_KEY;
-const APP_VERSION = process.env.APP_VERSION || "v2.0.3";
+const APP_VERSION = process.env.APP_VERSION || "v2.0.4";
 const defaultLeague: Results.Leagues = "mls";
 
 http("form", async (req, res) => {

@@ -16,7 +16,7 @@ export function getExpires(year: number, data: Results.ParsedData) {
   if (year !== thisYear) {
     return 60 * 60 * 24 * 7 * 4;
   } else {
-    return 60 * 60; // default 60 minutes
+    return 60 * 15; // default 30 minutes
     // const nextMatches = Object.keys(data.teams).map((t) =>
     //   data.teams[t]
     //     .filter((match) => match.status.long !== "Match Finished")
