@@ -4,7 +4,7 @@ import { LeagueCodes } from "@/utils/LeagueCodes";
 import { NextApiRequest, NextApiResponse } from "next";
 import type { SlimMatch } from "@/utils/getAllFixtureIds";
 
-import getExpires from "@/utils/getExpires";
+import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 
 import { createHash } from "crypto";
 import getFixtureData, { FIXTURE_KEY_PREFIX } from "@/utils/api/getFixtureData";
@@ -85,7 +85,7 @@ export default async function Goals(
 
         return prepared;
       },
-      60 * 60 * 4,
+      getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
       {
         allowCompression: true,
       }
