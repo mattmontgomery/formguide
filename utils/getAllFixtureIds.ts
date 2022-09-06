@@ -1,7 +1,7 @@
 import { parseISO } from "date-fns";
 import { getMatchTitle } from "./getFormattedValues";
 
-type Match = {
+export type SlimMatch = {
   fixtureId: number;
   title: string;
   status: Results.Fixture["status"];
@@ -15,8 +15,10 @@ export type MatchWithTeams = {
   home: string;
   away: string;
 };
-export default function getAllFixtureIds(data: Results.ParsedData): Match[] {
-  return Object.entries(data.teams).reduce((acc: Match[], [, matches]) => {
+export default function getAllFixtureIds(
+  data: Results.ParsedData
+): SlimMatch[] {
+  return Object.entries(data.teams).reduce((acc: SlimMatch[], [, matches]) => {
     return [
       ...acc,
       ...matches

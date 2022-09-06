@@ -22,13 +22,14 @@ const getEndpoint = (
 
 export default async function LeagueOdds(
   req: NextApiRequest,
-  res: NextApiResponse<FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>>
+  res: NextApiResponse<
+    | FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>
+    | FormGuideAPI.Responses.ErrorResponse
+  >
 ): Promise<void> {
   const league = String(req.query.league) as Results.Leagues;
   if (typeof TheOddsMapping[league] !== "string") {
     res.json({
-      data: null,
-      meta: null,
       errors: [{ message: "League not supported" }],
     });
     return;

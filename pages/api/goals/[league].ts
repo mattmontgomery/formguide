@@ -1,19 +1,23 @@
-import { fetchCachedOrFreshV2 } from "@/utils/cache";
+import { fetchCachedOrFreshV2, getKey } from "@/utils/cache";
 import getAllFixtureIds from "@/utils/getAllFixtureIds";
 import { LeagueCodes } from "@/utils/LeagueCodes";
 import { NextApiRequest, NextApiResponse } from "next";
+import type { SlimMatch } from "@/utils/getAllFixtureIds";
 
 import getExpires from "@/utils/getExpires";
 
 import { createHash } from "crypto";
-import getFixtureData from "@/utils/api/getFixtureData";
+import getFixtureData, { FIXTURE_KEY_PREFIX } from "@/utils/api/getFixtureData";
 import { chunk } from "@/utils/array";
+import redisClient from "@/utils/redis";
 
 const FORM_API = process.env.FORM_API;
 
 export default async function Goals(
   req: NextApiRequest,
-  res: NextApiResponse<FormGuideAPI.Responses.Goals>
+  res: NextApiResponse<
+    FormGuideAPI.Responses.GoalsEndpoint | FormGuideAPI.Responses.ErrorResponse
+  >
 ): Promise<void> {
   const league = String(req.query.league);
   const year = String(req.query.year ?? new Date().getFullYear());
@@ -38,86 +42,126 @@ export default async function Goals(
   const matches = getAllFixtureIds(data);
 
   const hash = createHash("md5");
-  const key = `fixture-data:v1.0.14#${hash
+  const totalKey = `${FIXTURE_KEY_PREFIX}:ALL:COMPRESSED_HEX:${hash
     .update(JSON.stringify([matches, league]))
     .digest("hex")}`;
-  const logged = [];
 
-  let preparedLength = 0;
-  let preparedLengthFromCache = 0;
+  const keys = await redisClient().keys(`${FIXTURE_KEY_PREFIX}*`);
 
-  const interval = setInterval(() => {
-    logged.push(key);
-    console.log(`[${key}] Fetching`, preparedLength, preparedLengthFromCache);
-  }, 5000);
+  const from = new Date();
 
-  const [prepared, preparedFromCache] = await fetchCachedOrFreshV2(
-    key,
-    async () => {
-      const prepared: {
-        fixtureId: number;
-        goals: Results.FixtureEvent[];
-        fromCache: boolean;
-      }[] = [];
+  const [prepared = [], preparedFromCache, compressed, errors] =
+    await fetchCachedOrFreshV2(
+      totalKey,
+      async () => {
+        const prepared: ({
+          fixtureId: number;
+          goals: Results.FixtureEvent[];
+          fromCache: boolean;
+        } | null)[] = [];
 
-      const chunks = chunk(matches, 10);
+        const availableInCache = matches.filter((m) => {
+          return keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
+        });
+        const notAvailableInCache = matches.filter((m) => {
+          return !keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
+        });
 
-      for await (const matchChunk of chunks) {
-        const matches = await Promise.all(
-          matchChunk.map(async (fixture) => {
-            const [data, fromCache] = await getFixtureData(fixture.fixtureId);
+        const fromCacheChunks = chunk(availableInCache, 20);
+        const notCachedChunks = chunk(notAvailableInCache, 5);
 
-            if (data?.fixtureData?.[0]) {
-              preparedLength++;
-              preparedLengthFromCache += fromCache ? 1 : 0;
-              return {
-                fixtureId: fixture.fixtureId,
-                fromCache,
-                goals: data?.fixtureData[0].events.filter(
-                  (event) => event.type === "Goal"
-                ),
-              };
-            }
-            return {
-              fixtureId: fixture.fixtureId,
-              fromCache,
-              goals: [],
-            };
-          })
-        );
-        prepared.push(...matches.filter((m) => m !== null));
+        for await (const matchChunk of fromCacheChunks) {
+          const matches = (
+            await Promise.all(matchChunk.map(fetchFixture))
+          ).filter((m) => m !== null);
+          prepared.push(...matches);
+        }
+        for await (const matchChunk of notCachedChunks) {
+          const matches = (
+            await Promise.all(matchChunk.map(fetchFixture))
+          ).filter((m) => m !== null);
+          prepared.push(...matches);
+        }
+
+        return prepared;
+      },
+      60 * 60 * 4,
+      {
+        allowCompression: true,
       }
+    );
+  // console.log({ prepared });
 
-      return prepared;
-    },
-    60 * 60 * 4
-  );
-
-  clearInterval(interval);
-
-  if (logged.length) {
-    console.log(`[${key}] finished`);
-  }
-  res.json({
-    data: {
-      teams: Object.entries(data.teams).reduce(
-        (previousValue, [team, matches]) => {
+  const teamsData = data
+    ? Object.entries(data.teams).reduce(
+        (
+          previousValue: FormGuideAPI.Data.GoalsEndpoint["teams"],
+          [team, matches]
+        ) => {
           return {
             ...previousValue,
-            [team]: matches.map((m) => ({
-              ...m,
-              goalsData: prepared?.find((f) => m.fixtureId === f.fixtureId),
-            })),
+            [team]: matches.map(
+              (m): FormGuideAPI.Data.GoalMatch => ({
+                ...m,
+                goalsData:
+                  prepared?.find((f) => m.fixtureId === f?.fixtureId) ??
+                  undefined,
+              })
+            ),
           };
         },
         {}
-      ),
-    },
-    meta: {
-      fixtureIds: matches.map((f) => f.fixtureId),
-      preparedFromCache,
-    },
-  });
+      )
+    : null;
+  if (errors) {
+    res.json({
+      errors: [
+        {
+          message: String(errors),
+        },
+      ],
+    });
+  } else if (data !== null) {
+    res.json({
+      data: {
+        teams: teamsData,
+      } as FormGuideAPI.Data.GoalsEndpoint,
+      meta: {
+        fixtureIds: matches.map((f) => f.fixtureId),
+        preparedFromCache,
+        took: Number(new Date()) - Number(from),
+        compressed,
+      },
+    });
+  } else {
+    res.json({
+      errors: [{ message: "Data could not be generated" }],
+    });
+  }
+}
+
+async function fetchFixture(fixture: SlimMatch) {
+  try {
+    const [data, fromCache] = await getFixtureData(fixture.fixtureId);
+
+    if (data?.fixtureData?.[0]) {
+      return {
+        fixtureId: fixture.fixtureId,
+        fromCache,
+        goals: data?.fixtureData[0].events.filter(
+          (event) => event.type === "Goal"
+        ),
+      };
+    }
+    return {
+      fixtureId: fixture.fixtureId,
+      fromCache,
+      goals: [],
+    };
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
 }
 
 // EVAL "return redis.call('del', unpack(redis.call('keys', ARGV[1])))" 0 prefix:[expire:*]

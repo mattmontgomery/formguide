@@ -1,12 +1,12 @@
-import { FetchCachedOrFreshReturnType, fetchCachedOrFreshV2 } from "../cache";
+import { fetchCachedOrFreshV2 } from "../cache";
 
 const ENDPOINT = process.env.PREDICTIONS_API;
 
-export default async function getFixtureData(
-  fixture: number
-): Promise<FetchCachedOrFreshReturnType<FormGuideAPI.Responses.Fixture>> {
-  return fetchCachedOrFreshV2<FormGuideAPI.Responses.Fixture>(
-    `fixture-data:v1.0.10:${fixture}`,
+export const FIXTURE_KEY_PREFIX = `fixture-data:v1.0.10:`;
+
+export default async function getFixtureData(fixture: number) {
+  return fetchCachedOrFreshV2<FormGuideAPI.Data.Fixture>(
+    `${FIXTURE_KEY_PREFIX}${fixture}`,
     async () => {
       const response = await fetch(`${ENDPOINT}?fixture=${fixture}`);
       if (response.status !== 200) {
@@ -18,7 +18,7 @@ export default async function getFixtureData(
       }
       return responseJson.data;
     },
-    (data: FormGuideAPI.Responses.Fixture) =>
+    (data) =>
       data.fixtureData?.[0].fixture.status.long === "Match Finished"
         ? 0
         : 60 * 60 * 24, // 24 hour cache for incomplete matches
@@ -26,7 +26,7 @@ export default async function getFixtureData(
       checkEmpty: (data) => {
         if (!data) return true;
         try {
-          const d = JSON.parse(data) as FormGuideAPI.Responses.Fixture;
+          const d = JSON.parse(data) as FormGuideAPI.Data.Fixture;
           if (
             !d ||
             !d.fixtureData ||

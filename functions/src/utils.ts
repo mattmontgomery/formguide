@@ -1,4 +1,4 @@
-import { addMinutes, differenceInSeconds, isAfter, subHours } from "date-fns";
+import { subHours } from "date-fns";
 import Redis from "ioredis";
 import { format } from "util";
 import { ENDPOINT } from "./constants";
@@ -173,14 +173,8 @@ export async function fetchCachedOrFresh<T>(
   fetch: () => Promise<T>,
   expire: number | ((data: T) => number)
 ): Promise<[T | null, boolean]> {
-  const REDIS_URL = process.env.REDIS_URL;
-  const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
-  if (!REDIS_URL) {
-    throw "Application is not properly configured";
-  }
-
   // keys differentiate by year and league
-  const redisKey = `${key}:${APP_VERSION}`;
+  const redisKey = getKey(key);
   const data = await redisClient.get(redisKey);
 
   if (data) {
@@ -197,4 +191,9 @@ export async function fetchCachedOrFresh<T>(
     }
     return [data, false];
   }
+}
+
+export function getKey(key: string): string {
+  const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
+  return `${key}:${APP_VERSION}`;
 }

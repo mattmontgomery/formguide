@@ -58,7 +58,11 @@ export default function Admin() {
         const remaining = fixtureIds
           .map((match) => match.fixtureId)
           .filter(
-            (f) => !(loaded.includes(f) || fixturesData?.data?.includes(f))
+            (f) =>
+              !(
+                loaded.includes(f) ||
+                (fixturesData?.data && fixturesData.data?.includes(f))
+              )
           );
         return (
           <Box sx={{ maxWidth: 800 }}>

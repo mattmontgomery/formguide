@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import getMatchPoints from "@/utils/getMatchPoints";
 import BaseRollingPage from "@/components/BaseRollingPage";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { getFirstGoalConceded, getFirstGoalScored } from "@/utils/getGoals";

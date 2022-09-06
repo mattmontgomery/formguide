@@ -18,7 +18,10 @@ export type Possibility = {
 
 export default async function LoadFixturesEndpoint(
   req: NextApiRequest,
-  res: NextApiResponse<FormGuideAPI.Responses.SimulationsEndpoint>
+  res: NextApiResponse<
+    | FormGuideAPI.Responses.SimulationsEndpoint
+    | FormGuideAPI.Responses.ErrorResponse
+  >
 ): Promise<void> {
   const league: Results.Leagues = String(
     req.query.league ?? "mls"

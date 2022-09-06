@@ -3,7 +3,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function form(
   req: NextApiRequest,
-  res: NextApiResponse<FormGuideAPI.Responses.FixtureEndpoint>
+  res: NextApiResponse<
+    | FormGuideAPI.Responses.FixtureEndpoint
+    | FormGuideAPI.Responses.ErrorResponse
+  >
 ): Promise<void> {
   const fixture = +String(req.query.fixture);
   const [data, preparedFromCache, error] = await getFixtureData(fixture);
@@ -20,7 +23,7 @@ export default async function form(
     );
     res.json({
       data,
-      meta: preparedFromCache,
+      meta: { preparedFromCache },
     });
   }
 }
