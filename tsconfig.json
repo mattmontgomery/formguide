@@ -14,8 +14,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
     "paths": {
       "@/components/*": ["components/*"],
+      "@/constants/*": ["constants/*"],
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"]
     },

@@ -38,9 +38,12 @@ export async function fetchCachedOrFresh<T>(
   }
 }
 
-export type FetchCachedOrFreshReturnType<T> =
-  | [T | null, boolean, boolean]
-  | [null, boolean, boolean, Error | string | unknown];
+export type FetchCachedOrFreshReturnType<T> = [
+  T | null,
+  boolean,
+  boolean,
+  (Error | string | unknown | null | undefined)?
+];
 export async function fetchCachedOrFreshV2<T>(
   key: string,
   fetch: () => Promise<T>,
