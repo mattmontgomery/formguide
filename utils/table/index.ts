@@ -243,7 +243,7 @@ export function getTeamRank(
   const sorted = [...rows].sort(getSortStrategy(league)).reverse();
   return sorted.map((row, idx) => ({
     ...row,
-    rank: idx,
+    rank: idx + 1,
     conferenceRank:
       Object.keys(conferencesByYear).length > 0
         ? sorted

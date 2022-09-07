@@ -4,6 +4,7 @@ import { getRow, getTeamRank, Row } from "@/utils/table";
 import { fetchFromCache, getHash, setInCache } from "@/utils/cache";
 import { LeagueProbabilities, LeagueYearOffset } from "@/utils/Leagues";
 import { ConferencesByYear } from "@/utils/LeagueConferences";
+import { getProbabilities } from "@/utils/getPpg";
 const FORM_API = process.env.FORM_API;
 
 export type Possibility = {
@@ -28,6 +29,7 @@ export default async function LoadFixturesEndpoint(
   ) as Results.Leagues;
 
   const year = Number(req.query.year ?? 2022);
+  const allowTeamPpg = Boolean(req.query.teamPPG === "1");
   const yearOffset = LeagueYearOffset[league] ?? 0;
 
   const response = await fetch(
@@ -39,6 +41,10 @@ export default async function LoadFixturesEndpoint(
   const fixtureIds = getAllFixtures(
     data,
     (m) => m.status.long !== "Match Finished"
+  );
+  const finished = getAllFixtures(
+    data,
+    (m) => m.status.long === "Match Finished"
   );
   const { homeWin = 0.4, awayWin = 0.3 } = LeagueProbabilities[league] ?? {};
 
@@ -59,7 +65,7 @@ export default async function LoadFixturesEndpoint(
 
   const _from = new Date();
 
-  const cacheKey = `projected-standings:v4:${getHash([
+  const cacheKey = `projected-standings:v5.0.2:${allowTeamPpg}:${getHash([
     fixtureIds,
     ConferencesByYear[league]?.[year],
   ])}`;
@@ -71,8 +77,10 @@ export default async function LoadFixturesEndpoint(
 
   if (!cachedProjectionsData) {
     const initializedData = await calculate({
+      allowTeamPpg,
       simulations: initializedSimulations,
       fixtureIds,
+      finished: finished.length,
       data,
       homeWin,
       awayWin,
@@ -83,8 +91,10 @@ export default async function LoadFixturesEndpoint(
     });
   } else {
     const newData = await calculate({
+      allowTeamPpg,
       simulations: 500,
       fixtureIds,
+      finished: finished.length,
       data,
       homeWin,
       awayWin,
@@ -109,7 +119,11 @@ export default async function LoadFixturesEndpoint(
     });
   } else {
     res.json({
-      data: projections,
+      data: Object.keys(projections)
+        .sort()
+        .reduce((acc, curr) => {
+          return { ...acc, [curr]: projections[curr] };
+        }, {}),
       errors: [],
       meta: {
         simulations: Object.values(Object.values(projections)[0]).reduce(
@@ -166,25 +180,33 @@ function getMatchOutcome(
 
 async function calculate({
   simulations,
+  finished,
   fixtureIds,
   data,
   homeWin,
   awayWin,
   league,
+  allowTeamPpg,
 }: {
   simulations: number;
+  finished: number;
   fixtureIds: MatchWithTeams[];
   data: Results.ParsedData;
   homeWin: number;
   awayWin: number;
   league: Results.Leagues;
+  allowTeamPpg: boolean;
 }) {
   const possibleTables = [];
+  const teamPpg = getProbabilities(data.teams);
+  const useTeamPpg = allowTeamPpg && finished > fixtureIds.length;
 
   for (let i = 0; i < simulations; i++) {
-    const possibilities: Possibility[] = fixtureIds.map((m) =>
-      getMatchOutcome(m, homeWin, awayWin)
-    );
+    const possibilities: Possibility[] = fixtureIds.map((m) => {
+      return useTeamPpg
+        ? getMatchOutcome(m, teamPpg[m.home].homeW, teamPpg[m.away].awayW)
+        : getMatchOutcome(m, homeWin, awayWin);
+    });
 
     const table = Object.entries(data.teams).reduce(
       (acc: Record<string, Row>, [team, results]) => {

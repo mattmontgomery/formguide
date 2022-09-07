@@ -13,6 +13,7 @@ export type DataPageProps<
   pageTitle: string;
   children?: React.ReactNode;
   getEndpoint?: (year: number, league: string) => string;
+  swrArgs?: unknown[];
 };
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -21,13 +22,16 @@ function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
   renderComponent,
   pageTitle,
   getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
+  swrArgs = [],
 }: DataPageProps<Data, Meta>): React.ReactElement {
   const year = useContext(YearContext);
   const league = useContext(LeagueContext);
   const { data } = useSWR<{
     data: Data;
     meta: Meta;
-  }>([getEndpoint(year, league), year, league], fetcher);
+  }>([getEndpoint(year, league), year, league, ...swrArgs], fetcher, {
+    dedupingInterval: 500,
+  });
   return (
     <BasePage pageTitle={pageTitle}>
       {data && data?.data ? (

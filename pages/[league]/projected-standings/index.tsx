@@ -7,9 +7,14 @@ import {
   ConferencesByYear,
 } from "@/utils/LeagueConferences";
 import { LeagueProbabilities } from "@/utils/Leagues";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useContext } from "react";
+import { useContext, useMemo, useState } from "react";
 
 const fieldDefinition: Omit<GridColDef, "field"> = {
   type: "number",
@@ -37,12 +42,18 @@ export default function ProjectedStandingsPage(): React.ReactElement {
   const year = useContext(YearContext);
   const conferences = Conferences[league] ?? ["All"];
   const { homeWin = 0.4, awayWin = 0.3 } = LeagueProbabilities[league] ?? {};
+  const [useTeamPpg, setUseTeamPpg] = useState<boolean>(true);
+  const getEndpoint = useMemo(() => {
+    return (year: number, league: string): string =>
+      `/api/projected-standings?league=${league}&year=${year}&teamPPG=${
+        useTeamPpg ? 1 : 0
+      }`;
+  }, [useTeamPpg]);
   return (
     <BaseDataPage<FormGuideAPI.Data.Simulations, FormGuideAPI.Meta.Simulations>
       pageTitle="League final standings simulations"
-      getEndpoint={(year, league) =>
-        `/api/projected-standings?league=${league}&year=${year}`
-      }
+      getEndpoint={getEndpoint}
+      swrArgs={[useTeamPpg]}
       renderComponent={(data, meta) => {
         const preparedData = Object.entries(data).map(([team, results]) => {
           return {
@@ -61,6 +72,16 @@ export default function ProjectedStandingsPage(): React.ReactElement {
         });
         return (
           <>
+            <ToggleButtonGroup
+              value={useTeamPpg ? "1" : "0"}
+              exclusive
+              onChange={(_, value) => {
+                setUseTeamPpg(value === "1" ? true : false);
+              }}
+            >
+              <ToggleButton value="1">Team PPG</ToggleButton>,
+              <ToggleButton value="0">Pre-Calculated Averages</ToggleButton>,
+            </ToggleButtonGroup>
             <Box>
               <Typography variant="overline">
                 Simulations: {Number(meta.simulations).toLocaleString()} (number
@@ -69,10 +90,17 @@ export default function ProjectedStandingsPage(): React.ReactElement {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="caption">
-                Home win odds: {homeWin}, away win odds: {awayWin}, draw odds:{" "}
-                {Number(1 - homeWin - awayWin).toPrecision(2)}
-              </Typography>
+              {!useTeamPpg && (
+                <Typography variant="caption">
+                  Home win odds: {homeWin}, away win odds: {awayWin}, draw odds:{" "}
+                  {Number(1 - homeWin - awayWin).toPrecision(2)}
+                </Typography>
+              )}
+              {useTeamPpg && (
+                <Typography variant="caption">
+                  Home win odds and away win odds are calculated with team PPG
+                </Typography>
+              )}
             </Box>
 
             {conferences.map((conference, idx) => {
@@ -92,20 +120,18 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                     columns={[
                       { field: "id", headerName: "Team", width: 250 },
                       { field: "median", headerName: "Median", width: 100 },
-                      { field: "1", ...fieldDefinition },
-                      { field: "2", ...fieldDefinition },
-                      { field: "3", ...fieldDefinition },
-                      { field: "4", ...fieldDefinition },
-                      { field: "5", ...fieldDefinition },
-                      { field: "6", ...fieldDefinition },
-                      { field: "7", ...fieldDefinition },
-                      { field: "8", ...fieldDefinition },
-                      { field: "9", ...fieldDefinition },
-                      { field: "10", ...fieldDefinition },
-                      { field: "11", ...fieldDefinition },
-                      { field: "12", ...fieldDefinition },
-                      { field: "13", ...fieldDefinition },
-                      { field: "14", ...fieldDefinition },
+                      ...Array(
+                        preparedData.filter(
+                          (r) =>
+                            ConferencesByYear[league]?.[year]?.[r.id] ===
+                              conference || conference === "All"
+                        ).length
+                      )
+                        .fill(null)
+                        .map((_, idx) => ({
+                          field: String(idx + 1),
+                          ...fieldDefinition,
+                        })),
                     ]}
                     rows={preparedData.filter(
                       (r) =>
