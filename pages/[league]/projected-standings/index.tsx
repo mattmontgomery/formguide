@@ -47,6 +47,13 @@ export default function ProjectedStandingsPage(): React.ReactElement {
         const preparedData = Object.entries(data).map(([team, results]) => {
           return {
             id: team,
+            median: Object.entries(results)
+              .map(([rank, value]) => {
+                return [Number(rank), value];
+              })
+              .sort(([, aValue], [, bValue]) => {
+                return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
+              })[0][0],
             ...Object.entries(results).reduce((acc, [rank, value]) => {
               return { ...acc, [rank]: value / meta.simulations };
             }, {}),
@@ -77,28 +84,14 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                   <DataGrid
                     initialState={{
                       sorting: {
-                        sortModel: [
-                          { field: "1", sort: "desc" },
-                          { field: "2", sort: "desc" },
-                          { field: "3", sort: "desc" },
-                          { field: "4", sort: "desc" },
-                          { field: "5", sort: "desc" },
-                          { field: "6", sort: "desc" },
-                          { field: "7", sort: "desc" },
-                          { field: "8", sort: "desc" },
-                          { field: "9", sort: "desc" },
-                          { field: "10", sort: "desc" },
-                          { field: "11", sort: "desc" },
-                          { field: "12", sort: "desc" },
-                          { field: "13", sort: "desc" },
-                          { field: "14", sort: "desc" },
-                        ],
+                        sortModel: [{ field: "median", sort: "asc" }],
                       },
                     }}
                     autoHeight
                     pageSize={100}
                     columns={[
                       { field: "id", headerName: "Team", width: 250 },
+                      { field: "median", headerName: "Median", width: 100 },
                       { field: "1", ...fieldDefinition },
                       { field: "2", ...fieldDefinition },
                       { field: "3", ...fieldDefinition },
