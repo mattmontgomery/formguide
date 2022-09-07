@@ -50,47 +50,50 @@ export default async function Goals(
 
   const from = new Date();
 
-  const [prepared = [], preparedFromCache, compressed, errors] =
-    await fetchCachedOrFreshV2(
-      totalKey,
-      async () => {
-        const prepared: ({
-          fixtureId: number;
-          goals: Results.FixtureEvent[];
-          fromCache: boolean;
-        } | null)[] = [];
+  const {
+    data: prepared = [],
+    fromCache: preparedFromCache,
+    compressed,
+    error: errors,
+  } = await fetchCachedOrFreshV2(
+    totalKey,
+    async () => {
+      const prepared: ({
+        fixtureId: number;
+        goals: Results.FixtureEvent[];
+        fromCache: boolean;
+      } | null)[] = [];
 
-        const availableInCache = matches.filter((m) => {
-          return keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
-        });
-        const notAvailableInCache = matches.filter((m) => {
-          return !keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
-        });
+      const availableInCache = matches.filter((m) => {
+        return keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
+      });
+      const notAvailableInCache = matches.filter((m) => {
+        return !keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
+      });
 
-        const fromCacheChunks = chunk(availableInCache, 20);
-        const notCachedChunks = chunk(notAvailableInCache, 5);
+      const fromCacheChunks = chunk(availableInCache, 20);
+      const notCachedChunks = chunk(notAvailableInCache, 5);
 
-        for await (const matchChunk of fromCacheChunks) {
-          const matches = (
-            await Promise.all(matchChunk.map(fetchFixture))
-          ).filter((m) => m !== null);
-          prepared.push(...matches);
-        }
-        for await (const matchChunk of notCachedChunks) {
-          const matches = (
-            await Promise.all(matchChunk.map(fetchFixture))
-          ).filter((m) => m !== null);
-          prepared.push(...matches);
-        }
-
-        return prepared;
-      },
-      getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
-      {
-        allowCompression: true,
+      for await (const matchChunk of fromCacheChunks) {
+        const matches = (
+          await Promise.all(matchChunk.map(fetchFixture))
+        ).filter((m) => m !== null);
+        prepared.push(...matches);
       }
-    );
-  // console.log({ prepared });
+      for await (const matchChunk of notCachedChunks) {
+        const matches = (
+          await Promise.all(matchChunk.map(fetchFixture))
+        ).filter((m) => m !== null);
+        prepared.push(...matches);
+      }
+
+      return prepared;
+    },
+    getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
+    {
+      allowCompression: true,
+    }
+  );
 
   const teamsData = data
     ? Object.entries(data.teams).reduce(
@@ -142,7 +145,7 @@ export default async function Goals(
 
 async function fetchFixture(fixture: SlimMatch) {
   try {
-    const [data, fromCache] = await getFixtureData(fixture.fixtureId);
+    const { data, fromCache } = await getFixtureData(fixture.fixtureId);
 
     if (data?.fixtureData?.[0]) {
       return {

@@ -38,12 +38,12 @@ export async function fetchCachedOrFresh<T>(
   }
 }
 
-export type FetchCachedOrFreshReturnType<T> = [
-  T | null,
-  boolean,
-  boolean,
-  (Error | string | unknown | null | undefined)?
-];
+export type FetchCachedOrFreshReturnType<T> = {
+  data: T | null;
+  fromCache: boolean;
+  compressed: boolean;
+  error?: Error | string | null;
+};
 export async function fetchCachedOrFreshV2<T>(
   key: string,
   fetch: () => Promise<T>,
@@ -68,28 +68,25 @@ export async function fetchCachedOrFreshV2<T>(
     // keys differentiate by year and league
     const redisKey = `${key}:${APP_VERSION}`;
     const exists = await redisClient().exists(redisKey);
-    const data = await redisClient().get(redisKey);
+    const { data, empty, compressed } = await fetchFromCache<T>(
+      redisKey,
+      checkEmpty
+    );
 
-    const isEmpty = typeof checkEmpty === "function" ? checkEmpty(data) : !data;
-
-    if (exists && (!isEmpty || !retryOnEmptyData)) {
-      if (!data) {
-        return [null, true, false];
-      } else {
-        const parsed = JSON.parse(data) as {
-          compressed: boolean;
-          compressedData: string;
-        };
-        if (typeof parsed?.compressed !== "undefined") {
-          const decompressed: T = !parsed.compressed
-            ? parsed.compressedData
-            : JSON.parse(await decompressString(parsed.compressedData));
-          return [data ? decompressed : null, true, true];
-        } else {
-          return [data ? (parsed as unknown as T) : null, true, false];
-        }
-      }
+    if (exists && empty && !retryOnEmptyData) {
+      return {
+        data: null,
+        compressed,
+        fromCache: true,
+      };
+    } else if (exists && !empty) {
+      return {
+        data: data,
+        compressed,
+        fromCache: true,
+      };
     }
+
     try {
       const data = await fetch();
       if (
@@ -98,31 +95,95 @@ export async function fetchCachedOrFreshV2<T>(
       ) {
         throw `Data for ${redisKey} could not be found`; // error instead of setting data improperly
       }
-      const stringifiedData = JSON.stringify(data);
-      const dataSize = Buffer.byteLength(stringifiedData, "utf8");
-      // 800 KB
-      if (allowCompression && dataSize > 300000) {
-        const compressed = await compressString(stringifiedData);
-        await redisClient().set(
-          redisKey,
-          JSON.stringify({ compressed: true, compressedData: compressed })
-        );
-      } else {
-        await redisClient().set(redisKey, stringifiedData);
-      }
-      const expireTime = typeof expire === "number" ? expire : expire(data);
-      if (expireTime) {
-        await redisClient().expire(redisKey, expireTime);
-      }
-      return [data, false, false];
+      const { compressed } = await setInCache<T>({
+        key: redisKey,
+        data,
+        expire,
+        allowCompression,
+      });
+      return {
+        data,
+        compressed,
+        fromCache: false,
+      };
+      // return [data, false, false];
     } catch (e) {
       console.error(e);
-      return [null, false, false, e];
+      return {
+        data: null,
+        compressed: false,
+        fromCache: false,
+        error: String(e),
+      };
     }
   } catch (e) {
     console.error(e);
-    return [null, false, false, e];
+    return {
+      data: null,
+      compressed: false,
+      fromCache: false,
+      error: String(e),
+    };
   }
+}
+
+export async function fetchFromCache<T>(
+  key: string,
+  checkEmpty: (arg0: string | null) => boolean = () => false
+): Promise<{ data: T | null; empty: boolean; compressed: boolean }> {
+  const data = await redisClient().get(key);
+  if (!data || (data && checkEmpty(data))) {
+    return { data: null, empty: true, compressed: false };
+  }
+  const parsed = JSON.parse(data) as {
+    compressed: boolean;
+    compressedData: string;
+  };
+  if (typeof parsed?.compressed !== "undefined") {
+    const decompressed: string = !parsed.compressed
+      ? parsed.compressedData
+      : await decompressString(parsed.compressedData);
+    return {
+      data: JSON.parse(decompressed) as T,
+      empty: false,
+      compressed: true,
+    };
+  } else {
+    return { data: JSON.parse(data) as T, empty: false, compressed: false };
+  }
+}
+
+export async function setInCache<T>({
+  key,
+  data,
+  expire,
+  allowCompression = false,
+}: {
+  key: string;
+  data: T;
+  expire: number | ((data: T) => number);
+  allowCompression: boolean;
+}): Promise<{ compressed: boolean }> {
+  const stringifiedData = JSON.stringify(data);
+  const dataSize = Buffer.byteLength(stringifiedData, "utf8");
+  const shouldCompress = allowCompression && dataSize > 300000;
+  // 800 KB
+  if (shouldCompress) {
+    const compressed = await compressString(stringifiedData);
+    await redisClient().set(
+      key,
+      JSON.stringify({ compressed: true, compressedData: compressed })
+    );
+  } else {
+    await redisClient().set(key, stringifiedData);
+  }
+  const expireTime = typeof expire === "number" ? expire : expire(data);
+  if (expireTime) {
+    await redisClient().expire(key, expireTime);
+  }
+  return {
+    compressed: shouldCompress,
+  };
 }
 
 export function getHash(data: unknown): string {

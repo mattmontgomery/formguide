@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getAllFixtures, MatchWithTeams } from "@/utils/getAllFixtureIds";
 import { getRow, getTeamRank, Row } from "@/utils/table";
-import { fetchCachedOrFreshV2, getHash } from "@/utils/cache";
+import { fetchFromCache, getHash, setInCache } from "@/utils/cache";
 import { LeagueProbabilities, LeagueYearOffset } from "@/utils/Leagues";
 import { ConferencesByYear } from "@/utils/LeagueConferences";
 const FORM_API = process.env.FORM_API;
@@ -42,7 +42,7 @@ export default async function LoadFixturesEndpoint(
   );
   const { homeWin = 0.4, awayWin = 0.3 } = LeagueProbabilities[league] ?? {};
 
-  const simulations =
+  const initializedSimulations =
     fixtureIds.length > 0
       ? fixtureIds.length > 300
         ? 1000
@@ -51,90 +51,74 @@ export default async function LoadFixturesEndpoint(
         : fixtureIds.length > 150
         ? 3000
         : fixtureIds.length > 100
-        ? 5000
+        ? 4000
         : fixtureIds.length > 50
-        ? 10100
-        : 15000
+        ? 5000
+        : 500
       : 1;
 
   const _from = new Date();
 
-  const [projectedStandingsData, fromCache] =
-    await fetchCachedOrFreshV2<FormGuideAPI.Data.Simulations>(
-      `projected-standings:v1.0.2:${simulations}:${getHash([
-        fixtureIds,
-        ConferencesByYear[league]?.[year],
-      ])}`,
-      async () => {
-        const possibleTables = [];
+  const cacheKey = `projected-standings:v4:${getHash([
+    fixtureIds,
+    ConferencesByYear[league]?.[year],
+  ])}`;
 
-        for (let i = 0; i < simulations; i++) {
-          const possibilities: Possibility[] = fixtureIds.map((m) =>
-            getMatchOutcome(m, homeWin, awayWin)
-          );
+  const { data: cachedProjectionsData } =
+    await fetchFromCache<FormGuideAPI.Data.Simulations>(cacheKey);
 
-          const table = Object.entries(data.teams).reduce(
-            (acc: Record<string, Row>, [team, results]) => {
-              const projectedResults = results.map((r) => {
-                const pR = possibilities.find(
-                  (p) => p.fixtureId === r.fixtureId
-                );
-                if (!pR) {
-                  return r;
-                }
-                return {
-                  ...r,
-                  status: {
-                    ...r.status,
-                    long: "Match Finished",
-                  },
-                  result: pR.home === r.team ? pR.homeResult : pR.awayResult,
-                };
-              });
-              return { ...acc, [team]: getRow(team, projectedResults) };
-            },
-            {}
-          );
+  const projections: FormGuideAPI.Data.Simulations = {};
 
-          possibleTables.push(
-            getTeamRank(Object.values(table), league as Results.Leagues)
-          );
-        }
-        const possibilities: FormGuideAPI.Data.Simulations =
-          possibleTables.reduce((acc: FormGuideAPI.Data.Simulations, curr) => {
-            return {
-              ...acc,
-              ...curr.reduce((_acc, row) => {
-                const rank = row.conferenceRank ?? row.rank;
-                if (!rank) {
-                  return _acc;
-                }
-                return {
-                  ..._acc,
-                  [row.team]: {
-                    ...(acc[row.team] || {}),
-                    [rank]: (acc[row.team]?.[rank] ?? 0) + 1,
-                  },
-                };
-              }, {}),
-            };
-          }, {});
-        return possibilities;
-      },
-      60 * 60 * 24 * 7 // keep projections around for a week — new ones will be generated and these will clear out because of the hash of remaining matches in the key
-    );
+  if (!cachedProjectionsData) {
+    const initializedData = await calculate({
+      simulations: initializedSimulations,
+      fixtureIds,
+      data,
+      homeWin,
+      awayWin,
+      league,
+    });
+    Object.entries(initializedData).map(([team, p]) => {
+      projections[team] = p;
+    });
+  } else {
+    const newData = await calculate({
+      simulations: 500,
+      fixtureIds,
+      data,
+      homeWin,
+      awayWin,
+      league,
+    });
+    Object.entries(newData).map(([team, p]) => {
+      projections[team] = Object.entries(p).reduce((acc, [rank, value]) => {
+        return { ...acc, [rank]: (acc[Number(rank)] ?? 0) + value };
+      }, cachedProjectionsData[team] || {});
+    });
+  }
+  await setInCache({
+    key: cacheKey,
+    data: projections,
+    expire: 60 * 60 * 24 * 7,
+    allowCompression: true,
+  });
 
-  if (!projectedStandingsData) {
+  if (!projections || Object.keys(projections).length === 0) {
     res.json({
       errors: [{ message: "Projected standings data not gathered" }],
     });
   } else {
     res.json({
-      data: projectedStandingsData,
+      data: projections,
       errors: [],
       meta: {
-        simulations,
-        fromCache,
+        simulations: Object.values(Object.values(projections)[0]).reduce(
+          (acc: number, curr: number) => {
+            return acc + curr;
+          },
+          0
+        ),
+        fromCache: Boolean(cachedProjectionsData),
         took: Number(new Date()) - Number(_from),
       },
     });
@@ -178,4 +162,75 @@ function getMatchOutcome(
       awayPoints: 3,
     },
   ][projectedResult];
+}
+
+async function calculate({
+  simulations,
+  fixtureIds,
+  data,
+  homeWin,
+  awayWin,
+  league,
+}: {
+  simulations: number;
+  fixtureIds: MatchWithTeams[];
+  data: Results.ParsedData;
+  homeWin: number;
+  awayWin: number;
+  league: Results.Leagues;
+}) {
+  const possibleTables = [];
+
+  for (let i = 0; i < simulations; i++) {
+    const possibilities: Possibility[] = fixtureIds.map((m) =>
+      getMatchOutcome(m, homeWin, awayWin)
+    );
+
+    const table = Object.entries(data.teams).reduce(
+      (acc: Record<string, Row>, [team, results]) => {
+        const projectedResults = results.map((r) => {
+          const pR = possibilities.find((p) => p.fixtureId === r.fixtureId);
+          if (!pR) {
+            return r;
+          }
+          return {
+            ...r,
+            status: {
+              ...r.status,
+              long: "Match Finished",
+            },
+            result: pR.home === r.team ? pR.homeResult : pR.awayResult,
+          };
+        });
+        return { ...acc, [team]: getRow(team, projectedResults) };
+      },
+      {}
+    );
+
+    possibleTables.push(
+      getTeamRank(Object.values(table), league as Results.Leagues)
+    );
+  }
+  const possibilities: FormGuideAPI.Data.Simulations = possibleTables.reduce(
+    (acc: FormGuideAPI.Data.Simulations, curr) => {
+      return {
+        ...acc,
+        ...curr.reduce((_acc, row) => {
+          const rank = row.conferenceRank ?? row.rank;
+          if (!rank) {
+            return _acc;
+          }
+          return {
+            ..._acc,
+            [row.team]: {
+              ...(acc[row.team] || {}),
+              [rank]: (acc[row.team]?.[rank] ?? 0) + 1,
+            },
+          };
+        }, {}),
+      };
+    },
+    {}
+  );
+  return possibilities;
 }

@@ -9,7 +9,11 @@ export default async function form(
   >
 ): Promise<void> {
   const fixture = +String(req.query.fixture);
-  const [data, preparedFromCache, error] = await getFixtureData(fixture);
+  const {
+    data,
+    fromCache: preparedFromCache,
+    error,
+  } = await getFixtureData(fixture);
   if (error) {
     res.status(500);
     res.json({
