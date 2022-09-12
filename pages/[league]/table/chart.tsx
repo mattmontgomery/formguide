@@ -13,11 +13,8 @@ import { curveCatmullRom } from "@visx/curve";
 import { getCumulativeTeamPointsArray } from "@/utils/getTeamPoints";
 import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Checkbox, FormControlLabel } from "@mui/material";
-import { setYear, startOfYear } from "date-fns";
-import { endOfYear } from "date-fns/esm";
-import { sortByDate } from "@/utils/sort";
 
 export default function PointsChart() {
   return (

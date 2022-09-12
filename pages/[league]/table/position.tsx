@@ -14,7 +14,6 @@ import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
 import React, { useContext, useMemo, useState } from "react";
 import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import { sortByDate } from "@/utils/sort";
 import { addWeeks, differenceInWeeks, parseISO, startOfWeek } from "date-fns";
 import {
   getConferences,
@@ -24,6 +23,7 @@ import {
 } from "@/utils/table";
 import { ConferenceDisplayNames } from "@/utils/LeagueConferences";
 import { getEarliestMatch, getLatestMatch } from "@/utils/data";
+import EasterEggContext from "@/components/EasterEggContext";
 
 export default function PositionChart() {
   return (
@@ -47,6 +47,7 @@ function LeagueTable({
   data: Results.ParsedData;
   meta: Results.ParsedMeta;
 }): React.ReactElement {
+  const easterEgg = useContext(EasterEggContext);
   const [selectedTeams, setSelectedTeams] = useState<string[]>(
     Object.keys(data.teams)
   );
@@ -118,7 +119,7 @@ function LeagueTable({
               xScale={{ type: "linear" }}
               yScale={{
                 type: "linear",
-                domain: [max, 1],
+                domain: easterEgg ? [1, max] : [max, 1],
                 zero: false,
                 clamp: true,
               }}
