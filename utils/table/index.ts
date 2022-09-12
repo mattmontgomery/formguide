@@ -285,3 +285,29 @@ export function getTeamRank(
         : undefined, //
   }));
 }
+
+export function getTeamConference(
+  team: string,
+  league: Results.Leagues,
+  year: number
+): string | null {
+  return ConferencesByYear[league]?.[year]?.[team] ?? null;
+}
+
+export function getConferenceSize(
+  conference: string,
+  league: Results.Leagues,
+  year: number
+): number {
+  return getConferenceTeams(conference, league, year).length;
+}
+
+export function getConferenceTeams(
+  conference: string,
+  league: Results.Leagues,
+  year: number
+): string[] {
+  return Object.entries(ConferencesByYear[league]?.[year] || {})
+    .filter(([, c]) => c === conference)
+    .map(([team]) => team);
+}

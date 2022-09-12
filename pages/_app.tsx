@@ -139,7 +139,7 @@ export function MLSFormGuide({
               />
               <link rel="canonical" href="https://formguide.tools.football" />
             </Head>
-            <Box sx={{ display: "flex", position: "relative", zIndex: 1 }}>
+            <Box sx={{ display: "flex", position: "relative" }}>
               <CssBaseline />
               <Nav
                 drawerOpen={drawerOpen === "open"}

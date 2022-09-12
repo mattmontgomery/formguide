@@ -42,6 +42,11 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
   { href: "/", title: "Form Guide", icon: TableChart },
   { href: "/table", title: "League Table", icon: TableChart },
   { href: "/table/chart", title: "Points over Time", icon: Timeline },
+  {
+    href: "/table/position",
+    title: "League Position over Time",
+    icon: Timeline,
+  },
   { href: "/points/cumulative", title: "Cumulative Points", icon: TableChart },
   { href: "/points/off-top", title: "Points off Top", icon: TableChart },
   Divider,

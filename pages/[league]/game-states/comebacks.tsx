@@ -32,7 +32,7 @@ function dataParser(
           shadeEmpty
           renderValue={() => {
             if (!match.goalsData) {
-              console.log("Missing", match.fixtureId);
+              console.error("Missing", match.fixtureId);
               return "X";
             }
             if (match.result === "L") {

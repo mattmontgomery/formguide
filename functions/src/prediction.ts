@@ -35,7 +35,7 @@ http("prediction", async (req, res) => {
           ? 60 * 60 * 4 // 4 hours if the match has not started
           : 60 * 15 // 15 minutes if the match has started
     );
-    console.log("Fetching data", fixture, Boolean(fixtureData), fromCache);
+    console.info("Fetching data", fixture, Boolean(fixtureData), fromCache);
     const [predictionData] = await fetchCachedOrFresh<Results.PredictionApi[]>(
       `prediction-api:v2:predictions:${fixture}`,
       async () => getPredictionsForFixture(fixture),
