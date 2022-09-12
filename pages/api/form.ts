@@ -1,4 +1,5 @@
 import getExpires from "@/utils/getExpires";
+import { LeagueYearOffset } from "@/utils/Leagues";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const FORM_API = process.env.FORM_API;
@@ -9,9 +10,10 @@ export default async function form(
 ): Promise<void> {
   const year = +String(req.query.year) || 2022;
   const league = String(req.query.league) as Results.Leagues;
+  const yearOffset = LeagueYearOffset[league] ?? 0;
   try {
     const response = await fetch(
-      `${FORM_API}?year=${year}&league=${league || "mls"}`
+      `${FORM_API}?year=${year + yearOffset}&league=${league || "mls"}`
     );
     res.setHeader(
       `Cache-Control`,

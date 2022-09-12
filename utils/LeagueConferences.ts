@@ -61,7 +61,7 @@ const ConferencesByYear: Partial<
       "Tacoma Defiance": "west",
       "St. Louis City II": "west",
 
-      "Swope PArk Rangers": "west",
+      "Swope Park Rangers": "west",
       "Toronto II": "east",
       "Whitecaps II": "west",
     },

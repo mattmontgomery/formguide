@@ -6,9 +6,10 @@ import {
 } from "@/utils/LeagueConferences";
 import { Box, FormControlLabel, Input, Switch } from "@mui/material";
 import { useEffect, useState } from "react";
-import { setYear, startOfYear, endOfYear, format } from "date-fns";
+import { setYear, startOfYear, endOfYear, format, addWeeks } from "date-fns";
 import { getTable } from "@/utils/table";
 import Table from "@/components/Table";
+import { getEarliestMatch, getLatestMatch, getMatchDate } from "@/utils/data";
 
 export default function TablePage() {
   return (
@@ -29,16 +30,18 @@ function LeagueTable({
   meta: Results.ParsedMeta;
 }): React.ReactElement {
   const [from, setFrom] = useState<Date>(
-    startOfYear(meta?.year ? setYear(new Date(), meta.year) : new Date())
+    addWeeks(getMatchDate(getEarliestMatch(data)), -1)
   );
-  const [to, setTo] = useState<Date>(endOfYear(setYear(new Date(), meta.year)));
+  const [to, setTo] = useState<Date>(
+    addWeeks(getMatchDate(getLatestMatch(data)), 1)
+  );
   const [useConferences, setUseConferences] = useState<boolean>(
     typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
   );
   useEffect(() => {
-    setFrom(startOfYear(setYear(new Date(), meta.year)));
-    setTo(endOfYear(setYear(new Date(), meta.year)));
-  }, [meta.year]);
+    setFrom(addWeeks(getMatchDate(getEarliestMatch(data)), -1));
+    setTo(addWeeks(getMatchDate(getLatestMatch(data)), 1));
+  }, [data]);
   useEffect(() => {
     setUseConferences(
       typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"

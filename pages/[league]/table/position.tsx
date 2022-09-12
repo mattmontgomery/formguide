@@ -13,23 +13,17 @@ import { curveCatmullRom } from "@visx/curve";
 import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
 import React, { useContext, useMemo, useState } from "react";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Portal,
-  Typography,
-} from "@mui/material";
+import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { sortByDate } from "@/utils/sort";
 import { addWeeks, differenceInWeeks, parseISO, startOfWeek } from "date-fns";
 import {
   getConferences,
-  getConferenceSize,
   getConferenceTeams,
   getTable,
   getTeamConference,
 } from "@/utils/table";
 import { ConferenceDisplayNames } from "@/utils/LeagueConferences";
+import { getEarliestMatch, getLatestMatch } from "@/utils/data";
 
 export default function PositionChart() {
   return (
@@ -59,16 +53,9 @@ function LeagueTable({
   const [weeklyTables, conferences] = useMemo<
     [[string, number[]][], string[]]
   >(() => {
-    const earliestMatch = Object.entries(data.teams)
-      .map(([, matches]) => {
-        return matches[0];
-      })
-      .sort(sortByDate)?.[0];
-    const latestMatch = Object.entries(data.teams)
-      .map(([, matches]) => {
-        return [...matches].reverse()[0];
-      })
-      .sort(sortByDate)?.[0];
+    const earliestMatch = getEarliestMatch(data);
+    const latestMatch = getLatestMatch(data);
+
     const first = startOfWeek(parseISO(earliestMatch.rawDate), {
       weekStartsOn: 1,
     });
