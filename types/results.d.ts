@@ -92,7 +92,7 @@ declare namespace Results {
     logo: string;
     flag: string;
     season: number;
-    round?: number;
+    round?: string;
   };
   type Team = {
     id: number;

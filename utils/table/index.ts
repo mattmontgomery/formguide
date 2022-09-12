@@ -12,6 +12,7 @@ export type Row = {
   team: string;
   gp: number;
   points: number;
+  pointsDropped: number;
   ppg: string;
   w: number;
   d: number;
@@ -22,7 +23,9 @@ export type Row = {
   homeRecord: string;
   awayRecord: string;
   homePoints: number;
+  homePointsDropped: number;
   awayPoints: number;
+  awayPointsDropped: number;
   rank?: number;
   conferenceRank?: number;
 };
@@ -57,6 +60,7 @@ export function getRow(
     team: team,
     gp,
     points: points,
+    pointsDropped: gp * 3 - points,
     ppg: gp > 0 ? (points / gp).toFixed(2) : "-",
     w,
     d,
@@ -67,7 +71,9 @@ export function getRow(
     homeRecord: `${hw}-${hd}-${hl}`,
     awayRecord: `${aw}-${ad}-${al}`,
     homePoints: getRecordPoints([hw, hd, hl]),
+    homePointsDropped: (hw + hd + hl) * 3 - getRecordPoints([hw, hd, hl]),
     awayPoints: getRecordPoints([aw, ad, al]),
+    awayPointsDropped: (aw + ad + al) * 3 - getRecordPoints([aw, ad, al]),
   };
 }
 
@@ -79,6 +85,11 @@ export function getColumns(): GridColumns {
       field: "points",
       headerName: "Points",
       width: 100,
+    },
+    {
+      field: "pointsDropped",
+      headerName: "Pts Dropped",
+      width: 125,
     },
     {
       field: "gp",
@@ -131,6 +142,11 @@ export function getColumns(): GridColumns {
       width: 100,
     },
     {
+      field: "homePointsDropped",
+      headerName: "Home Dropped",
+      width: 125,
+    },
+    {
       field: "awayRecord",
       headerName: "Away",
       width: 100,
@@ -139,6 +155,11 @@ export function getColumns(): GridColumns {
       field: "awayPoints",
       headerName: "Away Points",
       width: 100,
+    },
+    {
+      field: "awayPointsDropped",
+      headerName: "Away Dropped",
+      width: 125,
     },
   ];
 }
@@ -210,7 +231,17 @@ export function getTable(
   const table = conferences.map((conference) => {
     return Object.keys(teams)
       ?.filter((t: string) => teams[t] === conference || conference === "All")
-      .map((t) => getRow(t, teamsData[t], from, to))
+      .map((t) =>
+        getRow(
+          t,
+          teamsData[t].filter((tD) => {
+            return !tD.league.round?.includes("MLS Cup");
+            true;
+          }),
+          from,
+          to
+        )
+      )
       .sort(getSortStrategy(league))
       .reverse()
       .map((record, idx) => ({
