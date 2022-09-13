@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 import getMatchPoints from "@/utils/getMatchPoints";
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useHomeAway } from "@/components/HomeAwayToggle";
 
 type HomeAway = "home" | "away" | "all";
 
@@ -12,7 +11,7 @@ export default function Chart(): React.ReactElement {
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const [homeAway, setHomeAway] = useState<HomeAway>("all");
+  const { value: homeAway, renderComponent } = useHomeAway();
   return (
     <BaseRollingPage
       isStaticHeight={false}
@@ -22,17 +21,7 @@ export default function Chart(): React.ReactElement {
       }
       periodLength={periodLength}
     >
-      <ToggleButtonGroup
-        value={homeAway}
-        exclusive
-        onChange={(_, value) => {
-          setHomeAway(value ?? "all");
-        }}
-      >
-        <ToggleButton value="all">All</ToggleButton>,
-        <ToggleButton value="home">Home</ToggleButton>,
-        <ToggleButton value="away">Away</ToggleButton>,
-      </ToggleButtonGroup>
+      {renderComponent()}
     </BaseRollingPage>
     /**
      * {

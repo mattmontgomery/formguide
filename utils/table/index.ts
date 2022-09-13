@@ -1,5 +1,7 @@
 import { getRecord, getGoals, getRecordPoints } from "@/utils/getRecord";
-import { GridColumns } from "@mui/x-data-grid";
+import { GridColumns, GridValidRowModel } from "@mui/x-data-grid";
+import { getArraySum } from "../array";
+import { getTeamPointsArray } from "../getTeamPoints";
 import {
   Conferences,
   ConferencesByYear,
@@ -7,7 +9,7 @@ import {
   LeagueSorts,
 } from "../LeagueConferences";
 
-export type Row = {
+export type Row = GridValidRowModel & {
   id: string;
   team: string;
   gp: number;
@@ -310,4 +312,79 @@ export function getConferenceTeams(
   return Object.entries(ConferencesByYear[league]?.[year] || {})
     .filter(([, c]) => c === conference)
     .map(([team]) => team);
+}
+
+export function getPoints<T extends Results.Match = Results.Match>(
+  matches: T[]
+): number {
+  return getArraySum(getTeamPointsArray(matches));
+}
+export function getPlayedMatches<T extends Results.Match = Results.Match>(
+  matches: T[]
+): T[] {
+  return matches.filter((m) => m.status.long === "Match Finished");
+}
+
+export function getGamesWithPositions(
+  matches: Results.MatchWithGoalData[],
+  positions: ("W" | "D" | "L")[] = []
+): Results.MatchWithGoalData[] {
+  return matches.filter((match) => {
+    const gameStates = (match.goalsData?.goals ?? []).reduce(
+      (previousValue: number[][], currentValue) => {
+        const last: number[] = [...previousValue].reverse()?.[0] ?? [0, 0];
+        const isFirst = match.team === currentValue.team.name;
+        const next: [number, number] = [
+          isFirst ? last[0] + 1 : last[0],
+          isFirst ? last[1] : last[1] + 1,
+        ];
+        return [...previousValue, next];
+      },
+      [[0, 0]]
+    );
+    return gameStates.some(([team, opponent]) => {
+      if (positions.includes("W") && team > opponent) {
+        return true;
+      } else if (positions.includes("L") && team < opponent) {
+        return true;
+      } else if (positions.includes("D") && team === opponent && team > 0) {
+        return true;
+      }
+      return false;
+    });
+  });
+}
+
+export function getUniqueGoalscorers(
+  matches: Results.MatchWithGoalData[]
+): { name: string; goals: number }[] {
+  return matches.reduce(
+    (acc: ReturnType<typeof getUniqueGoalscorers>, match) => {
+      const goalscorers = [...acc];
+      match.goalsData?.goals.forEach((goal) => {
+        if (
+          goal.team.name === match.team &&
+          !goalscorers.some((g) => g.name === goal.player.name)
+        ) {
+          goalscorers.push({ name: goal.player.name, goals: 1 });
+        } else if (goal.team.name === match.team) {
+          const idx = goalscorers.findIndex((g) => g.name === goal.player.name);
+          goalscorers[idx].goals = goalscorers[idx].goals + 1;
+        }
+      });
+      return goalscorers;
+    },
+    []
+  );
+}
+
+export function getGoalsScored(matches: Results.Match[]): number {
+  return matches.reduce((acc: number, match) => {
+    return acc + (match.goalsScored ?? 0);
+  }, 0);
+}
+export function getGoalsConceded(matches: Results.Match[]): number {
+  return matches.reduce((acc: number, match) => {
+    return acc + (match.goalsConceded ?? 0);
+  }, 0);
 }

@@ -1,3 +1,5 @@
+import { ConferenceDisplayNames } from "./LeagueConferences";
+
 export const LeagueGames: Partial<Record<Results.Leagues, number>> = {
   epl: 38,
   mls: 34,
@@ -33,3 +35,7 @@ export const LeagueProbabilities: Partial<
 export const LeagueYearOffset: Partial<Record<Results.Leagues, number>> = {
   epl: 1,
 };
+
+export function getConferenceDisplayName(conference: string) {
+  return ConferenceDisplayNames[conference] ?? conference;
+}
