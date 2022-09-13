@@ -76,6 +76,13 @@ export function MLSFormGuide({
       createTheme({
         palette: {
           mode: darkMode ? "dark" : "light",
+          ...(easterEgg
+            ? {
+                primary: {
+                  main: "#8cca7a",
+                },
+              }
+            : {}),
           success: {
             main: darkMode ? "#8cca7a" : "#8cca7a",
           },
@@ -93,7 +100,7 @@ export function MLSFormGuide({
           },
         },
       }),
-    [darkMode]
+    [darkMode, easterEgg]
   );
 
   const [konamiCode, setKonamiCode] = useState<string[]>([]);
@@ -107,17 +114,19 @@ export function MLSFormGuide({
     };
   }, [konamiCode]);
   useEffect(() => {
+    if (easterEgg) {
+      return;
+    }
     if (
       konamiCode.map((k, i) => k === KONAMI_CODE[i]).some((v) => v === false)
     ) {
       setKonamiCode([]);
-      setEasterEgg(false);
     } else if (konamiCode.length === KONAMI_CODE.length) {
       setEasterEgg(true);
     } else {
       setEasterEgg(false);
     }
-  }, [konamiCode, setKonamiCode]);
+  }, [konamiCode, setKonamiCode, easterEgg, setEasterEgg]);
 
   return (
     <YearContext.Provider value={year}>
