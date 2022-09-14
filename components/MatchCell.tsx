@@ -55,7 +55,6 @@ export default function MatchCell({
     typeof prerenderedValue !== "undefined"
       ? prerenderedValue
       : valueRenderer(match);
-  console.log({ isShaded });
 
   return (
     <Box

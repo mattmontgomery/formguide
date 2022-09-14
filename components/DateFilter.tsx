@@ -14,7 +14,6 @@ export default function DateFilter({
   setFrom: (d: Date) => void;
   setTo: (d: Date) => void;
 }) {
-  console.log({ from, to });
   return (
     <Box m={[4, 0]}>
       From:{" "}
