@@ -176,65 +176,68 @@ declare namespace Results {
       statistics: Record<string, { type: string; value: number }>;
     }[];
     players: {
-      player: {
-        id: number;
-        name: string;
-        photo: string;
-      };
-      statistics: {
-        games: {
-          minutes: number;
-          number: number;
-          position: string;
-          rating: string;
-          captain: boolean;
-          substitute: boolean;
+      team: Results.Team;
+      players: {
+        player: {
+          id: number;
+          name: string;
+          photo: string;
         };
-        offsides: number;
-        shots: {
-          total: number;
-          on: number;
-        };
-        goals: {
-          total: number | null;
-          conceded: number | null;
-          assists: number | null;
-          saves: number | null;
-        };
-        passes: {
-          total: number | null;
-          key: number | null;
-          accuracy: string;
-        };
-        tackles: {
-          total: number | null;
-          blocks: number | null;
-          interceptions: number | null;
-        };
-        duels: {
-          total: number | null;
-          won: number | null;
-        };
-        dribbles: {
-          attempts: number | null;
-          success: number | null;
-          past: number | null;
-        };
-        fouls: {
-          drawn: number | null;
-          committed: number | null;
-        };
-        cards: {
-          yellow: number;
-          red: number;
-        };
-        penalty: {
-          won: number | null;
-          commited: number | null;
-          scored: number;
-          missed: number;
-          saved: number;
-        };
+        statistics: {
+          games: {
+            minutes: number;
+            number: number;
+            position: string;
+            rating: string;
+            captain: boolean;
+            substitute: boolean;
+          };
+          offsides: number;
+          shots: {
+            total: number;
+            on: number;
+          };
+          goals: {
+            total: number | null;
+            conceded: number | null;
+            assists: number | null;
+            saves: number | null;
+          };
+          passes: {
+            total: number | null;
+            key: number | null;
+            accuracy: string;
+          };
+          tackles: {
+            total: number | null;
+            blocks: number | null;
+            interceptions: number | null;
+          };
+          duels: {
+            total: number | null;
+            won: number | null;
+          };
+          dribbles: {
+            attempts: number | null;
+            success: number | null;
+            past: number | null;
+          };
+          fouls: {
+            drawn: number | null;
+            committed: number | null;
+          };
+          cards: {
+            yellow: number;
+            red: number;
+          };
+          penalty: {
+            won: number | null;
+            commited: number | null;
+            scored: number;
+            missed: number;
+            saved: number;
+          };
+        }[];
       }[];
     }[];
   };

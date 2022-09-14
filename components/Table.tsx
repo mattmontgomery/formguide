@@ -15,12 +15,18 @@ export default function Table<ColumnType extends GridValidRowModel = Row>({
   columns?: () => GridColumns<ColumnType>;
   gridProps?: Partial<DataGridProps<ColumnType>>;
 }): React.ReactElement {
-  const { columns: _, rows: __, pageSize = 100, ...extraGridProps } = gridProps;
+  const {
+    columns: _,
+    rows: __,
+    pageSize = 100,
+    components = {},
+    ...extraGridProps
+  } = gridProps;
   return (
     <DataGrid
       autoHeight
       pageSize={pageSize}
-      components={{ Pagination: () => <></> }}
+      components={{ Pagination: () => <></>, ...components }}
       columns={columns()}
       rows={data}
       {...extraGridProps}

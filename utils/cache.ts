@@ -195,6 +195,12 @@ export function getKey(key: string): string {
   const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
   return `${key}:${APP_VERSION}`;
 }
+export function getKeyFromParts(...parts: (string | number)[]): string {
+  const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
+  return `${parts
+    .map((p) => String(p).toUpperCase())
+    .join(":")}:${APP_VERSION}`;
+}
 
 export async function compressString(data: string): Promise<string> {
   return new Promise((resolve, reject) => {

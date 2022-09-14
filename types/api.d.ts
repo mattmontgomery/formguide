@@ -15,18 +15,35 @@ declare namespace FormGuideAPI {
     };
     type GoalsEndpoint = BaseAPIV2<Data.GoalsEndpoint>;
     type FixtureEndpoint = BaseAPIV2<Data.Fixture>;
+    type FixturesEndpoint = BaseAPIV2<Record<string, Data.Fixtures>>;
+    type PlusMinusEndpoint = BaseApiV2<Data.PlusMinusEndpoint>;
     type SimulationsEndpoint = BaseAPIV2<Data.Simulations, Meta.Simulations>;
   }
   namespace Data {
     type GoalsEndpoint = {
       teams: Record<string, Data.GoalMatch[]>;
     };
+    type DetailedEndpoint = {
+      teams: Record<string, Data.DetailedMatch[]>;
+    };
     type Fixture = {
       fixtureData: Results.FixtureApi[];
       predictionData: Results.PredictionApi[];
     };
+    type Fixtures = Results.FixtureApi;
     type GoalMatch = Results.MatchWithGoalData;
+    type DetailedMatch = Results.Match & { fixtureData: Results.FixtureApi[] };
     type Simulations = Record<string, Record<number, number>>;
+    type PlusMinusEndpoint = Record<string, Record<string, PlusMinus>>;
+    type PlusMinus = {
+      onGF: number;
+      offGF: number;
+      onGA: number;
+      offGA: number;
+
+      minutes: number;
+      matches: number;
+    };
   }
   namespace Meta {
     type Generic = { fromCache?: boolean; took?: number; compressed?: boolean };
