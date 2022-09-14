@@ -65,12 +65,14 @@ type AdvancedTableRow = {
 };
 
 export default function AdvancedTablePage() {
+  const { value, renderComponent: renderHomeAway } = useHomeAway();
   return (
     <BaseDataPage<Results.ParsedDataGoals>
+      controls={<Box>{renderHomeAway()}</Box>}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       pageTitle="Advanced Table"
       renderComponent={(data) => {
-        return <AdvancedTableWrapper data={data} />;
+        return <AdvancedTableWrapper data={data} homeAway={value} />;
       }}
     />
   );
@@ -78,10 +80,11 @@ export default function AdvancedTablePage() {
 
 export function AdvancedTableWrapper({
   data,
+  homeAway,
 }: {
   data: Results.ParsedDataGoals;
+  homeAway: Options;
 }): React.ReactElement {
-  const { value, renderComponent: renderHomeAway } = useHomeAway();
   const league = useContext(LeagueContext);
   const year = useContext(YearContext);
   const conferences = getConferences(league, year);
@@ -93,11 +96,9 @@ export function AdvancedTableWrapper({
     addWeeks(getMatchDate(getEarliestMatch(data)), -1),
     addWeeks(getMatchDate(getLatestMatch(data)), 1)
   );
-  renderHomeAway();
   return (
     <Box>
-      {renderHomeAway()}
-      {renderDatePicker()}
+      <Box my={2}>{renderDatePicker()}</Box>
       {conferences.map((conference, idx) => {
         return (
           <Box key={idx}>
@@ -107,7 +108,7 @@ export function AdvancedTableWrapper({
             <AdvancedTable
               from={from}
               to={to}
-              homeAway={value}
+              homeAway={homeAway}
               conference={conference}
               data={data}
               league={league}

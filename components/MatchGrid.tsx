@@ -90,7 +90,7 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
     <Box>
       {showMatchdayHeader && (
         <>
-          <Box marginBottom={2}>
+          <Box my={2}>
             <FormGroup sx={{ flexDirection: "row" }}>
               <FormControlLabel
                 control={

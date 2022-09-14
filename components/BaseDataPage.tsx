@@ -9,6 +9,7 @@ export type DataPageProps<
   Data = Results.ParsedData,
   Meta = Results.ParsedMeta
 > = {
+  controls?: React.ReactNode;
   renderComponent: (data: Data, meta: Meta) => React.ReactNode;
   pageTitle: string;
   children?: React.ReactNode;
@@ -19,6 +20,7 @@ export type DataPageProps<
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
   children,
+  controls,
   renderComponent,
   pageTitle,
   getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
@@ -36,6 +38,8 @@ function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
     <BasePage pageTitle={pageTitle}>
       {data && data?.data ? (
         <>
+          {controls && <Box my={2}>{controls}</Box>}
+          <Divider />
           {renderComponent(data.data, data.meta)}
           <Divider />
           <Box sx={{ marginTop: 2 }}>{children}</Box>

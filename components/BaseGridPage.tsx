@@ -3,12 +3,14 @@ import MatchGrid from "./MatchGrid";
 import BaseDataPage, { DataPageProps } from "./BaseDataPage";
 
 function BaseGridPage<T = Results.ParsedData>({
+  controls,
   dataParser,
   pageTitle,
   gridClass = styles.gridClass,
   children,
   getEndpoint,
 }: {
+  controls?: DataPageProps["controls"];
   dataParser: Render.ParserFunction<T>;
   pageTitle: string;
   gridClass?: string;
@@ -22,6 +24,7 @@ function BaseGridPage<T = Results.ParsedData>({
             getEndpoint,
           }
         : {})}
+      controls={controls}
       pageTitle={pageTitle}
       renderComponent={(data) => (
         <MatchGrid
