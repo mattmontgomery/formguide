@@ -48,7 +48,7 @@ function dataParser(
             renderValue={() => (lastResult === -1 ? "-" : lastResult)}
             isShaded={() => {
               return (
-                match.result !== getInverseResult(resultType) || lastResult <= 0
+                match.result !== getInverseResult(resultType) || lastResult <= 1
               );
             }}
           />
