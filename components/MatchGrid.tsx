@@ -172,14 +172,20 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                           ? getMatchCellProps(Cell.props.match)
                           : {}),
                         rightBorder: shouldHaveRightBorder,
-                        isShaded: (match: Results.Match) =>
-                          typeof teamShaded !== "undefined" && teamShaded
-                            ? match.team === teamShaded
-                              ? (homeShaded && match.home) ||
-                                (awayShaded && !match.home)
-                              : true
-                            : (homeShaded && match.home) ||
-                              (awayShaded && !match.home),
+                        isShaded: (match: Results.Match) => {
+                          const isHomeAwayShaded =
+                            typeof teamShaded !== "undefined" && teamShaded
+                              ? match.team === teamShaded
+                                ? (homeShaded && match.home) ||
+                                  (awayShaded && !match.home)
+                                : true
+                              : (homeShaded && match.home) ||
+                                (awayShaded && !match.home);
+                          return (
+                            isHomeAwayShaded ||
+                            (Cell.props.isShaded && Cell.props.isShaded(match))
+                          );
+                        },
                       });
                     }
                   )}

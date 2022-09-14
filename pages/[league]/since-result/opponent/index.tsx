@@ -1,6 +1,7 @@
 import BaseGridPage from "@/components/BaseGridPage";
 import MatchCell from "@/components/MatchCell";
 import { useResultToggle } from "@/components/Toggle/ResultToggle";
+import { getInverseResult } from "@/utils/results";
 import { isBefore, parseISO } from "date-fns";
 
 const formattedResults: Record<Results.ResultTypes, string> = {
@@ -14,7 +15,13 @@ export default function OpponentSinceResultPage(): React.ReactElement {
   return (
     <BaseGridPage
       controls={<>Result: {renderComponent()}</>}
-      pageTitle={`Opponent Games since a ${formattedResults[result]}`}
+      pageTitle={`Opponent Games since a ${formattedResults[result]} ${
+        result === "W"
+          ? "(Slumpbusters)"
+          : result === "L"
+          ? "(Streakbusters)"
+          : ""
+      }`}
       dataParser={(teams) => dataParser(teams, result)}
     />
   );
@@ -22,7 +29,7 @@ export default function OpponentSinceResultPage(): React.ReactElement {
 
 function dataParser(
   data: Results.ParsedData["teams"],
-  resultTypes: Results.ResultTypes = "W"
+  resultType: Results.ResultTypes = "W"
 ): Render.RenderReadyData {
   return Object.keys(data).map((team) => [
     team,
@@ -33,9 +40,18 @@ function dataParser(
           .filter((m) => isBefore(parseISO(m.rawDate), parseISO(match.rawDate)))
           .filter((m) => m.result)
           .reverse()
-          .findIndex((m) => m.result && resultTypes.includes(m.result));
+          .findIndex((m) => m.result && resultType === m.result);
         return (
-          <MatchCell match={match} key={idx} renderValue={() => lastResult} />
+          <MatchCell
+            match={match}
+            key={idx}
+            renderValue={() => (lastResult === -1 ? "-" : lastResult)}
+            isShaded={() => {
+              return (
+                match.result !== getInverseResult(resultType) || lastResult <= 0
+              );
+            }}
+          />
         );
       }),
   ]);

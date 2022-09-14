@@ -32,7 +32,7 @@ export type MatchCellProps = {
 };
 
 export default function MatchCell({
-  isShaded = () => false,
+  isShaded,
   match,
   onClick,
   renderValue,
@@ -55,6 +55,7 @@ export default function MatchCell({
     typeof prerenderedValue !== "undefined"
       ? prerenderedValue
       : valueRenderer(match);
+  console.log({ isShaded });
 
   return (
     <Box
@@ -88,7 +89,8 @@ export default function MatchCell({
                 : "warning.main",
               padding: "0.25rem",
               filter:
-                Boolean(shadeEmpty && renderedValue === "-") || isShaded(match)
+                Boolean(shadeEmpty && renderedValue === "-") ||
+                (isShaded && isShaded(match))
                   ? "grayscale(0.75) opacity(0.75)"
                   : "none",
             }}

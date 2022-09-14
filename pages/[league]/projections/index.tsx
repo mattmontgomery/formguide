@@ -8,6 +8,7 @@ import { getTable, sortRows } from "@/utils/table";
 import { Typography } from "@mui/material";
 import { getPointsForResult } from "@/utils/getMatchPoints";
 import { getArraySum } from "@/utils/array";
+import { getInverseResult, stepResult } from "@/utils/results";
 
 type Projections = {
   team: string;
@@ -153,25 +154,4 @@ function dataParser(
         );
       }),
   ]);
-}
-
-function getInverseResult(result: Results.ResultType): Results.ResultType {
-  return result === null
-    ? null
-    : result === "W"
-    ? "L"
-    : result === "L"
-    ? "W"
-    : "D";
-}
-function stepResult(result: Results.ResultType): Results.ResultType {
-  if (result === "W") {
-    return "D";
-  } else if (result === "D") {
-    return "L";
-  } else if (result === "L") {
-    return null;
-  } else {
-    return "W";
-  }
 }

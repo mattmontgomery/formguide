@@ -198,6 +198,11 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
     title: "Games since a loss",
     icon: CalendarViewMonth,
   },
+  {
+    href: "/since-result/opponent",
+    title: "Games since opponent W/D/L (slumpbusters, streakbusters)",
+    icon: CalendarViewMonth,
+  },
   Divider,
   { subtitle: "Days Between Games" },
   {
