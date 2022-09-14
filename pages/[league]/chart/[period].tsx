@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import getMatchPoints from "@/utils/getMatchPoints";
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { useHomeAway } from "@/components/HomeAwayToggle";
+import { useHomeAway } from "@/components/Toggle/HomeAwayToggle";
 
 type HomeAway = "home" | "away" | "all";
 

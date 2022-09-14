@@ -1,6 +1,6 @@
 import BaseDataPage from "@/components/BaseDataPage";
 import { useDateFilter } from "@/components/DateFilter";
-import { Options, useHomeAway } from "@/components/HomeAwayToggle";
+import { Options, useHomeAway } from "@/components/Toggle/HomeAwayToggle";
 import LeagueContext from "@/components/LeagueContext";
 import Table from "@/components/Table";
 import YearContext from "@/components/YearContext";

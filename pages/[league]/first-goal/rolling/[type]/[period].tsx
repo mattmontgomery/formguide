@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { getFirstGoalConceded, getFirstGoalScored } from "@/utils/getGoals";
 import { getArrayAverage } from "@/utils/array";
-
-type HomeAway = "home" | "away" | "all";
+import { useHomeAway, Options } from "@/components/Toggle/HomeAwayToggle";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
@@ -14,7 +11,7 @@ export default function Chart(): React.ReactElement {
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
   const goalType: "gf" | "ga" = String(type) as "gf" | "ga";
-  const [homeAway, setHomeAway] = useState<HomeAway>("all");
+  const { value: homeAway, renderComponent } = useHomeAway();
   return (
     <BaseRollingPage
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
@@ -26,17 +23,7 @@ export default function Chart(): React.ReactElement {
       periodLength={periodLength}
       heightCalc={(value) => `${value ? 100 - Math.round(value) : 100}%`}
     >
-      <ToggleButtonGroup
-        value={homeAway}
-        exclusive
-        onChange={(_, value) => {
-          setHomeAway(value ?? "all");
-        }}
-      >
-        <ToggleButton value="all">All</ToggleButton>,
-        <ToggleButton value="home">Home</ToggleButton>,
-        <ToggleButton value="away">Away</ToggleButton>,
-      </ToggleButtonGroup>
+      {renderComponent()}
     </BaseRollingPage>
   );
 }
@@ -44,7 +31,7 @@ export default function Chart(): React.ReactElement {
 function parseChartData(
   teams: Results.ParsedData["teams"],
   periodLength = 5,
-  homeAway: HomeAway = "all",
+  homeAway: Options = "all",
   goalType: "gf" | "ga" = "gf"
 ): ReturnType<Render.RollingParser> {
   return Object.keys(teams)

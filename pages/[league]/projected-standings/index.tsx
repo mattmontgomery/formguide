@@ -1,5 +1,6 @@
 import BaseDataPage from "@/components/BaseDataPage";
 import LeagueContext from "@/components/LeagueContext";
+import { useToggle } from "@/components/Toggle/Toggle";
 import YearContext from "@/components/YearContext";
 import {
   ConferenceDisplayNames,
@@ -7,14 +8,9 @@ import {
   ConferencesByYear,
 } from "@/utils/LeagueConferences";
 import { LeagueProbabilities } from "@/utils/Leagues";
-import {
-  Box,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 
 const fieldDefinition: Omit<GridColDef, "field"> = {
   type: "number",
@@ -42,7 +38,14 @@ export default function ProjectedStandingsPage(): React.ReactElement {
   const year = useContext(YearContext);
   const conferences = Conferences[league] ?? ["All"];
   const { homeWin = 0.4, awayWin = 0.3 } = LeagueProbabilities[league] ?? {};
-  const [useTeamPpg, setUseTeamPpg] = useState<boolean>(true);
+  const { value: useTeamPpg, renderComponent: renderToggle } =
+    useToggle<boolean>(
+      [
+        { value: true, label: "Team PPG" },
+        { value: false, label: "Pre-Calculated Averages" },
+      ],
+      true
+    );
   const getEndpoint = useMemo(() => {
     return (year: number, league: string): string =>
       `/api/projected-standings?league=${league}&year=${year}&teamPPG=${
@@ -72,16 +75,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
         });
         return (
           <>
-            <ToggleButtonGroup
-              value={useTeamPpg ? "1" : "0"}
-              exclusive
-              onChange={(_, value) => {
-                setUseTeamPpg(value === "1" ? true : false);
-              }}
-            >
-              <ToggleButton value="1">Team PPG</ToggleButton>,
-              <ToggleButton value="0">Pre-Calculated Averages</ToggleButton>,
-            </ToggleButtonGroup>
+            {renderToggle()}
             <Box>
               <Typography variant="overline">
                 Simulations: {Number(meta.simulations).toLocaleString()} (number
