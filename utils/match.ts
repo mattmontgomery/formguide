@@ -45,21 +45,25 @@ export function getPlusMinus(fixture: Results.FixtureApi) {
             const goalsOn = goals.filter(
               (e) =>
                 e.team.name === team &&
+                m.minutes !== null &&
                 inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
             );
             const goalsOff = goals.filter(
               (e) =>
                 e.team.name === team &&
+                m.minutes !== null &&
                 !inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
             );
             const goalsOnOpp = goals.filter(
               (e) =>
                 e.team.name !== team &&
+                m.minutes !== null &&
                 inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
             );
             const goalsOffOpp = goals.filter(
               (e) =>
                 e.team.name !== team &&
+                m.minutes !== null &&
                 !inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
             );
             return {

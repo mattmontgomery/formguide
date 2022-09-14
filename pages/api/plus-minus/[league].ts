@@ -39,6 +39,7 @@ export default async function PlusMinusEndpoint(
   const key = getKeyFromParts(
     FIXTURE_KEY_PREFIX,
     "ALL",
+    "PLUS_MINUS",
     getHash([matches, league])
   );
   const {
