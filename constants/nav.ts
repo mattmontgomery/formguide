@@ -20,6 +20,7 @@ import {
   Money,
   Alarm,
   Watch,
+  Person2TwoTone,
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
@@ -435,6 +436,13 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
     href: "/first-goal/rolling/ga/8",
     title: "Rolling First Goal Conceded (8-game)",
     icon: Watch,
+  },
+  Divider,
+  { subtitle: "Player Stats" },
+  {
+    href: "/plus-minus",
+    title: "Player Plus-Minus",
+    icon: Person2TwoTone,
   },
   Divider,
   { subtitle: "Other Folks' Tools" },
