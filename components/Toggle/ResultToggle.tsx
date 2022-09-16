@@ -6,3 +6,9 @@ export function useResultToggle() {
     "W"
   );
 }
+export function useResultToggleAll() {
+  return useToggle<Results.ResultTypesAll>(
+    [{ value: "W" }, { value: "D" }, { value: "L" }, { value: "all" }],
+    "all"
+  );
+}

@@ -74,6 +74,24 @@ export function MLSFormGuide({
   const theme = React.useMemo(
     () =>
       createTheme({
+        typography: {
+          h4: {
+            fontSize: 24,
+            fontWeight: "bold",
+          },
+          fontFamily: [
+            "-apple-system",
+            "BlinkMacSystemFont",
+            '"Segoe UI"',
+            "Roboto",
+            '"Helvetica Neue"',
+            "Arial",
+            "sans-serif",
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+          ].join(","),
+        },
         palette: {
           mode: darkMode ? "dark" : "light",
           ...(easterEgg
@@ -83,6 +101,9 @@ export function MLSFormGuide({
                 },
               }
             : {}),
+          primary: {
+            main: darkMode ? "#ff7043" : "#d84315",
+          },
           success: {
             main: darkMode ? "#8cca7a" : "#8cca7a",
           },
@@ -92,11 +113,8 @@ export function MLSFormGuide({
           error: {
             main: darkMode ? "#f3968f" : "#f3968f",
           },
-        },
-        typography: {
-          h4: {
-            fontSize: 24,
-            fontWeight: "bold",
+          background: {
+            default: darkMode ? "#37474f" : "#eceff1",
           },
         },
       }),
@@ -155,7 +173,7 @@ export function MLSFormGuide({
                       startAdornment={<SearchSharp />}
                       sx={{
                         width: "100%",
-                        paddingLeft: "1rem",
+                        paddingLeft: 1,
                         borderRadius: "0.25rem",
                         backgroundColor: darkMode
                           ? "rgb(30,60,90)"
@@ -197,18 +215,22 @@ export function MLSFormGuide({
                 />
                 <Box
                   component="main"
-                  sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+                  sx={{
+                    flexGrow: 1,
+                    backgroundColor: "background.default",
+                    py: 2,
+                    px: 1,
+                  }}
                 >
                   <AppBar
                     sx={{
-                      marginLeft: drawerOpen === "open" ? DRAWER_WIDTH : 0,
                       width:
                         drawerOpen === "open"
                           ? `calc(100% - ${DRAWER_WIDTH}px)`
                           : "100%",
                     }}
                   >
-                    <Toolbar>
+                    <Toolbar sx={{ gap: 1 }}>
                       <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -221,14 +243,14 @@ export function MLSFormGuide({
                       >
                         <MenuIcon />
                       </IconButton>
-                      <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-                        Form Guide (2012–present){easterEgg ? "!!" : ""}
-                      </Typography>
                       <Typography
                         variant="h6"
                         noWrap
-                        sx={{ flexGrow: 1, alignContent: "center" }}
+                        sx={{ flexGrow: 1, fontWeight: "bold" }}
                       >
+                        The Form Guide{easterEgg ? "!!" : ""}
+                      </Typography>
+                      <Box sx={{ alignContent: "center", fontWeight: "bold" }}>
                         <Search sx={{ position: "relative", top: "4px" }} />:{" "}
                         {"("}
                         <KeyboardCommandKey
@@ -240,7 +262,7 @@ export function MLSFormGuide({
                         />
                         {")"}
                         +K
-                      </Typography>
+                      </Box>
                       <Select
                         sx={{
                           backgroundColor: "background.paper",

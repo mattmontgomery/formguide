@@ -12,7 +12,8 @@ declare namespace Render {
     }
   > = (
     data: Results.ParsedData["teams"],
-    periodLength: number
+    periodLength: number,
+    homeAway: "home" | "away" | "all"
   ) => [string, ...Array<T>][];
   type ASARollingParser<
     DataType,

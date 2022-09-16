@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   Divider,
   Drawer,
   List,
@@ -11,6 +10,7 @@ import {
   ListSubheader,
   Switch,
   FormControlLabel,
+  Paper,
 } from "@mui/material";
 import Link from "next/link";
 
@@ -60,17 +60,18 @@ export default function Nav({
   return (
     <Drawer
       sx={{
-        width: DRAWER_WIDTH,
+        width: DRAWER_WIDTH + 10,
         flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: DRAWER_WIDTH,
-          boxSizing: "border-box",
-        },
+        boxSizing: "border-box",
       }}
       variant={drawerOpen ? "permanent" : "temporary"}
       anchor="left"
     >
-      <Box sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}>
+      <Paper
+        sx={{
+          width: DRAWER_WIDTH,
+        }}
+      >
         <List>
           {NavigationConfig.map((navItem, idx) => {
             if (navItem === NavigationDivider) {
@@ -115,7 +116,7 @@ export default function Nav({
             <ListItemText>Lineup Graphic Builder</ListItemText>
           </ListItemLink>
         </List>
-      </Box>
+      </Paper>
     </Drawer>
   );
 }

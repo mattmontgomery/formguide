@@ -1,16 +1,11 @@
 import styles from "@/styles/Home.module.css";
 import { LeagueSeparators } from "@/utils/Leagues";
 
-import {
-  Box,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useContext, useState } from "react";
 import LeagueContext from "./LeagueContext";
 import { MatchCellProps } from "./MatchCell";
+import { Options } from "./Toggle/HomeAwayToggle";
 
 type ProppyArray = [...{ props: { renderValue: () => number } }[]];
 
@@ -48,11 +43,13 @@ function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
 export default function MatchGrid<T = Results.ParsedData["teams"]>({
   data,
   dataParser,
+  homeAway,
   showMatchdayHeader = true,
   rowClass = styles.gridRow,
   gridClass = styles.gridClass,
   chartClass = styles.chart,
   getMatchCellProps,
+  result,
   sortMethod = (sortStrategy, weekSortIdx) => (a: unknown, b: unknown) => {
     return sortStrategy === "teamName"
       ? teamNameSort(
@@ -66,10 +63,12 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
 }: {
   data: T;
   dataParser: (data: T) => Render.RenderReadyData;
+  homeAway: Options;
   showMatchdayHeader?: boolean;
   rowClass?: string;
   gridClass?: string;
   chartClass?: string;
+  result?: Results.ResultTypesAll;
   getMatchCellProps?: (match: Results.Match) => Partial<MatchCellProps>;
   sortMethod?: (
     sortStrategy: string,
@@ -80,45 +79,18 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
     "teamName"
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
-  const [homeShaded, setHomeShaded] = useState<boolean>(false);
-  const [awayShaded, setAwayShaded] = useState<boolean>(false);
+  const homeShaded = homeAway === "home";
+  const awayShaded = homeAway === "away";
   const [teamShaded, setTeamShaded] = useState<string>();
 
   const league = useContext(LeagueContext);
 
   return (
     <Box>
-      {showMatchdayHeader && (
-        <>
-          <Box my={2}>
-            <FormGroup sx={{ flexDirection: "row" }}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={!homeShaded}
-                    onChange={(ev) => setHomeShaded(!ev.target.checked)}
-                  />
-                }
-                label="Home"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={!awayShaded}
-                    onChange={(ev) => setAwayShaded(!ev.target.checked)}
-                  />
-                }
-                label="Away"
-              />
-            </FormGroup>
-          </Box>
-          <Divider />
-        </>
-      )}
       <div className={gridClass}>
         <div className={chartClass}>
           {showMatchdayHeader && (
-            <div className={styles.gridRow}>
+            <Box className={styles.gridRow}>
               <span></span>
               {[...new Array(35)].map((_, i) => (
                 <Box
@@ -135,13 +107,13 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                   {i > 0 ? i : null}
                 </Box>
               ))}
-            </div>
+            </Box>
           )}
           {dataParser(data)
             .sort(sortMethod(sortStrategy, weekSortIdx))
             .map(([team, ...cells], idx) => {
               return (
-                <div className={rowClass} key={idx}>
+                <Box className={rowClass} key={idx}>
                   <span>{sortStrategy === "week" ? idx + 1 : ""}</span>
                   <Box
                     sx={{
@@ -176,20 +148,23 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                           const isHomeAwayShaded =
                             typeof teamShaded !== "undefined" && teamShaded
                               ? match.team === teamShaded
-                                ? (homeShaded && match.home) ||
-                                  (awayShaded && !match.home)
+                                ? (homeShaded && !match.home) ||
+                                  (awayShaded && match.home)
                                 : true
-                              : (homeShaded && match.home) ||
-                                (awayShaded && !match.home);
+                              : (homeShaded && !match.home) ||
+                                (awayShaded && match.home);
+                          const resultShaded =
+                            result === "all" ? false : result !== match.result;
                           return (
                             isHomeAwayShaded ||
+                            resultShaded ||
                             (Cell.props.isShaded && Cell.props.isShaded(match))
                           );
                         },
                       });
                     }
                   )}
-                </div>
+                </Box>
               );
             })}
         </div>

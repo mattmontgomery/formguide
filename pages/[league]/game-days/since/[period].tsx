@@ -18,7 +18,7 @@ export default function Chart(): React.ReactElement {
       periodLength={periodLength}
       getBackgroundColor={(pointValue) =>
         typeof pointValue !== "number"
-          ? "background.primary"
+          ? "background.paper"
           : pointValue > 8
           ? "warning.main"
           : pointValue < 5.5

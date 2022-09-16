@@ -1,4 +1,5 @@
-import { fetchCachedOrFreshV2 } from "../cache";
+import { isBefore, parseISO } from "date-fns";
+import { fetchCachedOrFreshV2, getKeyFromParts } from "../cache";
 
 const ENDPOINT = process.env.PREDICTIONS_API;
 
@@ -6,7 +7,7 @@ export const FIXTURE_KEY_PREFIX = `fixture-data:v1.0.10:`;
 
 export default async function getFixtureData(fixture: number) {
   return fetchCachedOrFreshV2<FormGuideAPI.Data.Fixture>(
-    `${FIXTURE_KEY_PREFIX}${fixture}`,
+    getKeyFromParts(FIXTURE_KEY_PREFIX, fixture),
     async () => {
       const response = await fetch(`${ENDPOINT}?fixture=${fixture}`);
       if (response.status !== 200) {
@@ -20,7 +21,9 @@ export default async function getFixtureData(fixture: number) {
     },
     (data) =>
       data.fixtureData?.[0].fixture.status.long === "Match Finished"
-        ? 0
+        ? 0 // no expiration for completed matches
+        : isBefore(parseISO(data.fixtureData[0]?.fixture.date), new Date())
+        ? 60 * 60 // 1 hour for matches from today forward
         : 60 * 60 * 24, // 24 hour cache for incomplete matches
     {
       checkEmpty: (data) => {

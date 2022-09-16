@@ -32,7 +32,7 @@ export default function RollingBox({
     <Box
       sx={{
         backgroundColor:
-          typeof value === "number" ? "grey.200" : "background.default",
+          typeof value === "number" ? "grey.200" : "background.paper",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

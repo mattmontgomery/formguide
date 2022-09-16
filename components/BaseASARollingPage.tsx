@@ -2,8 +2,13 @@ import styles from "@/styles/Home.module.css";
 import MatchGrid from "@/components/MatchGrid";
 import { format } from "util";
 import BaseASADataPage from "./BaseASADataPage";
+import { BasePageProps } from "./BasePage";
+import { useHomeAway } from "./Toggle/HomeAwayToggle";
+import { useResultToggleAll } from "./Toggle/ResultToggle";
+import { Box } from "@mui/system";
 
 export default function BaseASARollingPage<T = ASA.XgByGameApi>({
+  renderControls,
   endpoint,
   pageTitle,
   periodLength,
@@ -14,6 +19,7 @@ export default function BaseASARollingPage<T = ASA.XgByGameApi>({
   isWide = false,
   stat,
 }: React.PropsWithChildren<{
+  renderControls?: BasePageProps["renderControls"];
   endpoint: ASA.Endpoint;
   pageTitle: string;
   periodLength: number;
@@ -30,8 +36,19 @@ export default function BaseASARollingPage<T = ASA.XgByGameApi>({
   isWide?: boolean;
   stat: ASA.ValidStats;
 }>): React.ReactElement {
+  const { value: homeAway, renderComponent: renderHomeAwayToggle } =
+    useHomeAway();
+  const { value: resultToggle, renderComponent: renderResultToggle } =
+    useResultToggleAll();
   return (
     <BaseASADataPage<T>
+      renderControls={() => (
+        <Box sx={{ display: "flex", gap: 2, gridAutoColumns: 2 }}>
+          <Box>{renderHomeAwayToggle()}</Box>
+          <Box>Result: {renderResultToggle()}</Box>
+          {renderControls && renderControls()}
+        </Box>
+      )}
       endpoint={endpoint}
       pageTitle={format(pageTitle, periodLength)}
       renderComponent={(data) =>
@@ -39,6 +56,8 @@ export default function BaseASARollingPage<T = ASA.XgByGameApi>({
           <MatchGrid
             chartClass={isWide ? styles.chartWide : styles.chart}
             data={data}
+            homeAway={homeAway}
+            result={resultToggle}
             dataParser={(data) =>
               dataParser({
                 periodLength,

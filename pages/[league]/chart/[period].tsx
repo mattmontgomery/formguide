@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 
 import getMatchPoints from "@/utils/getMatchPoints";
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { useHomeAway } from "@/components/Toggle/HomeAwayToggle";
 
 type HomeAway = "home" | "away" | "all";
 
@@ -11,25 +10,15 @@ export default function Chart(): React.ReactElement {
   const { period = 5 } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const { value: homeAway, renderComponent } = useHomeAway();
   return (
     <BaseRollingPage
       isStaticHeight={false}
       pageTitle={`Rolling points (%s game rolling)`}
-      parser={(teams, periodLength) =>
-        parseChartData(teams, periodLength, homeAway)
-      }
+      parser={(teams, periodLength, homeAway) => {
+        return parseChartData(teams, periodLength, homeAway);
+      }}
       periodLength={periodLength}
-    >
-      {renderComponent()}
-    </BaseRollingPage>
-    /**
-     * {
-    value: alignment,
-    onChange: handleChange,
-    exclusive: true,
-  };
-     */
+    />
   );
 }
 

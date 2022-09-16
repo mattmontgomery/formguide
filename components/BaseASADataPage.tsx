@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import BasePage from "./BasePage";
+import BasePage, { BasePageProps } from "./BasePage";
 import { Box, CircularProgress, Divider } from "@mui/material";
 import YearContext from "./YearContext";
 import LeagueContext from "./LeagueContext";
@@ -11,10 +11,12 @@ function BaseASADataPage<
   U = ASA.GenericApi["meta"]
 >({
   children,
+  renderControls,
   renderComponent,
   pageTitle,
   endpoint = (year, league) => `/api/asa/xg?year=${year}&league=${league}`,
 }: {
+  renderControls?: BasePageProps["renderControls"];
   renderComponent: (data: T, meta: U) => React.ReactNode;
   pageTitle: string;
   children?: React.ReactNode;
@@ -27,7 +29,7 @@ function BaseASADataPage<
     meta: U;
   }>([endpoint(String(year), league), year, league], fetcher);
   return (
-    <BasePage pageTitle={pageTitle}>
+    <BasePage pageTitle={pageTitle} renderControls={renderControls}>
       {data && data?.data ? (
         <>
           {renderComponent(data.data, data.meta)}

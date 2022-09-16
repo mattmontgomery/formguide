@@ -1,4 +1,9 @@
-import { fetchCachedOrFreshV2, getKey } from "@/utils/cache";
+import {
+  fetchCachedOrFreshV2,
+  getHash,
+  getKey,
+  getKeyFromParts,
+} from "@/utils/cache";
 import getAllFixtureIds from "@/utils/getAllFixtureIds";
 import { LeagueCodes } from "@/utils/LeagueCodes";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -41,10 +46,13 @@ export default async function Goals(
 
   const matches = getAllFixtureIds(data);
 
-  const hash = createHash("md5");
-  const totalKey = `${FIXTURE_KEY_PREFIX}:ALL:COMPRESSED_HEX:${hash
-    .update(JSON.stringify([matches, league]))
-    .digest("hex")}`;
+  const totalKey = getKeyFromParts(
+    FIXTURE_KEY_PREFIX,
+    "ALL",
+    "COMPRESSED",
+    matches.length,
+    getHash(matches)
+  );
 
   const keys = await redisClient().keys(`${FIXTURE_KEY_PREFIX}*`);
 

@@ -84,6 +84,7 @@ declare namespace Results {
     result: ResultType;
   };
   type ResultTypes = "W" | "D" | "L";
+  type ResultTypesAll = ResultTypes | "all";
   type ResultType = ResultTypes | null;
   type League = {
     id: number;

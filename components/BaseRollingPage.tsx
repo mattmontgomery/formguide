@@ -3,8 +3,13 @@ import MatchGrid from "@/components/MatchGrid";
 import BaseDataPage, { DataPageProps } from "@/components/BaseDataPage";
 import RollingBox from "@/components/Rolling/Box";
 import { format } from "util";
+import { BasePageProps } from "./BasePage";
+import { Box } from "@mui/system";
+import { Options, useHomeAway } from "./Toggle/HomeAwayToggle";
+import { useResultToggleAll } from "./Toggle/ResultToggle";
 
 export default function BaseRollingPage({
+  renderControls,
   pageTitle,
   periodLength,
   parser,
@@ -15,6 +20,7 @@ export default function BaseRollingPage({
   getEndpoint,
   heightCalc,
 }: React.PropsWithChildren<{
+  renderControls?: BasePageProps["renderControls"];
   pageTitle: string;
   periodLength: number;
   parser: Render.RollingParser;
@@ -24,6 +30,8 @@ export default function BaseRollingPage({
   getEndpoint?: DataPageProps["getEndpoint"];
   heightCalc?: (value: number | null, periodLength: number) => string;
 }>): React.ReactElement {
+  const { value: homeAway, renderComponent: renderHomeAwayToggle } =
+    useHomeAway();
   return (
     <BaseDataPage
       {...(getEndpoint
@@ -31,10 +39,17 @@ export default function BaseRollingPage({
             getEndpoint,
           }
         : {})}
+      renderControls={() => (
+        <Box sx={{ display: "flex", gap: 2, gridAutoColumns: 2 }}>
+          <Box>{renderHomeAwayToggle()}</Box>
+          {renderControls && renderControls()}
+        </Box>
+      )}
       pageTitle={format(pageTitle, periodLength)}
       renderComponent={(data) =>
         data?.teams ? (
           <MatchGrid
+            homeAway={homeAway}
             chartClass={isWide ? styles.chartWide : styles.chart}
             data={data.teams}
             dataParser={(data) =>
@@ -46,6 +61,7 @@ export default function BaseRollingPage({
                 isStaticHeight,
                 isWide,
                 heightCalc,
+                homeAway,
               })
             }
             showMatchdayHeader={false}
@@ -68,6 +84,7 @@ function dataParser({
   isStaticHeight,
   isWide,
   heightCalc,
+  homeAway,
 }: {
   parser: Render.RollingParser;
   periodLength: number;
@@ -76,8 +93,9 @@ function dataParser({
   isStaticHeight: boolean;
   isWide: boolean;
   heightCalc?: (value: number | null, periodLength: number) => string;
+  homeAway: Options;
 }): Render.RenderReadyData {
-  return parser(data, periodLength).map(([team, ...points]) => {
+  return parser(data, periodLength, homeAway).map(([team, ...points]) => {
     return [
       team,
       ...points

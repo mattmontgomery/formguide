@@ -68,7 +68,7 @@ export default function AdvancedTablePage() {
   const { value, renderComponent: renderHomeAway } = useHomeAway();
   return (
     <BaseDataPage<Results.ParsedDataGoals>
-      controls={<Box>{renderHomeAway()}</Box>}
+      renderControls={renderHomeAway}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       pageTitle="Advanced Table"
       renderComponent={(data) => {

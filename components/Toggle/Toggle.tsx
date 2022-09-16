@@ -56,7 +56,11 @@ export default function Toggle<T extends OptionTypes>({
       {...toggleButtonGroupProps}
     >
       {options.map((opt, idx) => (
-        <ToggleButton value={opt.value} key={idx}>
+        <ToggleButton
+          value={opt.value}
+          key={idx}
+          sx={{ backgroundColor: "paper.primary" }}
+        >
           {opt.label ?? opt.value}
         </ToggleButton>
       ))}

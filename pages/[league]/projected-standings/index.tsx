@@ -54,6 +54,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
   }, [useTeamPpg]);
   return (
     <BaseDataPage<FormGuideAPI.Data.Simulations, FormGuideAPI.Meta.Simulations>
+      renderControls={renderToggle}
       pageTitle="League final standings simulations"
       getEndpoint={getEndpoint}
       swrArgs={[useTeamPpg]}
@@ -75,7 +76,6 @@ export default function ProjectedStandingsPage(): React.ReactElement {
         });
         return (
           <>
-            {renderToggle()}
             <Box>
               <Typography variant="overline">
                 Simulations: {Number(meta.simulations).toLocaleString()} (number

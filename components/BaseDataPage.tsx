@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import BasePage from "./BasePage";
-import { Box, CircularProgress, Divider } from "@mui/material";
+import BasePage, { BasePageProps } from "./BasePage";
+import { Box, CircularProgress } from "@mui/material";
 import YearContext from "./YearContext";
 import LeagueContext from "./LeagueContext";
 import { useContext } from "react";
@@ -9,7 +9,7 @@ export type DataPageProps<
   Data = Results.ParsedData,
   Meta = Results.ParsedMeta
 > = {
-  controls?: React.ReactNode;
+  renderControls?: BasePageProps["renderControls"];
   renderComponent: (data: Data, meta: Meta) => React.ReactNode;
   pageTitle: string;
   children?: React.ReactNode;
@@ -20,7 +20,7 @@ export type DataPageProps<
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
   children,
-  controls,
+  renderControls,
   renderComponent,
   pageTitle,
   getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
@@ -35,14 +35,15 @@ function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
     dedupingInterval: 500,
   });
   return (
-    <BasePage pageTitle={pageTitle}>
+    <BasePage pageTitle={pageTitle} renderControls={renderControls}>
       {data && data?.data ? (
         <>
-          {controls && <Box my={2}>{controls}</Box>}
-          <Divider />
           {renderComponent(data.data, data.meta)}
-          <Divider />
-          <Box sx={{ marginTop: 2 }}>{children}</Box>
+          {children && (
+            <>
+              <Box sx={{ marginTop: 2 }}>{children}</Box>
+            </>
+          )}
         </>
       ) : (
         <Box

@@ -14,7 +14,7 @@ export default function OpponentSinceResultPage(): React.ReactElement {
   const { value: result, renderComponent } = useResultToggle();
   return (
     <BaseGridPage
-      controls={<>Result: {renderComponent()}</>}
+      renderControls={() => <>Result: {renderComponent()}</>}
       pageTitle={`Opponent Games since a ${formattedResults[result]} ${
         result === "W"
           ? "(Slumpbusters)"

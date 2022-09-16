@@ -9,6 +9,8 @@ import { Typography } from "@mui/material";
 import { getPointsForResult } from "@/utils/getMatchPoints";
 import { getArraySum } from "@/utils/array";
 import { getInverseResult, stepResult } from "@/utils/results";
+import { useHomeAway } from "@/components/Toggle/HomeAwayToggle";
+import { useResultToggleAll } from "@/components/Toggle/ResultToggle";
 
 type Projections = {
   team: string;
@@ -16,10 +18,26 @@ type Projections = {
   result: Results.ResultType;
 }[];
 
-export default function Home(): React.ReactElement {
+export default function Projections(): React.ReactElement {
   const [points, setPoints] = useState<Projections>([]);
+  const { value: homeAway, renderComponent: renderHomeAwayToggle } =
+    useHomeAway();
+  const { value: resultToggle, renderComponent: renderResultToggle } =
+    useResultToggleAll();
   return (
     <BaseDataPage
+      renderControls={() => (
+        <Box>
+          <Box sx={{ display: "flex", gap: 2, gridAutoColumns: 2 }}>
+            <Box>{renderHomeAwayToggle()}</Box>
+            <Box>Result: {renderResultToggle()}</Box>
+          </Box>
+          <Typography variant="overline">
+            Click a match and change the result. Table at the bottom of the
+            page.
+          </Typography>
+        </Box>
+      )}
       pageTitle="Standing Projections"
       renderComponent={(data, meta) => {
         const { table, conferences } = getTable(data.teams, {
@@ -29,12 +47,10 @@ export default function Home(): React.ReactElement {
         });
         return (
           <>
-            <Typography variant="overline">
-              Click a match and change the result. Table at the bottom of the
-              page.
-            </Typography>
-            <Box sx={{ p: 2 }}>
+            <Box>
               <MatchGrid
+                homeAway={homeAway}
+                result={resultToggle}
                 data={data.teams}
                 dataParser={(data) => dataParser(data, points)}
                 getMatchCellProps={(match) => {
