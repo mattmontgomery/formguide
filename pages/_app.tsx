@@ -17,6 +17,7 @@ import {
   createTheme,
   useMediaQuery,
   Input,
+  Paper,
 } from "@mui/material";
 
 import {
@@ -24,7 +25,6 @@ import {
   KeyboardControlKey,
   Menu as MenuIcon,
   Search,
-  SearchSharp,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import Nav, { DRAWER_WIDTH } from "@/components/Nav";
@@ -32,26 +32,15 @@ import YearContext, { DEFAULT_YEAR } from "@/components/YearContext";
 import LeagueContext, { DEFAULT_LEAGUE } from "@/components/LeagueContext";
 import EasterEggContext from "@/components/EasterEggContext";
 import { useRouter } from "next/router";
-import { KBarAnimator, KBarPortal, KBarPositioner, KBarSearch } from "kbar";
+import { KBarAnimator, KBarPortal, KBarPositioner } from "kbar";
 import KBarProvider from "@/components/KBarProvider";
 import Results from "@/components/Results";
 
 import useCookie from "react-use-cookie";
 import { LeagueOptions } from "@/utils/Leagues";
-
-const KONAMI_CODE = [
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowLeft",
-  "ArrowRight",
-  "b",
-  "a",
-  "Enter",
-];
+import DarkMode from "@/components/Context/DarkMode";
+import KBarInput from "@/components/KBar/Input";
+import { useEasterEgg } from "@/components/EasterEgg";
 
 export function MLSFormGuide({
   Component,
@@ -62,7 +51,7 @@ export function MLSFormGuide({
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [darkMode, setDarkMode] = useState<boolean>(prefersDarkMode);
   const [year, setYear] = useState<number>(DEFAULT_YEAR);
-  const [easterEgg, setEasterEgg] = useState<boolean>(false);
+  const { easterEgg, renderComponent } = useEasterEgg();
   const [_league, setLeague] = useState<Results.Leagues>(
     league ?? DEFAULT_LEAGUE
   );
@@ -121,36 +110,13 @@ export function MLSFormGuide({
     [darkMode, easterEgg]
   );
 
-  const [konamiCode, setKonamiCode] = useState<string[]>([]);
-  useEffect(() => {
-    const listener = (ev: KeyboardEvent) => {
-      setKonamiCode([...konamiCode, ev.key]);
-    };
-    document.addEventListener("keyup", listener);
-    return () => {
-      document.removeEventListener("keyup", listener);
-    };
-  }, [konamiCode]);
-  useEffect(() => {
-    if (easterEgg) {
-      return;
-    }
-    if (
-      konamiCode.map((k, i) => k === KONAMI_CODE[i]).some((v) => v === false)
-    ) {
-      setKonamiCode([]);
-    } else if (konamiCode.length === KONAMI_CODE.length) {
-      setEasterEgg(true);
-    } else {
-      setEasterEgg(false);
-    }
-  }, [konamiCode, setKonamiCode, easterEgg, setEasterEgg]);
-
   return (
     <YearContext.Provider value={year}>
       <LeagueContext.Provider value={_league}>
-        <EasterEggContext.Provider value={easterEgg}>
-          <ThemeProvider theme={theme}>
+        {renderComponent()}
+
+        <ThemeProvider theme={theme}>
+          <DarkMode.Provider value={darkMode}>
             <KBarProvider onSetLeague={(league) => setLeague(league)}>
               <KBarPortal>
                 <KBarPositioner style={{ zIndex: 1 }}>
@@ -158,43 +124,16 @@ export function MLSFormGuide({
                     style={{
                       zIndex: 9999,
                       borderRadius: "0.25rem",
-                      boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
                       position: "absolute",
+                      margin: "4rem",
                       width: "80%",
                       maxWidth: "600px",
-                      minHeight: "400px",
-                      backgroundColor: darkMode
-                        ? "rgba(0,0,0,0.9)"
-                        : "rgba(255,255,255,0.9)",
-                      color: darkMode ? "white" : "black",
                     }}
                   >
-                    <Input
-                      startAdornment={<SearchSharp />}
-                      sx={{
-                        width: "100%",
-                        paddingLeft: 1,
-                        borderRadius: "0.25rem",
-                        backgroundColor: darkMode
-                          ? "rgb(30,60,90)"
-                          : "rgba(255,255,255,0.9)",
-                      }}
-                      inputComponent={() => (
-                        <KBarSearch
-                          style={{
-                            width: "100%",
-                            backgroundColor: "transparent",
-                            borderBottom: "2px solid rgba(149, 157, 165, 0.2)",
-                            padding: "1rem 0.5rem",
-                            fontSize: "1.5rem",
-                            borderWidth: 0,
-                            outline: 0,
-                            color: darkMode ? "#f0f0f0" : "#111",
-                          }}
-                        />
-                      )}
-                    />
-                    <Results darkMode={darkMode} />
+                    <Paper elevation={12}>
+                      <KBarInput />
+                      <Results darkMode={darkMode} />
+                    </Paper>
                   </KBarAnimator>
                 </KBarPositioner>
               </KBarPortal>
@@ -333,8 +272,8 @@ export function MLSFormGuide({
                 </Box>
               </Box>
             </KBarProvider>
-          </ThemeProvider>
-        </EasterEggContext.Provider>
+          </DarkMode.Provider>
+        </ThemeProvider>
       </LeagueContext.Provider>
     </YearContext.Provider>
   );

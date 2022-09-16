@@ -1,5 +1,5 @@
 import { SvgIconComponent } from "@mui/icons-material";
-import { Box, SvgIcon } from "@mui/material";
+import { Box, Paper, SvgIcon } from "@mui/material";
 import { ActionImpl, KBarResults, useMatches } from "kbar";
 import React, { ReactComponentElement } from "react";
 
