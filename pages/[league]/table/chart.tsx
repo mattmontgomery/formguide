@@ -13,8 +13,9 @@ import { curveCatmullRom } from "@visx/curve";
 import { getCumulativeTeamPointsArray } from "@/utils/getTeamPoints";
 import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import { TeamLineSeries, useChartLegend } from "@/components/XYChartTools";
 
 export default function PointsChart() {
   return (
@@ -37,7 +38,7 @@ function LeagueTable({
   data: Results.ParsedData;
   meta: Results.ParsedMeta;
 }): React.ReactElement {
-  const [selectedTeams, setSelectedTeams] = useState<string[]>(
+  const { selectedTeams, hoverTeam, renderComponent } = useChartLegend(
     Object.keys(data.teams)
   );
   return (
@@ -52,13 +53,17 @@ function LeagueTable({
         >
           <Grid columns={false} numTicks={8} />
           {Object.keys(data.teams)
-            .filter((team) => selectedTeams.includes(team))
+            .filter(
+              (team) =>
+                selectedTeams.includes(team) || selectedTeams.length === 0
+            )
             .map((team, idx) => (
-              <LineSeries
+              <TeamLineSeries
                 key={idx}
                 {...accessors}
                 curve={curveCatmullRom}
                 dataKey={team}
+                focused={hoverTeam === team}
                 data={getCumulativeTeamPointsArray(data.teams[team]).map(
                   (points, idx) => ({
                     x: idx,
@@ -99,26 +104,7 @@ function LeagueTable({
             }
           />
         </XYChart>
-        <ChartLegend
-          onSelectTeam={(team) => {
-            if (selectedTeams.includes(team)) {
-              setSelectedTeams(selectedTeams.filter((t) => t !== team));
-            } else {
-              setSelectedTeams([...selectedTeams, team]);
-            }
-          }}
-          selectedTeams={selectedTeams}
-          allTeams={Object.keys(data.teams)}
-        />
-        <Button
-          onClick={() =>
-            setSelectedTeams(
-              selectedTeams.length ? [] : Object.keys(data.teams)
-            )
-          }
-        >
-          {selectedTeams.length ? "Hide" : "Show"} all teams
-        </Button>
+        {renderComponent()}
       </DataProvider>
     </Box>
   );

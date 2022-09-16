@@ -24,6 +24,7 @@ import {
 import { ConferenceDisplayNames } from "@/utils/LeagueConferences";
 import { getEarliestMatch, getLatestMatch } from "@/utils/data";
 import EasterEggContext from "@/components/EasterEggContext";
+import { TeamLineSeries, useChartLegend } from "@/components/XYChartTools";
 
 export default function PositionChart() {
   return (
@@ -48,12 +49,10 @@ function LeagueTable({
   meta: Results.ParsedMeta;
 }): React.ReactElement {
   const easterEgg = useContext(EasterEggContext);
-  const [selectedTeams, setSelectedTeams] = useState<string[]>(
-    Object.keys(data.teams)
-  );
-  const [weeklyTables, conferences] = useMemo<
-    [[string, number[]][], string[]]
-  >(() => {
+  const conferences = getConferences(meta.league, meta.year);
+  const { hoverTeam, selectedTeams, setSelectedTeams, renderComponent } =
+    useChartLegend(Object.keys(data.teams));
+  const weeklyTables = useMemo<[string, number[]][]>(() => {
     const earliestMatch = getEarliestMatch(data);
     const latestMatch = getLatestMatch(data);
 
@@ -98,7 +97,7 @@ function LeagueTable({
         ];
       });
 
-    return [weeklyData, getConferences(meta.league, meta.year)];
+    return weeklyData;
   }, [data, meta.league, meta.year]);
   return (
     <Box>
@@ -137,20 +136,22 @@ function LeagueTable({
                       meta.year
                     );
                     return (
-                      selectedTeams.includes(team) &&
+                      (selectedTeams.includes(team) ||
+                        selectedTeams.length === 0) &&
                       (teamConference === conference || !teamConference)
                     );
                   })
                   .map(([team, ranks], idx) => (
-                    <LineSeries
+                    <TeamLineSeries
                       key={idx}
-                      {...accessors}
                       curve={curveCatmullRom}
                       dataKey={team}
+                      focused={team === hoverTeam}
                       data={ranks.map((rank, idx) => ({
                         x: idx,
                         y: rank,
                       }))}
+                      {...accessors}
                     />
                   ))}
                 <Axis orientation="bottom" numTicks={10} />
@@ -188,19 +189,7 @@ function LeagueTable({
                   }
                 />
               </XYChart>
-              <ChartLegend
-                onSelectTeam={(team) => {
-                  if (selectedTeams.includes(team)) {
-                    setSelectedTeams(selectedTeams.filter((t) => t !== team));
-                  } else {
-                    setSelectedTeams([...selectedTeams, team]);
-                  }
-                }}
-                selectedTeams={selectedTeams}
-                allTeams={
-                  conferenceTeams.length > 0 ? conferenceTeams : allTeams
-                }
-              />
+              {renderComponent(conferenceTeams)}
               <Button
                 onClick={() =>
                   setSelectedTeams(
@@ -220,9 +209,11 @@ function LeagueTable({
 
 export function ChartLegend({
   onSelectTeam,
+  onHoverTeam,
   selectedTeams = [],
   allTeams = [],
 }: {
+  onHoverTeam: (team: string | null) => void;
   onSelectTeam: (team: string) => void;
   selectedTeams: string[];
   allTeams: string[];
@@ -247,6 +238,8 @@ export function ChartLegend({
           return (
             <React.Fragment key={idx}>
               <FormControlLabel
+                onMouseEnter={() => onHoverTeam(team)}
+                onMouseLeave={() => onHoverTeam(null)}
                 control={
                   <Checkbox
                     checked={selectedTeams.includes(team)}
