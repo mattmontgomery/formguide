@@ -98,7 +98,7 @@ export function MLSFormGuide({
             main: deepPurple["500"],
           },
           success: {
-            main: "#60C76F",
+            main: "#67db78",
           },
           warning: {
             main: "#FFC942",
