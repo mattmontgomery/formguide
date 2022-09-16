@@ -1,5 +1,8 @@
 import { useToggle } from "./Toggle";
 
+export type Options = Results.ResultTypes;
+export type OptionsAll = Results.ResultTypesAll;
+
 export function useResultToggle() {
   return useToggle<Results.ResultTypes>(
     [{ value: "W" }, { value: "D" }, { value: "L" }],

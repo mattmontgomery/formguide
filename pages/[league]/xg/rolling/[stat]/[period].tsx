@@ -1,8 +1,12 @@
 import { useRouter } from "next/router";
 
-import BaseASARollingPage from "@/components/BaseASARollingPage";
+import BaseASARollingPage, {
+  DataParserProps,
+} from "@/components/BaseASARollingPage";
 import RollingBox from "@/components/Rolling/Box";
 import { transformXGMatchIntoASAMatch } from "@/utils/transform";
+import { Options } from "@/components/Toggle/HomeAwayToggle";
+import { OptionsAll as ResultOptions } from "@/components/Toggle/ResultToggle";
 
 const VALID_STATS: ASA.ValidStats[] = [
   "xpoints",
@@ -74,7 +78,7 @@ export default function Chart(): React.ReactElement {
     return <>{"Invalid stat"}</>;
   }
   return (
-    <BaseASARollingPage<ASA.XgByGameApi["data"]>
+    <BaseASARollingPage
       endpoint={(year, league) => `/api/asa/xg?year=${year}&league=${league}`}
       isStaticHeight={false}
       pageTitle={`Rolling ${
@@ -90,7 +94,9 @@ export default function Chart(): React.ReactElement {
 function parseChartData(
   data: ASA.XgByGameApi["data"]["xg"],
   periodLength = 5,
-  stat: ASA.ValidStats
+  stat: ASA.ValidStats,
+  homeAway: Options,
+  result: ResultOptions = "all"
 ): ReturnType<Render.RollingParser> {
   return Object.keys(data)
     .sort()
@@ -103,6 +109,16 @@ function parseChartData(
             .sort((a, b) => {
               return new Date(a.date) > new Date(b.date) ? 1 : -1;
             })
+            .filter((match) =>
+              homeAway === "home"
+                ? match.home
+                : homeAway === "away"
+                ? !match.home
+                : true
+            )
+            .filter((match) =>
+              result !== "all" ? result === match.result : true
+            )
             .slice(idx, idx + periodLength)
             .filter((match) => match.result !== null);
           const results = resultSet.map((match) =>
@@ -128,37 +144,34 @@ function dataParser({
   getBackgroundColor,
   isStaticHeight,
   stat = "xpoints",
-}: {
-  periodLength: number;
-  data: ASA.XgByGameApi["data"];
-  getBackgroundColor: Render.GetBackgroundColor;
-  isStaticHeight: boolean;
-  isWide: boolean;
-  stat: ASA.ValidStats;
-}): Render.RenderReadyData {
-  return parseChartData(data.xg, periodLength, stat).map(([team, ...stats]) => {
-    return [
-      team,
-      ...stats.map((s, idx) => {
-        return (
-          <RollingBox
-            key={idx}
-            isStaticHeight={isStaticHeight}
-            getBackgroundColor={getBackgroundColor}
-            periodLength={periodLength}
-            value={s.value}
-            heightCalc={
-              typeof statHeightCalc[stat] === "function"
-                ? statHeightCalc[stat]
-                : (value, periodLength) =>
-                    `${
-                      ((value || 0) / (periodLength * statHeightMap[stat])) *
-                      100
-                    }%`
-            }
-          />
-        );
-      }),
-    ];
-  });
+  homeAway,
+  result,
+}: DataParserProps): Render.RenderReadyData {
+  return parseChartData(data.xg, periodLength, stat, homeAway, result).map(
+    ([team, ...stats]) => {
+      return [
+        team,
+        ...stats.map((s, idx) => {
+          return (
+            <RollingBox
+              key={idx}
+              isStaticHeight={isStaticHeight}
+              getBackgroundColor={getBackgroundColor}
+              periodLength={periodLength}
+              value={s.value}
+              heightCalc={
+                typeof statHeightCalc[stat] === "function"
+                  ? statHeightCalc[stat]
+                  : (value, periodLength) =>
+                      `${
+                        ((value || 0) / (periodLength * statHeightMap[stat])) *
+                        100
+                      }%`
+              }
+            />
+          );
+        }),
+      ];
+    }
+  );
 }

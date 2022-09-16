@@ -3,9 +3,23 @@ import MatchGrid from "@/components/MatchGrid";
 import { format } from "util";
 import BaseASADataPage from "./BaseASADataPage";
 import { BasePageProps } from "./BasePage";
-import { useHomeAway } from "./Toggle/HomeAwayToggle";
-import { useResultToggleAll } from "./Toggle/ResultToggle";
+import { Options, useHomeAway } from "./Toggle/HomeAwayToggle";
+import {
+  useResultToggleAll,
+  OptionsAll as ResultOptions,
+} from "./Toggle/ResultToggle";
 import { Box } from "@mui/system";
+
+export type DataParserProps<T = ASA.XgByGameApi["data"]> = {
+  periodLength: number;
+  data: T;
+  getBackgroundColor: Render.GetBackgroundColor;
+  isStaticHeight: boolean;
+  isWide: boolean;
+  stat: ASA.ValidStats;
+  homeAway: Options;
+  result?: ResultOptions;
+};
 
 export default function BaseASARollingPage<T = ASA.XgByGameApi>({
   renderControls,
@@ -23,14 +37,7 @@ export default function BaseASARollingPage<T = ASA.XgByGameApi>({
   endpoint: ASA.Endpoint;
   pageTitle: string;
   periodLength: number;
-  dataParser: (data: {
-    periodLength: number;
-    data: T;
-    getBackgroundColor: Render.GetBackgroundColor;
-    isStaticHeight: boolean;
-    isWide: boolean;
-    stat: ASA.ValidStats;
-  }) => Render.RenderReadyData;
+  dataParser: (data: DataParserProps<T>) => Render.RenderReadyData;
   getBackgroundColor?: Render.GetBackgroundColor;
   isStaticHeight?: boolean;
   isWide?: boolean;
@@ -66,6 +73,8 @@ export default function BaseASARollingPage<T = ASA.XgByGameApi>({
                 isStaticHeight,
                 isWide,
                 stat,
+                homeAway,
+                result: resultToggle,
               })
             }
             showMatchdayHeader={false}

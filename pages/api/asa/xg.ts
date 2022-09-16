@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import Client, { ValidLeagues } from "itscalledsoccer";
+import Client from "itscalledsoccer";
 import { sortByDate } from "@/utils/array";
 import { fetchCachedOrFresh } from "@/utils/cache";
 
