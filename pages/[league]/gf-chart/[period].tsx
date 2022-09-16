@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 import ColorKey from "@/components/ColorKey";
 import BaseRollingPage from "@/components/BaseRollingPage";
+import { Options } from "@/components/Toggle/HomeAwayToggle";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
@@ -34,7 +35,8 @@ export default function Chart(): React.ReactElement {
 
 function parseChartData(
   teams: Results.ParsedData["teams"],
-  periodLength = 5
+  periodLength = 5,
+  homeAway: Options
 ): ReturnType<Render.RollingParser> {
   return Object.keys(teams)
     .sort()
@@ -42,6 +44,9 @@ function parseChartData(
       return [
         team,
         ...teams[team]
+          .filter((m) =>
+            homeAway === "home" ? m.home : homeAway === "away" ? !m.home : true
+          )
           .slice(0, teams[team].length - periodLength)
           .map((_, idx) => {
             const resultSet = teams[team]
