@@ -80,7 +80,7 @@ export default function MatchCell({
           <Box
             sx={{
               backgroundColor: !result
-                ? "rgb(200, 200, 200)"
+                ? "background.default"
                 : result === "W"
                 ? "success.main"
                 : result === "L"

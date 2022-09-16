@@ -6,7 +6,6 @@ import { format } from "util";
 import { BasePageProps } from "./BasePage";
 import { Box } from "@mui/system";
 import { Options, useHomeAway } from "./Toggle/HomeAwayToggle";
-import { useResultToggleAll } from "./Toggle/ResultToggle";
 
 export default function BaseRollingPage({
   renderControls,

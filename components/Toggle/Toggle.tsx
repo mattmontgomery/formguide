@@ -57,6 +57,7 @@ export default function Toggle<T extends OptionTypes>({
     >
       {options.map((opt, idx) => (
         <ToggleButton
+          color="secondary"
           value={opt.value}
           key={idx}
           sx={{ backgroundColor: "paper.primary" }}

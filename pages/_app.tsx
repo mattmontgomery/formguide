@@ -16,7 +16,6 @@ import {
   Typography,
   createTheme,
   useMediaQuery,
-  Input,
   Paper,
 } from "@mui/material";
 
@@ -30,11 +29,12 @@ import React, { useEffect, useState } from "react";
 import Nav, { DRAWER_WIDTH } from "@/components/Nav";
 import YearContext, { DEFAULT_YEAR } from "@/components/YearContext";
 import LeagueContext, { DEFAULT_LEAGUE } from "@/components/LeagueContext";
-import EasterEggContext from "@/components/EasterEggContext";
 import { useRouter } from "next/router";
 import { KBarAnimator, KBarPortal, KBarPositioner } from "kbar";
 import KBarProvider from "@/components/KBarProvider";
 import Results from "@/components/Results";
+
+import { blueGrey, deepOrange, deepPurple } from "@mui/material/colors";
 
 import useCookie from "react-use-cookie";
 import { LeagueOptions } from "@/utils/Leagues";
@@ -86,24 +86,29 @@ export function MLSFormGuide({
           ...(easterEgg
             ? {
                 primary: {
-                  main: "#8cca7a",
+                  main: deepPurple["300"],
                 },
               }
-            : {}),
-          primary: {
-            main: darkMode ? "#ff7043" : "#d84315",
+            : {
+                primary: {
+                  main: darkMode ? deepOrange["50"] : deepOrange["700"],
+                },
+              }),
+          secondary: {
+            main: deepPurple["500"],
           },
           success: {
-            main: darkMode ? "#8cca7a" : "#8cca7a",
+            main: "#60C76F",
           },
           warning: {
-            main: darkMode ? "#f9c389" : "#f9c389",
+            main: "#FFC942",
           },
           error: {
-            main: darkMode ? "#f3968f" : "#f3968f",
+            // main: orange["300"],
+            main: "#E48888",
           },
           background: {
-            default: darkMode ? "#37474f" : "#eceff1",
+            default: darkMode ? blueGrey["800"] : blueGrey["50"],
           },
         },
       }),
@@ -118,25 +123,6 @@ export function MLSFormGuide({
         <ThemeProvider theme={theme}>
           <DarkMode.Provider value={darkMode}>
             <KBarProvider onSetLeague={(league) => setLeague(league)}>
-              <KBarPortal>
-                <KBarPositioner style={{ zIndex: 1 }}>
-                  <KBarAnimator
-                    style={{
-                      zIndex: 9999,
-                      borderRadius: "0.25rem",
-                      position: "absolute",
-                      margin: "4rem",
-                      width: "80%",
-                      maxWidth: "600px",
-                    }}
-                  >
-                    <Paper elevation={12}>
-                      <KBarInput />
-                      <Results darkMode={darkMode} />
-                    </Paper>
-                  </KBarAnimator>
-                </KBarPositioner>
-              </KBarPortal>
               <Head>
                 <meta title="MLS, NWSL and More | Soccer Form Guide" />
                 <meta
@@ -145,7 +131,7 @@ export function MLSFormGuide({
                 />
                 <link rel="canonical" href="https://formguide.tools.football" />
               </Head>
-              <Box sx={{ display: "flex", position: "relative" }}>
+              <Box sx={{ display: "flex", position: "relative", zIndex: 1 }}>
                 <CssBaseline />
                 <Nav
                   drawerOpen={drawerOpen === "open"}
@@ -271,6 +257,25 @@ export function MLSFormGuide({
                   </footer>
                 </Box>
               </Box>
+              <KBarPortal>
+                <KBarPositioner style={{ zIndex: 1 }}>
+                  <KBarAnimator
+                    style={{
+                      zIndex: 9999,
+                      borderRadius: "0.25rem",
+                      position: "absolute",
+                      margin: "4rem",
+                      width: "80%",
+                      maxWidth: "600px",
+                    }}
+                  >
+                    <Paper elevation={12}>
+                      <KBarInput />
+                      <Results darkMode={darkMode} />
+                    </Paper>
+                  </KBarAnimator>
+                </KBarPositioner>
+              </KBarPortal>
             </KBarProvider>
           </DarkMode.Provider>
         </ThemeProvider>
