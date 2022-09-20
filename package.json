@@ -47,7 +47,7 @@
     "@types/node-gzip": "^1.1.0",
     "@types/react": "^18.0.20",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
+    "@typescript-eslint/parser": "^5.38.0",
     "csslint": "^1.0.5",
     "eslint": "^8.23.1",
     "eslint-config-next": "^12.3.0",
