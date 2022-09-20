@@ -18,7 +18,7 @@
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.2",
     "@mui/icons-material": "^5.10.2",
-    "@mui/material": "^5.10.5",
+    "@mui/material": "^5.10.6",
     "@mui/x-data-grid": "^5.17.2",
     "@visx/curve": "^2.1.0",
     "@visx/legend": "^2.10.0",
