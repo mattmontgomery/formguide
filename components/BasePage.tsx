@@ -24,7 +24,11 @@ export default function BasePage({
         <title>
           {pageTitle} | Data for {league} {year} | The Form Guide
         </title>
-        <meta og:title={`${pageTitle} | The Form Guide`} />
+        <meta content={`${pageTitle} | The Form Guide`} property="og:title" />
+        <meta
+          content={`${pageTitle} for ${league} and ${year}`}
+          property="og:description"
+        />
       </Head>
       <Box paddingBottom={2}>
         <Grid container rowGap={2}>
