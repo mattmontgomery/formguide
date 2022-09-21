@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/mattmontgomery/formguide/compare/v1.0.6...v1.20.0) (2022-09-21)
+
+
+### Features
+
+* ✨ adds fixtures upcoming page ([97771dc](https://github.com/mattmontgomery/formguide/commit/97771dca1119461188637c2516834a3ee26e4486))
+
 ## [1.18.0](https://github.com/mattmontgomery/formguide/compare/v1.0.6...v1.18.0) (2022-09-21)
 
 
