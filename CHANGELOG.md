@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0](https://github.com/mattmontgomery/formguide/compare/v1.21.0...v1.22.0) (2022-09-21)
+
+
+### Features
+
+* ✨ adds rolling charts, comparison charts, by-game charts for individual stats ([a74a7b7](https://github.com/mattmontgomery/formguide/commit/a74a7b796864123872cdc8c0067c2c78578e88d1))
+
 ## [1.21.0](https://github.com/mattmontgomery/formguide/compare/v1.20.0...v1.21.0) (2022-09-21)
 
 
