@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](https://github.com/mattmontgomery/formguide/compare/v1.26.0...v1.27.0) (2022-09-21)
+
+
+### Features
+
+* ✨ adds og:title, og:description ([51b44cb](https://github.com/mattmontgomery/formguide/commit/51b44cb0d93a4441a5daaaa53045c63c6f5bd223))
+* ✨ change base page name ([352def4](https://github.com/mattmontgomery/formguide/commit/352def46086f4733beb86b982a974d5fc2440d84))
+
 ## [1.26.0](https://github.com/mattmontgomery/formguide/compare/v1.25.0...v1.26.0) (2022-09-21)
 
 
