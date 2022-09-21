@@ -3,7 +3,7 @@
 
 git pull
 
-npm run lint
+npx lint-staged
 
 FUNCTION_FILES=$(git diff --cached --name-only functions)
 

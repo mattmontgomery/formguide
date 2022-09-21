@@ -1,8 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run changelog
-
-git add CHANGELOG.md
-
-npm run release
+HUSKY=0 npm run release
