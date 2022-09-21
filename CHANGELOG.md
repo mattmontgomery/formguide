@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.29.0](https://github.com/mattmontgomery/formguide/compare/v1.28.0...v1.29.0) (2022-09-21)
+
+
+### Features
+
+* ✨ adds twitter cards ([18f642e](https://github.com/mattmontgomery/formguide/commit/18f642ee424b059e9c5c65616a5887533e0ae9dd))
+
 ## [1.28.0](https://github.com/mattmontgomery/formguide/compare/v1.27.0...v1.28.0) (2022-09-21)
 
 
