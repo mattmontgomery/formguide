@@ -256,7 +256,7 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
   { subtitle: "Rolling Match Stats" },
   ...Object.keys(stats).map((stat) => {
     return {
-      href: `/stats/rolling/${stat}/5`,
+      href: `/stats/rolling/${stat}`,
       title: `Rolling ${getStatsName(stat as ValidStats)} (5-game)`,
       icon: Numbers,
     };

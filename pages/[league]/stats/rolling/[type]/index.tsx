@@ -9,31 +9,31 @@ import {
   getStatsName,
   ValidStats,
 } from "@/components/Stats";
+import { usePeriodLength } from "@/components/Toggle/PeriodLength";
+import { Box } from "@mui/material";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
-  const { period = 5, type = "shots" } = router.query;
-  const periodLength: number =
-    +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
+  const { type = "shots" } = router.query;
   const statType: ValidStats = String(type) as ValidStats;
-  const { value: homeAway, renderComponent } = useHomeAway();
   const max = getStatsMax(statType);
+  const { value: periodLength, renderComponent: renderPeriodLength } =
+    usePeriodLength();
   return (
     <BaseRollingPage
+      renderControls={() => <Box>{renderPeriodLength()}</Box>}
       isWide
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       isStaticHeight={false}
       pageTitle={`Rolling ${getStatsName(statType)} (%s game rolling)`}
-      parser={(teams, periodLength) =>
+      parser={(teams, periodLength, homeAway) =>
         parseChartData(teams, periodLength, homeAway, statType)
       }
       periodLength={periodLength}
       heightCalc={(value) => {
         return `${value ? (value / max) * 100 : 0}%`;
       }}
-    >
-      {renderComponent()}
-    </BaseRollingPage>
+    />
   );
 }
 

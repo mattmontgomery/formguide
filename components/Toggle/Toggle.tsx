@@ -7,7 +7,7 @@ import { useState } from "react";
 
 type Option<T> = {
   value: T;
-  label?: string;
+  label?: string | number;
 };
 
 type OptionTypes = string | number | boolean;
