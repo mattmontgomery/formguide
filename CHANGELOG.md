@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](https://github.com/mattmontgomery/formguide/compare/v1.25.0...v1.26.0) (2022-09-21)
+
+
+### Features
+
+* ✨ improve navigation ([0f52741](https://github.com/mattmontgomery/formguide/commit/0f52741eba6bb12bef4cdac618bccd8110f244bb))
+* ✨ page names ([196b33e](https://github.com/mattmontgomery/formguide/commit/196b33e766a5ea63f325b82458ac252f92df5e3e))
+
 ## [1.25.0](https://github.com/mattmontgomery/formguide/compare/v1.24.2...v1.25.0) (2022-09-21)
 
 
