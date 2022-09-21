@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.25.0](https://github.com/mattmontgomery/formguide/compare/v1.24.2...v1.25.0) (2022-09-21)
+
+
+### Features
+
+* ✨ improve colorblindness readability ([3a54e0c](https://github.com/mattmontgomery/formguide/commit/3a54e0c1dd549dd1f3de443320e0638b299a040f))
+* ✨ improves kbar ([bbf9458](https://github.com/mattmontgomery/formguide/commit/bbf94581d9b9290dd67d0c07010243890ed34a74))
+
 ### [1.24.2](https://github.com/mattmontgomery/formguide/compare/v1.24.1...v1.24.2) (2022-09-21)
 
 ### [1.24.1](https://github.com/mattmontgomery/formguide/compare/v1.24.0...v1.24.1) (2022-09-21)
