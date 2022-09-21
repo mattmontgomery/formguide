@@ -17,7 +17,7 @@
     "setup:functions": "npm install --prefix ./functions",
     "release": "run-s release:*",
     "release:version": "HUSKY=0 npx standard-version --no-verify",
-    "release:push": "HUSKY=0 npx standard-version --no-verify"
+    "release:push": "git push --follow-tags origin main"
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.2",
