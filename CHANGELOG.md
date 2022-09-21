@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/mattmontgomery/formguide/compare/v1.20.0...v1.21.0) (2022-09-21)
+
+
+### Features
+
+* ✨ adds total shots difference chart ([11cdbdf](https://github.com/mattmontgomery/formguide/commit/11cdbdfa7c954a1fc07a2a6a44cbbe552f138af3))
+
+
+### Bug Fixes
+
+* 🐛 fixes leagues issue ([84b896a](https://github.com/mattmontgomery/formguide/commit/84b896a6cc7b0e6d9abbeb12af482bd692f57bac))
+
 ### 0.1.1 (2022-09-21)
 
 ### Features
