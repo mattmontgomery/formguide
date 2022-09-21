@@ -108,13 +108,14 @@ export default async function Goals(
           return {
             ...previousValue,
             [team]: matches.map((m): FormGuideAPI.Data.StatsMatch => {
-              return {
+              const match = {
                 ...m,
-                league: null,
                 stats:
                   prepared?.find((f) => m.fixtureId === f?.fixtureId)?.stats ??
                   undefined,
               };
+              delete match.league;
+              return match;
             }),
           };
         },

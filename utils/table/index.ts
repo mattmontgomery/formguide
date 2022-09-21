@@ -237,7 +237,7 @@ export function getTable(
         getRow(
           t,
           teamsData[t]?.filter((tD) => {
-            return !tD.league.round?.includes("MLS Cup");
+            return !tD.league?.round?.includes("MLS Cup");
             true;
           }),
           from,

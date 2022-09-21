@@ -82,7 +82,7 @@ declare namespace Results {
     };
   };
   type MatchWithStatsData = {
-    stats: {
+    stats?: {
       [team: string]: Record<string, number | string>;
     };
   } & Match;

@@ -46,8 +46,11 @@ function dataParser(
 function getStats(
   match: Results.MatchWithStatsData,
   stat: string
-): [number | string, number | string] {
-  return [match.stats[match.team]?.[stat], match.stats[match.opponent]?.[stat]];
+): [number | string | undefined, number | string | undefined] {
+  return [
+    match.stats?.[match.team]?.[stat],
+    match.stats?.[match.opponent]?.[stat],
+  ];
 }
 
 function getStatsName(stat: ValidStats): string {
@@ -57,7 +60,7 @@ function getStatsName(stat: ValidStats): string {
 }
 
 function compareStats(
-  stats: [number | string, number | string],
+  stats: [number | string | undefined, number | string | undefined],
   type: ValidStats
 ) {
   return typeof stats[0] === "number" && typeof stats[1] === "number"
