@@ -13,9 +13,14 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import { SportsSoccerOutlined } from "@mui/icons-material";
-import { format, parseISO } from "date-fns";
+import { format, formatRelative, parseISO } from "date-fns";
 import { LeagueOptions } from "@/utils/Leagues";
 
 export default function LeagueOdds(): React.ReactElement {
@@ -28,21 +33,6 @@ export default function LeagueOdds(): React.ReactElement {
 
   const [oddsFormat, setOddsFormat] = useState<"decimal" | "american">(
     "american"
-  );
-
-  const oddsFormatter = useCallback(
-    (odds: number): number | string => {
-      switch (oddsFormat) {
-        case "american":
-          const _odds = Math.round(
-            odds >= 2 ? (odds - 1) * 100 : -100 / (odds - 1)
-          );
-          return _odds > 0 ? `+${_odds}` : _odds;
-        case "decimal":
-          return odds;
-      }
-    },
-    [oddsFormat]
   );
 
   return (
@@ -95,37 +85,97 @@ export default function LeagueOdds(): React.ReactElement {
                     </strong>
                   </Box>
                   <Box>{startTime.toLocaleDateString()}</Box>
-                  <Box>
-                    <ul>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Bookmaker</TableCell>
+                        <TableCell>Last Update</TableCell>
+                        <TableCell>Type</TableCell>
+                        <TableCell>{entry.home_team}</TableCell>
+                        <TableCell>{entry.away_team}</TableCell>
+                        <TableCell>Draw</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
                       {entry.bookmakers.map((bookmaker, idx) => {
                         return (
-                          <li key={idx}>
-                            <strong>{bookmaker.key}</strong>
-                            <ul>
-                              {bookmaker.markets.map((market, idx) => {
-                                return (
-                                  <li key={idx}>
-                                    {market.key}{" "}
-                                    {market.outcomes.map((outcome, idx) => {
-                                      return (
-                                        <Box key={idx}>
-                                          {outcome.name}:{" "}
-                                          {oddsFormatter(outcome.price)}
-                                          {outcome.point
-                                            ? `, Point: ${outcome.point}`
-                                            : ""}
-                                        </Box>
-                                      );
-                                    })}
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          </li>
+                          <React.Fragment key={idx}>
+                            <TableRow key={idx}>
+                              <TableCell rowSpan={bookmaker.markets.length}>
+                                {bookmaker.title}
+                              </TableCell>
+                              <TableCell rowSpan={bookmaker.markets.length}>
+                                {formatRelative(
+                                  parseISO(bookmaker.last_update),
+                                  new Date()
+                                )}
+                              </TableCell>
+                              <TableCell>{bookmaker.markets[0].key}</TableCell>
+                              <TableCell>
+                                <Outcome
+                                  oddsFormat={oddsFormat}
+                                  outcome={bookmaker.markets[0].outcomes.find(
+                                    (o) => o.name === entry.home_team
+                                  )}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <Outcome
+                                  oddsFormat={oddsFormat}
+                                  outcome={bookmaker.markets[0].outcomes.find(
+                                    (o) => o.name === entry.away_team
+                                  )}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <Outcome
+                                  oddsFormat={oddsFormat}
+                                  outcome={bookmaker.markets[0].outcomes.find(
+                                    (o) => o.name === "Draw"
+                                  )}
+                                />
+                              </TableCell>
+                            </TableRow>
+                            {bookmaker.markets.slice(1).map((market, idx) => {
+                              return (
+                                <TableRow key={idx}>
+                                  <TableCell>{market.key}</TableCell>
+                                  <TableCell>
+                                    <Outcome
+                                      oddsFormat={oddsFormat}
+                                      outcome={market.outcomes.find(
+                                        (o) => o.name === entry.home_team
+                                      )}
+                                    />
+                                  </TableCell>
+                                  <TableCell>
+                                    <Outcome
+                                      oddsFormat={oddsFormat}
+                                      outcome={market.outcomes.find((o) =>
+                                        market.key === "totals"
+                                          ? o.name === "Over"
+                                          : o.name === entry.away_team
+                                      )}
+                                    />
+                                  </TableCell>
+                                  <TableCell>
+                                    <Outcome
+                                      oddsFormat={oddsFormat}
+                                      outcome={market.outcomes.find((o) =>
+                                        market.key === "totals"
+                                          ? o.name === "Under"
+                                          : o.name === entry.away_team
+                                      )}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </React.Fragment>
                         );
                       })}
-                    </ul>
-                  </Box>
+                    </TableBody>
+                  </Table>
                 </ListItemText>
               </ListItem>
               <Divider />
@@ -134,5 +184,35 @@ export default function LeagueOdds(): React.ReactElement {
         })}
       </List>
     </BasePage>
+  );
+}
+
+function Outcome(props: {
+  outcome?: { name: string; price: number; point?: number };
+  oddsFormat: "decimal" | "american";
+}): React.ReactElement {
+  const oddsFormatter = useCallback(
+    (odds: number): number | string => {
+      switch (props.oddsFormat) {
+        case "american":
+          const _odds = Math.round(
+            odds >= 2 ? (odds - 1) * 100 : -100 / (odds - 1)
+          );
+          return _odds > 0 ? `+${_odds}` : _odds;
+        case "decimal":
+          return odds;
+      }
+    },
+    [props.oddsFormat]
+  );
+  return (
+    <>
+      {props.outcome?.name === "Over" ||
+        (props.outcome?.name === "Under" && (
+          <strong>{props.outcome?.name}: </strong>
+        ))}
+      {props.outcome?.price && oddsFormatter(props.outcome?.price)}{" "}
+      {props.outcome?.point ? `, Point: ${props.outcome.point}` : ""}
+    </>
   );
 }
