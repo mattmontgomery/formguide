@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/mattmontgomery/formguide/compare/v1.27.0...v1.28.0) (2022-09-21)
+
+
+### Features
+
+* ✨ adds next-seo ([9151b64](https://github.com/mattmontgomery/formguide/commit/9151b642459c2e49c8d2957214b48964bd088d48))
+
 ## [1.27.0](https://github.com/mattmontgomery/formguide/compare/v1.26.0...v1.27.0) (2022-09-21)
 
 
