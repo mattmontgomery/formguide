@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](https://github.com/mattmontgomery/formguide/compare/v1.22.0...v1.23.0) (2022-09-21)
+
+
+### Features
+
+* ✨ refactors rolling stats page, adds controls to top ([11b2e65](https://github.com/mattmontgomery/formguide/commit/11b2e6595095462b9d7e1711c570f35f83345b87))
+
 ## [1.22.0](https://github.com/mattmontgomery/formguide/compare/v1.21.0...v1.22.0) (2022-09-21)
 
 
