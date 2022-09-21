@@ -350,7 +350,7 @@ const NavigationConfig: NavItem[] = [
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/${stat}`,
-      title: `By Match ${getStatsName(stat as ValidStats)}`,
+      title: getStatsName(stat as ValidStats),
       icon: Numbers,
       group: Groups.StatsByMatch,
     };
@@ -358,7 +358,7 @@ const NavigationConfig: NavItem[] = [
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/comparison/${stat}`,
-      title: `Compare ${getStatsName(stat as ValidStats)}`,
+      title: getStatsName(stat as ValidStats),
       icon: Numbers,
       group: Groups.StatsCompare,
     };
@@ -366,7 +366,7 @@ const NavigationConfig: NavItem[] = [
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/rolling/${stat}`,
-      title: `Rolling ${getStatsName(stat as ValidStats)}`,
+      title: getStatsName(stat as ValidStats),
       icon: Numbers,
       group: Groups.StatsRolling,
     };
