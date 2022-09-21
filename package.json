@@ -15,7 +15,7 @@
     "start": "next start",
     "setup": "run-p setup:*",
     "setup:functions": "npm install --prefix ./functions",
-    "release": "HUSKY_SKIP_HOOKS=1 npx standard-version --no-verify"
+    "release": "HUSKY=0 npx standard-version --no-verify"
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.2",
