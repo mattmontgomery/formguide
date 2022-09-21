@@ -15,7 +15,7 @@
     "start": "next start",
     "setup": "run-p setup:*",
     "setup:functions": "npm install --prefix ./functions",
-    "standard-version": "npx standard-version --no-verify"
+    "release": "npx standard-version --no-verify"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.2",

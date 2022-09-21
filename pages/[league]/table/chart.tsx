@@ -2,7 +2,6 @@ import BaseDataPage from "@/components/BaseDataPage";
 
 import {
   Grid,
-  LineSeries,
   XYChart,
   Axis,
   Tooltip,
@@ -13,8 +12,8 @@ import { curveCatmullRom } from "@visx/curve";
 import { getCumulativeTeamPointsArray } from "@/utils/getTeamPoints";
 import { Box } from "@mui/system";
 import { LegendOrdinal } from "@visx/legend";
-import React, { useContext, useState } from "react";
-import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import React, { useContext } from "react";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { TeamLineSeries, useChartLegend } from "@/components/XYChartTools";
 
 export default function PointsChart() {

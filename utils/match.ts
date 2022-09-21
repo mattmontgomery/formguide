@@ -86,3 +86,7 @@ export function getPlusMinus(fixture: Results.FixtureApi) {
 function inRange(x: number, min: number, max: number): boolean {
   return (x - min) * (x - max) <= 0;
 }
+
+export function isComplete(match: Results.Match) {
+  return match.status.long === "Match Finished";
+}

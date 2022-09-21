@@ -11,7 +11,6 @@ import type { SlimMatch } from "@/utils/getAllFixtureIds";
 
 import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 
-import { createHash } from "crypto";
 import getFixtureData, { FIXTURE_KEY_PREFIX } from "@/utils/api/getFixtureData";
 import { chunk } from "@/utils/array";
 import redisClient from "@/utils/redis";
