@@ -19,6 +19,8 @@ export default function Document() {
         <link rel="shortcut icon" href="/ball.png" />
         <meta property="og:title" content="The Form Guide" />
         <meta property="og:image" content="/ball.png" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="TheCrossbarRSL" />
       </Head>
       <body>
         <Main />
