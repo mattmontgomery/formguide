@@ -5,19 +5,48 @@ import {
   ConferenceDisplayNames,
 } from "@/utils/LeagueConferences";
 import { Box, FormControlLabel, Switch } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { addWeeks } from "date-fns";
 import { getTable } from "@/utils/table";
 import Table from "@/components/Table";
 import { getEarliestMatch, getLatestMatch, getMatchDate } from "@/utils/data";
 import { useDateFilter } from "@/components/DateFilter";
+import LeagueContext from "@/components/LeagueContext";
+import YearContext from "@/components/YearContext";
 
 export default function TablePage() {
+  const league = useContext(LeagueContext);
+  const year = useContext(YearContext);
+  const [useConferences, setUseConferences] = useState<boolean>(
+    typeof ConferencesByYear[league]?.[year] !== "undefined"
+  );
+  useEffect(() => {
+    setUseConferences(typeof ConferencesByYear[league]?.[year] !== "undefined");
+  }, [league, year]);
   return (
     <BaseDataPage
+      renderControls={() => {
+        return (
+          <FormControlLabel
+            control={
+              <Switch
+                checked={useConferences}
+                onChange={() => setUseConferences(!useConferences)}
+              />
+            }
+            label="Use Conferences"
+          />
+        );
+      }}
       pageTitle="Table"
       renderComponent={(data, meta) => {
-        return <LeagueTable data={data} meta={meta} />;
+        return (
+          <LeagueTable
+            data={data}
+            meta={meta}
+            useConferences={useConferences}
+          />
+        );
       }}
     />
   );
@@ -26,26 +55,20 @@ export default function TablePage() {
 function LeagueTable({
   data,
   meta,
+  useConferences,
 }: {
   data: Results.ParsedData;
   meta: Results.ParsedMeta;
+  useConferences: boolean;
 }): React.ReactElement {
   const { from, to, setFrom, setTo, renderComponent } = useDateFilter(
     addWeeks(getMatchDate(getEarliestMatch(data)), -1),
     addWeeks(getMatchDate(getLatestMatch(data)), 1)
   );
-  const [useConferences, setUseConferences] = useState<boolean>(
-    typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
-  );
   useEffect(() => {
     setFrom(addWeeks(getMatchDate(getEarliestMatch(data)), -1));
     setTo(addWeeks(getMatchDate(getLatestMatch(data)), 1));
   }, [data, setFrom, setTo]);
-  useEffect(() => {
-    setUseConferences(
-      typeof ConferencesByYear[meta.league]?.[meta.year] !== "undefined"
-    );
-  }, [meta.league, meta.year]);
   useEffect(() => {
     if (
       useConferences &&
@@ -72,20 +95,7 @@ function LeagueTable({
   });
   return table ? (
     <>
-      <Box m={[4, 0]}>
-        {renderComponent()}
-        <Box m={[4, 0]}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={useConferences}
-                onChange={() => setUseConferences(!useConferences)}
-              />
-            }
-            label="Use Conferences"
-          />
-        </Box>
-      </Box>
+      <Box m={[4, 0]}>{renderComponent()}</Box>
       {conferences.map((c, idx) => {
         return (
           <Box key={idx}>
