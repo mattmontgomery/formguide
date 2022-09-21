@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.24.0](https://github.com/mattmontgomery/formguide/compare/v1.23.0...v1.24.0) (2022-09-21)
+
+
+### Features
+
+* ✨ refactors navigation, adds kbar support on mobile ([bfc48b8](https://github.com/mattmontgomery/formguide/commit/bfc48b8dba3bbcb230a257fbe73fed6080c4cbb9))
+
 ## [1.23.0](https://github.com/mattmontgomery/formguide/compare/v1.22.0...v1.23.0) (2022-09-21)
 
 

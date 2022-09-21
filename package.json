@@ -1,6 +1,6 @@
 {
   "name": "formguide",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,7 +15,9 @@
     "start": "next start",
     "setup": "run-p setup:*",
     "setup:functions": "npm install --prefix ./functions",
-    "release": "HUSKY=0 npx standard-version --no-verify"
+    "release": "run-s release:*",
+    "release:version": "HUSKY=0 npx standard-version --no-verify",
+    "release:push": "HUSKY=0 npx standard-version --no-verify"
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.2",
