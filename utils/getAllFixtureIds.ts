@@ -62,3 +62,16 @@ export function getAllFixtures(
     []
   );
 }
+
+export function getAllUniqueFixtures<M extends Results.Match>(data: {
+  teams: Record<string, M[]>;
+}): M[] {
+  return Object.values(data.teams).reduce((acc: M[], matches) => {
+    return [
+      ...acc,
+      ...matches.filter(
+        (match) => !acc.some(({ fixtureId }) => match.fixtureId === fixtureId)
+      ),
+    ];
+  }, []);
+}

@@ -1,27 +1,36 @@
 import { useRouter } from "next/router";
 
 import BaseRollingPage from "@/components/BaseRollingPage";
-import { getFirstGoalConceded, getFirstGoalScored } from "@/utils/getGoals";
 import { getArrayAverage } from "@/utils/array";
 import { useHomeAway, Options } from "@/components/Toggle/HomeAwayToggle";
+import {
+  getStats,
+  getStatsMax,
+  getStatsName,
+  ValidStats,
+} from "@/components/Stats";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
-  const { period = 5, type = "gf" } = router.query;
+  const { period = 5, type = "shots" } = router.query;
   const periodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const goalType: "gf" | "ga" = String(type) as "gf" | "ga";
+  const statType: ValidStats = String(type) as ValidStats;
   const { value: homeAway, renderComponent } = useHomeAway();
+  const max = getStatsMax(statType);
   return (
     <BaseRollingPage
-      getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
+      isWide
+      getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       isStaticHeight={false}
-      pageTitle={`Rolling first ${type} (%s game rolling)`}
+      pageTitle={`Rolling ${getStatsName(statType)} (%s game rolling)`}
       parser={(teams, periodLength) =>
-        parseChartData(teams, periodLength, homeAway, goalType)
+        parseChartData(teams, periodLength, homeAway, statType)
       }
       periodLength={periodLength}
-      heightCalc={(value) => `${value ? 100 - Math.round(value) : 100}%`}
+      heightCalc={(value) => {
+        return `${value ? (value / max) * 100 : 0}%`;
+      }}
     >
       {renderComponent()}
     </BaseRollingPage>
@@ -32,7 +41,7 @@ function parseChartData(
   teams: Results.ParsedData["teams"],
   periodLength = 5,
   homeAway: Options = "all",
-  goalType: "gf" | "ga" = "gf"
+  statType: ValidStats
 ): ReturnType<Render.RollingParser> {
   return Object.keys(teams)
     .sort()
@@ -51,12 +60,9 @@ function parseChartData(
               )
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null);
-            const results = resultSet.map((match) =>
-              goalType === "gf"
-                ? getFirstGoalScored(match)?.time.elapsed
-                : getFirstGoalConceded(match)?.time.elapsed
+            const results = resultSet.map(
+              (match) => getStats(match, statType)[0] ?? 0
             );
-
             return {
               value:
                 results.length !== periodLength

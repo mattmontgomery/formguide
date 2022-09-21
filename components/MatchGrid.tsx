@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import { LeagueSeparators } from "@/utils/Leagues";
 
-import { Box } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 import React, { useContext, useState } from "react";
 import LeagueContext from "./LeagueContext";
 import { MatchCellProps } from "./MatchCell";
@@ -45,6 +45,7 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
   dataParser,
   homeAway,
   showMatchdayHeader = true,
+  rowSx,
   rowClass = styles.gridRow,
   gridClass = styles.gridClass,
   chartClass = styles.chart,
@@ -65,6 +66,7 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
   dataParser: (data: T) => Render.RenderReadyData;
   homeAway: Options;
   showMatchdayHeader?: boolean;
+  rowSx?: SxProps;
   rowClass?: string;
   gridClass?: string;
   chartClass?: string;
@@ -113,7 +115,7 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
             .sort(sortMethod(sortStrategy, weekSortIdx))
             .map(([team, ...cells], idx) => {
               return (
-                <Box className={rowClass} key={idx}>
+                <Box className={rowClass} key={idx} sx={rowSx}>
                   <span>{sortStrategy === "week" ? idx + 1 : ""}</span>
                   <Box
                     sx={{

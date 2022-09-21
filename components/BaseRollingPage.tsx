@@ -6,6 +6,7 @@ import { format } from "util";
 import { BasePageProps } from "./BasePage";
 import { Box } from "@mui/system";
 import { Options, useHomeAway } from "./Toggle/HomeAwayToggle";
+import { getStatsMax } from "./Stats";
 
 export default function BaseRollingPage({
   renderControls,
@@ -14,6 +15,7 @@ export default function BaseRollingPage({
   parser,
   children,
   getBackgroundColor = () => "success.main",
+  getMax,
   isStaticHeight = true,
   isWide = false,
   getEndpoint,
@@ -24,6 +26,7 @@ export default function BaseRollingPage({
   periodLength: number;
   parser: Render.RollingParser;
   getBackgroundColor?: Render.GetBackgroundColor;
+  getMax?: (data: Results.ParsedData, periodLength: number) => number;
   isStaticHeight?: boolean;
   isWide?: boolean;
   getEndpoint?: DataPageProps["getEndpoint"];
@@ -45,9 +48,17 @@ export default function BaseRollingPage({
         </Box>
       )}
       pageTitle={format(pageTitle, periodLength)}
-      renderComponent={(data) =>
-        data?.teams ? (
+      renderComponent={(data) => {
+        const max =
+          typeof getMax === "function" ? getMax(data, periodLength) : 100;
+        return data?.teams ? (
           <MatchGrid
+            rowSx={{
+              display: "grid",
+              gridTemplateColumns: `25px 160px repeat(46, ${
+                isWide ? 48 : 32
+              }px)`,
+            }}
             homeAway={homeAway}
             chartClass={isWide ? styles.chartWide : styles.chart}
             data={data.teams}
@@ -59,7 +70,13 @@ export default function BaseRollingPage({
                 data,
                 isStaticHeight,
                 isWide,
-                heightCalc,
+                heightCalc: heightCalc
+                  ? heightCalc
+                  : (value) => {
+                      return `${
+                        value ? (Math.round(value) / max) * 100 : 100
+                      }%`;
+                    },
                 homeAway,
               })
             }
@@ -67,8 +84,8 @@ export default function BaseRollingPage({
           />
         ) : (
           <></>
-        )
-      }
+        );
+      }}
     >
       {children}
     </BaseDataPage>

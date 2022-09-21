@@ -25,6 +25,7 @@ import {
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
+import { getStatsName, stats, ValidStats } from "@/components/Stats";
 
 const Divider = Symbol("Divider");
 
@@ -235,11 +236,31 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
   },
   Divider,
   { subtitle: "Individual Match Stats" },
-  {
-    href: "/stats/shots",
-    title: "Shots",
-    icon: Numbers,
-  },
+  ...Object.keys(stats).map((stat) => {
+    return {
+      href: `/stats/${stat}`,
+      title: `By Match ${getStatsName(stat as ValidStats)}`,
+      icon: Numbers,
+    };
+  }),
+  Divider,
+  { subtitle: "Individual Match Stats Comparisons" },
+  ...Object.keys(stats).map((stat) => {
+    return {
+      href: `/stats/comparison/${stat}`,
+      title: `Compare ${getStatsName(stat as ValidStats)}`,
+      icon: Numbers,
+    };
+  }),
+  Divider,
+  { subtitle: "Rolling Match Stats" },
+  ...Object.keys(stats).map((stat) => {
+    return {
+      href: `/stats/rolling/${stat}/5`,
+      title: `Rolling ${getStatsName(stat as ValidStats)} (5-game)`,
+      icon: Numbers,
+    };
+  }),
   Divider,
   { subtitle: "XG" },
   {
@@ -372,7 +393,7 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
   Divider,
   { subtitle: "Other" },
   {
-    href: "/mls-player-stats/minutes",
+    href: "/mls-player-stats/comparison/minutes",
     external: true,
     title: "MLS Player Minutes by Age",
     icon: Elderly,

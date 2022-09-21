@@ -5,9 +5,14 @@ import React from "react";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import { sortByDate } from "@/utils/sort";
-import { getStats, getStatsName, ValidStats } from "@/components/Stats";
+import {
+  compareStats,
+  getStats,
+  getStatsName,
+  ValidStats,
+} from "@/components/Stats";
 
-export default function StatsByMatch(): React.ReactElement {
+export default function StatsComparisons(): React.ReactElement {
   const router = useRouter();
   const type = String(router.query.type ?? "shots") as ValidStats;
   return (
@@ -35,7 +40,7 @@ function dataParser(
             console.info("Missing", match.fixtureId);
             return "X";
           }
-          return getStats(match, type)[0] ?? "-";
+          return compareStats(getStats(match, type), type);
         }}
       />
     )),
