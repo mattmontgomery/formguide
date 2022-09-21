@@ -16,6 +16,9 @@ export default function Document() {
 
   gtag('config', 'G-5R51KL2GNN');`}
         </Script>
+        <link rel="shortcut icon" href="/ball.png" />
+        <meta property="og:title" content="The Form Guide" />
+        <meta property="og:image" content="/ball.png" />
       </Head>
       <body>
         <Main />

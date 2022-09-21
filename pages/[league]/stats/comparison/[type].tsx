@@ -11,6 +11,7 @@ import {
   getStatsName,
   ValidStats,
 } from "@/components/Stats";
+import { isComplete } from "@/utils/match";
 
 export default function StatsComparisons(): React.ReactElement {
   const router = useRouter();
@@ -36,11 +37,14 @@ function dataParser(
         match={match}
         key={idx}
         renderValue={() => {
-          if (!match.stats || Object.keys(match.stats).length === 0) {
+          if (
+            (!match.stats || Object.keys(match.stats).length === 0) &&
+            isComplete(match)
+          ) {
             console.info("Missing", match.fixtureId);
             return "X";
           }
-          return compareStats(getStats(match, type), type);
+          return compareStats(getStats(match, type), type) ?? "-";
         }}
       />
     )),

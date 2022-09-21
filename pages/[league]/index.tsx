@@ -2,7 +2,11 @@ import MatchCell from "@/components/MatchCell";
 import BasePage from "@/components/BaseGridPage";
 
 export default function Home(): React.ReactElement {
-  return <BasePage dataParser={dataParser} pageTitle="" />;
+  return (
+    <>
+      <BasePage dataParser={dataParser} pageTitle="Form Guide" />
+    </>
+  );
 }
 function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
   return Object.keys(data).map((team) => [

@@ -14,7 +14,10 @@ export async function middleware(request: NextRequest) {
   }
   const response = NextResponse.next();
 
-  if (request.nextUrl.pathname !== "/favicon.ico") {
+  if (
+    request.nextUrl.pathname !== "/favicon.ico" &&
+    process.env.NODE_ENV !== "development"
+  ) {
     console.info(
       `[${new Date().toJSON()}] ${request.method} ${
         request.nextUrl.pathname

@@ -5,6 +5,8 @@ import { useContext } from "react";
 import YearContext from "./YearContext";
 import LeagueContext from "./LeagueContext";
 import { Box, Paper } from "@mui/material";
+import { GetStaticProps } from "next";
+import { NextSeo } from "next-seo";
 
 export type BasePageProps = {
   pageTitle: string;
@@ -19,42 +21,42 @@ export default function BasePage({
   const year = useContext(YearContext);
   const league = useContext(LeagueContext);
   return (
-    <div className={styles.body}>
-      <Head>
-        <title>
-          {pageTitle} | Data for {league} {year} | The Form Guide
-        </title>
-        <meta content={`${pageTitle} | The Form Guide`} property="og:title" />
-        <meta
-          content={`${pageTitle} for ${league} and ${year}`}
-          property="og:description"
-        />
-      </Head>
-      <Box paddingBottom={2}>
-        <Grid container rowGap={2}>
-          <Grid md={8} item paddingBottom={1}>
-            {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
-          </Grid>
-          <Grid md={4} item sx={{ textAlign: "right" }}>
-            {year}:{league}
-          </Grid>
-          {renderControls && (
+    <>
+      <NextSeo
+        title={`${
+          pageTitle ?? "The Form Guide"
+        } | Data for ${league} ${year} | The Form Guide`}
+        description={`${
+          pageTitle ?? "The Form Guide"
+        } for ${league} and ${year}`}
+      />
+      <div className={styles.body}>
+        <Box paddingBottom={2}>
+          <Grid container rowGap={2}>
+            <Grid md={8} item paddingBottom={1}>
+              {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
+            </Grid>
+            <Grid md={4} item sx={{ textAlign: "right" }}>
+              {year}:{league}
+            </Grid>
+            {renderControls && (
+              <Grid xs={12} item>
+                <Paper
+                  elevation={3}
+                  sx={{ padding: 2, display: "flex", flexDirection: "row" }}
+                >
+                  {renderControls()}
+                </Paper>
+              </Grid>
+            )}
             <Grid xs={12} item>
-              <Paper
-                elevation={3}
-                sx={{ padding: 2, display: "flex", flexDirection: "row" }}
-              >
-                {renderControls()}
+              <Paper elevation={1} sx={{ padding: 2 }}>
+                {children}
               </Paper>
             </Grid>
-          )}
-          <Grid xs={12} item>
-            <Paper elevation={1} sx={{ padding: 2 }}>
-              {children}
-            </Paper>
           </Grid>
-        </Grid>
-      </Box>
-    </div>
+        </Box>
+      </div>
+    </>
   );
 }
