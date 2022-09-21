@@ -12,7 +12,7 @@ export default function StatsByMatch(): React.ReactElement {
   const type = String(router.query.type ?? "shots") as ValidStats;
   return (
     <BaseGridPage<FormGuideAPI.Data.StatsEndpoint>
-      pageTitle={`Statistic view: ${getStatsName(type)} compared to opponent`}
+      pageTitle={`Statistic view: ${getStatsName(type)}`}
       dataParser={(data) => dataParser(data, type)}
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}
