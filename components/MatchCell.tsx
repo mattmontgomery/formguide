@@ -87,6 +87,7 @@ export default function MatchCell({
                 ? "error.main"
                 : "warning.main",
               padding: "0.25rem",
+              color: "grey.800",
               filter:
                 Boolean(shadeEmpty && renderedValue === "-") ||
                 (isShaded && isShaded(match))

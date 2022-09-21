@@ -86,10 +86,10 @@ export function MLSFormGuide({
             main: deepPurple["500"],
           },
           success: {
-            main: "#67db78",
+            main: "#4ec961",
           },
           warning: {
-            main: "#FFC942",
+            main: "#fed263",
           },
           error: {
             // main: orange["300"],
