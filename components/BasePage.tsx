@@ -22,8 +22,9 @@ export default function BasePage({
     <div className={styles.body}>
       <Head>
         <title>
-          Form Guide | 2012–2022 | {pageTitle} | Data for {league} in {year}
+          {pageTitle} | Data for {league} {year} | The Form Guide
         </title>
+        <meta og:title={`${pageTitle} | The Form Guide`} />
       </Head>
       <Box paddingBottom={2}>
         <Grid container rowGap={2}>
