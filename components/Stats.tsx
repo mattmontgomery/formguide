@@ -1,6 +1,3 @@
-import { getAllFixtures, getAllUniqueFixtures } from "@/utils/getAllFixtureIds";
-import { match } from "assert";
-
 export type ValidStats =
   | "shots"
   | "shots-on-goal"
