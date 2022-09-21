@@ -19,7 +19,7 @@ import YearContext, { DEFAULT_YEAR } from "@/components/YearContext";
 import LeagueContext, { DEFAULT_LEAGUE } from "@/components/LeagueContext";
 import { useRouter } from "next/router";
 import { KBarAnimator, KBarPortal, KBarPositioner } from "kbar";
-import KBarProvider from "@/components/KBarProvider";
+import KBarProvider from "@/components/KBar/Provider";
 import Results from "@/components/Results";
 
 import { blueGrey, deepOrange, deepPurple } from "@mui/material/colors";

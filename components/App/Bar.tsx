@@ -60,13 +60,34 @@ export default function Bar({
         >
           The Form Guide{easterEgg ? "!!" : ""}
         </Typography>
-        <Box sx={{ alignContent: "center", fontWeight: "bold" }}>
-          <Search sx={{ position: "relative", top: "4px" }} />: {"("}
-          <KeyboardCommandKey
-            sx={{ position: "relative", top: "4px" }}
-          /> or <KeyboardControlKey sx={{ position: "relative", top: "4px" }} />
-          {")"}
-          +K
+        <Box
+          sx={{
+            alignContent: "center",
+            fontWeight: "bold",
+            display: "inline-flex",
+          }}
+        >
+          <Search
+            sx={{ cursor: "pointer", position: "relative", top: "4px" }}
+            onClick={() =>
+              window.dispatchEvent(
+                new KeyboardEvent("keydown", {
+                  code: "KeyK",
+                  key: "k",
+                  metaKey: true,
+                })
+              )
+            }
+          />
+          <Box sx={{ display: { xs: "none", md: "inline" } }}>
+            : {"("}
+            <KeyboardCommandKey
+              sx={{ position: "relative", top: "4px" }}
+            /> or{" "}
+            <KeyboardControlKey sx={{ position: "relative", top: "4px" }} />
+            {")"}
+            +K
+          </Box>
         </Box>
         <Select
           sx={{

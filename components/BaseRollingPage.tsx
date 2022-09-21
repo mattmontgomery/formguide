@@ -6,7 +6,6 @@ import { format } from "util";
 import { BasePageProps } from "./BasePage";
 import { Box } from "@mui/system";
 import { Options, useHomeAway } from "./Toggle/HomeAwayToggle";
-import { getStatsMax } from "./Stats";
 
 export default function BaseRollingPage({
   renderControls,
@@ -16,6 +15,7 @@ export default function BaseRollingPage({
   children,
   getBackgroundColor = () => "success.main",
   getMax,
+  max,
   isStaticHeight = true,
   isWide = false,
   getEndpoint,
@@ -27,6 +27,7 @@ export default function BaseRollingPage({
   parser: Render.RollingParser;
   getBackgroundColor?: Render.GetBackgroundColor;
   getMax?: (data: Results.ParsedData, periodLength: number) => number;
+  max?: number;
   isStaticHeight?: boolean;
   isWide?: boolean;
   getEndpoint?: DataPageProps["getEndpoint"];
@@ -49,8 +50,11 @@ export default function BaseRollingPage({
       )}
       pageTitle={format(pageTitle, periodLength)}
       renderComponent={(data) => {
-        const max =
-          typeof getMax === "function" ? getMax(data, periodLength) : 100;
+        const maxValue = max
+          ? max
+          : typeof getMax === "function"
+          ? getMax(data, periodLength)
+          : 100;
         return data?.teams ? (
           <MatchGrid
             rowSx={{
@@ -74,7 +78,7 @@ export default function BaseRollingPage({
                   ? heightCalc
                   : (value) => {
                       return `${
-                        value ? (Math.round(value) / max) * 100 : 100
+                        value ? (Math.round(value) / maxValue) * 100 : 0
                       }%`;
                     },
                 homeAway,

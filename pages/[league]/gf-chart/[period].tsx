@@ -3,14 +3,24 @@ import { useRouter } from "next/router";
 import ColorKey from "@/components/ColorKey";
 import BaseRollingPage from "@/components/BaseRollingPage";
 import { Options } from "@/components/Toggle/HomeAwayToggle";
+import {
+  PeriodLengthOptions,
+  usePeriodLength,
+} from "@/components/Toggle/PeriodLength";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5 } = router.query;
-  const periodLength: number =
+  const defaultPeriodLength: PeriodLengthOptions =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
+
+  const { value: periodLength, renderComponent } = usePeriodLength(
+    defaultPeriodLength,
+    true
+  );
   return (
     <BaseRollingPage
+      renderControls={renderComponent}
       pageTitle={`Rolling GF (%s game rolling)`}
       parser={parseChartData}
       periodLength={periodLength}

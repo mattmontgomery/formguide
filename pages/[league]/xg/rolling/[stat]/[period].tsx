@@ -7,6 +7,10 @@ import RollingBox from "@/components/Rolling/Box";
 import { transformXGMatchIntoASAMatch } from "@/utils/transform";
 import { Options } from "@/components/Toggle/HomeAwayToggle";
 import { OptionsAll as ResultOptions } from "@/components/Toggle/ResultToggle";
+import {
+  PeriodLengthOptions,
+  usePeriodLength,
+} from "@/components/Toggle/PeriodLength";
 
 const VALID_STATS: ASA.ValidStats[] = [
   "xpoints",
@@ -69,8 +73,13 @@ const statHeightCalc: Partial<
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5, stat = "for" } = router.query;
-  const periodLength: number =
+  const defaultPeriodLength: PeriodLengthOptions =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
+
+  const { value: periodLength, renderComponent } = usePeriodLength(
+    defaultPeriodLength,
+    true
+  );
   if (
     typeof stat !== "string" ||
     !VALID_STATS.includes(String(stat) as ASA.ValidStats)
@@ -79,6 +88,7 @@ export default function Chart(): React.ReactElement {
   }
   return (
     <BaseASARollingPage
+      renderControls={renderComponent}
       endpoint={(year, league) => `/api/asa/xg?year=${year}&league=${league}`}
       isStaticHeight={false}
       pageTitle={`Rolling ${

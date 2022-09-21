@@ -15,7 +15,10 @@ type OptionTypes = string | number | boolean;
 export function useToggle<T extends string | number | boolean>(
   options: Option<T>[],
   defaultValue: T,
-  exclusive = true
+  {
+    exclusive = true,
+    allowEmpty = false,
+  }: { exclusive?: boolean; allowEmpty?: boolean } = {}
 ) {
   const [value, setValue] = useState<T>(defaultValue);
 
@@ -28,6 +31,7 @@ export function useToggle<T extends string | number | boolean>(
         onChange={setValue}
         value={value}
         exclusive={exclusive}
+        allowEmpty={allowEmpty}
       />
     ),
   };
@@ -39,20 +43,20 @@ export default function Toggle<T extends OptionTypes>({
   exclusive = true,
   onChange,
   toggleButtonGroupProps = {},
+  allowEmpty = false,
 }: {
   value: T | T[];
   options: Option<T>[];
   exclusive: boolean;
   onChange: (value: T) => void;
   toggleButtonGroupProps?: Partial<ToggleButtonGroupProps>;
+  allowEmpty: boolean;
 }) {
   return (
     <ToggleButtonGroup
       value={value}
       exclusive={exclusive}
-      onChange={(_, value: T) => {
-        onChange(value);
-      }}
+      onChange={(_, value: T) => allowEmpty || (value && onChange(value))}
       {...toggleButtonGroupProps}
     >
       {options.map((opt, idx) => (

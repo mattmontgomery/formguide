@@ -2,16 +2,26 @@ import { useRouter } from "next/router";
 
 import getMatchPoints from "@/utils/getMatchPoints";
 import BaseRollingPage from "@/components/BaseRollingPage";
-
-type HomeAway = "home" | "away" | "all";
+import {
+  PeriodLengthOptions,
+  usePeriodLength,
+} from "@/components/Toggle/PeriodLength";
+import { Options } from "@/components/Toggle/HomeAwayToggle";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5 } = router.query;
-  const periodLength: number =
+  const defaultPeriodLength: PeriodLengthOptions =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
+
+  const { value: periodLength, renderComponent } = usePeriodLength(
+    defaultPeriodLength,
+    true
+  );
   return (
     <BaseRollingPage
+      max={periodLength * 3}
+      renderControls={renderComponent}
       isStaticHeight={false}
       pageTitle={`Rolling points (%s game rolling)`}
       parser={(teams, periodLength, homeAway) => {
@@ -25,7 +35,7 @@ export default function Chart(): React.ReactElement {
 function parseChartData(
   teams: Results.ParsedData["teams"],
   periodLength = 5,
-  homeAway: HomeAway = "all"
+  homeAway: Options = "all"
 ): ReturnType<Render.RollingParser> {
   return Object.keys(teams)
     .sort()

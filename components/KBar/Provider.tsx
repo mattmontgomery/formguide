@@ -5,7 +5,7 @@ import { KBarProvider, KBarProviderProps } from "kbar";
 import { NextRouter, useRouter } from "next/router";
 import React, { useContext } from "react";
 import { PropsWithChildren } from "react";
-import LeagueContext from "./LeagueContext";
+import LeagueContext from "../LeagueContext";
 
 const getActions = ({
   router,
