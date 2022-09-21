@@ -1,11 +1,9 @@
 import styles from "@/styles/Home.module.css";
-import Head from "next/head";
 import { Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import YearContext from "./YearContext";
 import LeagueContext from "./LeagueContext";
 import { Box, Paper } from "@mui/material";
-import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 
 export type BasePageProps = {

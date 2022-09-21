@@ -112,17 +112,6 @@ export function MLSFormGuide({
           <ThemeProvider theme={theme}>
             <DarkMode.Provider value={darkMode}>
               <KBarProvider onSetLeague={(league) => setLeague(league)}>
-                <Head>
-                  <meta title="MLS, NWSL and More | Soccer Form Guide" />
-                  <meta
-                    name="description"
-                    content="A tool to replace the old MLS Form Guide that mlssoccer.com retired"
-                  />
-                  <link
-                    rel="canonical"
-                    href="https://formguide.tools.football"
-                  />
-                </Head>
                 <Box sx={{ display: "flex", position: "relative", zIndex: 1 }}>
                   <CssBaseline />
                   <Nav
