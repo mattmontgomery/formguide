@@ -1,6 +1,6 @@
 {
   "name": "formguide",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,9 +11,11 @@
     "lint:build": "tsc --noEmit",
     "_lint:css": "csslint **/*.css",
     "build": "next build",
+    "changelog": "npx conventional-changelog-cli -i CHANGELOG.md --same-file -p conventionalcommits",
     "start": "next start",
     "setup": "run-p setup:*",
-    "setup:functions": "npm install --prefix ./functions"
+    "setup:functions": "npm install --prefix ./functions",
+    "version": "npm version"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.2",
