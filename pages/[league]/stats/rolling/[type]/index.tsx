@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import BaseRollingPage from "@/components/BaseRollingPage";
 import { getArrayAverage } from "@/utils/array";
-import { useHomeAway, Options } from "@/components/Toggle/HomeAwayToggle";
+import { Options } from "@/components/Toggle/HomeAwayToggle";
 import {
   getStats,
   getStatsMax,

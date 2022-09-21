@@ -1,7 +1,7 @@
 import { LeagueOptions } from "@/utils/Leagues";
 import NavigationConfig from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";
-import { KBarProvider, KBarProviderProps } from "kbar";
+import { Action, KBarProvider, KBarProviderProps } from "kbar";
 import { NextRouter, useRouter } from "next/router";
 import React, { useContext } from "react";
 import { PropsWithChildren } from "react";
@@ -18,12 +18,13 @@ const getActions = ({
 }): KBarProviderProps["actions"] => [
   ...NavigationConfig.filter(
     (action) => typeof action === "object" && Boolean((action as NavItem)?.href)
-  ).map((action) => {
+  ).map((action): Action => {
     const navItem = action as NavItem;
     return {
       id: navItem.href || navItem.title,
       name: navItem.title,
-      icon: navItem.icon,
+      icon: navItem.icon as unknown as React.ReactNode,
+      section: navItem.group?.description,
       perform: () => {
         if (navItem.href.includes("http") && typeof window !== "undefined") {
           window.location.href = navItem.href;
@@ -41,6 +42,7 @@ const getActions = ({
     return {
       id: `select-${l}`,
       name: `Select League: ${leagueName}`,
+      section: "Select League",
       perform: () => {
         onSetLeague(l as Results.Leagues);
         router.push({
