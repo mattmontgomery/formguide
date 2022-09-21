@@ -4,3 +4,5 @@
 npm run changelog
 
 git add CHANGELOG.md
+
+npm run release
