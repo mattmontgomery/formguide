@@ -21,6 +21,7 @@ import {
   Alarm,
   Watch,
   Person2TwoTone,
+  Numbers,
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
@@ -231,6 +232,13 @@ const NavigationConfig: (NavItem | Subtitle | typeof Divider)[] = [
     href: "/game-days/since/11",
     title: "Days Between, Rolling 11-game",
     icon: Timeline,
+  },
+  Divider,
+  { subtitle: "Individual Match Stats" },
+  {
+    href: "/stats/shots",
+    title: "Shots",
+    icon: Numbers,
   },
   Divider,
   { subtitle: "XG" },

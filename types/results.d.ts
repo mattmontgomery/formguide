@@ -35,6 +35,9 @@ declare namespace Results {
   type ParsedDataGoals = {
     teams: Record<string, MatchWithGoalData[]>;
   };
+  type ParsedDataStats = {
+    teams: Record<string, MatchWithStatsData[]>;
+  };
   type ParsedMeta = { league: Results.Leagues; year: number };
   type Match = {
     fixtureId: number;
@@ -59,7 +62,7 @@ declare namespace Results {
     };
     asa?: ASA.XGWithGame;
     status: RawResponse["fixture"]["status"];
-    league: RawResponse["league"];
+    league?: RawResponse["league"];
     date: string;
     rawDate: string;
     home: boolean;
@@ -78,6 +81,11 @@ declare namespace Results {
       goals: FixtureEvent[];
     };
   };
+  type MatchWithStatsData = {
+    stats: {
+      [team: string]: Record<string, number | string>;
+    };
+  } & Match;
   type MatchGoals = {
     goalsScored?: number;
     goalsConceded?: number;
@@ -174,7 +182,7 @@ declare namespace Results {
     }[];
     statistics: {
       team: Pick<Team, "id" | "name" | "logo">;
-      statistics: Record<string, { type: string; value: number }>;
+      statistics: { type: string; value: number | string }[];
     }[];
     players: {
       team: Results.Team;

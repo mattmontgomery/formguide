@@ -60,11 +60,6 @@
     "ts-jest": "^29.0.1",
     "typescript": "^4.8.3"
   },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "lint"
-    ]
-  },
   "engines": {
     "node": "16.x",
     "npm": "^8"

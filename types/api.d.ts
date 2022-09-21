@@ -23,6 +23,9 @@ declare namespace FormGuideAPI {
     type GoalsEndpoint = {
       teams: Record<string, Data.GoalMatch[]>;
     };
+    type StatsEndpoint = {
+      teams: Record<string, Data.StatsMatch[]>;
+    };
     type DetailedEndpoint = {
       teams: Record<string, Data.DetailedMatch[]>;
     };
@@ -32,6 +35,7 @@ declare namespace FormGuideAPI {
     };
     type Fixtures = Results.FixtureApi;
     type GoalMatch = Results.MatchWithGoalData;
+    type StatsMatch = Results.MatchWithStatsData;
     type DetailedMatch = Results.Match & { fixtureData: Results.FixtureApi[] };
     type Simulations = Record<string, Record<number, number>>;
     type PlusMinusEndpoint = Record<string, Record<string, PlusMinus>>;

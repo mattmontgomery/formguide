@@ -22,7 +22,7 @@ export type MatchCellProps = {
   isShaded?: (match: Results.Match) => boolean;
   match: Results.Match;
   onClick?: (match: Results.Match) => void;
-  renderValue?: (match: Results.Match) => string | number;
+  renderValue?: (match: Results.Match) => React.ReactNode;
   renderRawValue?: () => number;
   prerenderedValue?: string | number;
   resultType?: "first-half" | "second-half" | "full-match";
