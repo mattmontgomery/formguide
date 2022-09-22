@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import EasterEggContext from "./EasterEggContext";
+import EasterEggContext from "./Context/EasterEgg";
 
 export const KONAMI_CODE = [
   "ArrowUp",

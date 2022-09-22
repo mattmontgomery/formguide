@@ -22,7 +22,7 @@ import {
 } from "@/utils/table";
 import { ConferenceDisplayNames } from "@/utils/LeagueConferences";
 import { getEarliestMatch, getLatestMatch } from "@/utils/data";
-import EasterEggContext from "@/components/EasterEggContext";
+import EasterEggContext from "@/components/Context/EasterEgg";
 import { TeamLineSeries, useChartLegend } from "@/components/XYChartTools";
 
 export default function PositionChart() {

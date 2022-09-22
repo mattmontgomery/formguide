@@ -11,8 +11,8 @@ import { getTable } from "@/utils/table";
 import Table from "@/components/Table";
 import { getEarliestMatch, getLatestMatch, getMatchDate } from "@/utils/data";
 import { useDateFilter } from "@/components/DateFilter";
-import LeagueContext from "@/components/LeagueContext";
-import YearContext from "@/components/YearContext";
+import LeagueContext from "@/components/Context/League";
+import YearContext from "@/components/Context/Year";
 
 export default function TablePage() {
   const league = useContext(LeagueContext);

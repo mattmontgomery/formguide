@@ -15,14 +15,14 @@ import {
   Menu as MenuIcon,
   Search,
 } from "@mui/icons-material";
-import EasterEggContext from "../EasterEggContext";
+import EasterEggContext from "../Context/EasterEgg";
 import { useContext } from "react";
-import LeagueContext from "../LeagueContext";
+import LeagueContext from "../Context/League";
 import { useRouter } from "next/router";
 import { LeagueOptions } from "@/utils/Leagues";
 import DrawerContext from "../Context/Drawer";
 import { DRAWER_WIDTH } from "../Nav";
-import YearContext from "../YearContext";
+import YearContext from "../Context/Year";
 
 export default function Bar({
   onSetDrawerOpen,

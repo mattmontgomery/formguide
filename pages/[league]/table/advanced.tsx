@@ -1,9 +1,9 @@
 import BaseDataPage from "@/components/BaseDataPage";
 import { useDateFilter } from "@/components/DateFilter";
 import { Options, useHomeAway } from "@/components/Toggle/HomeAwayToggle";
-import LeagueContext from "@/components/LeagueContext";
+import LeagueContext from "@/components/Context/League";
 import Table from "@/components/Table";
-import YearContext from "@/components/YearContext";
+import YearContext from "@/components/Context/Year";
 import { getEarliestMatch, getLatestMatch, getMatchDate } from "@/utils/data";
 import { getRecord } from "@/utils/getRecord";
 import { getConferenceDisplayName } from "@/utils/Leagues";

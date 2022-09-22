@@ -3,7 +3,7 @@ import { LeagueSeparators } from "@/utils/Leagues";
 
 import { Box, SxProps } from "@mui/material";
 import React, { useContext, useState } from "react";
-import LeagueContext from "./LeagueContext";
+import LeagueContext from "./Context/League";
 import { MatchCellProps } from "./MatchCell";
 import { Options } from "./Toggle/HomeAwayToggle";
 

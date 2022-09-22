@@ -14,8 +14,8 @@ import {
 
 import React, { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
-import YearContext, { DEFAULT_YEAR } from "@/components/YearContext";
-import LeagueContext, { DEFAULT_LEAGUE } from "@/components/LeagueContext";
+import YearContext, { DEFAULT_YEAR } from "@/components/Context/Year";
+import LeagueContext, { DEFAULT_LEAGUE } from "@/components/Context/League";
 import { useRouter } from "next/router";
 import { KBarAnimator, KBarPortal, KBarPositioner } from "kbar";
 import KBarProvider from "@/components/KBar/Provider";

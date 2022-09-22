@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from "react";
 import useSWR from "swr";
-import LeagueContext from "@/components/LeagueContext";
+import LeagueContext from "@/components/Context/League";
 import fetcher from "@/utils/fetcher";
 import BasePage from "@/components/BasePage";
 import {

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 
-import LeagueContext from "./LeagueContext";
+import LeagueContext from "./Context/League";
 import { useContext } from "react";
 import { NavigationConfig, Groups } from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";

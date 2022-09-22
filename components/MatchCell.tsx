@@ -13,7 +13,7 @@ import {
   SxProps,
   Typography,
 } from "@mui/material";
-import LeagueContext from "./LeagueContext";
+import LeagueContext from "./Context/League";
 import { getPastTense } from "@/utils/getMatchResultString";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";

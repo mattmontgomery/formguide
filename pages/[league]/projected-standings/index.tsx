@@ -1,7 +1,7 @@
 import BaseDataPage from "@/components/BaseDataPage";
-import LeagueContext from "@/components/LeagueContext";
+import LeagueContext from "@/components/Context/League";
 import { useToggle } from "@/components/Toggle/Toggle";
-import YearContext from "@/components/YearContext";
+import YearContext from "@/components/Context/Year";
 import {
   ConferenceDisplayNames,
   Conferences,

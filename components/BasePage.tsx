@@ -1,8 +1,8 @@
 import styles from "@/styles/Home.module.css";
 import { Grid, Typography } from "@mui/material";
 import { useContext } from "react";
-import YearContext from "./YearContext";
-import LeagueContext from "./LeagueContext";
+import YearContext from "./Context/Year";
+import LeagueContext from "./Context/League";
 import { Box, Paper } from "@mui/material";
 import { NextSeo } from "next-seo";
 

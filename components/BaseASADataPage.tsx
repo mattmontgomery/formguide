@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import BasePage, { BasePageProps } from "./BasePage";
 import { Box, CircularProgress, Divider } from "@mui/material";
-import YearContext from "./YearContext";
-import LeagueContext from "./LeagueContext";
+import YearContext from "./Context/Year";
+import LeagueContext from "./Context/League";
 import { useContext } from "react";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
