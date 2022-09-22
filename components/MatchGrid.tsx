@@ -149,14 +149,14 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                         isShaded: (match: Results.Match) => {
                           const isHomeAwayShaded =
                             typeof teamShaded !== "undefined" && teamShaded
-                              ? match.team === teamShaded
-                                ? (homeShaded && !match.home) ||
-                                  (awayShaded && match.home)
+                              ? team === teamShaded
+                                ? (homeShaded && !match?.home) ||
+                                  (awayShaded && match?.home)
                                 : true
-                              : (homeShaded && !match.home) ||
-                                (awayShaded && match.home);
+                              : (homeShaded && !match?.home) ||
+                                (awayShaded && match?.home);
                           const resultShaded =
-                            result === "all" ? false : result !== match.result;
+                            result === "all" ? false : result !== match?.result;
                           return (
                             isHomeAwayShaded ||
                             resultShaded ||
