@@ -37,8 +37,8 @@ export type NavItem = {
 
 export const Groups: Record<string, symbol> = {
   Main: Symbol("Main"),
-  Rolling: Symbol("Rolling"),
   Projected: Symbol("Projected"),
+  Rolling: Symbol("Rolling"),
   GameStates: Symbol("Game States"),
   Fixtures: Symbol("Fixtures"),
   HeadToHead: Symbol("Head to Head"),
@@ -49,6 +49,8 @@ export const Groups: Record<string, symbol> = {
   StatsRolling: Symbol("Stats Rolling"),
   StatsCompare: Symbol("Stats Compared"),
   AdvancedStats: Symbol("Advanced Stats"),
+  GamesSince: Symbol("Game Since..."),
+  Supplementary: Symbol("Supplementary Stats"),
 };
 
 const NavigationConfig: NavItem[] = [
@@ -303,43 +305,43 @@ const NavigationConfig: NavItem[] = [
     href: `/record/since/${format(startOfYear(new Date()), "yyy-MM-dd")}`,
     title: "Record since selected date",
     icon: CalendarViewWeek,
-    group: Groups.Main,
+    group: Groups.Supplementary,
   },
   {
     href: "/since-result/W",
     title: "Games since a win",
     icon: CalendarViewMonth,
-    group: Groups.Main,
+    group: Groups.GamesSince,
   },
   {
     href: "/since-result/D",
     title: "Games since a draw",
     icon: CalendarViewMonth,
-    group: Groups.Main,
+    group: Groups.GamesSince,
   },
   {
     href: "/since-result/W,D",
     title: "Games since a win or draw",
     icon: CalendarViewMonth,
-    group: Groups.Main,
+    group: Groups.GamesSince,
   },
   {
     href: "/since-result/L",
     title: "Games since a loss",
     icon: CalendarViewMonth,
-    group: Groups.Main,
+    group: Groups.GamesSince,
   },
   {
     href: "/since-result/opponent",
     title: "Games since opponent W/D/L (slumpbusters, streakbusters)",
     icon: CalendarViewMonth,
-    group: Groups.Main,
+    group: Groups.GamesSince,
   },
   {
     href: "/game-days/since",
     title: "Days Between Games",
     icon: CalendarViewMonth,
-    group: Groups.Main,
+    group: Groups.GamesSince,
   },
   {
     href: "/game-days/since/5",
@@ -448,7 +450,7 @@ const NavigationConfig: NavItem[] = [
     href: "/facts",
     title: "Match Facts",
     icon: LightbulbOutlined,
-    group: Groups.Main,
+    group: Groups.Supplementary,
   },
   {
     href: "/odds",

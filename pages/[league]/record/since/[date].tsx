@@ -1,6 +1,6 @@
 import BaseDataPage from "@/components/BaseDataPage";
 import { getRecord, getRecordPoints, RecordPoints } from "@/utils/getRecord";
-import { Button, FormLabel, Input } from "@mui/material";
+import { Box, Button, FormLabel, Input } from "@mui/material";
 import { isAfter, parseISO } from "date-fns";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -11,6 +11,33 @@ export default function RecordSinceDate(): React.ReactElement {
   const [sort, setSort] = useState<"points" | "alpha">("points");
   return date ? (
     <BaseDataPage
+      renderControls={() => {
+        return (
+          <>
+            <Box mr={2}>
+              <FormLabel>Select a date</FormLabel>
+              <Input
+                defaultValue={date}
+                type="date"
+                sx={{ marginLeft: 1 }}
+                onChange={(ev) => {
+                  if (ev.target.value) {
+                    router.push({
+                      pathname: router.basePath,
+                      query: { ...router.query, date: ev.target.value },
+                    });
+                  }
+                }}
+              />
+            </Box>
+            <Box>
+              <FormLabel>Sort</FormLabel>
+              <Button onClick={() => setSort("alpha")}>A-Z</Button>
+              <Button onClick={() => setSort("points")}>Points</Button>
+            </Box>
+          </>
+        );
+      }}
       pageTitle={`Record since ${date}`}
       renderComponent={(data) => {
         const parsedDate = new Date(date?.toString());
@@ -50,29 +77,7 @@ export default function RecordSinceDate(): React.ReactElement {
           </ul>
         );
       }}
-    >
-      <div>
-        <FormLabel>Select a date</FormLabel>
-        <Input
-          defaultValue={date}
-          type="date"
-          sx={{ marginLeft: 1 }}
-          onChange={(ev) => {
-            if (ev.target.value) {
-              router.push({
-                pathname: router.basePath,
-                query: { ...router.query, date: ev.target.value },
-              });
-            }
-          }}
-        />
-      </div>
-      <div>
-        <FormLabel>Sort</FormLabel>
-        <Button onClick={() => setSort("alpha")}>A-Z</Button>
-        <Button onClick={() => setSort("points")}>Points</Button>
-      </div>
-    </BaseDataPage>
+    />
   ) : (
     <></>
   );
