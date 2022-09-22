@@ -462,25 +462,19 @@ const NavigationConfig: NavItem[] = [
     href: "/game-states",
     title: "Best/Worst Game States",
     icon: Alarm,
-    group: Groups.Stats,
+    group: Groups.GameStates,
   },
   {
     href: "/game-states/comebacks",
     title: "Comebacks",
     icon: Alarm,
-    group: Groups.Stats,
-  },
-  {
-    href: "/game-states",
-    title: "Best/Worst Game States",
-    icon: Alarm,
-    group: Groups.Stats,
+    group: Groups.GameStates,
   },
   {
     href: "/game-states/lost-leads",
     title: "Lost Leads",
     icon: Alarm,
-    group: Groups.Stats,
+    group: Groups.GameStates,
   },
   {
     href: "/first-goal/gf",

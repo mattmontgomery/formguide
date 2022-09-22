@@ -9,23 +9,24 @@ export default function GameStates(): React.ReactElement {
   const [show, setShow] = useState<"worst" | "best">("best");
   return (
     <BaseGridPage<Results.ParsedDataGoals>
-      pageTitle={`${show} game states (may take multiple retries to fully generate)`}
+      renderControls={() => (
+        <FormControlLabel
+          checked={show === "best"}
+          label="Off: Worst, On: Best"
+          control={
+            <Switch
+              onChange={(ev) =>
+                setShow(ev.currentTarget.checked ? "best" : "worst")
+              }
+            />
+          }
+        />
+      )}
+      pageTitle={`${show} game states`}
       dataParser={(data) => dataParser(data, show)}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}
-    >
-      <FormControlLabel
-        checked={show === "best"}
-        label="Off: Worst, On: Best"
-        control={
-          <Switch
-            onChange={(ev) =>
-              setShow(ev.currentTarget.checked ? "best" : "worst")
-            }
-          />
-        }
-      ></FormControlLabel>
-    </BaseGridPage>
+    />
   );
 }
 
