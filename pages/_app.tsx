@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 
-import Head from "next/head";
 import type { AppContext, AppProps } from "next/app";
 import {
   Box,
