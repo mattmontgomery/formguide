@@ -7,14 +7,20 @@ import { useRouter } from "next/router";
 import { sortByDate } from "@/utils/sort";
 import { getStats, getStatsName, ValidStats } from "@/components/Stats";
 import { isComplete } from "@/utils/match";
+import {
+  useOpponentToggle,
+  OpponentToggleOptions,
+} from "@/components/Toggle/OpponentToggle";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
   const type = String(router.query.type ?? "shots") as ValidStats;
+  const { renderComponent, value } = useOpponentToggle();
   return (
     <BaseGridPage<FormGuideAPI.Data.StatsEndpoint>
+      renderControls={renderComponent}
       pageTitle={`Statistic view: ${getStatsName(type)}`}
-      dataParser={(data) => dataParser(data, type)}
+      dataParser={(data) => dataParser(data, type, value)}
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}
     ></BaseGridPage>
@@ -23,7 +29,8 @@ export default function StatsByMatch(): React.ReactElement {
 
 function dataParser(
   data: FormGuideAPI.Data.StatsEndpoint["teams"],
-  type: ValidStats
+  type: ValidStats,
+  opponent: OpponentToggleOptions
 ): Render.RenderReadyData {
   return Object.keys(data).map((team) => [
     team,
@@ -39,7 +46,7 @@ function dataParser(
             console.info("Missing", match.fixtureId);
             return "X";
           }
-          return getStats(match, type)[0] ?? "-";
+          return getStats(match, type)[opponent === "opponent" ? 1 : 0] ?? "-";
         }}
       />
     )),

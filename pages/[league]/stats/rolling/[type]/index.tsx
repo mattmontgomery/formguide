@@ -11,6 +11,10 @@ import {
 } from "@/components/Stats";
 import { usePeriodLength } from "@/components/Toggle/PeriodLength";
 import { Box } from "@mui/material";
+import {
+  OpponentToggleOptions,
+  useOpponentToggle,
+} from "@/components/Toggle/OpponentToggle";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
@@ -19,15 +23,28 @@ export default function Chart(): React.ReactElement {
   const max = getStatsMax(statType);
   const { value: periodLength, renderComponent: renderPeriodLength } =
     usePeriodLength();
+  const { value: showOpponent, renderComponent: renderOpponentToggle } =
+    useOpponentToggle();
   return (
     <BaseRollingPage
-      renderControls={() => <Box>{renderPeriodLength()}</Box>}
+      renderControls={() => (
+        <Box>
+          {renderPeriodLength()}
+          {renderOpponentToggle()}
+        </Box>
+      )}
       isWide
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       isStaticHeight={false}
       pageTitle={`Rolling ${getStatsName(statType)} (%s game rolling)`}
       parser={(teams, periodLength, homeAway) =>
-        parseChartData(teams, periodLength, homeAway, statType)
+        parseChartData({
+          teams,
+          periodLength,
+          homeAway,
+          statType,
+          showOpponent,
+        })
       }
       periodLength={periodLength}
       heightCalc={(value) => {
@@ -37,12 +54,19 @@ export default function Chart(): React.ReactElement {
   );
 }
 
-function parseChartData(
-  teams: Results.ParsedData["teams"],
+function parseChartData({
+  teams,
   periodLength = 5,
-  homeAway: Options = "all",
-  statType: ValidStats
-): ReturnType<Render.RollingParser> {
+  homeAway = "all",
+  statType,
+  showOpponent,
+}: {
+  teams: Results.ParsedData["teams"];
+  periodLength: number;
+  homeAway: Options;
+  statType: ValidStats;
+  showOpponent: OpponentToggleOptions;
+}): ReturnType<Render.RollingParser> {
   return Object.keys(teams)
     .sort()
     .map((team) => {
@@ -61,7 +85,10 @@ function parseChartData(
               .slice(idx, idx + periodLength)
               .filter((match) => match.result !== null);
             const results = resultSet.map(
-              (match) => getStats(match, statType)[0] ?? 0
+              (match) =>
+                getStats(match, statType)[
+                  showOpponent === "opponent" ? 1 : 0
+                ] ?? 0
             );
             return {
               value:
