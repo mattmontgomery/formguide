@@ -3,6 +3,7 @@ import BaseGrid from "@/components/BaseGrid";
 import Cell from "@/components/Cell";
 import ColorKey from "@/components/ColorKey";
 import { getResultBackgroundColor } from "@/utils/results";
+import { sortByDate } from "@/utils/sort";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
@@ -35,7 +36,7 @@ export function Data({
 }) {
   const parsed = useMemo(() => {
     const players: Record<string, (number | null)[]> = {};
-    data.forEach((match, matchIdx) => {
+    data.sort(sortByDate).forEach((match, matchIdx) => {
       match.playerMinutes.forEach((player) => {
         if (typeof players[player.name] === "undefined") {
           players[player.name] = new Array(data.length).fill(null);

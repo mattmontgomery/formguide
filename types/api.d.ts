@@ -51,6 +51,8 @@ declare namespace FormGuideAPI {
     };
     type PlayerMinutesEndpoint = {
       fixtureId: number;
+      date: string;
+      rawDate: string;
       score: Results.FixtureApi["score"];
       teams: Results.FixtureApi["teams"];
       playerMinutes: {

@@ -10,6 +10,7 @@ import getAllFixtureIds from "@/utils/getAllFixtureIds";
 import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 import { getSingleTeamPlayerMinutes } from "@/utils/match";
 import getClient from "@/utils/redis";
+import { sortByDate } from "@/utils/sort";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const FORM_API = process.env.FORM_API;
@@ -44,7 +45,7 @@ export default async function PlayersTeamEndpoint(
     FIXTURE_KEY_PREFIX,
     team,
     "ALL",
-    "PLAYER_MINUTES",
+    "PLAYER_MINUTES_v2",
     getHash([matches, league])
   );
   const {
@@ -84,6 +85,8 @@ export default async function PlayersTeamEndpoint(
         p
           ? {
               fixtureId: p.fixture.id,
+              date: p.fixture.date,
+              rawDate: p.fixture.date,
               score: p.score,
               teams: p.teams,
               fixture: p.fixture,
