@@ -43,14 +43,12 @@ function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
 export default function BaseGrid<T = Results.ParsedData["teams"]>({
   data,
   dataParser,
-  homeAway,
   showMatchdayHeader = true,
   rowSx,
   rowClass = styles.gridRow,
   gridClass = styles.gridClass,
   chartClass = styles.chart,
   getMatchCellProps,
-  result,
   sortMethod = (sortStrategy, weekSortIdx) => (a: unknown, b: unknown) => {
     return sortStrategy === "teamName"
       ? teamNameSort(
@@ -81,8 +79,6 @@ export default function BaseGrid<T = Results.ParsedData["teams"]>({
     "teamName"
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
-  const homeShaded = homeAway === "home";
-  const awayShaded = homeAway === "away";
   const [shaded, setShaded] = useState<string>();
 
   const league = useContext(LeagueContext);

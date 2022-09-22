@@ -42,7 +42,6 @@ export default function MatchCell({
   resultType = "full-match",
   shadeEmpty = false,
   rightBorder = false,
-  sx = {},
 }: MatchCellProps): React.ReactElement {
   const result =
     resultType === "first-half"

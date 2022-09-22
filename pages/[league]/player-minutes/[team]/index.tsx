@@ -2,7 +2,7 @@ import BaseDataPage from "@/components/BaseDataPage";
 import BaseGrid from "@/components/BaseGrid";
 import Cell from "@/components/Cell";
 import ColorKey from "@/components/ColorKey";
-import { getResultBackgroundColor } from "@/utils/results";
+import { getMinutesColor, getResultBackgroundColor } from "@/utils/results";
 import { sortByDate } from "@/utils/sort";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -60,15 +60,11 @@ export function Data({
                 return (
                   <Cell
                     getBackgroundColor={() =>
-                      getResultBackgroundColor(
-                        !minutes
-                          ? null
-                          : minutes >= 50
-                          ? "W"
-                          : minutes >= 10
-                          ? "D"
-                          : "L"
-                      )
+                      minutes
+                        ? getMinutesColor(minutes)
+                        : minutes === 0
+                        ? getMinutesColor(0)
+                        : "grey.300"
                     }
                     key={idx}
                   >
