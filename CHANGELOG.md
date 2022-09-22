@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.31.0](https://github.com/mattmontgomery/formguide/compare/v1.30.0...v1.31.0) (2022-09-22)
+
+
+### Features
+
+* ✨ adds color coding to form chart ([3327330](https://github.com/mattmontgomery/formguide/commit/3327330e20279c6daa97b8e9f62ca6e7d0b37945))
+* ✨ adds color coding to rolling first ga/gf ([99b3646](https://github.com/mattmontgomery/formguide/commit/99b3646877ea3961d62bc780dc13d5d3ea4baf8b))
+* ✨ adds finishing percentage stats pages ([9643452](https://github.com/mattmontgomery/formguide/commit/9643452535d0e040948d50620f40974178143a2f))
+* ✨ adds opponent toggle to new stats pages ([fb11cc1](https://github.com/mattmontgomery/formguide/commit/fb11cc1b4d5cc09cf97acb0ebcf3aebc1ac3519b))
+* ✨ adds team-highlight support to rolling pages ([557c329](https://github.com/mattmontgomery/formguide/commit/557c32976666b2c57fef4b4af73dc0e50dc2dea3))
+
 ## [1.30.0](https://github.com/mattmontgomery/formguide/compare/v1.29.0...v1.30.0) (2022-09-22)
 
 
