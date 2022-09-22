@@ -3,28 +3,38 @@ import { useRouter } from "next/router";
 import BaseRollingPage from "@/components/BaseRollingPage";
 import { getFirstGoalConceded, getFirstGoalScored } from "@/utils/getGoals";
 import { getArrayAverage } from "@/utils/array";
-import { useHomeAway, Options } from "@/components/Toggle/HomeAwayToggle";
+import { Options } from "@/components/Toggle/HomeAwayToggle";
+import { usePeriodLength } from "@/components/Toggle/PeriodLength";
 
 export default function Chart(): React.ReactElement {
   const router = useRouter();
   const { period = 5, type = "gf" } = router.query;
-  const periodLength: number =
+  const defaultPeriodLength: number =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
+  const { value: periodLength, renderComponent: renderPeriodLength } =
+    usePeriodLength(defaultPeriodLength);
   const goalType: "gf" | "ga" = String(type) as "gf" | "ga";
-  const { value: homeAway, renderComponent } = useHomeAway();
   return (
     <BaseRollingPage
+      renderControls={renderPeriodLength}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
+      getBackgroundColor={(value) => {
+        if (goalType === "gf" && value && value > 45) {
+          return "warning.light";
+        }
+        if (goalType === "ga" && value && value < 45) {
+          return "warning.light";
+        }
+        return "success.light";
+      }}
       isStaticHeight={false}
       pageTitle={`Rolling first ${type} (%s game rolling)`}
-      parser={(teams, periodLength) =>
+      parser={(teams, periodLength, homeAway) =>
         parseChartData(teams, periodLength, homeAway, goalType)
       }
       periodLength={periodLength}
       heightCalc={(value) => `${value ? 100 - Math.round(value) : 100}%`}
-    >
-      {renderComponent()}
-    </BaseRollingPage>
+    />
   );
 }
 

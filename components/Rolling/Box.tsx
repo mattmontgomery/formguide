@@ -42,7 +42,7 @@ export default function RollingBox({
         alignItems: "center",
         cursor: "pointer",
         position: "relative",
-        height: 40,
+        height: 50,
       }}
       onClick={() => setShowCard(true)}
     >

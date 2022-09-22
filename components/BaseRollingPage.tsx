@@ -13,7 +13,7 @@ export default function BaseRollingPage({
   periodLength,
   parser,
   children,
-  getBackgroundColor = () => "success.main",
+  getBackgroundColor = () => "success.light",
   getMax,
   max,
   isStaticHeight = true,
@@ -60,7 +60,7 @@ export default function BaseRollingPage({
             rowSx={{
               display: "grid",
               gridTemplateColumns: `25px 160px repeat(46, ${
-                isWide ? 48 : 32
+                isWide ? 48 : 36
               }px)`,
             }}
             homeAway={homeAway}
