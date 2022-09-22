@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.32.1](https://github.com/mattmontgomery/formguide/compare/v1.32.0...v1.32.1) (2022-09-22)
+
+
+### Bug Fixes
+
+* 🐛 fixes sorting issue ([241658b](https://github.com/mattmontgomery/formguide/commit/241658b43b4fa1e23ca9f49c42834f98d1e93e6a))
+
 ## [1.32.0](https://github.com/mattmontgomery/formguide/compare/v1.31.0...v1.32.0) (2022-09-22)
 
 
