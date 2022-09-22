@@ -20,6 +20,16 @@ export default function Chart(): React.ReactElement {
   );
   return (
     <BaseRollingPage
+      getBackgroundColor={(value) => {
+        periodLength * 3;
+        if (value && value / (periodLength * 3) > 0.5) {
+          return "success.light";
+        }
+        if (value && value / (periodLength * 3) > 0.25) {
+          return "warning.light";
+        }
+        return "error.light";
+      }}
       max={periodLength * 3}
       renderControls={renderComponent}
       isStaticHeight={false}
