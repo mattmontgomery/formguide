@@ -18,6 +18,7 @@ declare namespace FormGuideAPI {
     type FixturesEndpoint = BaseAPIV2<Record<string, Data.Fixtures>>;
     type PlusMinusEndpoint = BaseApiV2<Data.PlusMinusEndpoint>;
     type SimulationsEndpoint = BaseAPIV2<Data.Simulations, Meta.Simulations>;
+    type PlayerMinutesEndpoint = BaseAPIV2<Data.PlayerMinutesEndpoint[]>;
   }
   namespace Data {
     type GoalsEndpoint = {
@@ -47,6 +48,20 @@ declare namespace FormGuideAPI {
 
       minutes: number;
       matches: number;
+    };
+    type PlayerMinutesEndpoint = {
+      fixtureId: number;
+      score: Results.FixtureApi["score"];
+      teams: Results.FixtureApi["teams"];
+      playerMinutes: {
+        id: number;
+        name: string;
+        photo: string;
+        minutes: number | null;
+        substitute: boolean;
+        on: number | null;
+        off: number | null;
+      }[];
     };
   }
   namespace Meta {

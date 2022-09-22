@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { getMLSLink } from "@/utils/getLinks";
 import styles from "@/styles/Home.module.css";
 import {
@@ -8,7 +8,6 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  ClickAwayListener,
   Divider,
   SxProps,
   Typography,
@@ -17,6 +16,9 @@ import LeagueContext from "./Context/League";
 import { getPastTense } from "@/utils/getMatchResultString";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
+
+import Cell from "./Cell";
+import { getResultBackgroundColor } from "@/utils/results";
 
 export type MatchCellProps = {
   isShaded?: (match: Results.Match) => boolean;
@@ -42,7 +44,6 @@ export default function MatchCell({
   rightBorder = false,
   sx = {},
 }: MatchCellProps): React.ReactElement {
-  const [open, setOpen] = useState<boolean>(false);
   const result =
     resultType === "first-half"
       ? match.firstHalf?.result
@@ -57,55 +58,23 @@ export default function MatchCell({
       : valueRenderer(match);
 
   return (
-    <Box
-      className={styles.gridRowCell}
-      sx={{
-        textAlign: `center`,
-        fontWeight: `bold`,
-        fontSize: `14px`,
-        color: `background.paper`,
-        borderRight: rightBorder
-          ? `4px solid black`
-          : `1px solid rgb(181, 181, 181)`,
-        position: `relative`,
-        cursor: `pointer`,
-        ...sx,
-      }}
+    <Cell
+      getBackgroundColor={() => getResultBackgroundColor(result)}
+      isShaded={() =>
+        isShaded
+          ? isShaded(match)
+          : shadeEmpty && (!renderedValue || renderedValue === "-")
+          ? true
+          : false
+      }
+      onClick={() => onClick && onClick(match)}
+      renderCard={(setOpen: (state: boolean) => void) => (
+        <MatchCellDetails match={match} onClose={() => setOpen(false)} />
+      )}
+      rightBorder={rightBorder}
     >
-      <ClickAwayListener onClickAway={() => setOpen(false)}>
-        <Box>
-          {open ? (
-            <MatchCellDetails match={match} onClose={() => setOpen(false)} />
-          ) : null}
-          <Box
-            sx={{
-              backgroundColor: !result
-                ? "background.default"
-                : result === "W"
-                ? "success.main"
-                : result === "L"
-                ? "error.main"
-                : "warning.main",
-              padding: "0.25rem",
-              color: "grey.800",
-              filter:
-                Boolean(shadeEmpty && renderedValue === "-") ||
-                (isShaded && isShaded(match))
-                  ? "grayscale(0.75) opacity(0.75)"
-                  : "none",
-            }}
-            onClick={() => {
-              if (typeof onClick === "function") {
-                onClick(match);
-              }
-              setOpen(true);
-            }}
-          >
-            <span data-home={match.home ? "home" : null}>{renderedValue}</span>
-          </Box>
-        </Box>
-      </ClickAwayListener>
-    </Box>
+      <span data-home={match.home ? "home" : null}>{renderedValue}</span>
+    </Cell>
   );
 }
 

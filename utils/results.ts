@@ -20,3 +20,13 @@ export function stepResult(result: Results.ResultType): Results.ResultType {
     return "W";
   }
 }
+
+export function getResultBackgroundColor(result?: Results.ResultType) {
+  return !result
+    ? "background.default"
+    : result === "W"
+    ? "success.main"
+    : result === "L"
+    ? "error.main"
+    : "warning.main";
+}

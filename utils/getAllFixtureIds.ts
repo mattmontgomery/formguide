@@ -16,23 +16,31 @@ export type MatchWithTeams = {
   away: string;
 };
 export default function getAllFixtureIds(
-  data: Results.ParsedData
+  data: Results.ParsedData,
+  filterTeam?: string
 ): SlimMatch[] {
-  return Object.entries(data.teams).reduce((acc: SlimMatch[], [, matches]) => {
-    return [
-      ...acc,
-      ...matches
-        .filter(
-          (match) => !acc.some(({ fixtureId }) => match.fixtureId === fixtureId)
-        )
-        .map((match) => ({
-          fixtureId: match.fixtureId,
-          date: match.rawDate,
-          title: getMatchTitle(match),
-          status: match.status,
-        })),
-    ];
-  }, []);
+  return Object.entries(data.teams).reduce(
+    (acc: SlimMatch[], [team, matches]) => {
+      if (filterTeam && team !== filterTeam) {
+        return acc;
+      }
+      return [
+        ...acc,
+        ...matches
+          .filter(
+            (match) =>
+              !acc.some(({ fixtureId }) => match.fixtureId === fixtureId)
+          )
+          .map((match) => ({
+            fixtureId: match.fixtureId,
+            date: match.rawDate,
+            title: getMatchTitle(match),
+            status: match.status,
+          })),
+      ];
+    },
+    []
+  );
 }
 
 export function getAllFixtures(

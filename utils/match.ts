@@ -34,6 +34,13 @@ export function getPlayerMinutes(
   });
 }
 
+export function getSingleTeamPlayerMinutes(
+  fixture: Results.FixtureApi,
+  team: string
+): Minutes[] {
+  return getPlayerMinutes(fixture)?.find((m) => m[0] === team)?.[1] ?? [];
+}
+
 export function getPlusMinus(fixture: Results.FixtureApi) {
   const allMinutes = getPlayerMinutes(fixture);
   const goals = fixture.events.filter((e) => e.type === "Goal");

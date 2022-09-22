@@ -1,5 +1,6 @@
 import { isBefore, parseISO } from "date-fns";
 import { fetchCachedOrFreshV2, getKeyFromParts } from "../cache";
+import { SlimMatch } from "../getAllFixtureIds";
 
 const ENDPOINT = process.env.PREDICTIONS_API;
 
@@ -46,4 +47,17 @@ export default async function getFixtureData(fixture: number) {
       retryOnEmptyData: true,
     }
   );
+}
+
+export async function fetchFixture(
+  fixture: SlimMatch
+): Promise<Results.FixtureApi | null> {
+  try {
+    const { data } = await getFixtureData(fixture.fixtureId);
+
+    return data?.fixtureData[0] ?? null;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
 }

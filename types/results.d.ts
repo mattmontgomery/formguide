@@ -39,27 +39,28 @@ declare namespace Results {
     teams: Record<string, MatchWithStatsData[]>;
   };
   type ParsedMeta = { league: Results.Leagues; year: number };
+  type Scoreline = {
+    halftime: {
+      home: number;
+      away: number;
+    };
+    fulltime: {
+      home: number;
+      away: number;
+    };
+    extratime: {
+      home: number;
+      away: number;
+    };
+    penalty: {
+      home: number;
+      away: number;
+    };
+  };
   type Match = {
     fixtureId: number;
     scoreline: string | null;
-    score: {
-      halftime: {
-        home: number;
-        away: number;
-      };
-      fulltime: {
-        home: number;
-        away: number;
-      };
-      extratime: {
-        home: number;
-        away: number;
-      };
-      penalty: {
-        home: number;
-        away: number;
-      };
-    };
+    score: Scoreline;
     asa?: ASA.XGWithGame;
     status: RawResponse["fixture"]["status"];
     league?: RawResponse["league"];
@@ -146,7 +147,7 @@ declare namespace Results {
     league: League;
     teams: Record<"home" | "away", Team>;
     goals: Record<"home" | "away", number>;
-    score: RawResponse["score"];
+    score: Results.Scoreline;
     events: FixtureEvent[];
     lineups: {
       team: Pick<Team, "id" | "name" | "logo"> & {

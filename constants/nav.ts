@@ -37,6 +37,7 @@ export type NavItem = {
 
 export const Groups: Record<string, symbol> = {
   Main: Symbol("Main"),
+  Players: Symbol("Players"),
   Projected: Symbol("Projected"),
   Rolling: Symbol("Rolling"),
   GameStates: Symbol("Game States"),
@@ -512,6 +513,12 @@ const NavigationConfig: NavItem[] = [
     title: "ASA interactive tables",
     icon: LaunchTwoTone,
     group: Groups.AdvancedStats,
+  },
+  {
+    title: "Team Player Minutes",
+    href: "/player-minutes",
+    icon: Person2TwoTone,
+    group: Groups.Players,
   },
 ];
 
