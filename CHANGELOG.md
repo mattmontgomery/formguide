@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.30.0](https://github.com/mattmontgomery/formguide/compare/v1.29.0...v1.30.0) (2022-09-22)
+
+
+### Features
+
+* ✨ refactors odds page ([ff59a1b](https://github.com/mattmontgomery/formguide/commit/ff59a1b09f03b44b72e90b0064caf79eff4c3edf))
+
+
+### Bug Fixes
+
+* 🐛 fixes issue with odds showing up in wrong spot ([ccda359](https://github.com/mattmontgomery/formguide/commit/ccda359d67a292a4b46e7b16bbd63f4b2d84f48d))
+* 🐛 minor cleanup ([63d3941](https://github.com/mattmontgomery/formguide/commit/63d3941e634811e7c72df1dcb7e3c2dcdcafa34d))
+* 🐛 removes unnecessary meta from head ([7f4aacb](https://github.com/mattmontgomery/formguide/commit/7f4aacbc62b65a8bc7c7f2d72fd0475f7fe04a32))
+
 ## [1.29.0](https://github.com/mattmontgomery/formguide/compare/v1.28.0...v1.29.0) (2022-09-21)
 
 
