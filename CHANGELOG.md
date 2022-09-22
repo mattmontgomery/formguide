@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.32.0](https://github.com/mattmontgomery/formguide/compare/v1.31.0...v1.32.0) (2022-09-22)
+
+
+### Features
+
+* ✨ adds a legend for player minutes chart ([25f7afc](https://github.com/mattmontgomery/formguide/commit/25f7afc1339911aa43edd532dfddb2569f5f1adf))
+* ✨ adds team player minutes page ([0437406](https://github.com/mattmontgomery/formguide/commit/04374067398442b11a09594e07192b309db1ae45))
+
 ## [1.31.0](https://github.com/mattmontgomery/formguide/compare/v1.30.0...v1.31.0) (2022-09-22)
 
 
