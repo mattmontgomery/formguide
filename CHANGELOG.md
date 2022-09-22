@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.33.0](https://github.com/mattmontgomery/formguide/compare/v1.32.1...v1.33.0) (2022-09-22)
+
+
+### Features
+
+* ✨ adds color gradient tool for minutes ([8214121](https://github.com/mattmontgomery/formguide/commit/82141215804260d66dc8be2a5ca6ac03358c58e4))
+
 ### [1.32.1](https://github.com/mattmontgomery/formguide/compare/v1.32.0...v1.32.1) (2022-09-22)
 
 
