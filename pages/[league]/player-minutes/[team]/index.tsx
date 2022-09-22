@@ -1,6 +1,7 @@
 import BaseDataPage from "@/components/BaseDataPage";
 import BaseGrid from "@/components/BaseGrid";
 import Cell from "@/components/Cell";
+import ColorKey from "@/components/ColorKey";
 import { getResultBackgroundColor } from "@/utils/results";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -10,13 +11,20 @@ export default function PlayerMinutesTeamPage(): React.ReactElement {
   const team = String(router.query.team);
   return (
     <BaseDataPage<FormGuideAPI.Responses.PlayerMinutesEndpoint["data"]>
+      renderControls={() => <>*: On bench, did not play. -: Not on bench</>}
       swrArgs={[team]}
       pageTitle={`${team} Player Minutes`}
       getEndpoint={(year, league) =>
         `/api/players/${league}/${team}?year=${year}`
       }
       renderComponent={(data) => team && <Data data={data} />}
-    />
+    >
+      <ColorKey
+        successText="> 50 minutes"
+        warningText=">= 10 minutes"
+        errorText="< 10 minutes"
+      />
+    </BaseDataPage>
   );
 }
 
@@ -30,9 +38,9 @@ export function Data({
     data.forEach((match, matchIdx) => {
       match.playerMinutes.forEach((player) => {
         if (typeof players[player.name] === "undefined") {
-          players[player.name] = new Array(data.length).fill(0);
+          players[player.name] = new Array(data.length).fill(null);
         }
-        players[player.name][matchIdx] = player.minutes;
+        players[player.name][matchIdx] = player.minutes ?? 0;
       });
     });
     return players;
@@ -63,7 +71,7 @@ export function Data({
                     }
                     key={idx}
                   >
-                    {minutes ?? "-"}
+                    {minutes ? minutes : minutes === 0 ? "*" : "-"}
                   </Cell>
                 );
               }),
