@@ -11,28 +11,30 @@ export default function Results({ darkMode }: { darkMode: boolean }) {
       items={results}
       onRender={({ item, active }) =>
         typeof item === "string" ? (
-          <ResultItem
+          <ResultItemWithRef
             item={{ name: item }}
             active={active}
             darkMode={darkMode}
           />
         ) : (
-          <ResultItem item={item} active={active} darkMode={darkMode} />
+          <ResultItemWithRef item={item} active={active} darkMode={darkMode} />
         )
       }
     />
   );
 }
 
+type ResultItemProps = {
+  item: Partial<ActionImpl>;
+  active: boolean;
+  darkMode: boolean;
+};
+
 export function ResultItem({
   item,
   active,
   darkMode,
-}: {
-  item: Partial<ActionImpl>;
-  active: boolean;
-  darkMode: boolean;
-}): React.ReactElement {
+}: ResultItemProps): React.ReactElement {
   const Icon =
     typeof item.icon === "object"
       ? (item.icon as unknown as SvgIconComponent)
@@ -65,3 +67,8 @@ export function ResultItem({
     </Box>
   );
 }
+
+// eslint-disable-next-line react/display-name
+const ResultItemWithRef = React.forwardRef((props: ResultItemProps, ref) => (
+  <ResultItem {...props} />
+));

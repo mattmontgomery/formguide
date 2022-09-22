@@ -4,6 +4,8 @@ import { format, parseISO } from "date-fns";
 import { useState } from "react";
 import MatchDescriptor from "../MatchDescriptor";
 
+export type NumberFormat = (value: number | null) => string;
+
 export default function RollingBox({
   value,
   periodLength,
@@ -25,7 +27,7 @@ export default function RollingBox({
   matches?: Results.Match[];
   isStaticHeight: boolean;
   getBackgroundColor: (value: number | null, periodLength: number) => string;
-  numberFormat?: (value: number | null) => string;
+  numberFormat?: NumberFormat;
   heightCalc?: (value: number | null, periodLength: number) => string;
   isShaded?: () => boolean;
 }): React.ReactElement {

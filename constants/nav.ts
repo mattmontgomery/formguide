@@ -37,9 +37,9 @@ export type NavItem = {
 
 export const Groups: Record<string, symbol> = {
   Main: Symbol("Main"),
-  GameStates: Symbol("Game States"),
   Rolling: Symbol("Rolling"),
   Projected: Symbol("Projected"),
+  GameStates: Symbol("Game States"),
   Fixtures: Symbol("Fixtures"),
   HeadToHead: Symbol("Head to Head"),
   Goals: Symbol("Goals"),
@@ -355,6 +355,12 @@ const NavigationConfig: NavItem[] = [
       group: Groups.StatsByMatch,
     };
   }),
+  {
+    href: `/stats/finishing`,
+    title: "Finishing %",
+    icon: Numbers,
+    group: Groups.StatsByMatch,
+  },
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/comparison/${stat}`,
@@ -371,6 +377,12 @@ const NavigationConfig: NavItem[] = [
       group: Groups.StatsRolling,
     };
   }),
+  {
+    href: `/stats/rolling/finishing`,
+    title: "Finishing %",
+    icon: Numbers,
+    group: Groups.StatsRolling,
+  },
   {
     href: "/xg/for",
     title: "XG For",

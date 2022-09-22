@@ -1,37 +1,39 @@
 import styles from "@/styles/Home.module.css";
 import MatchGrid from "@/components/MatchGrid";
 import BaseDataPage, { DataPageProps } from "@/components/BaseDataPage";
-import RollingBox from "@/components/Rolling/Box";
+import RollingBox, { NumberFormat } from "@/components/Rolling/Box";
 import { format } from "util";
 import { BasePageProps } from "./BasePage";
 import { Box } from "@mui/system";
 import { Options, useHomeAway } from "./Toggle/HomeAwayToggle";
 
 export default function BaseRollingPage({
-  renderControls,
-  pageTitle,
-  periodLength,
-  parser,
   children,
   getBackgroundColor = () => "success.light",
+  getEndpoint,
   getMax,
-  max,
+  heightCalc,
   isStaticHeight = true,
   isWide = false,
-  getEndpoint,
-  heightCalc,
+  max,
+  numberFormat,
+  pageTitle,
+  parser,
+  periodLength,
+  renderControls,
 }: React.PropsWithChildren<{
-  renderControls?: BasePageProps["renderControls"];
   pageTitle: string;
-  periodLength: number;
   parser: Render.RollingParser;
+  periodLength: number;
   getBackgroundColor?: Render.GetBackgroundColor;
   getMax?: (data: Results.ParsedData, periodLength: number) => number;
-  max?: number;
-  isStaticHeight?: boolean;
-  isWide?: boolean;
   getEndpoint?: DataPageProps["getEndpoint"];
   heightCalc?: (value: number | null, periodLength: number) => string;
+  isStaticHeight?: boolean;
+  isWide?: boolean;
+  numberFormat?: NumberFormat;
+  max?: number;
+  renderControls?: BasePageProps["renderControls"];
 }>): React.ReactElement {
   const { value: homeAway, renderComponent: renderHomeAwayToggle } =
     useHomeAway();
@@ -82,6 +84,7 @@ export default function BaseRollingPage({
                       }%`;
                     },
                 homeAway,
+                numberFormat,
               })
             }
             showMatchdayHeader={false}
@@ -105,6 +108,7 @@ function dataParser({
   isWide,
   heightCalc,
   homeAway,
+  numberFormat,
 }: {
   parser: Render.RollingParser;
   periodLength: number;
@@ -114,6 +118,7 @@ function dataParser({
   isWide: boolean;
   heightCalc?: (value: number | null, periodLength: number) => string;
   homeAway: Options;
+  numberFormat?: NumberFormat;
 }): Render.RenderReadyData {
   return parser(data, periodLength, homeAway).map(([team, ...points]) => {
     return [
@@ -130,12 +135,11 @@ function dataParser({
               periodLength={periodLength}
               matches={points.matches}
               key={idx}
-              {...(isWide
-                ? {
-                    numberFormat: (value) =>
-                      value !== null ? value.toFixed(1) : "",
-                  }
-                : {})}
+              numberFormat={
+                isWide && !numberFormat
+                  ? (value) => (value !== null ? value.toFixed(1) : "")
+                  : numberFormat
+              }
             />
           );
         }),
