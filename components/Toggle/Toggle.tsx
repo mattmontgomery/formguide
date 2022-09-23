@@ -56,7 +56,10 @@ export default function Toggle<T extends OptionTypes>({
     <ToggleButtonGroup
       value={value}
       exclusive={exclusive}
-      onChange={(_, value: T) => allowEmpty || (value && onChange(value))}
+      onChange={(_, value: T) => {
+        console.log({ allowEmpty, value });
+        if (allowEmpty || value !== null) onChange(value);
+      }}
       {...toggleButtonGroupProps}
     >
       {options.map((opt, idx) => (
