@@ -41,7 +41,13 @@ export default function BasePage({
               <Grid xs={12} item>
                 <Paper
                   elevation={3}
-                  sx={{ padding: 2, display: "flex", flexDirection: "row" }}
+                  sx={{
+                    padding: 2,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 2,
+                  }}
                 >
                   {renderControls()}
                 </Paper>

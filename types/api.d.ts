@@ -55,6 +55,7 @@ declare namespace FormGuideAPI {
       rawDate: string;
       score: Results.FixtureApi["score"];
       teams: Results.FixtureApi["teams"];
+      goals: Results.FixtureEvent[];
       playerMinutes: {
         id: number;
         name: string;

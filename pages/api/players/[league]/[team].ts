@@ -45,6 +45,7 @@ export default async function PlayersTeamEndpoint(
     FIXTURE_KEY_PREFIX,
     team,
     "ALL",
+    "WITH_GOALS",
     "PLAYER_MINUTES_v2",
     getHash([matches, league])
   );
@@ -91,6 +92,7 @@ export default async function PlayersTeamEndpoint(
               teams: p.teams,
               fixture: p.fixture,
               playerMinutes: getSingleTeamPlayerMinutes(p, team),
+              goals: p.events.filter((e) => e.type === "Goal"),
             }
           : null
       );
