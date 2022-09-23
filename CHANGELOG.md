@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.34.0](https://github.com/mattmontgomery/formguide/compare/v1.33.0...v1.34.0) (2022-09-23)
+
+
+### Features
+
+* ✨ adds player goals, assists, g+a ([fa1ca14](https://github.com/mattmontgomery/formguide/commit/fa1ca1433e06416d1f35020dbefc13777f414165))
+
 ## [1.33.0](https://github.com/mattmontgomery/formguide/compare/v1.32.1...v1.33.0) (2022-09-22)
 
 
