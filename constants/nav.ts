@@ -94,7 +94,7 @@ const NavigationConfig: NavItem[] = [
     group: Groups.Main,
   },
   {
-    href: "/stats/scatter/points,possession",
+    href: "/stats/scatter/shots,possession",
     title: "Stats Scatterplot",
     icon: ScatterPlot,
     group: Groups.Main,
