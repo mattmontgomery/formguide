@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.34.1](https://github.com/mattmontgomery/formguide/compare/v1.34.0...v1.34.1) (2022-09-25)
+
+
+### Bug Fixes
+
+* 🐛 fixes toggle bug ([1a378bc](https://github.com/mattmontgomery/formguide/commit/1a378bc5416b0ea6d0b41d53dcb8c20c501ec25f))
+
 ## [1.34.0](https://github.com/mattmontgomery/formguide/compare/v1.33.0...v1.34.0) (2022-09-23)
 
 
