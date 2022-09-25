@@ -1,5 +1,7 @@
 import BaseDataPage from "@/components/BaseDataPage";
 
+import { ParentSize } from "@visx/responsive";
+
 import {
   Grid,
   XYChart,
@@ -122,72 +124,83 @@ function LeagueTable({
                 clamp: true,
               }}
             >
-              <XYChart
-                height={600}
-                margin={{ top: 30, bottom: 30, left: 20, right: 40 }}
-              >
-                <Grid columns={false} numTicks={max} />
-                {weeklyTables
-                  .filter(([team]) => {
-                    const teamConference = getTeamConference(
-                      team,
-                      meta.league,
-                      meta.year
-                    );
-                    return (
-                      (selectedTeams.includes(team) ||
-                        selectedTeams.length === 0) &&
-                      (teamConference === conference || !teamConference)
-                    );
-                  })
-                  .map(([team, ranks], idx) => (
-                    <TeamLineSeries
-                      key={idx}
-                      curve={curveCatmullRom}
-                      dataKey={team}
-                      focused={team === hoverTeam}
-                      data={ranks.map((rank, idx) => ({
-                        x: idx,
-                        y: rank,
-                      }))}
-                      {...accessors}
+              <ParentSize>
+                {({ width }) => (
+                  <XYChart
+                    height={600}
+                    width={width}
+                    margin={{ top: 30, bottom: 30, left: 20, right: 40 }}
+                  >
+                    <Grid columns={false} numTicks={max} />
+                    {weeklyTables
+                      .filter(([team]) => {
+                        const teamConference = getTeamConference(
+                          team,
+                          meta.league,
+                          meta.year
+                        );
+                        return (
+                          (selectedTeams.includes(team) ||
+                            selectedTeams.length === 0) &&
+                          (teamConference === conference || !teamConference)
+                        );
+                      })
+                      .map(([team, ranks], idx) => (
+                        <TeamLineSeries
+                          key={idx}
+                          curve={curveCatmullRom}
+                          dataKey={team}
+                          focused={team === hoverTeam}
+                          data={ranks.map((rank, idx) => ({
+                            x: idx,
+                            y: rank,
+                          }))}
+                          {...accessors}
+                        />
+                      ))}
+                    <Axis orientation="bottom" numTicks={10} />
+                    <Axis orientation="right" hideAxisLine numTicks={max} />
+                    <Tooltip
+                      snapTooltipToDatumX
+                      snapTooltipToDatumY
+                      showVerticalCrosshair
+                      showSeriesGlyphs
+                      renderTooltip={({ tooltipData, colorScale }) =>
+                        tooltipData &&
+                        tooltipData.nearestDatum &&
+                        colorScale &&
+                        selectedTeams.includes(
+                          tooltipData?.nearestDatum?.key
+                        ) ? (
+                          <Box>
+                            <Box
+                              style={{
+                                color: colorScale(tooltipData.nearestDatum.key),
+                              }}
+                            >
+                              {tooltipData.nearestDatum.key}
+                            </Box>
+                            <Box>
+                              Week:{" "}
+                              {accessors.xAccessor(
+                                tooltipData.nearestDatum.datum
+                              )}
+                            </Box>
+                            <Box>
+                              {accessors.yAccessor(
+                                tooltipData.nearestDatum.datum
+                              )}{" "}
+                              rank
+                            </Box>
+                          </Box>
+                        ) : (
+                          <></>
+                        )
+                      }
                     />
-                  ))}
-                <Axis orientation="bottom" numTicks={10} />
-                <Axis orientation="right" hideAxisLine numTicks={max} />
-                <Tooltip
-                  snapTooltipToDatumX
-                  snapTooltipToDatumY
-                  showVerticalCrosshair
-                  showSeriesGlyphs
-                  renderTooltip={({ tooltipData, colorScale }) =>
-                    tooltipData &&
-                    tooltipData.nearestDatum &&
-                    colorScale &&
-                    selectedTeams.includes(tooltipData?.nearestDatum?.key) ? (
-                      <Box>
-                        <Box
-                          style={{
-                            color: colorScale(tooltipData.nearestDatum.key),
-                          }}
-                        >
-                          {tooltipData.nearestDatum.key}
-                        </Box>
-                        <Box>
-                          Week:{" "}
-                          {accessors.xAccessor(tooltipData.nearestDatum.datum)}
-                        </Box>
-                        <Box>
-                          {accessors.yAccessor(tooltipData.nearestDatum.datum)}{" "}
-                          rank
-                        </Box>
-                      </Box>
-                    ) : (
-                      <></>
-                    )
-                  }
-                />
-              </XYChart>
+                  </XYChart>
+                )}
+              </ParentSize>
               {renderComponent(conferenceTeams)}
               <Button
                 onClick={() =>

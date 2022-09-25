@@ -45,6 +45,7 @@ export default async function getFixtureData(fixture: number) {
         }
       },
       retryOnEmptyData: true,
+      allowCompression: true,
     }
   );
 }

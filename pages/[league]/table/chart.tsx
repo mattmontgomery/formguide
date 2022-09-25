@@ -1,5 +1,6 @@
 import BaseDataPage from "@/components/BaseDataPage";
 
+import { ParentSize } from "@visx/responsive";
 import {
   Grid,
   XYChart,
@@ -46,66 +47,92 @@ function LeagueTable({
         xScale={{ type: "linear" }}
         yScale={{ type: "linear", nice: true }}
       >
-        <XYChart
-          height={600}
-          margin={{ top: 30, bottom: 30, left: 20, right: 40 }}
-        >
-          <Grid columns={false} numTicks={8} />
-          {Object.keys(data.teams)
-            .filter(
-              (team) =>
-                selectedTeams.includes(team) || selectedTeams.length === 0
-            )
-            .map((team, idx) => (
-              <TeamLineSeries
-                key={idx}
-                {...accessors}
-                curve={curveCatmullRom}
-                dataKey={team}
-                focused={hoverTeam === team}
-                data={getCumulativeTeamPointsArray(data.teams[team]).map(
-                  (points, idx) => ({
-                    x: idx,
-                    y: points,
-                  })
-                )}
-              />
-            ))}
-          <Axis orientation="bottom" />
-          <Axis orientation="right" hideAxisLine numTicks={4} />
-          <Tooltip
-            snapTooltipToDatumX
-            snapTooltipToDatumY
-            showVerticalCrosshair
-            showSeriesGlyphs
-            renderTooltip={({ tooltipData, colorScale }) =>
-              tooltipData &&
-              tooltipData.nearestDatum &&
-              colorScale &&
-              selectedTeams.includes(tooltipData?.nearestDatum?.key) ? (
-                <div>
-                  <Box
-                    style={{ color: colorScale(tooltipData.nearestDatum.key) }}
-                  >
-                    {tooltipData.nearestDatum.key}
-                  </Box>
-                  <Box>
-                    Match day:{" "}
-                    {accessors.xAccessor(tooltipData.nearestDatum.datum)}
-                  </Box>
-                  <Box>
-                    {accessors.yAccessor(tooltipData.nearestDatum.datum)} points
-                  </Box>
-                </div>
-              ) : (
-                <></>
-              )
-            }
-          />
-        </XYChart>
+        <ParentSize>
+          {({ width }) => (
+            <ChartView
+              data={data}
+              width={width}
+              selectedTeams={selectedTeams}
+              hoverTeam={hoverTeam}
+            />
+          )}
+        </ParentSize>
         {renderComponent()}
       </DataProvider>
     </Box>
+  );
+}
+
+function ChartView({
+  data,
+  selectedTeams,
+  hoverTeam,
+  width,
+}: {
+  data: Results.ParsedData;
+  selectedTeams: string[];
+  hoverTeam: string | null | undefined;
+  width: number;
+}): React.ReactElement {
+  return (
+    <XYChart
+      height={600}
+      width={width}
+      margin={{ top: 30, bottom: 30, left: 20, right: 40 }}
+    >
+      <Grid columns={false} numTicks={8} />
+      {Object.keys(data.teams)
+        .filter(
+          (team) => selectedTeams.includes(team) || selectedTeams.length === 0
+        )
+        .map((team, idx) => (
+          <TeamLineSeries
+            key={idx}
+            {...accessors}
+            curve={curveCatmullRom}
+            dataKey={team}
+            focused={hoverTeam === team}
+            data={getCumulativeTeamPointsArray(data.teams[team]).map(
+              (points, idx) => ({
+                x: idx,
+                y: points,
+              })
+            )}
+          />
+        ))}
+      <Axis orientation="bottom" />
+      <Axis orientation="right" hideAxisLine numTicks={4} />
+      <Tooltip
+        snapTooltipToDatumX
+        snapTooltipToDatumY
+        showVerticalCrosshair
+        showSeriesGlyphs
+        renderTooltip={({ tooltipData, colorScale }) =>
+          tooltipData &&
+          tooltipData.nearestDatum &&
+          colorScale &&
+          selectedTeams.includes(tooltipData?.nearestDatum?.key) ? (
+            <div>
+              <Box
+                style={{
+                  color: colorScale(tooltipData.nearestDatum.key),
+                }}
+              >
+                {tooltipData.nearestDatum.key}
+              </Box>
+              <Box>
+                Match day: {accessors.xAccessor(tooltipData.nearestDatum.datum)}
+              </Box>
+              <Box>
+                {accessors.yAccessor(tooltipData.nearestDatum.datum)} points
+              </Box>
+            </div>
+          ) : (
+            <></>
+          )
+        }
+      />
+    </XYChart>
   );
 }
 

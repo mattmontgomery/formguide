@@ -44,7 +44,7 @@ function dataParser(
             console.info("Missing", match.fixtureId);
             return "X";
           }
-          return compareStats(getStats(match, type), type) ?? "-";
+          return compareStats(getStats(match, type)) ?? "-";
         }}
       />
     )),

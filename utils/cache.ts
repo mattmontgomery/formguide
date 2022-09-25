@@ -60,13 +60,15 @@ export async function fetchCachedOrFreshV2<T>(
 ): Promise<FetchCachedOrFreshReturnType<T>> {
   try {
     const REDIS_URL = process.env.REDIS_URL;
-    const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
     if (!REDIS_URL) {
       throw "Application is not properly configured";
     }
 
     // keys differentiate by year and league
-    const redisKey = `${key}:${APP_VERSION}`;
+    const redisKey = getKeyFromParts(
+      key,
+      allowCompression ? "compressed" : undefined
+    );
     const exists = await redisClient().exists(redisKey);
     const { data, empty, compressed } = await fetchFromCache<T>(
       redisKey,
@@ -195,11 +197,13 @@ export function getKey(key: string): string {
   const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
   return `${key}:${APP_VERSION}`;
 }
-export function getKeyFromParts(...parts: (string | number)[]): string {
-  const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
+export function getKeyFromParts(
+  ...parts: (string | number | undefined)[]
+): string {
   return `${parts
+    .filter(Boolean)
     .map((p) => String(p).toUpperCase())
-    .join(":")}:${APP_VERSION}`;
+    .join(":")}`;
 }
 
 export async function compressString(data: string): Promise<string> {

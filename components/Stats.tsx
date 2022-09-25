@@ -1,4 +1,5 @@
 export type ValidStats =
+  | "goals"
   | "shots"
   | "shots-on-goal"
   | "blocked-shots"
@@ -6,6 +7,7 @@ export type ValidStats =
   | "fouls"
   | "offsides"
   | "passes"
+  | "possession"
   | "shots-inside-box"
   | "shots-off-goal"
   | "shots-outside-box"
@@ -25,17 +27,18 @@ export const stats = {
   offsides: "Offsides",
   passes: "Total passes",
   "passes-accurate": "Passes accurate",
+  possession: "Ball Possession",
   "shots-inside-box": "Shots insidebox",
   "shots-outside-box": "Shots outsidebox",
   "red-cards": "Red Cards",
   "yellow-cards": "Yellow Cards",
   "shots-on-goal": "Shots on Goal",
   "shots-off-goal": "Shots off Goal",
+  goals: "Goals",
 };
 
 export function compareStats(
-  stats: [number | string | undefined, number | string | undefined],
-  type: ValidStats
+  stats: [number | string | undefined, number | string | undefined]
 ) {
   return typeof stats[0] === "number" || typeof stats[1] === "number"
     ? Number(stats[0] ?? 0) - Number(stats[1] ?? 0)
@@ -47,10 +50,22 @@ export function getStats(
   stat: ValidStats
 ): [number | string | undefined, number | string | undefined] {
   const statName = getStatsName(stat);
-  return [
-    match.stats?.[match.team]?.[statName],
-    match.stats?.[match.opponent]?.[statName],
-  ];
+  switch (stat) {
+    case "possession":
+      return [
+        Number(String(match.stats?.[match.team]?.[statName])?.replace("%", "")),
+        Number(
+          String(match.stats?.[match.opponent]?.[statName])?.replace("%", "")
+        ),
+      ];
+    case "goals":
+      return [match.goalsScored, match.goalsConceded];
+    default:
+      return [
+        match.stats?.[match.team]?.[statName],
+        match.stats?.[match.opponent]?.[statName],
+      ];
+  }
 }
 
 export function getStatsMax(stat: ValidStats) {
@@ -79,6 +94,8 @@ export function getStatsMax(stat: ValidStats) {
       return 5;
     case "fouls":
       return 25;
+    case "possession":
+      return 75;
     default:
       return 20;
   }
