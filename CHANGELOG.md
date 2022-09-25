@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.35.0](https://github.com/mattmontgomery/formguide/compare/v1.34.1...v1.35.0) (2022-09-25)
+
+
+### Features
+
+* ✨ adds correlation charts ([ca3717c](https://github.com/mattmontgomery/formguide/commit/ca3717c8ff942936fd81c1d51b06991522f94aae))
+* **scatterplot:** ✨ adds home/away filter ([9221ab3](https://github.com/mattmontgomery/formguide/commit/9221ab3eed2b81f54ca4e361d0045afe1375c44c))
+* **stats:** ✨ adds scatterplot page ([1c8872f](https://github.com/mattmontgomery/formguide/commit/1c8872f3b91350090d38256cf14da9853610a1fd))
+
 ### [1.34.1](https://github.com/mattmontgomery/formguide/compare/v1.34.0...v1.34.1) (2022-09-25)
 
 
