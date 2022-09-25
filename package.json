@@ -20,7 +20,7 @@
     "release:push": "git push --follow-tags origin main"
   },
   "dependencies": {
-    "@mui/icons-material": "^5.10.2",
+    "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.6",
     "@mui/x-data-grid": "^5.17.2",
     "@visx/curve": "^2.1.0",
