@@ -8,6 +8,8 @@ import { Axis, DataProvider, GlyphSeries, Grid, XYChart } from "@visx/xychart";
 
 import calculateCorrelation from "calculate-correlation";
 import { useStatsToggle } from "@/components/Selector/Stats";
+import { Options, useHomeAway } from "@/components/Toggle/HomeAwayToggle";
+import { Box } from "@mui/system";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
@@ -17,23 +19,35 @@ export default function StatsByMatch(): React.ReactElement {
 
   const { renderComponent: renderStatsToggle, value: statTypes } =
     useStatsToggle({ selected: types });
+
+  const { renderComponent: renderHomeAway, value: homeAway } = useHomeAway();
+
   return (
     <BaseDataPage<FormGuideAPI.Data.StatsEndpoint>
-      renderControls={renderStatsToggle}
+      renderControls={() => (
+        <>
+          <Box>{renderStatsToggle()}</Box>
+          <Box>{renderHomeAway()}</Box>
+        </>
+      )}
       pageTitle={`Statistic scatterplot: ${statTypes
         .map(getStatsName)
         .join(" x ")}`}
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
-      renderComponent={(data) => <DataView data={data} statTypes={statTypes} />}
+      renderComponent={(data) => (
+        <DataView data={data} statTypes={statTypes} homeAway={homeAway} />
+      )}
     ></BaseDataPage>
   );
 }
 export function DataView({
   data,
   statTypes,
+  homeAway,
 }: {
   data: FormGuideAPI.Data.StatsEndpoint;
   statTypes: ValidStats[];
+  homeAway: Options;
 }): React.ReactElement {
   const statTypesValidated = [null, null].map((_, idx) => {
     return statTypes[idx] ?? "goals";
@@ -42,18 +56,25 @@ export function DataView({
     const x: number[] = [];
     const y: number[] = [];
     Object.entries(data.teams).forEach(([, matches]) => {
-      matches.forEach((match) => {
-        console.log(getStats(match, statTypesValidated[0]));
-        const xStat = Number(getStats(match, statTypesValidated[0] ?? 0)[0]);
-        const yStat = Number(getStats(match, statTypesValidated[1] ?? 0)[0]);
-        if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
-          x.push(xStat);
-          y.push(yStat);
-        }
-      });
+      matches
+        .filter((match) =>
+          homeAway === "all"
+            ? true
+            : homeAway === "home"
+            ? match.home
+            : !match.home
+        )
+        .forEach((match) => {
+          const xStat = Number(getStats(match, statTypesValidated[0] ?? 0)[0]);
+          const yStat = Number(getStats(match, statTypesValidated[1] ?? 0)[0]);
+          if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
+            x.push(xStat);
+            y.push(yStat);
+          }
+        });
     });
     return calculateCorrelation(x, y);
-  }, [data, statTypesValidated]);
+  }, [data, statTypesValidated, homeAway]);
   return (
     <ParentSize>
       {({ width, height }) => {
@@ -78,12 +99,20 @@ export function DataView({
                     key={idx}
                     {...accessors}
                     dataKey={team}
-                    data={matches.map((match) => {
-                      return {
-                        x: getStats(match, statTypes[0])[0] ?? 0,
-                        y: getStats(match, statTypes[1])[0] ?? 0,
-                      };
-                    })}
+                    data={matches
+                      .filter((match) =>
+                        homeAway === "all"
+                          ? true
+                          : homeAway === "home"
+                          ? match.home
+                          : !match.home
+                      )
+                      .map((match) => {
+                        return {
+                          x: getStats(match, statTypes[0])[0] ?? 0,
+                          y: getStats(match, statTypes[1])[0] ?? 0,
+                        };
+                      })}
                   />
                 );
               })}
