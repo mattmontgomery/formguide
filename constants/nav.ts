@@ -20,6 +20,7 @@ import {
   Watch,
   Person2TwoTone,
   Numbers,
+  ScatterPlot,
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
@@ -90,6 +91,12 @@ const NavigationConfig: NavItem[] = [
     href: "/points/off-top",
     title: "Points off Top",
     icon: TableChart,
+    group: Groups.Main,
+  },
+  {
+    href: "/stats/scatter/points,possession",
+    title: "Stats Scatterplot",
+    icon: ScatterPlot,
     group: Groups.Main,
   },
   {

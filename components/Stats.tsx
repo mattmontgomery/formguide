@@ -1,4 +1,8 @@
+import getMatchPoints, { getPointsForResult } from "@/utils/getMatchPoints";
+import { getInverseResult } from "@/utils/results";
+
 export type ValidStats =
+  | "points"
   | "goals"
   | "shots"
   | "shots-on-goal"
@@ -20,6 +24,7 @@ export function getStatsName(stat: ValidStats): string {
 }
 
 export const stats = {
+  points: "Points",
   shots: "Total Shots",
   "blocked-shots": "Blocked Shots",
   "corner-kicks": "Corner Kicks",
@@ -60,6 +65,11 @@ export function getStats(
       ];
     case "goals":
       return [match.goalsScored, match.goalsConceded];
+    case "points":
+      return [
+        getPointsForResult(match.result),
+        getPointsForResult(getInverseResult(match.result)),
+      ];
     default:
       return [
         match.stats?.[match.team]?.[statName],

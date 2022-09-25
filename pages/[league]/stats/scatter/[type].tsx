@@ -1,30 +1,30 @@
 import React, { useMemo } from "react";
 
 import { useRouter } from "next/router";
-import { sortByDate } from "@/utils/sort";
 import { getStats, getStatsName, ValidStats } from "@/components/Stats";
-import { isComplete } from "@/utils/match";
-import { useOpponentToggle } from "@/components/Toggle/OpponentToggle";
 import { ParentSize } from "@visx/responsive";
 import BaseDataPage from "@/components/BaseDataPage";
 import { Axis, DataProvider, GlyphSeries, Grid, XYChart } from "@visx/xychart";
 
 import calculateCorrelation from "calculate-correlation";
+import { useStatsToggle } from "@/components/Selector/Stats";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
   const types: ValidStats[] = (String(router.query.type).split(
     ","
   ) as ValidStats[]) ?? ["shots", "possession"];
-  const { renderComponent, value } = useOpponentToggle();
+
+  const { renderComponent: renderStatsToggle, value: statTypes } =
+    useStatsToggle({ selected: types });
   return (
     <BaseDataPage<FormGuideAPI.Data.StatsEndpoint>
-      renderControls={renderComponent}
-      pageTitle={`Statistic scatterplot: ${types
+      renderControls={renderStatsToggle}
+      pageTitle={`Statistic scatterplot: ${statTypes
         .map(getStatsName)
         .join(" x ")}`}
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
-      renderComponent={(data) => <DataView data={data} statTypes={types} />}
+      renderComponent={(data) => <DataView data={data} statTypes={statTypes} />}
     ></BaseDataPage>
   );
 }
@@ -35,22 +35,25 @@ export function DataView({
   data: FormGuideAPI.Data.StatsEndpoint;
   statTypes: ValidStats[];
 }): React.ReactElement {
+  const statTypesValidated = [null, null].map((_, idx) => {
+    return statTypes[idx] ?? "goals";
+  });
   const correlation = useMemo(() => {
     const x: number[] = [];
     const y: number[] = [];
-    Object.entries(data.teams).forEach(([team, matches]) => {
+    Object.entries(data.teams).forEach(([, matches]) => {
       matches.forEach((match) => {
-        const xStat = Number(getStats(match, statTypes[0])[0]);
-        const yStat = Number(getStats(match, statTypes[1])[0]);
+        console.log(getStats(match, statTypesValidated[0]));
+        const xStat = Number(getStats(match, statTypesValidated[0] ?? 0)[0]);
+        const yStat = Number(getStats(match, statTypesValidated[1] ?? 0)[0]);
         if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
           x.push(xStat);
           y.push(yStat);
         }
       });
     });
-    console.log(x, y);
     return calculateCorrelation(x, y);
-  }, [data]);
+  }, [data, statTypesValidated]);
   return (
     <ParentSize>
       {({ width, height }) => {
@@ -77,8 +80,8 @@ export function DataView({
                     dataKey={team}
                     data={matches.map((match) => {
                       return {
-                        x: getStats(match, statTypes[0])[0],
-                        y: getStats(match, statTypes[1])[0],
+                        x: getStats(match, statTypes[0])[0] ?? 0,
+                        y: getStats(match, statTypes[1])[0] ?? 0,
                       };
                     })}
                   />
