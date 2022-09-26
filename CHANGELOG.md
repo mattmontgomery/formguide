@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.36.0](https://github.com/mattmontgomery/formguide/compare/v1.35.0...v1.36.0) (2022-09-26)
+
+
+### Features
+
+* **advanced-table:** ✨ adds penalties to advanced table, adds filtering ([1e95afb](https://github.com/mattmontgomery/formguide/commit/1e95afbb41e79ed1f70533be752fb0282a2a4c63))
+
+
+### Bug Fixes
+
+* 🐛 updates scatterplot nav link ([6346a62](https://github.com/mattmontgomery/formguide/commit/6346a62e20c8b271f0438aeb2be303a3e1d07cfc))
+
 ## [1.35.0](https://github.com/mattmontgomery/formguide/compare/v1.34.1...v1.35.0) (2022-09-25)
 
 
