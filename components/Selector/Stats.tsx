@@ -1,9 +1,25 @@
 import { MenuItem, Select } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
 import { stats, ValidStats } from "../Stats";
 
-export function useStatsToggle({ selected = [] }: { selected: ValidStats[] }) {
+export function useStatsToggle({
+  selected = [],
+  routerField = "type",
+}: {
+  selected: ValidStats[];
+  routerField?: string;
+}) {
   const [statTypes, setStatTypes] = useState<ValidStats[]>(selected);
+  const router = useRouter();
+  useEffect(() => {
+    if (router.query[routerField] !== statTypes.join(",")) {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, [routerField]: statTypes.join(",") },
+      });
+    }
+  }, [router, routerField, statTypes]);
   const renderComponent = useCallback(
     () => (
       <Select
