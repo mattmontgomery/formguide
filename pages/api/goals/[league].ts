@@ -49,6 +49,7 @@ export default async function Goals(
     FIXTURE_KEY_PREFIX,
     "ALL",
     "PENALTIES",
+    "SUBSTITUTIONS",
     "COMPRESSED",
     matches.length,
     getHash(matches)
@@ -160,6 +161,9 @@ async function fetchFixture(
         goals: data?.fixtureData[0].events.filter(
           (event) => event.type === "Goal"
         ),
+        substitutions: data?.fixtureData[0].events.filter(
+          (event) => event.type === "subst"
+        ),
         penalties: data?.fixtureData[0].players.reduce((acc, teamPlayers) => {
           return {
             ...acc,
@@ -186,6 +190,7 @@ async function fetchFixture(
       fromCache,
       goals: [],
       penalties: {},
+      substitutions: [],
     };
   } catch (e) {
     console.error(e);

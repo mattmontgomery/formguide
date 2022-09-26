@@ -19,7 +19,6 @@ export function useToggle<T>(
   }: { exclusive?: boolean; allowEmpty?: boolean } = {}
 ) {
   const [value, setValue] = useState<T>(defaultValue);
-
   return {
     value,
     setValue,
@@ -62,7 +61,7 @@ export default function Toggle<T>({
       {options.map((opt, idx) => (
         <ToggleButton
           color="secondary"
-          value={String(opt.value)}
+          value={opt.value}
           key={idx}
           sx={{ backgroundColor: "paper.primary" }}
         >

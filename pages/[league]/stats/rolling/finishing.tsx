@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
-
 import BaseRollingPage from "@/components/BaseRollingPage";
 import { getArraySum } from "@/utils/array";
 import { Options } from "@/components/Toggle/HomeAwayToggle";
-import { getStats, getStatsName, ValidStats } from "@/components/Stats";
+import { getStats, ValidStats } from "@/components/Stats";
 import { usePeriodLength } from "@/components/Toggle/PeriodLength";
 import { Box } from "@mui/material";
 import {

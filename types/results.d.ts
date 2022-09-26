@@ -80,6 +80,7 @@ declare namespace Results {
       fixtureId: number;
       fromCache: boolean;
       goals: FixtureEvent[];
+      substitutions: FixtureEvent[];
       penalties: Record<
         string,
         {
