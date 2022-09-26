@@ -12,6 +12,7 @@ import {
   getGamesWithPositions,
   getGoalsConceded,
   getGoalsScored,
+  getPenalties,
   getPlayedMatches,
   getPoints,
   getSortStrategy,
@@ -22,6 +23,8 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { addWeeks, isAfter, isBefore, parseISO } from "date-fns";
 import React, { useContext } from "react";
+import { useToggle } from "@/components/Toggle/Toggle";
+import { GridColumnGroupingModel, GridColumns, isLeaf } from "@mui/x-data-grid";
 
 type AdvancedTableRow = {
   id: string;
@@ -62,17 +65,244 @@ type AdvancedTableRow = {
   winningScorers: number;
   winningTopScorer: string;
   winningTopScorerGoals: number;
+
+  // penalties
+  penaltiesTaken: number;
+  penaltiesScored: number;
+  penaltiesConceded: number;
+  penaltiesDifference: number;
 };
+
+const GROUP_MODEL: GridColumnGroupingModel = [
+  {
+    groupId: "Record",
+    children: [
+      { field: "w" },
+      { field: "d" },
+      { field: "l" },
+      { field: "gf" },
+      { field: "ga" },
+      { field: "gd" },
+      { field: "ppg" },
+      { field: "matches" },
+      { field: "points" },
+    ],
+  },
+  {
+    groupId: "Goal Scorers",
+    children: [
+      { field: "goalscorers" },
+      { field: "topScorer" },
+      { field: "topScorerGoals" },
+    ],
+  },
+  {
+    groupId: "losingPosition",
+    headerName: "Games w/ Losing Position",
+    children: [
+      { field: "gamesLosing" },
+      { field: "pointsLosingPosition" },
+      { field: "pointsDroppedLosingPosition" },
+      { field: "ppgLosing" },
+      { field: "losingGoals" },
+      { field: "losingRecord" },
+      { field: "losingScorers" },
+      { field: "losingTopScorer" },
+      { field: "losingTopScorerGoals" },
+    ],
+  },
+  {
+    groupId: "winningPosition",
+    headerName: "Games w/ Winning Position",
+    children: [
+      { field: "gamesWinning" },
+      { field: "pointsWinningPosition" },
+      { field: "pointsDroppedWinningPosition" },
+      { field: "ppgWinning" },
+      { field: "winningGoals" },
+      { field: "winningRecord" },
+      { field: "winningScorers" },
+      { field: "winningTopScorer" },
+      { field: "winningTopScorerGoals" },
+    ],
+  },
+  {
+    groupId: "penalties",
+    headerName: "Penalties",
+    children: [
+      { field: "penaltiesTaken" },
+      { field: "penaltiesScored" },
+      { field: "penaltiesConceded" },
+      { field: "penaltiesDifference" },
+    ],
+  },
+];
+
+function getColumns(groupIds: string[]): GridColumns<AdvancedTableRow> {
+  return [
+    { field: "team", width: 200 },
+    { field: "matches" },
+    { field: "points" },
+    { field: "w", width: 50 },
+    { field: "d", width: 50 },
+    { field: "l", width: 50 },
+    { field: "gf", width: 50 },
+    { field: "ga", width: 50 },
+    { field: "gd", width: 50 },
+    {
+      field: "ppg",
+      valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
+    },
+    {
+      field: "goalscorers",
+      headerName: "Unique Scorers",
+    },
+    {
+      field: "topScorer",
+      headerName: "Top Scorer",
+      width: 250,
+    },
+    {
+      field: "topScorerGoals",
+      headerName: "Top Scorer",
+      width: 100,
+    },
+    { field: "gamesLosing", headerName: "Games" },
+    {
+      field: "pointsLosingPosition",
+      headerName: "Pts",
+      width: 100,
+    },
+    {
+      field: "pointsDroppedLosingPosition",
+      headerName: "Pts Dropped",
+      width: 100,
+    },
+    {
+      field: "ppgLosing",
+      headerName: "PPG",
+      valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
+    },
+
+    {
+      field: "losingGoals",
+      headerName: "GF",
+    },
+    {
+      field: "losingRecord",
+      headerName: "Record",
+    },
+    {
+      field: "losingScorers",
+      headerName: "Scorers",
+    },
+    {
+      field: "losingTopScorer",
+      headerName: "Top Scorer",
+      width: 250,
+    },
+    {
+      field: "losingTopScorerGoals",
+      headerName: "Top Scorer",
+      width: 100,
+    },
+    {
+      field: "gamesWinning",
+      headerName: "Games",
+    },
+    {
+      field: "pointsWinningPosition",
+      headerName: "Pts",
+      width: 100,
+    },
+    {
+      field: "pointsDroppedWinningPosition",
+      headerName: "Pts Dropped",
+      width: 100,
+    },
+    {
+      field: "ppgWinning",
+      headerName: "PPG",
+      valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
+    },
+    {
+      field: "winningGoals",
+      headerName: "GF",
+    },
+    {
+      field: "winningRecord",
+      headerName: "Record",
+    },
+    {
+      field: "winningScorers",
+      headerName: "Unique Scorers",
+    },
+    {
+      field: "winningTopScorer",
+      headerName: "Top Scorer",
+      width: 250,
+    },
+    {
+      field: "winningTopScorerGoals",
+      headerName: "Top Scorer",
+      width: 100,
+    },
+    {
+      field: "penaltiesTaken",
+      headerName: "Taken",
+    },
+    {
+      field: "penaltiesConceded",
+      headerName: "Conceded",
+    },
+    {
+      field: "penaltiesDifference",
+      headerName: "Diff",
+    },
+    {
+      field: "penaltiesScored",
+      headerName: "Scored",
+    },
+    {
+      field: "team",
+    },
+  ].filter((column) => {
+    if (groupIds.length === 0) {
+      return true;
+    }
+    const inGroup = GROUP_MODEL.find((g) =>
+      g.children.some((c) => isLeaf(c) && c.field === column.field)
+    );
+    return (inGroup && groupIds.includes(inGroup.groupId)) || !inGroup;
+  });
+}
 
 export default function AdvancedTablePage() {
   const { value, renderComponent: renderHomeAway } = useHomeAway();
+  const { value: groups, renderComponent: renderGroups } = useToggle<string[]>(
+    GROUP_MODEL.map((g) => ({
+      label: g.groupId.replace(/([A-Z])/, " $1"),
+      value: g.groupId,
+    })),
+    [],
+    {
+      exclusive: false,
+    }
+  );
   return (
     <BaseDataPage<Results.ParsedDataGoals>
-      renderControls={renderHomeAway}
+      renderControls={() => (
+        <>
+          <Box>{renderHomeAway()}</Box>
+          <Box>{renderGroups()}</Box>
+        </>
+      )}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       pageTitle="Advanced Table"
       renderComponent={(data) => {
-        return <AdvancedTableWrapper data={data} homeAway={value} />;
+        return (
+          <AdvancedTableWrapper data={data} homeAway={value} groups={groups} />
+        );
       }}
     />
   );
@@ -81,9 +311,11 @@ export default function AdvancedTablePage() {
 export function AdvancedTableWrapper({
   data,
   homeAway,
+  groups = [],
 }: {
   data: Results.ParsedDataGoals;
   homeAway: Options;
+  groups: string[];
 }): React.ReactElement {
   const league = useContext(LeagueContext);
   const year = useContext(YearContext);
@@ -106,6 +338,7 @@ export function AdvancedTableWrapper({
               {getConferenceDisplayName(conference)}
             </Typography>
             <AdvancedTable
+              groups={groups}
               from={from}
               to={to}
               homeAway={homeAway}
@@ -122,6 +355,7 @@ export function AdvancedTableWrapper({
 }
 
 export function AdvancedTable({
+  groups,
   conference,
   data,
   league,
@@ -130,6 +364,7 @@ export function AdvancedTable({
   from,
   to,
 }: {
+  groups: string[];
   conference: string;
   data: Results.ParsedDataGoals;
   league: Results.Leagues;
@@ -156,52 +391,7 @@ export function AdvancedTable({
     <Table<AdvancedTableRow>
       gridProps={{
         experimentalFeatures: { columnGrouping: true },
-        columnGroupingModel: [
-          {
-            groupId: "Record",
-            children: [
-              { field: "w" },
-              { field: "d" },
-              { field: "l" },
-              { field: "gf" },
-              { field: "ga" },
-              { field: "gd" },
-              { field: "ppg" },
-              { field: "matches" },
-              { field: "points" },
-            ],
-          },
-          {
-            groupId: "losingPosition",
-            headerName: "Games w/ Losing Position",
-            children: [
-              { field: "gamesLosing" },
-              { field: "pointsLosingPosition" },
-              { field: "pointsDroppedLosingPosition" },
-              { field: "ppgLosing" },
-              { field: "losingGoals" },
-              { field: "losingRecord" },
-              { field: "losingScorers" },
-              { field: "losingTopScorer" },
-              { field: "losingTopScorerGoals" },
-            ],
-          },
-          {
-            groupId: "winningPosition",
-            headerName: "Games w/ Winning Position",
-            children: [
-              { field: "gamesWinning" },
-              { field: "pointsWinningPosition" },
-              { field: "pointsDroppedWinningPosition" },
-              { field: "ppgWinning" },
-              { field: "winningGoals" },
-              { field: "winningRecord" },
-              { field: "winningScorers" },
-              { field: "winningTopScorer" },
-              { field: "winningTopScorerGoals" },
-            ],
-          },
-        ],
+        columnGroupingModel: GROUP_MODEL,
       }}
       data={Object.entries(data.teams)
         .filter(([team]) => {
@@ -235,6 +425,7 @@ export function AdvancedTable({
           ).sort((a, b) =>
             a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0
           );
+          const penalties = getPenalties(matches);
           return {
             id: team,
             team,
@@ -272,117 +463,16 @@ export function AdvancedTable({
             winningScorers: winningScorers.length,
             winningTopScorer: winningScorers[0]?.name,
             winningTopScorerGoals: winningScorers[0]?.goals,
+            penaltiesTaken: penalties.taken,
+            penaltiesConceded: penalties.opponentTaken,
+            penaltiesDifference: penalties.taken - penalties.opponentTaken,
+            penaltiesScored: penalties.scored,
           };
         })
         .sort(getSortStrategy(league))
         .reverse()}
       columns={() => {
-        return [
-          { field: "team", width: 200 },
-          { field: "matches" },
-          { field: "points" },
-          { field: "w", width: 50 },
-          { field: "d", width: 50 },
-          { field: "l", width: 50 },
-          { field: "gf", width: 50 },
-          { field: "ga", width: 50 },
-          { field: "gd", width: 50 },
-          { field: "ppg", valueFormatter: (n) => Number(n.value).toFixed(2) },
-          {
-            field: "goalscorers",
-            headerName: "Unique Scorers",
-          },
-          {
-            field: "topScorer",
-            headerName: "Top Scorer",
-            width: 250,
-          },
-          {
-            field: "topScorerGoals",
-            headerName: "Top Scorer",
-            width: 100,
-          },
-          { field: "gamesLosing", headerName: "Games" },
-          {
-            field: "pointsLosingPosition",
-            headerName: "Pts",
-            width: 100,
-          },
-          {
-            field: "pointsDroppedLosingPosition",
-            headerName: "Pts Dropped",
-            width: 100,
-          },
-          {
-            field: "ppgLosing",
-            headerName: "PPG",
-            valueFormatter: (n) => Number(n.value).toFixed(2),
-          },
-
-          {
-            field: "losingGoals",
-            headerName: "GF",
-          },
-          {
-            field: "losingRecord",
-            headerName: "Record",
-          },
-          {
-            field: "losingScorers",
-            headerName: "Scorers",
-          },
-          {
-            field: "losingTopScorer",
-            headerName: "Top Scorer",
-            width: 250,
-          },
-          {
-            field: "losingTopScorerGoals",
-            headerName: "Top Scorer",
-            width: 100,
-          },
-          {
-            field: "gamesWinning",
-            headerName: "Games",
-          },
-          {
-            field: "pointsWinningPosition",
-            headerName: "Pts",
-            width: 100,
-          },
-          {
-            field: "pointsDroppedWinningPosition",
-            headerName: "Pts Dropped",
-            width: 100,
-          },
-          {
-            field: "ppgWinning",
-            headerName: "PPG",
-            valueFormatter: (n) => Number(n.value).toFixed(2),
-          },
-          {
-            field: "winningGoals",
-            headerName: "GF",
-          },
-          {
-            field: "winningRecord",
-            headerName: "Record",
-          },
-          {
-            field: "winningScorers",
-            headerName: "Unique Scorers",
-          },
-          {
-            field: "winningTopScorer",
-            headerName: "Top Scorer",
-            width: 250,
-          },
-          {
-            field: "winningTopScorerGoals",
-            headerName: "Top Scorer",
-            width: 100,
-          },
-        ];
+        return getColumns(groups);
       }}
     />
   );

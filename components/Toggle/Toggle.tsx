@@ -5,15 +5,13 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-type Option<T> = {
-  value: T;
+type Option = {
+  value: string | number | boolean;
   label?: string | number;
 };
 
-type OptionTypes = string | number | boolean;
-
-export function useToggle<T extends string | number | boolean>(
-  options: Option<T>[],
+export function useToggle<T>(
+  options: Option[],
   defaultValue: T,
   {
     exclusive = true,
@@ -37,7 +35,7 @@ export function useToggle<T extends string | number | boolean>(
   };
 }
 
-export default function Toggle<T extends OptionTypes>({
+export default function Toggle<T>({
   value,
   options = [],
   exclusive = true,
@@ -46,7 +44,7 @@ export default function Toggle<T extends OptionTypes>({
   allowEmpty = false,
 }: {
   value: T | T[];
-  options: Option<T>[];
+  options: Option[];
   exclusive: boolean;
   onChange: (value: T) => void;
   toggleButtonGroupProps?: Partial<ToggleButtonGroupProps>;
@@ -64,7 +62,7 @@ export default function Toggle<T extends OptionTypes>({
       {options.map((opt, idx) => (
         <ToggleButton
           color="secondary"
-          value={opt.value}
+          value={String(opt.value)}
           key={idx}
           sx={{ backgroundColor: "paper.primary" }}
         >

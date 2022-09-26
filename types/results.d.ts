@@ -80,6 +80,13 @@ declare namespace Results {
       fixtureId: number;
       fromCache: boolean;
       goals: FixtureEvent[];
+      penalties: Record<
+        string,
+        {
+          scored: number;
+          missed: number;
+        }
+      >;
     };
   };
   type MatchWithStatsData = {

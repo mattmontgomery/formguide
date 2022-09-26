@@ -388,3 +388,33 @@ export function getGoalsConceded(matches: Results.Match[]): number {
     return acc + (match.goalsConceded ?? 0);
   }, 0);
 }
+
+export function getPenalties(matches: Results.MatchWithGoalData[]) {
+  const taken = getArraySum(
+    matches.map((match) => {
+      return (
+        (match.goalsData?.penalties?.[match.team]?.scored ?? 0) +
+        (match.goalsData?.penalties?.[match.team]?.missed ?? 0)
+      );
+    })
+  );
+  const opponentTaken = getArraySum(
+    matches.map((match) => {
+      return (
+        (match.goalsData?.penalties?.[match.opponent]?.scored ?? 0) +
+        (match.goalsData?.penalties?.[match.opponent]?.missed ?? 0)
+      );
+    })
+  );
+  const scored = getArraySum(
+    matches.map((match) => {
+      return match.goalsData?.penalties?.[match.team]?.scored ?? 0;
+    })
+  );
+  const opponentScored = getArraySum(
+    matches.map((match) => {
+      return match.goalsData?.penalties?.[match.opponent]?.scored ?? 0;
+    })
+  );
+  return { taken, scored, opponentTaken, opponentScored };
+}

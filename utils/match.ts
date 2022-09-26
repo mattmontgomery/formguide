@@ -43,7 +43,9 @@ export function getSingleTeamPlayerMinutes(
 
 export function getPlusMinus(fixture: Results.FixtureApi) {
   const allMinutes = getPlayerMinutes(fixture);
-  const goals = fixture.events.filter((e) => e.type === "Goal");
+  const goals = fixture.events.filter(
+    (e) => e.type === "Goal" && e.detail !== "Missed Penalty"
+  );
   return allMinutes
     .map(([team, minutes]) => {
       return {

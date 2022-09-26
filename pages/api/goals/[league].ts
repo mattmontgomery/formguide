@@ -48,6 +48,7 @@ export default async function Goals(
   const totalKey = getKeyFromParts(
     FIXTURE_KEY_PREFIX,
     "ALL",
+    "PENALTIES",
     "COMPRESSED",
     matches.length,
     getHash(matches)
@@ -65,11 +66,7 @@ export default async function Goals(
   } = await fetchCachedOrFreshV2(
     totalKey,
     async () => {
-      const prepared: ({
-        fixtureId: number;
-        goals: Results.FixtureEvent[];
-        fromCache: boolean;
-      } | null)[] = [];
+      const prepared: (Results.MatchWithGoalData["goalsData"] | null)[] = [];
 
       const availableInCache = matches.filter((m) => {
         return keys.includes(getKey(`${FIXTURE_KEY_PREFIX}${m.fixtureId}`));
@@ -84,13 +81,13 @@ export default async function Goals(
       for await (const matchChunk of fromCacheChunks) {
         const matches = (
           await Promise.all(matchChunk.map(fetchFixture))
-        ).filter((m) => m !== null);
+        ).filter(Boolean);
         prepared.push(...matches);
       }
       for await (const matchChunk of notCachedChunks) {
         const matches = (
           await Promise.all(matchChunk.map(fetchFixture))
-        ).filter((m) => m !== null);
+        ).filter(Boolean);
         prepared.push(...matches);
       }
 
@@ -150,7 +147,9 @@ export default async function Goals(
   }
 }
 
-async function fetchFixture(fixture: SlimMatch) {
+async function fetchFixture(
+  fixture: SlimMatch
+): Promise<Results.MatchWithGoalData["goalsData"] | null> {
   try {
     const { data, fromCache } = await getFixtureData(fixture.fixtureId);
 
@@ -161,12 +160,32 @@ async function fetchFixture(fixture: SlimMatch) {
         goals: data?.fixtureData[0].events.filter(
           (event) => event.type === "Goal"
         ),
+        penalties: data?.fixtureData[0].players.reduce((acc, teamPlayers) => {
+          return {
+            ...acc,
+            [teamPlayers.team.name]: teamPlayers.players.reduce(
+              (acc, player) => {
+                return {
+                  scored:
+                    (player.statistics[0].penalty.scored ?? 0) + acc.scored,
+                  missed:
+                    (player.statistics[0].penalty.missed ?? 0) + acc.missed,
+                };
+              },
+              {
+                scored: 0,
+                missed: 0,
+              }
+            ),
+          };
+        }, {}),
       };
     }
     return {
       fixtureId: fixture.fixtureId,
       fromCache,
       goals: [],
+      penalties: {},
     };
   } catch (e) {
     console.error(e);
