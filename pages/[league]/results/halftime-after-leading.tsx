@@ -1,32 +1,12 @@
-import BasePage from "@/components/BaseGridPage";
-import MatchCell from "@/components/MatchCell";
+import BasePage from "@/components/Grid/Base";
 
-export default function GoalsFor(): React.ReactElement {
+export default function DrawingHalftimeResultsPage(): React.ReactElement {
   return (
     <BasePage
-      pageTitle="When Leading at Halftime | By Match"
-      dataParser={dataParser}
+      pageTitle="Results after Leading at Halftime | By Match"
+      getValue={(match) =>
+        match.firstHalf?.result === "W" && match.result ? match.result : "-"
+      }
     />
   );
-}
-function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
-  return Object.keys(data).map((team) => [
-    team,
-    ...data[team]
-      .sort((a, b) => {
-        return new Date(a.date) > new Date(b.date) ? 1 : -1;
-      })
-      .map((match, idx) => (
-        <MatchCell
-          match={match}
-          key={idx}
-          shadeEmpty
-          renderValue={() => {
-            return match.firstHalf?.result === "W" && match.result
-              ? match.result
-              : "-";
-          }}
-        />
-      )),
-  ]);
 }

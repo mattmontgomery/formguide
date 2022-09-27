@@ -1,52 +1,24 @@
-import BaseGridPage from "@/components/BaseGridPage";
-import MatchCell from "@/components/MatchCell";
+import BaseGridPage from "@/components/Grid/Base";
 import React from "react";
 
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
-import { sortByDate } from "@/utils/sort";
 import {
   compareStats,
   getStats,
   getStatsName,
   ValidStats,
 } from "@/components/Stats";
-import { isComplete } from "@/utils/match";
 
 export default function StatsComparisons(): React.ReactElement {
   const router = useRouter();
   const type = String(router.query.type ?? "shots") as ValidStats;
   return (
-    <BaseGridPage<FormGuideAPI.Data.StatsEndpoint>
+    <BaseGridPage<Results.MatchWithStatsData>
       pageTitle={`Statistic view: ${getStatsName(type)} compared to opponent`}
-      dataParser={(data) => dataParser(data, type)}
+      getValue={(match) => compareStats(getStats(match, type)) ?? "-"}
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       gridClass={styles.gridExtraWide}
-    ></BaseGridPage>
+    />
   );
-}
-
-function dataParser(
-  data: FormGuideAPI.Data.StatsEndpoint["teams"],
-  type: ValidStats
-): Render.RenderReadyData {
-  return Object.keys(data).map((team) => [
-    team,
-    ...data[team].sort(sortByDate).map((match, idx) => (
-      <MatchCell
-        match={match}
-        key={idx}
-        renderValue={() => {
-          if (
-            (!match.stats || Object.keys(match.stats).length === 0) &&
-            isComplete(match)
-          ) {
-            console.info("Missing", match.fixtureId);
-            return "X";
-          }
-          return compareStats(getStats(match, type)) ?? "-";
-        }}
-      />
-    )),
-  ]);
 }

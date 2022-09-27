@@ -1,80 +1,29 @@
-import BaseGridPage from "@/components/BaseGridPage";
-import MatchCell from "@/components/MatchCell";
+import BaseGridPage from "@/components/Grid/Base";
 import React from "react";
 
 import styles from "@/styles/Home.module.css";
+import { getExtremeGameState } from "@/utils/gameStates";
 
 export default function LostLeads(): React.ReactElement {
   return (
-    <BaseGridPage<Results.ParsedDataGoals>
-      pageTitle={`Leading Positions > D | L`}
-      dataParser={(data) => dataParser(data)}
+    <BaseGridPage<Results.MatchWithGoalData>
+      pageTitle={`Positions Leading to Losses`}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
+      getShaded={(match) => {
+        if (match.result === "W") {
+          return true;
+        }
+        const extreme = getExtremeGameState(match, "best");
+        return extreme ? extreme[0] <= extreme[1] : true;
+      }}
       gridClass={styles.gridExtraWide}
+      getValue={(match) => {
+        if (match.result === "W") {
+          return "-"; // no lost lead in place
+        }
+        const extreme = getExtremeGameState(match, "best");
+        return extreme && extreme[0] > extreme[1] ? extreme.join("-") : "-";
+      }}
     ></BaseGridPage>
   );
-}
-
-function dataParser(
-  data: Results.ParsedDataGoals["teams"],
-  show = "best"
-): Render.RenderReadyData {
-  return Object.keys(data).map((team) => [
-    team,
-    ...data[team]
-      .sort((a, b) => {
-        return new Date(a.date) > new Date(b.date) ? 1 : -1;
-      })
-      .map((match, idx) => (
-        <MatchCell
-          match={match}
-          key={idx}
-          shadeEmpty
-          renderValue={() => {
-            if (!match.goalsData) {
-              console.error("Missing", match.fixtureId);
-              return "X";
-            }
-            if (match.result === "W") {
-              return "-"; // no lost lead in place
-            }
-            const gameStates = (match.goalsData?.goals ?? []).reduce(
-              (previousValue: number[][], currentValue) => {
-                const last: number[] = [...previousValue].reverse()?.[0] ?? [
-                  0, 0,
-                ];
-                const isFirst = match.team === currentValue.team.name;
-                const next: [number, number] = [
-                  isFirst ? last[0] + 1 : last[0],
-                  isFirst ? last[1] : last[1] + 1,
-                ];
-                return [...previousValue, next];
-              },
-              [[0, 0]]
-            );
-            if (!gameStates.some((state) => state[0] > state[1])) {
-              return "-";
-            }
-            return gameStates
-              .sort((a, b) => {
-                const [aTeam, aOpp] = a;
-                const [bTeam, bOpp] = b;
-                const aDiff = aTeam - aOpp;
-                const bDiff = bTeam - bOpp;
-                return aDiff > bDiff
-                  ? show === "best"
-                    ? 1
-                    : -1
-                  : aDiff < bDiff
-                  ? show === "best"
-                    ? -1
-                    : 1
-                  : 0;
-              })
-              .reverse()?.[0]
-              ?.join("-");
-          }}
-        />
-      )),
-  ]);
 }

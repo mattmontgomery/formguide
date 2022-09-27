@@ -10,7 +10,6 @@ export default function RollingBoxV2({
   backgroundColor,
   boxHeight,
   matches = [],
-  shaded,
   value,
   numberFormat = (value: number | null): string =>
     typeof value === "number"
@@ -23,14 +22,12 @@ export default function RollingBoxV2({
   boxHeight: string;
   matches?: Results.Match[];
   numberFormat?: NumberFormat;
-  shaded?: boolean;
   value: number | null;
 }): React.ReactElement {
   const [showCard, setShowCard] = useState<boolean>(false);
   return (
     <Box
       sx={{
-        opacity: shaded ? 0.5 : 1,
         backgroundColor:
           typeof value === "number" ? "grey.200" : "background.paper",
         display: "flex",
@@ -77,7 +74,6 @@ export default function RollingBoxV2({
         {numberFormat(value)}
       </Box>
       <Box
-        className={styles.chartPointValue}
         sx={{
           backgroundColor,
           fontWeight: "bold",

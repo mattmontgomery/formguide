@@ -3,11 +3,7 @@ import BaseGrid from "@/components/BaseGrid";
 import Cell from "@/components/Cell";
 import ColorKey from "@/components/ColorKey";
 import { useToggle } from "@/components/Toggle/Toggle";
-import {
-  getMinutesColor,
-  getResultBackgroundColor,
-  getSmallStatsColor,
-} from "@/utils/results";
+import { getMinutesColor, getSmallStatsColor } from "@/utils/results";
 import { sortByDate } from "@/utils/sort";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";

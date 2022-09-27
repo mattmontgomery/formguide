@@ -21,6 +21,7 @@ import {
   Person2TwoTone,
   Numbers,
   ScatterPlot,
+  Person3Rounded,
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
@@ -526,6 +527,18 @@ const NavigationConfig: NavItem[] = [
     href: "/player-minutes",
     icon: Person2TwoTone,
     group: Groups.Players,
+  },
+  {
+    title: "Earliest Substitute",
+    href: "/substitutes/earliest",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Earliest Substitute Rolling",
+    href: "/substitutes/earliest-rolling",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
   },
 ];
 

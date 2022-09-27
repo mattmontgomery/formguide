@@ -1,54 +1,24 @@
-import BaseGridPage from "@/components/BaseGridPage";
-import MatchCell from "@/components/MatchCell";
+import BaseGridPage from "@/components/Grid/Base";
 import React from "react";
 
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
-import { sortByDate } from "@/utils/sort";
 import { getStats, getStatsName, ValidStats } from "@/components/Stats";
-import { isComplete } from "@/utils/match";
-import {
-  useOpponentToggle,
-  OpponentToggleOptions,
-} from "@/components/Toggle/OpponentToggle";
+import { useOpponentToggle } from "@/components/Toggle/OpponentToggle";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
   const type = String(router.query.type ?? "shots") as ValidStats;
-  const { renderComponent, value } = useOpponentToggle();
+  const { renderComponent, value: opponent } = useOpponentToggle();
   return (
-    <BaseGridPage<FormGuideAPI.Data.StatsEndpoint>
-      renderControls={renderComponent}
-      pageTitle={`Statistic view: ${getStatsName(type)}`}
-      dataParser={(data) => dataParser(data, type, value)}
+    <BaseGridPage<Results.MatchWithStatsData>
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
+      getValue={(match) =>
+        getStats(match, type)[opponent === "opponent" ? 1 : 0] ?? "-"
+      }
       gridClass={styles.gridExtraWide}
+      pageTitle={`Statistic view: ${getStatsName(type)}`}
+      renderControls={renderComponent}
     ></BaseGridPage>
   );
-}
-
-function dataParser(
-  data: FormGuideAPI.Data.StatsEndpoint["teams"],
-  type: ValidStats,
-  opponent: OpponentToggleOptions
-): Render.RenderReadyData {
-  return Object.keys(data).map((team) => [
-    team,
-    ...data[team].sort(sortByDate).map((match, idx) => (
-      <MatchCell
-        match={match}
-        key={idx}
-        renderValue={() => {
-          if (
-            (!match.stats || Object.keys(match.stats).length === 0) &&
-            isComplete(match)
-          ) {
-            console.info("Missing", match.fixtureId);
-            return "X";
-          }
-          return getStats(match, type)[opponent === "opponent" ? 1 : 0] ?? "-";
-        }}
-      />
-    )),
-  ]);
 }

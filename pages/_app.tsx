@@ -70,19 +70,20 @@ export function MLSFormGuide({
         },
         palette: {
           mode: darkMode ? "dark" : "light",
-          ...(easterEgg
-            ? {
-                primary: {
-                  main: deepPurple["300"],
-                },
-              }
-            : {
-                primary: {
-                  main: darkMode ? deepOrange["50"] : deepOrange["700"],
-                },
-              }),
+          primary: {
+            light: deepOrange["50"],
+            dark: deepOrange["900"],
+            main: easterEgg
+              ? deepPurple["300"]
+              : darkMode
+              ? deepOrange["50"]
+              : deepOrange["700"],
+          },
           secondary: {
+            light: deepPurple["100"],
             main: deepPurple["500"],
+            dark: deepPurple["800"],
+            contrastText: "white",
           },
           success: {
             main: "#4ec961",

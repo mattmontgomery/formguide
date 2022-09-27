@@ -1,18 +1,12 @@
-import MatchCell from "@/components/MatchCell";
-import BasePage from "@/components/BaseGridPage";
+import BasePage from "@/components/Grid/Base";
 
 export default function Home(): React.ReactElement {
   return (
     <>
-      <BasePage dataParser={dataParser} pageTitle="Form Guide" />
+      <BasePage
+        pageTitle="Form Guide"
+        getValue={(match) => match.result ?? "-"}
+      />
     </>
   );
-}
-function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
-  return Object.keys(data).map((team) => [
-    team,
-    ...data[team]
-      .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
-      .map((match, idx) => <MatchCell match={match} key={idx} />),
-  ]);
 }

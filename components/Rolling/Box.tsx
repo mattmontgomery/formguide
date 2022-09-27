@@ -20,7 +20,6 @@ export default function RollingBox({
       : "",
   heightCalc = (value, periodLength) =>
     `${((value || 0) / (periodLength * 3)) * 100}%`,
-  isShaded = () => false,
 }: {
   value: number | null;
   periodLength: number;
@@ -29,14 +28,11 @@ export default function RollingBox({
   getBackgroundColor: (value: number | null, periodLength: number) => string;
   numberFormat?: NumberFormat;
   heightCalc?: (value: number | null, periodLength: number) => string;
-  isShaded?: () => boolean;
 }): React.ReactElement {
   const [showCard, setShowCard] = useState<boolean>(false);
-  const shaded = typeof isShaded === "function" && isShaded();
   return (
     <Box
       sx={{
-        opacity: shaded ? 0.5 : 1,
         backgroundColor:
           typeof value === "number" ? "grey.200" : "background.paper",
         display: "flex",
