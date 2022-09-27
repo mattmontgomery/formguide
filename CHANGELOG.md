@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.37.0](https://github.com/mattmontgomery/formguide/compare/v1.36.0...v1.37.0) (2022-09-27)
+
+
+### Features
+
+* ✨ redis refactor ([e00e817](https://github.com/mattmontgomery/formguide/commit/e00e81709ddb61cd17e8d9ae09b6fa513da89d2f))
+* ✨ unifies and refactors rolling pages ([c78a068](https://github.com/mattmontgomery/formguide/commit/c78a06800e90374d936ef4ad707349b855a6fd13))
+* **refactor:** ✨ ♻️ major refactors to base grid page ([c4acdac](https://github.com/mattmontgomery/formguide/commit/c4acdac37a58625f67f2319369b8453d53031bdc))
+* **scatterplot:** ✨ adds router support for stats toggle ([9e64821](https://github.com/mattmontgomery/formguide/commit/9e64821bee7d27794fe91a36cce92be7e0185a42))
+* **subs:** ✨ adds earliest substitute grid, rolling pages ([8d5e140](https://github.com/mattmontgomery/formguide/commit/8d5e140e94b993e69941516b7d4671a93688f737))
+
 ## [1.36.0](https://github.com/mattmontgomery/formguide/compare/v1.35.0...v1.36.0) (2022-09-26)
 
 
