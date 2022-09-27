@@ -1,10 +1,10 @@
 import getMatchPoints from "@/utils/getMatchPoints";
-import BaseRollingPageV2 from "@/components/BaseRollingPageV2";
+import BaseRollingPage from "@/components/Rolling/Base";
 import { getArraySum } from "@/utils/array";
 
 export default function Chart(): React.ReactElement {
   return (
-    <BaseRollingPageV2
+    <BaseRollingPage
       getBackgroundColor={({ periodLength, value }) => {
         if (value && value / (periodLength * 3) > 0.5) {
           return "success.light";
@@ -14,10 +14,11 @@ export default function Chart(): React.ReactElement {
         }
         return "error.light";
       }}
-      getMax={(periodLength) => periodLength * 3}
+      getBoxHeight={(value, periodLength) =>
+        `${((value ?? 0) / (periodLength * 3)) * 100}%`
+      }
       getSummaryValue={getArraySum}
       getValue={(match) => getMatchPoints(match)}
-      isStaticHeight={false}
       pageTitle={`Rolling points (%s game rolling)`}
     />
   );

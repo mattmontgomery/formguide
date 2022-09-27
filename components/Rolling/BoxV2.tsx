@@ -8,9 +8,8 @@ export type NumberFormat = (value: number | null) => string;
 
 export default function RollingBoxV2({
   backgroundColor,
-  isStaticHeight = true,
+  boxHeight,
   matches = [],
-  periodLength,
   shaded,
   value,
   numberFormat = (value: number | null): string =>
@@ -19,15 +18,11 @@ export default function RollingBoxV2({
         ? value.toString()
         : value?.toFixed(1)
       : "",
-  heightCalc = (value, periodLength) =>
-    `${((value || 0) / (periodLength * 3)) * 100}%`,
 }: {
   backgroundColor: string;
-  heightCalc?: (value: number | null, periodLength: number) => string;
-  isStaticHeight: boolean;
+  boxHeight: string;
   matches?: Results.Match[];
   numberFormat?: NumberFormat;
-  periodLength: number;
   shaded?: boolean;
   value: number | null;
 }): React.ReactElement {
@@ -91,7 +86,7 @@ export default function RollingBoxV2({
           bottom: 0,
           left: 0,
           right: 0,
-          height: isStaticHeight ? "100%" : heightCalc(value, periodLength),
+          height: boxHeight,
         }}
       ></Box>
     </Box>

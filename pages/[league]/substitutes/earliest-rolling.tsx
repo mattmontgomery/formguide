@@ -1,15 +1,14 @@
 import React from "react";
 
 import { useOpponentToggle } from "@/components/Toggle/OpponentToggle";
-import BaseRollingPageV2 from "@/components/BaseRollingPageV2";
+import BaseRollingPage from "@/components/Rolling/Base";
 
 export default function RollingEarliestSubstitute(): React.ReactElement {
   const { value: showOpponent, renderComponent: renderOpponentToggle } =
     useOpponentToggle();
   return (
-    <BaseRollingPageV2<Results.MatchWithGoalData>
+    <BaseRollingPage<Results.MatchWithGoalData>
       max={90}
-      isStaticHeight={false}
       renderControls={() => <>{renderOpponentToggle()}</>}
       pageTitle={`Earliest Substitute — Rolling %s-game`}
       getValue={(match) =>
@@ -20,6 +19,6 @@ export default function RollingEarliestSubstitute(): React.ReactElement {
         )?.time.elapsed
       }
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
-    ></BaseRollingPageV2>
+    ></BaseRollingPage>
   );
 }
