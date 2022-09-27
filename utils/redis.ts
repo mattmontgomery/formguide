@@ -1,13 +1,13 @@
 import Redis from "ioredis";
 
-let redisClient: Redis;
-
 export function getClient() {
-  if (!redisClient) {
-    redisClient = new Redis(process.env.REDIS_URL || "redis://localhost");
+  const self = globalThis as unknown as { __redisClient: Redis };
+  if (!self.__redisClient) {
+    self.__redisClient = new Redis(
+      process.env.REDIS_URL || "redis://localhost"
+    );
   }
-  return redisClient;
+  return self.__redisClient;
 }
 
 export default getClient;
-export { redisClient };
