@@ -5,7 +5,7 @@ import { BasePageProps } from "../BasePage";
 import { Box } from "@mui/system";
 import { useHomeAway } from "../Toggle/HomeAwayToggle";
 import { getArrayAverage } from "@/utils/array";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import MatchGridV2 from "../MatchGridV2";
 import { PeriodLengthOptions, usePeriodLength } from "../Toggle/PeriodLength";
 import { useRouter } from "next/router";
@@ -51,8 +51,17 @@ export default function BaseRollingPage<
   const { period = 5 } = router.query;
   const defaultPeriodLength: PeriodLengthOptions =
     +period.toString() > 0 && +period.toString() < 34 ? +period.toString() : 5;
-  const { value: periodLength, renderComponent: renderPeriodLength } =
-    usePeriodLength(defaultPeriodLength);
+  const {
+    value: periodLength,
+    setValue: setPeriodLength,
+    renderComponent: renderPeriodLength,
+  } = usePeriodLength(defaultPeriodLength);
+
+  useEffect(() => {
+    if (defaultPeriodLength !== periodLength) {
+      setPeriodLength(defaultPeriodLength);
+    }
+  }, [defaultPeriodLength, setPeriodLength]);
 
   const dataParser = useCallback(
     (data: Record<string, T[]>) => {
