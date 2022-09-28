@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.38.0](https://github.com/mattmontgomery/formguide/compare/v1.37.0...v1.38.0) (2022-09-28)
+
+
+### Features
+
+* ✨ reuses homepage ([b07fae2](https://github.com/mattmontgomery/formguide/commit/b07fae2ecf29117d6fac867cae3e4fc37600b909))
+
+
+### Bug Fixes
+
+* **rolling-base:** 🐛 fixes issue with period lengths derived from routers ([9fd1542](https://github.com/mattmontgomery/formguide/commit/9fd1542031888982592c42c71beb22142c3bafa4))
+
 ## [1.37.0](https://github.com/mattmontgomery/formguide/compare/v1.36.0...v1.37.0) (2022-09-27)
 
 
