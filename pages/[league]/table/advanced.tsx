@@ -17,7 +17,6 @@ import {
   getPoints,
   getSortStrategy,
   getTeamConference,
-  getTeamRank,
   getUniqueGoalscorers,
 } from "@/utils/table";
 import { Typography } from "@mui/material";
