@@ -96,6 +96,8 @@ function inRange(x: number, min: number, max: number): boolean {
   return (x - min) * (x - max) <= 0;
 }
 
-export function isComplete(match: Results.Match) {
+export function isComplete(match: {
+  status: { long: string | "Match Finished" };
+}) {
   return match.status.long === "Match Finished";
 }

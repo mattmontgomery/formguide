@@ -1,12 +1,18 @@
-import { Box, Card, CardContent, ClickAwayListener } from "@mui/material";
-import styles from "@/styles/Home.module.css";
 import { format, parseISO } from "date-fns";
-import { useState } from "react";
 import MatchDescriptor from "../MatchDescriptor";
+import AbstractRollingBox from "./AbstractBox";
 
 export type NumberFormat = (value: number | null) => string;
 
-export default function RollingBoxV2({
+export type RollingBoxProps<T> = {
+  backgroundColor: string;
+  boxHeight: string;
+  matches?: T[];
+  numberFormat?: NumberFormat;
+  value: number | null;
+};
+
+export default function RollingBoxV2<T extends Results.Match>({
   backgroundColor,
   boxHeight,
   matches = [],
@@ -17,74 +23,23 @@ export default function RollingBoxV2({
         ? value.toString()
         : value?.toFixed(1)
       : "",
-}: {
-  backgroundColor: string;
-  boxHeight: string;
-  matches?: Results.Match[];
-  numberFormat?: NumberFormat;
-  value: number | null;
-}): React.ReactElement {
-  const [showCard, setShowCard] = useState<boolean>(false);
+}: RollingBoxProps<T>): React.ReactElement {
   return (
-    <Box
-      sx={{
-        backgroundColor:
-          typeof value === "number" ? "grey.200" : "background.paper",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        cursor: "pointer",
-        position: "relative",
-        height: 50,
-      }}
-      onClick={() => setShowCard(true)}
-    >
-      {showCard && (
-        <ClickAwayListener onClickAway={() => setShowCard(false)}>
-          <Card
-            sx={{
-              position: "absolute",
-              zIndex: 99,
-              top: 0,
-              left: 32,
-              width: 500,
-              overflow: "auto",
-              cursor: "auto",
-            }}
-          >
-            <CardContent>
-              <ol>
-                {matches.map((match, idx) => (
-                  <li key={idx}>
-                    <strong>
-                      {format(parseISO(match.rawDate), "yyy-MM-dd")}
-                    </strong>
-                    : <MatchDescriptor match={match} />
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
-        </ClickAwayListener>
+    <AbstractRollingBox
+      backgroundColor={backgroundColor}
+      boxHeight={boxHeight}
+      renderCardContent={() => (
+        <ol>
+          {matches.map((match, idx) => (
+            <li key={idx}>
+              <strong>{format(parseISO(match.rawDate), "yyy-MM-dd")}</strong>
+              : <MatchDescriptor match={match} />
+            </li>
+          ))}
+        </ol>
       )}
-      <Box
-        className={styles.chartPointText}
-        sx={{ fontWeight: "bold", color: "grey.900" }}
-      >
-        {numberFormat(value)}
-      </Box>
-      <Box
-        sx={{
-          backgroundColor,
-          fontWeight: "bold",
-          zIndex: 9,
-          position: `absolute`,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: boxHeight,
-        }}
-      ></Box>
-    </Box>
+      numberFormat={numberFormat}
+      value={value}
+    />
   );
 }

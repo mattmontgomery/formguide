@@ -16,6 +16,10 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
             <Box key={idx}>
               <Link passHref href={`/${league}/player-minutes/${team}`}>
                 <MLink>{team}</MLink>
+              </Link>{" "}
+              • 
+              <Link passHref href={`/${league}/player-minutes/${team}/rolling`}>
+                <MLink>Rolling</MLink>
               </Link>
             </Box>
           ));

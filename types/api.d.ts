@@ -50,6 +50,7 @@ declare namespace FormGuideAPI {
       matches: number;
     };
     type PlayerMinutesEndpoint = {
+      fixture: Results.Fixture;
       fixtureId: number;
       date: string;
       rawDate: string;
