@@ -17,6 +17,7 @@ import {
   getPoints,
   getSortStrategy,
   getTeamConference,
+  getTeamRank,
   getUniqueGoalscorers,
 } from "@/utils/table";
 import { Typography } from "@mui/material";
@@ -27,6 +28,7 @@ import { useToggle } from "@/components/Toggle/Toggle";
 import { GridColumnGroupingModel, GridColumns, isLeaf } from "@mui/x-data-grid";
 
 type AdvancedTableRow = {
+  rank: number;
   id: string;
   team: string;
   matches: number;
@@ -38,6 +40,10 @@ type AdvancedTableRow = {
   ga: number;
   gd: number;
   ppg: number;
+  shutouts: number;
+  times_shutout: number;
+
+  // goalscorers
   goalscorers: number;
   topScorer: string;
   topScorerGoals: number;
@@ -86,6 +92,8 @@ const GROUP_MODEL: GridColumnGroupingModel = [
       { field: "ppg" },
       { field: "matches" },
       { field: "points" },
+      { field: "shutouts" },
+      { field: "times_shutout" },
     ],
   },
   {
@@ -140,6 +148,7 @@ const GROUP_MODEL: GridColumnGroupingModel = [
 
 function getColumns(groupIds: string[]): GridColumns<AdvancedTableRow> {
   return [
+    { field: "rank", width: 50 },
     { field: "team", width: 200 },
     { field: "matches" },
     { field: "points" },
@@ -152,6 +161,16 @@ function getColumns(groupIds: string[]): GridColumns<AdvancedTableRow> {
     {
       field: "ppg",
       valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
+    },
+    {
+      field: "shutouts",
+      headerName: "Shutouts",
+      width: 80,
+    },
+    {
+      field: "times_shutout",
+      headerName: "Shut Out",
+      width: 80,
     },
     {
       field: "goalscorers",
@@ -183,7 +202,6 @@ function getColumns(groupIds: string[]): GridColumns<AdvancedTableRow> {
       headerName: "PPG",
       valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
     },
-
     {
       field: "losingGoals",
       headerName: "GF",
@@ -387,90 +405,86 @@ export function AdvancedTable({
       : (match: Results.Match) =>
           isAfter(parseISO(match.rawDate), from) &&
           isBefore(parseISO(match.rawDate), to);
+  const rows: Omit<AdvancedTableRow, "rank">[] = Object.entries(data.teams)
+    .filter(([team]) => {
+      return conference === "all"
+        ? true
+        : getTeamConference(team, league, year) === conference;
+    })
+    .map(([team, matches]) => {
+      const playedMatches = getPlayedMatches(matches.filter(filterFn));
+      const losingMatches = getGamesWithPositions(matches.filter(filterFn), [
+        "L",
+      ]);
+      const winningMatches = getGamesWithPositions(matches.filter(filterFn), [
+        "W",
+      ]);
+      const points = getPoints(matches.filter(filterFn));
+      const uniqueScorers = getUniqueGoalscorers(matches.filter(filterFn)).sort(
+        (a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0)
+      );
+      const winningScorers = getUniqueGoalscorers(
+        winningMatches.filter(filterFn)
+      ).sort((a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0));
+      const losingScorers = getUniqueGoalscorers(
+        losingMatches.filter(filterFn)
+      ).sort((a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0));
+      const penalties = getPenalties(matches);
+      return {
+        id: team,
+        team,
+        matches: playedMatches.length,
+        points,
+        gf: getGoalsScored(playedMatches),
+        ga: getGoalsConceded(playedMatches),
+        gd: getGoalsScored(playedMatches) - getGoalsConceded(playedMatches),
+        w: playedMatches.filter((m) => m.result === "W").length,
+        d: playedMatches.filter((m) => m.result === "D").length,
+        l: playedMatches.filter((m) => m.result === "L").length,
+        shutouts: playedMatches.filter((m) => m.goalsConceded === 0).length,
+        times_shutout: playedMatches.filter((m) => m.goalsScored === 0).length,
+        gamesWinning: winningMatches.length,
+        gamesLosing: losingMatches.length,
+        goalscorers: uniqueScorers.length,
+        losingGoals: getGoalsScored(losingMatches),
+        losingGoalsConceded: getGoalsConceded(losingMatches),
+        losingRecord: getRecord(losingMatches).join("-"),
+        losingScorers: losingScorers.length,
+        losingTopScorer: losingScorers[0]?.name,
+        losingTopScorerGoals: losingScorers[0]?.goals,
+        pointsLosingPosition: getPoints(losingMatches),
+        pointsDroppedLosingPosition:
+          losingMatches.length * 3 - getPoints(losingMatches),
+        pointsWinningPosition: getPoints(winningMatches),
+        pointsDroppedWinningPosition:
+          winningMatches.length * 3 - getPoints(winningMatches),
+        ppg: points / playedMatches.length,
+        ppgLosing: getPoints(losingMatches) / losingMatches.length,
+        ppgWinning: getPoints(winningMatches) / winningMatches.length,
+        topScorer: uniqueScorers[0]?.name,
+        topScorerGoals: uniqueScorers[0]?.goals,
+        winningGoals: getGoalsScored(winningMatches),
+        winningGoalsConceded: getGoalsConceded(winningMatches),
+        winningRecord: getRecord(winningMatches).join("-"),
+        winningScorers: winningScorers.length,
+        winningTopScorer: winningScorers[0]?.name,
+        winningTopScorerGoals: winningScorers[0]?.goals,
+        penaltiesTaken: penalties.taken,
+        penaltiesConceded: penalties.opponentTaken,
+        penaltiesDifference: penalties.taken - penalties.opponentTaken,
+        penaltiesScored: penalties.scored,
+      };
+    });
   return (
     <Table<AdvancedTableRow>
       gridProps={{
         experimentalFeatures: { columnGrouping: true },
         columnGroupingModel: GROUP_MODEL,
       }}
-      data={Object.entries(data.teams)
-        .filter(([team]) => {
-          return conference === "all"
-            ? true
-            : getTeamConference(team, league, year) === conference;
-        })
-        .map(([team, matches]): AdvancedTableRow => {
-          const playedMatches = getPlayedMatches(matches.filter(filterFn));
-          const losingMatches = getGamesWithPositions(
-            matches.filter(filterFn),
-            ["L"]
-          );
-          const winningMatches = getGamesWithPositions(
-            matches.filter(filterFn),
-            ["W"]
-          );
-          const points = getPoints(matches.filter(filterFn));
-          const uniqueScorers = getUniqueGoalscorers(
-            matches.filter(filterFn)
-          ).sort((a, b) =>
-            a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0
-          );
-          const winningScorers = getUniqueGoalscorers(
-            winningMatches.filter(filterFn)
-          ).sort((a, b) =>
-            a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0
-          );
-          const losingScorers = getUniqueGoalscorers(
-            losingMatches.filter(filterFn)
-          ).sort((a, b) =>
-            a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0
-          );
-          const penalties = getPenalties(matches);
-          return {
-            id: team,
-            team,
-            matches: playedMatches.length,
-            points,
-            gf: getGoalsScored(playedMatches),
-            ga: getGoalsConceded(playedMatches),
-            gd: getGoalsScored(playedMatches) - getGoalsConceded(playedMatches),
-            w: playedMatches.filter((m) => m.result === "W").length,
-            d: playedMatches.filter((m) => m.result === "D").length,
-            l: playedMatches.filter((m) => m.result === "L").length,
-            gamesWinning: winningMatches.length,
-            gamesLosing: losingMatches.length,
-            goalscorers: uniqueScorers.length,
-            losingGoals: getGoalsScored(losingMatches),
-            losingGoalsConceded: getGoalsConceded(losingMatches),
-            losingRecord: getRecord(losingMatches).join("-"),
-            losingScorers: losingScorers.length,
-            losingTopScorer: losingScorers[0]?.name,
-            losingTopScorerGoals: losingScorers[0]?.goals,
-            pointsLosingPosition: getPoints(losingMatches),
-            pointsDroppedLosingPosition:
-              losingMatches.length * 3 - getPoints(losingMatches),
-            pointsWinningPosition: getPoints(winningMatches),
-            pointsDroppedWinningPosition:
-              winningMatches.length * 3 - getPoints(winningMatches),
-            ppg: points / playedMatches.length,
-            ppgLosing: getPoints(losingMatches) / losingMatches.length,
-            ppgWinning: getPoints(winningMatches) / winningMatches.length,
-            topScorer: uniqueScorers[0]?.name,
-            topScorerGoals: uniqueScorers[0]?.goals,
-            winningGoals: getGoalsScored(winningMatches),
-            winningGoalsConceded: getGoalsConceded(winningMatches),
-            winningRecord: getRecord(winningMatches).join("-"),
-            winningScorers: winningScorers.length,
-            winningTopScorer: winningScorers[0]?.name,
-            winningTopScorerGoals: winningScorers[0]?.goals,
-            penaltiesTaken: penalties.taken,
-            penaltiesConceded: penalties.opponentTaken,
-            penaltiesDifference: penalties.taken - penalties.opponentTaken,
-            penaltiesScored: penalties.scored,
-          };
-        })
+      data={rows
         .sort(getSortStrategy(league))
-        .reverse()}
+        .reverse()
+        .map((row, idx) => ({ ...row, rank: idx + 1 }))}
       columns={() => {
         return getColumns(groups);
       }}
