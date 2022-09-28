@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.39.0](https://github.com/mattmontgomery/formguide/compare/v1.38.1...v1.39.0) (2022-09-28)
+
+
+### Features
+
+* **advanced-table:** ✨ adds shutouts, times shutout ([dce2949](https://github.com/mattmontgomery/formguide/commit/dce29499a0d505343a4e9459583b39e3a753e30c))
+
+
+### Bug Fixes
+
+* **rolling-base:** 🐛 fixes issue introduced that broke period length toggles ([1563816](https://github.com/mattmontgomery/formguide/commit/15638165e903e127ab4e98c3b1d8bf910df3cee6))
+
 ### [1.38.1](https://github.com/mattmontgomery/formguide/compare/v1.38.0...v1.38.1) (2022-09-28)
 
 ## [1.38.0](https://github.com/mattmontgomery/formguide/compare/v1.37.0...v1.38.0) (2022-09-28)
