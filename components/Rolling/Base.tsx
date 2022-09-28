@@ -58,9 +58,7 @@ export default function BaseRollingPage<
   } = usePeriodLength(defaultPeriodLength);
 
   useEffect(() => {
-    if (defaultPeriodLength !== periodLength) {
-      setPeriodLength(defaultPeriodLength);
-    }
+    setPeriodLength(defaultPeriodLength);
   }, [defaultPeriodLength, setPeriodLength]);
 
   const dataParser = useCallback(
