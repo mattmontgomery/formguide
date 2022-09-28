@@ -1,5 +1,4 @@
-import { compressString, decompressString, getStringSize } from "../cache";
-
+import { compressString, decompressString, getStringSize } from "@/utils/cache";
 import { randomBytes } from "crypto";
 
 const generateRandomString = (myLength: number): string => {
