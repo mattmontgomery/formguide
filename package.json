@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.6",
+    "@mui/material": "^5.10.7",
     "@mui/x-data-grid": "^5.17.2",
     "@visx/curve": "^2.1.0",
     "@visx/legend": "^2.10.0",
