@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.40.1](https://github.com/mattmontgomery/formguide/compare/v1.40.0...v1.40.1) (2022-10-03)
+
+
+### Bug Fixes
+
+* 🐛 fixes bug where frauen bundesliga was cut off ([5bb8d2c](https://github.com/mattmontgomery/formguide/commit/5bb8d2c600498ec63386bff99fc4ce491c7b92d6))
+
 ## [1.40.0](https://github.com/mattmontgomery/formguide/compare/v1.39.0...v1.40.0) (2022-10-03)
 
 
