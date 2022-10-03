@@ -11,7 +11,7 @@ export type DataPageProps<
 > = {
   renderControls?: BasePageProps["renderControls"];
   renderComponent: (data: Data, meta: Meta) => React.ReactNode;
-  pageTitle: string;
+  pageTitle: BasePageProps["pageTitle"];
   children?: React.ReactNode;
   getEndpoint?: (year: number, league: string) => string;
   swrArgs?: unknown[];

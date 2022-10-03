@@ -3,18 +3,26 @@ import React, { useState } from "react";
 import BaseDataPage from "@/components/BaseDataPage";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { parseISO } from "date-fns";
 import FormattedDate from "@/components/Generic/FormattedDate";
 import { getGameStates, getGameStatesExtended } from "@/utils/gameStates";
+import { ArrowBack, ArrowBackIos, ArrowBackRounded } from "@mui/icons-material";
+import Link from "next/link";
 
 export default function GameStates(): React.ReactElement {
-  const [show, setShow] = useState<"worst" | "best">("best");
   const router = useRouter();
   const team = String(router.query.team);
   return (
     <BaseDataPage<FormGuideAPI.Responses.GoalsEndpoint["data"]>
-      pageTitle={`${team} game states`}
+      pageTitle={
+        <>
+          {team} game states{" "}
+          <Link passHref href={router.asPath.replace(/team\/.+/, "/team")}>
+            <Button>Select a team</Button>
+          </Link>
+        </>
+      }
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       renderComponent={(data) => {
         const matches = data.teams[team] ?? [];

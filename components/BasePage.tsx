@@ -8,7 +8,7 @@ import { NextSeo } from "next-seo";
 import { LeagueOptions } from "@/utils/Leagues";
 
 export type BasePageProps = {
-  pageTitle: string;
+  pageTitle: React.ReactNode | string;
   renderControls?: () => React.ReactNode;
 } & React.PropsWithChildren;
 
