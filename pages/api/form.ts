@@ -11,10 +11,9 @@ export default async function form(
   const year = +String(req.query.year) || 2022;
   const league = String(req.query.league) as Results.Leagues;
   const yearOffset = LeagueYearOffset[league] ?? 0;
+  const args = `year=${year + yearOffset}&league=${league || "mls"}`;
   try {
-    const response = await fetch(
-      `${FORM_API}?year=${year + yearOffset}&league=${league || "mls"}`
-    );
+    const response = await fetch(`${FORM_API}?${args}`);
     res.setHeader(
       `Cache-Control`,
       `s-maxage=${getExpires(year)}, stale-while-revalidate`
@@ -25,7 +24,7 @@ export default async function form(
     const responseBody = await response.json();
     res.json({
       ...responseBody,
-      meta: { ...(responseBody.meta || {}), year, league },
+      meta: { ...(responseBody.meta || {}), year, league, args },
     });
   } catch (e) {
     res.status(500);

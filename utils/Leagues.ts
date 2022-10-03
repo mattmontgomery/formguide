@@ -51,28 +51,7 @@ export const LeagueProbabilities: Partial<
   },
 };
 
-export const LeagueYearOffset: Partial<Record<Results.Leagues, number>> = {
-  epl: 1,
-  de_bundesliga: 1,
-  de_2_bundesliga: 1,
-  de_3_liga: 1,
-  de_frauen_bundesliga: 1,
-  en_fa_wsl: 1,
-  en_championship: 1,
-  en_league_one: 1,
-  en_league_two: 1,
-  en_national: 1,
-  fr_feminine: 1,
-  fr_ligue_1: 1,
-  fr_ligue_2: 1,
-  fr_national_1: 1,
-  sp_la_liga: 1,
-  sp_segunda: 1,
-  sp_primera_femenina: 1,
-  it_serie_a: 1,
-  it_serie_b: 1,
-  it_serie_a_women: 1,
-};
+export const LeagueYearOffset: Partial<Record<Results.Leagues, 1>> = {};
 
 export function getConferenceDisplayName(conference: string) {
   return ConferenceDisplayNames[conference] ?? conference;

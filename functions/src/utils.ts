@@ -54,10 +54,6 @@ export function getEndpoint(
   league: Results.Leagues = "mls"
 ): string {
   const leagueCode = LeagueCodes[league] || 253;
-  // non-summer leagues
-  if (league === "epl") {
-    year = year - 1;
-  }
   return format(ENDPOINT, year, leagueCode);
 }
 
