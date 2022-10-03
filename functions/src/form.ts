@@ -4,6 +4,7 @@ import fetch from "node-fetch-commonjs";
 
 import {
   fetchCachedOrFresh,
+  fetchCachedOrFreshV2,
   getEndpoint,
   getExpires,
   parseRawData,
@@ -59,7 +60,7 @@ async function fetchData({
 
   // keys differentiate by year and league
   const redisKey = `formguide:${APP_VERSION}:${league}:${year}`;
-  const [matchData] = await fetchCachedOrFresh(
+  const { data: matchData } = await fetchCachedOrFreshV2(
     redisKey,
     async (): Promise<Results.ParsedData> => {
       const headers = {
@@ -73,7 +74,10 @@ async function fetchData({
       });
       return parseRawData((await response.json()) as Results.RawData);
     },
-    (data) => getExpires(year, data)
+    (data) => getExpires(year, data),
+    {
+      allowCompression: true,
+    }
   );
   if (!matchData) {
     throw "no data found";
