@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.41.0](https://github.com/mattmontgomery/formguide/compare/v1.40.1...v1.41.0) (2022-10-03)
+
+
+### Features
+
+* ✨ allows compression on form guide ([7d65db4](https://github.com/mattmontgomery/formguide/commit/7d65db4d2219d165ee4358a488a1b57fa7e564e4))
+* **style:** ✨ 🎨 refines nav ([bf5fb82](https://github.com/mattmontgomery/formguide/commit/bf5fb82cdb2de8a219efe2b8f1d747a3c3c07216))
+
 ### [1.40.1](https://github.com/mattmontgomery/formguide/compare/v1.40.0...v1.40.1) (2022-10-03)
 
 
