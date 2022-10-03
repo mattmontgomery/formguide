@@ -23,7 +23,7 @@ http("form", async (req, res) => {
   res.header("Content-Type", "application/json");
   const year = req.query.year ? Number(req.query.year) : thisYear;
   const league: Results.Leagues = req.query.league
-    ? (String(req.query.league).slice(0, 16) as Results.Leagues)
+    ? (String(req.query.league).slice(0, 32) as Results.Leagues)
     : defaultLeague;
   try {
     const data = await fetchData({ year, league });

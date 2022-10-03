@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Drawer,
   List,
@@ -11,6 +11,7 @@ import {
   Paper,
   ListItemButton,
   Box,
+  Typography,
 } from "@mui/material";
 import Link from "next/link";
 
@@ -19,6 +20,7 @@ import { useContext } from "react";
 import { NavigationConfig, Groups } from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";
 import { KeyboardArrowDown } from "@mui/icons-material";
+import LeagueSelect from "./App/LeagueSelect";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
   ({ href, as, ...props }, ref) => {
@@ -45,15 +47,21 @@ export type Subtitle = {
   subtitle: React.ReactNode;
 };
 
+export type NavProps = {
+  drawerOpen: boolean;
+  darkMode: boolean;
+  league: Results.Leagues;
+  onSetLeague: Dispatch<SetStateAction<Results.Leagues>>;
+  setDarkMode: (darkMode: boolean) => void;
+};
+
 export default function Nav({
   drawerOpen = true,
   darkMode,
+  league,
+  onSetLeague,
   setDarkMode = () => null,
-}: {
-  drawerOpen: boolean;
-  darkMode: boolean;
-  setDarkMode: (darkMode: boolean) => void;
-}): React.ReactElement {
+}: NavProps): React.ReactElement {
   return (
     <Drawer
       sx={{
@@ -69,6 +77,10 @@ export default function Nav({
           width: DRAWER_WIDTH,
         }}
       >
+        <Box sx={{ px: 2, pt: 2 }}>
+          <Typography variant="overline">League</Typography>
+          <LeagueSelect league={league} onSetLeague={onSetLeague} />
+        </Box>
         <List>
           {Object.entries(Groups).map(([group], idx) => (
             <React.Fragment key={idx}>

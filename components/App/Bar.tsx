@@ -52,6 +52,7 @@ export default function Bar({
           aria-label="open drawer"
           onClick={() => onSetDrawerOpen(open ? false : true)}
           edge="start"
+          sx={{ ml: 1 }}
         >
           <MenuIcon />
         </IconButton>

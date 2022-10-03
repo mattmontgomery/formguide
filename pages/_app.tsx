@@ -116,8 +116,10 @@ export function MLSFormGuide({
                   <CssBaseline />
                   <Nav
                     drawerOpen={drawerOpen === "open"}
+                    league={_league}
                     setDarkMode={setDarkMode}
                     darkMode={darkMode}
+                    onSetLeague={setLeague}
                   />
                   <Box
                     component="main"
