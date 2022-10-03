@@ -357,7 +357,26 @@ declare namespace Results {
     | "nisa"
     | "epl"
     | "ligamx"
-    | "ligamx_ex";
+    | "ligamx_ex"
+    | "de_bundesliga"
+    | "de_2_bundesliga"
+    | "de_3_liga"
+    | "de_frauen_bundesliga"
+    | "sp_la_liga"
+    | "sp_segunda"
+    | "sp_primera_femenina"
+    | "en_championship"
+    | "en_league_one"
+    | "en_league_two"
+    | "en_national"
+    | "en_fa_wsl"
+    | "fr_ligue_1"
+    | "fr_ligue_2"
+    | "fr_national_1"
+    | "fr_feminine"
+    | "it_serie_a"
+    | "it_serie_b"
+    | "it_serie_a_women";
 }
 
 /**

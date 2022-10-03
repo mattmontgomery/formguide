@@ -1,10 +1,12 @@
 import {
   AppBar,
+  Autocomplete,
   Box,
   Divider,
   IconButton,
   MenuItem,
   Select,
+  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -109,29 +111,39 @@ export default function Bar({
           <MenuItem value={2020}>2020</MenuItem>
           <MenuItem value={2021}>2021</MenuItem>
         </Select>
-        <Select
+        <Autocomplete
+          options={Object.entries(LeagueOptions).map(([league, name]) => ({
+            label: name,
+            id: league,
+          }))}
           sx={{
-            backgroundColor: "background.paper",
+            width: 250,
           }}
-          value={league}
-          onChange={(ev) => {
-            onSetLeague(ev.target.value.toString() as Results.Leagues);
-            router.push({
-              pathname: router.pathname,
-              query: {
-                ...router.query,
-                league: ev.target.value.toString(),
-              },
-            });
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Select a League"
+              sx={{
+                backgroundColor: "background.paper",
+                borderRadius: 1,
+              }}
+              variant="outlined"
+            />
+          )}
+          value={{ id: league, label: LeagueOptions[league] }}
+          onChange={(ev, newValue) => {
+            if (newValue) {
+              onSetLeague(String(newValue.id) as Results.Leagues);
+              router.push({
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                  league: String(newValue.id),
+                },
+              });
+            }
           }}
-        >
-          <MenuItem disabled>Select a league</MenuItem>
-          {Object.entries(LeagueOptions).map(([l, leagueName], idx) => (
-            <MenuItem key={idx} value={l}>
-              {leagueName}
-            </MenuItem>
-          ))}
-        </Select>
+        />
       </Toolbar>
     </AppBar>
   );

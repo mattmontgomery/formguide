@@ -21,6 +21,25 @@ export const LeagueOptions: Record<Results.Leagues, string> = {
   ligamx: "Liga MX",
   ligamx_ex: "Liga de Expansión MX",
   epl: "English Premier League",
+  de_bundesliga: "Germany — Bundesliga",
+  de_2_bundesliga: "Germany — 2. Bundesliga",
+  de_3_liga: "Germany — 3. Liga",
+  de_frauen_bundesliga: "Germany — Frauen-Bundesliga",
+  en_fa_wsl: "England — FA WSL",
+  en_championship: "England — EFL Championship",
+  en_league_one: "England — EFL League One",
+  en_league_two: "England — EFL League Two",
+  en_national: "England — National League",
+  fr_feminine: "France — Division One Féminine",
+  fr_ligue_1: "France — Ligue 1",
+  fr_ligue_2: "France — Ligue 2",
+  fr_national_1: "France — National 1",
+  sp_la_liga: "Spain — LaLiga",
+  sp_segunda: "Spain — LaLiga 2",
+  sp_primera_femenina: "Spain — Liga F",
+  it_serie_a: "Italy — Serie A",
+  it_serie_b: "Italy — Serie B",
+  it_serie_a_women: "Italy — Seria A Women",
 };
 
 export const LeagueProbabilities: Partial<
@@ -34,6 +53,25 @@ export const LeagueProbabilities: Partial<
 
 export const LeagueYearOffset: Partial<Record<Results.Leagues, number>> = {
   epl: 1,
+  de_bundesliga: 1,
+  de_2_bundesliga: 1,
+  de_3_liga: 1,
+  de_frauen_bundesliga: 1,
+  en_fa_wsl: 1,
+  en_championship: 1,
+  en_league_one: 1,
+  en_league_two: 1,
+  en_national: 1,
+  fr_feminine: 1,
+  fr_ligue_1: 1,
+  fr_ligue_2: 1,
+  fr_national_1: 1,
+  sp_la_liga: 1,
+  sp_segunda: 1,
+  sp_primera_femenina: 1,
+  it_serie_a: 1,
+  it_serie_b: 1,
+  it_serie_a_women: 1,
 };
 
 export function getConferenceDisplayName(conference: string) {
