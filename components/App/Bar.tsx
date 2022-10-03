@@ -23,7 +23,6 @@ import LeagueContext from "../Context/League";
 import { useRouter } from "next/router";
 import { LeagueOptions } from "@/utils/Leagues";
 import DrawerContext from "../Context/Drawer";
-import { DRAWER_WIDTH } from "../Nav";
 import YearContext from "../Context/Year";
 
 export default function Bar({
@@ -41,11 +40,7 @@ export default function Bar({
   const open = useContext(DrawerContext);
   const router = useRouter();
   return (
-    <AppBar
-      sx={{
-        width: open ? `calc(100% - ${DRAWER_WIDTH}px)` : "100%",
-      }}
-    >
+    <AppBar>
       <Toolbar sx={{ gap: 1 }}>
         <IconButton
           color="inherit"
@@ -95,6 +90,7 @@ export default function Bar({
         <Select
           sx={{
             backgroundColor: "background.paper",
+            display: { xs: "none", md: "inline" },
           }}
           value={year}
           onChange={(ev) => onSetYear(Number(ev.target.value))}
@@ -119,6 +115,7 @@ export default function Bar({
           }))}
           sx={{
             width: 250,
+            display: { xs: "none", md: "inline" },
           }}
           renderInput={(params) => (
             <TextField

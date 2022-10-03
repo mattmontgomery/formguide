@@ -5,6 +5,7 @@ import YearContext from "./Context/Year";
 import LeagueContext from "./Context/League";
 import { Box, Paper } from "@mui/material";
 import { NextSeo } from "next-seo";
+import { LeagueOptions } from "@/utils/Leagues";
 
 export type BasePageProps = {
   pageTitle: string;
@@ -31,11 +32,11 @@ export default function BasePage({
       <div className={styles.body}>
         <Box paddingBottom={2}>
           <Grid container rowGap={2}>
-            <Grid md={8} item paddingBottom={1}>
+            <Grid xs={12} item>
+              <Typography variant="overline">
+                Year: {year}, League: {LeagueOptions[league]}
+              </Typography>
               {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
-            </Grid>
-            <Grid md={4} item sx={{ textAlign: "right" }}>
-              {year}:{league}
             </Grid>
             {renderControls && (
               <Grid xs={12} item>

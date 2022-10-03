@@ -1,6 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, {
+  Dispatch,
+  ReactEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
 import {
-  Drawer,
   List,
   ListItem,
   ListItemProps,
@@ -12,6 +16,7 @@ import {
   ListItemButton,
   Box,
   Typography,
+  SwipeableDrawer,
 } from "@mui/material";
 import Link from "next/link";
 
@@ -19,7 +24,7 @@ import LeagueContext from "./Context/League";
 import { useContext } from "react";
 import { NavigationConfig, Groups } from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";
-import { KeyboardArrowDown } from "@mui/icons-material";
+import { CloseOutlined, KeyboardArrowDown } from "@mui/icons-material";
 import LeagueSelect from "./App/LeagueSelect";
 
 const ListItemLink = React.forwardRef<ListItemProps, any>(
@@ -41,7 +46,6 @@ const ListItemLink = React.forwardRef<ListItemProps, any>(
   }
 );
 ListItemLink.displayName = "ListItemLink";
-export const DRAWER_WIDTH = 300;
 
 export type Subtitle = {
   subtitle: React.ReactNode;
@@ -51,6 +55,8 @@ export type NavProps = {
   drawerOpen: boolean;
   darkMode: boolean;
   league: Results.Leagues;
+  onCloseDrawer: ReactEventHandler;
+  onOpenDrawer: ReactEventHandler;
   onSetLeague: Dispatch<SetStateAction<Results.Leagues>>;
   setDarkMode: (darkMode: boolean) => void;
 };
@@ -59,25 +65,42 @@ export default function Nav({
   drawerOpen = true,
   darkMode,
   league,
+  onCloseDrawer,
+  onOpenDrawer,
   onSetLeague,
   setDarkMode = () => null,
 }: NavProps): React.ReactElement {
+  const iOS =
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
-    <Drawer
-      sx={{
-        width: DRAWER_WIDTH + 10,
-        flexShrink: 0,
-        boxSizing: "border-box",
-      }}
-      variant={drawerOpen ? "permanent" : "temporary"}
-      anchor="left"
-    >
-      <Paper
-        sx={{
-          width: DRAWER_WIDTH,
-        }}
+    <>
+      <SwipeableDrawer
+        anchor="left"
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        elevation={4}
+        open={drawerOpen}
+        onClose={onCloseDrawer}
+        onOpen={onOpenDrawer}
       >
-        <Box sx={{ px: 2, pt: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: 2,
+            py: 2,
+            cursor: "pointer",
+          }}
+          onClick={onCloseDrawer}
+        >
+          <Typography variant="h4" color="primary.main">
+            The Form Guide
+          </Typography>
+          <CloseOutlined />
+        </Box>
+        <Box sx={{ px: 2 }}>
           <Typography variant="overline">League</Typography>
           <LeagueSelect league={league} onSetLeague={onSetLeague} />
         </Box>
@@ -102,8 +125,8 @@ export default function Nav({
             <ListItemText>Lineup Graphic Builder</ListItemText>
           </ListItemLink>
         </List>
-      </Paper>
-    </Drawer>
+      </SwipeableDrawer>
+    </>
   );
 }
 

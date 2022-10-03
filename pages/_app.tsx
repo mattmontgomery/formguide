@@ -29,6 +29,7 @@ import KBarInput from "@/components/KBar/Input";
 import { useEasterEgg } from "@/components/EasterEgg";
 import Bar from "@/components/App/Bar";
 import DrawerContext from "@/components/Context/Drawer";
+import Head from "next/head";
 
 export function MLSFormGuide({
   Component,
@@ -107,18 +108,33 @@ export function MLSFormGuide({
     <YearContext.Provider value={year}>
       <LeagueContext.Provider value={_league}>
         <DrawerContext.Provider value={drawerOpen === "open" ? true : false}>
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+            />
+          </Head>
+          <CssBaseline />
           {renderComponent()}
 
           <ThemeProvider theme={theme}>
             <DarkMode.Provider value={darkMode}>
               <KBarProvider onSetLeague={(league) => setLeague(league)}>
-                <Box sx={{ display: "flex", position: "relative", zIndex: 1 }}>
-                  <CssBaseline />
+                <Box
+                  sx={{
+                    minHeight: "100vh",
+                    position: "relative",
+                    display: "grid",
+                    gridTemplateRows: "1fr max-content",
+                  }}
+                >
                   <Nav
                     drawerOpen={drawerOpen === "open"}
                     league={_league}
                     setDarkMode={setDarkMode}
                     darkMode={darkMode}
+                    onCloseDrawer={() => setDrawerOpen("closed")}
+                    onOpenDrawer={() => setDrawerOpen("open")}
                     onSetLeague={setLeague}
                   />
                   <Box
@@ -140,22 +156,21 @@ export function MLSFormGuide({
                     <Box sx={{ marginTop: 8 }}>
                       <Component {...pageProps} />
                     </Box>
-                    <Divider />
-                    <footer>
-                      <Box m={2}>
-                        <MLink href="/changelog">Changelog</MLink> | Created and
-                        maintained by{" "}
-                        <MLink href="https://twitter.com/thecrossbarrsl">
-                          Matt Montgomery
-                        </MLink>
-                        .{" "}
-                        <MLink href="https://github.com/mattmontgomery/formguide">
-                          Contribute on Github
-                        </MLink>
-                        . Something not working? Send me a tweet.
-                      </Box>
-                    </footer>
                   </Box>
+                  <footer>
+                    <Box m={2}>
+                      <MLink href="/changelog">Changelog</MLink> | Created and
+                      maintained by{" "}
+                      <MLink href="https://twitter.com/thecrossbarrsl">
+                        Matt Montgomery
+                      </MLink>
+                      .{" "}
+                      <MLink href="https://github.com/mattmontgomery/formguide">
+                        Contribute on Github
+                      </MLink>
+                      . Something not working? Send me a tweet.
+                    </Box>
+                  </footer>
                 </Box>
                 <KBarPortal>
                   <KBarPositioner style={{ zIndex: 1 }}>
