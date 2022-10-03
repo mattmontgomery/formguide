@@ -1,16 +1,18 @@
 export function getGameStates(match: Results.MatchWithGoalData) {
-  return (match.goalsData?.goals ?? []).reduce(
-    (previousValue: number[][], currentValue) => {
-      const last: number[] = [...previousValue].reverse()?.[0] ?? [0, 0];
-      const isFirst = match.team === currentValue.team.name;
-      const next: [number, number] = [
-        isFirst ? last[0] + 1 : last[0],
-        isFirst ? last[1] : last[1] + 1,
-      ];
-      return [...previousValue, next];
-    },
-    [[0, 0]]
-  );
+  return (match.goalsData?.goals ?? [])
+    .filter((goal) => goal.detail !== "Missed Penalty")
+    .reduce(
+      (previousValue: number[][], currentValue) => {
+        const last: number[] = [...previousValue].reverse()?.[0] ?? [0, 0];
+        const isFirst = match.team === currentValue.team.name;
+        const next: [number, number] = [
+          isFirst ? last[0] + 1 : last[0],
+          isFirst ? last[1] : last[1] + 1,
+        ];
+        return [...previousValue, next];
+      },
+      [[0, 0]]
+    );
 }
 
 export function getExtremeGameState(
@@ -40,26 +42,28 @@ export function getExtremeGameState(
 export function getGameStatesExtended(
   match: Results.MatchWithGoalData
 ): { minute: number; team: number; opponent: number }[] {
-  return (match.goalsData?.goals ?? []).reduce(
-    (
-      previousValue: { minute: number; team: number; opponent: number }[],
-      currentValue
-    ): { minute: number; team: number; opponent: number }[] => {
-      const last = [...previousValue].reverse()?.[0];
-      const isFirst = match.team === currentValue.team.name;
-      const next: [number, number] = [
-        isFirst ? (last?.team ?? 0) + 1 : last?.team ?? 0,
-        isFirst ? last?.opponent ?? 0 : (last?.opponent ?? 0) + 1,
-      ];
-      return [
-        ...previousValue,
-        {
-          minute: currentValue.time.elapsed + currentValue.time.extra,
-          team: next[0],
-          opponent: next[1],
-        },
-      ];
-    },
-    []
-  );
+  return (match.goalsData?.goals ?? [])
+    .filter((goal) => goal.detail !== "Missed Penalty")
+    .reduce(
+      (
+        previousValue: { minute: number; team: number; opponent: number }[],
+        currentValue
+      ): { minute: number; team: number; opponent: number }[] => {
+        const last = [...previousValue].reverse()?.[0];
+        const isFirst = match.team === currentValue.team.name;
+        const next: [number, number] = [
+          isFirst ? (last?.team ?? 0) + 1 : last?.team ?? 0,
+          isFirst ? last?.opponent ?? 0 : (last?.opponent ?? 0) + 1,
+        ];
+        return [
+          ...previousValue,
+          {
+            minute: currentValue.time.elapsed + currentValue.time.extra,
+            team: next[0],
+            opponent: next[1],
+          },
+        ];
+      },
+      []
+    );
 }
