@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.40.0](https://github.com/mattmontgomery/formguide/compare/v1.39.0...v1.40.0) (2022-10-03)
+
+
+### Features
+
+* ✨ adds API support for various european leagues ([0079b8b](https://github.com/mattmontgomery/formguide/commit/0079b8b55dec443a99b1010df3ccddbdc985b2e0))
+* ✨ adds rolling player stats page ([dd3121f](https://github.com/mattmontgomery/formguide/commit/dd3121f37a431667fd02b58a684c2a4f940b67e2))
+* ✨ adds UI support for european leagues ([e965b55](https://github.com/mattmontgomery/formguide/commit/e965b55f167402260a9fb43227818e1aa5bde8a6))
+
+
+### Bug Fixes
+
+* 🐛 adjusts league offsets ([8b73d15](https://github.com/mattmontgomery/formguide/commit/8b73d158ab55dab7f34e622428e0d042bfbb1e82))
+* **deps:** 🐛 removes d3 overrides ([f70bf5d](https://github.com/mattmontgomery/formguide/commit/f70bf5dc8f5066e83dfabe24b60e770acdbc0ac6))
+
 ## [1.39.0](https://github.com/mattmontgomery/formguide/compare/v1.38.1...v1.39.0) (2022-09-28)
 
 
