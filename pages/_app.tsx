@@ -43,7 +43,7 @@ export function MLSFormGuide({
   const [_league, setLeague] = useState<Results.Leagues>(
     league ?? DEFAULT_LEAGUE
   );
-  const [drawerOpen, setDrawerOpen] = useCookie("drawer-open", "open");
+  const [drawerOpen, setDrawerOpen] = useCookie("drawer-open", "closed");
 
   useEffect(() => {
     setDarkMode(prefersDarkMode);
