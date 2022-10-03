@@ -36,3 +36,30 @@ export function getExtremeGameState(
     })
     .reverse()?.[0];
 }
+
+export function getGameStatesExtended(
+  match: Results.MatchWithGoalData
+): { minute: number; team: number; opponent: number }[] {
+  return (match.goalsData?.goals ?? []).reduce(
+    (
+      previousValue: { minute: number; team: number; opponent: number }[],
+      currentValue
+    ): { minute: number; team: number; opponent: number }[] => {
+      const last = [...previousValue].reverse()?.[0];
+      const isFirst = match.team === currentValue.team.name;
+      const next: [number, number] = [
+        isFirst ? (last?.team ?? 0) + 1 : last?.team ?? 0,
+        isFirst ? last?.opponent ?? 0 : (last?.opponent ?? 0) + 1,
+      ];
+      return [
+        ...previousValue,
+        {
+          minute: currentValue.time.elapsed + currentValue.time.extra,
+          team: next[0],
+          opponent: next[1],
+        },
+      ];
+    },
+    []
+  );
+}

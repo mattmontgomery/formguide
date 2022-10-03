@@ -22,6 +22,7 @@ import {
   Numbers,
   ScatterPlot,
   Person3Rounded,
+  StadiumTwoTone,
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
@@ -538,6 +539,12 @@ const NavigationConfig: NavItem[] = [
     title: "Earliest Substitute Rolling",
     href: "/substitutes/earliest-rolling",
     icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Game States Visualized",
+    href: "/game-states/team",
+    icon: StadiumTwoTone,
     group: Groups.GameStates,
   },
 ];
