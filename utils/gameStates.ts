@@ -67,3 +67,47 @@ export function getGameStatesExtended(
       []
     );
 }
+
+export function getMultipleGameStateSummary(
+  matches: Results.MatchWithGoalData[]
+): {
+  w: number;
+  d: number;
+  l: number;
+} {
+  const states = matches.map(getGameStateSummary);
+
+  return states.reduce(
+    (acc, state) => {
+      // const summary;
+      return { w: acc.w + state.w, d: acc.d + state.d, l: acc.l + state.l };
+    },
+    { w: 0, d: 0, l: 0 }
+  );
+}
+
+export function getGameStateSummary(match: Results.MatchWithGoalData): {
+  w: number;
+  d: number;
+  l: number;
+} {
+  const output = {
+    w: 0,
+    d: 0,
+    l: 0,
+  };
+  const states = getGameStatesExtended(match);
+  states.forEach((state, idx) => {
+    if (idx > 0) {
+      const currentResult =
+        state.team > state.opponent
+          ? "w"
+          : state.opponent > state.team
+          ? "l"
+          : "d";
+      output[currentResult] =
+        output[currentResult] + (state.minute - states[idx - 1].minute);
+    }
+  });
+  return output;
+}

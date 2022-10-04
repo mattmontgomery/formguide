@@ -38,10 +38,12 @@ export default function BasePage({
               <Typography variant="overline">
                 Year: {year}, League: {LeagueOptions[league]}
               </Typography>
-              {renderTitle ? (
+              {typeof renderTitle === "function" ? (
                 <Typography variant="h4">{renderTitle()}</Typography>
+              ) : pageTitle ? (
+                <Typography variant="h4">{pageTitle}</Typography>
               ) : (
-                pageTitle && <Typography variant="h4">{pageTitle}</Typography>
+                <></>
               )}
             </Grid>
             {renderControls && (
