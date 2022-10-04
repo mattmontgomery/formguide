@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.42.0](https://github.com/mattmontgomery/formguide/compare/v1.41.0...v1.42.0) (2022-10-04)
+
+
+### Features
+
+* ✨ adds back button for game states page ([c56b914](https://github.com/mattmontgomery/formguide/commit/c56b914372907a8474847f9ac07953b472a4ed70))
+* ✨ adds game states by team pages ([715c605](https://github.com/mattmontgomery/formguide/commit/715c605d2f934b3d5ec65c891e9de4af3fc5cdb4))
+* ✨ adds game states overview page ([7b8a0a3](https://github.com/mattmontgomery/formguide/commit/7b8a0a3c7d9db4b1413f9e41e73a0b69a7993631))
+* ✨ adds refereeing form guide ([e1053ff](https://github.com/mattmontgomery/formguide/commit/e1053ffe516a681d0abe2f8996b2ceae11ec03de))
+* ✨ adds renderTitle for base page ([457bdd9](https://github.com/mattmontgomery/formguide/commit/457bdd9cafa49fb37792f04cded13c9ab5e7181a))
+* ✨ refinements to game states page ([2e49f05](https://github.com/mattmontgomery/formguide/commit/2e49f0541483d43730239788a007caaee9c4afd3))
+* ✨ refines dark mode usage, respects user default if set ([1a06642](https://github.com/mattmontgomery/formguide/commit/1a066426d48b45254c4d64a37d585cb055df64f4))
+
+
+### Bug Fixes
+
+* 🐛 closes navigation by default ([6cd737d](https://github.com/mattmontgomery/formguide/commit/6cd737d5c12dd44f882a7c5a58b70ab64af703e2))
+* 🐛 removes missed penalties from game state ([dad5cdc](https://github.com/mattmontgomery/formguide/commit/dad5cdc5f4a003903ec195bb9dabf6c4e017c50b))
+
 ## [1.41.0](https://github.com/mattmontgomery/formguide/compare/v1.40.1...v1.41.0) (2022-10-03)
 
 
