@@ -20,6 +20,8 @@
     "release:push": "git push --follow-tags origin main"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
     "@mui/x-data-grid": "^5.17.5",
@@ -28,7 +30,7 @@
     "@visx/responsive": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/tooltip": "^2.10.0",
-    "@visx/xychart": "^2.12.2",
+    "@visx/xychart": "^2.14.0",
     "calculate-correlation": "^1.2.3",
     "csv": "^6.2.0",
     "date-fns": "^2.29.3",
@@ -48,7 +50,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.1.1",
-    "@types/node": "^16.11.63",
+    "@types/node": "^16.11.64",
     "@types/node-gzip": "^1.1.0",
     "@types/react": "^18.0.21",
     "@typescript-eslint/eslint-plugin": "^5.38.1",

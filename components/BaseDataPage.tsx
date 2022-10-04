@@ -9,23 +9,22 @@ export type DataPageProps<
   Data = Results.ParsedData,
   Meta = Results.ParsedMeta
 > = {
-  renderControls?: BasePageProps["renderControls"];
   renderComponent: (data: Data, meta: Meta) => React.ReactNode;
-  pageTitle: BasePageProps["pageTitle"];
-  children?: React.ReactNode;
   getEndpoint?: (year: number, league: string) => string;
   swrArgs?: unknown[];
-};
+} & BasePageProps;
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
-function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
-  children,
-  renderControls,
-  renderComponent,
-  pageTitle,
-  getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
-  swrArgs = [],
-}: DataPageProps<Data, Meta>): React.ReactElement {
+function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>(
+  props: React.PropsWithChildren<DataPageProps<Data, Meta>>
+): React.ReactElement {
+  const {
+    children,
+    renderComponent,
+    getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
+    swrArgs = [],
+    ...basePageProps
+  } = props;
   const year = useContext(YearContext);
   const league = useContext(LeagueContext);
   const { data } = useSWR<{
@@ -35,7 +34,7 @@ function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>({
     dedupingInterval: 500,
   });
   return (
-    <BasePage pageTitle={pageTitle} renderControls={renderControls}>
+    <BasePage {...basePageProps}>
       {data && data?.data ? (
         <>
           {renderComponent(data.data, data.meta)}

@@ -9,13 +9,15 @@ import { LeagueOptions } from "@/utils/Leagues";
 
 export type BasePageProps = {
   pageTitle: React.ReactNode | string;
+  renderTitle?: () => React.ReactNode;
   renderControls?: () => React.ReactNode;
 } & React.PropsWithChildren;
 
 export default function BasePage({
-  pageTitle,
   children,
+  pageTitle,
   renderControls,
+  renderTitle,
 }: BasePageProps): React.ReactElement {
   const year = useContext(YearContext);
   const league = useContext(LeagueContext);
@@ -36,7 +38,11 @@ export default function BasePage({
               <Typography variant="overline">
                 Year: {year}, League: {LeagueOptions[league]}
               </Typography>
-              {pageTitle && <Typography variant="h4">{pageTitle}</Typography>}
+              {renderTitle ? (
+                <Typography variant="h4">{renderTitle()}</Typography>
+              ) : (
+                pageTitle && <Typography variant="h4">{pageTitle}</Typography>
+              )}
             </Grid>
             {renderControls && (
               <Grid xs={12} item>

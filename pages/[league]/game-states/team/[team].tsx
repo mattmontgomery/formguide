@@ -14,14 +14,15 @@ export default function GameStates(): React.ReactElement {
   const team = String(router.query.team);
   return (
     <BaseDataPage<FormGuideAPI.Responses.GoalsEndpoint["data"]>
-      pageTitle={
+      pageTitle={`${team} game states`}
+      renderTitle={() => (
         <>
-          {team} game states{" "}
+          {team} game states
           <Link passHref href={router.asPath.replace(/team\/.+/, "/team")}>
             <Button>Select a team</Button>
           </Link>
         </>
-      }
+      )}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
       renderComponent={(data) => {
         const matches = data.teams[team] ?? [];
