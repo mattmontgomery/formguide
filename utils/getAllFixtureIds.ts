@@ -71,9 +71,12 @@ export function getAllFixtures(
   );
 }
 
-export function getAllUniqueFixtures<M extends Results.Match>(data: {
-  teams: Record<string, M[]>;
-}): M[] {
+export function getAllUniqueFixtures<
+  M extends Results.Match,
+  Data extends {
+    teams: Record<string, M[]>;
+  }
+>(data: Data): M[] {
   return Object.values(data.teams).reduce((acc: M[], matches) => {
     return [
       ...acc,

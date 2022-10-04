@@ -17,10 +17,10 @@ import redisClient from "@/utils/redis";
 
 const FORM_API = process.env.FORM_API;
 
-export default async function Goals(
+export default async function Stats(
   req: NextApiRequest,
   res: NextApiResponse<
-    FormGuideAPI.Responses.GoalsEndpoint | FormGuideAPI.Responses.ErrorResponse
+    FormGuideAPI.Responses.StatsEndpoint | FormGuideAPI.Responses.ErrorResponse
   >
 ): Promise<void> {
   const league = String(req.query.league);
@@ -50,6 +50,7 @@ export default async function Goals(
     "ALL",
     "STATS_v3",
     "COMPRESSED",
+    "WITH_REFEREE",
     matches.length,
     getHash(matches)
   );
@@ -102,17 +103,19 @@ export default async function Goals(
   const teamsData = data
     ? Object.entries(data.teams).reduce(
         (
-          previousValue: FormGuideAPI.Data.GoalsEndpoint["teams"],
+          previousValue: FormGuideAPI.Data.StatsEndpoint["teams"],
           [team, matches]
         ) => {
           return {
             ...previousValue,
             [team]: matches.map((m): FormGuideAPI.Data.StatsMatch => {
+              const fixture = prepared?.find(
+                (f) => m.fixtureId === f?.fixtureId
+              );
               const match = {
                 ...m,
-                stats:
-                  prepared?.find((f) => m.fixtureId === f?.fixtureId)?.stats ??
-                  undefined,
+                referee: fixture?.referee ?? "",
+                stats: fixture?.stats ?? undefined,
               };
               delete match.league;
               return match;
@@ -133,8 +136,8 @@ export default async function Goals(
   } else if (data !== null) {
     res.json({
       data: {
-        teams: teamsData,
-      } as FormGuideAPI.Data.GoalsEndpoint,
+        teams: teamsData as FormGuideAPI.Data.StatsEndpoint["teams"],
+      },
       meta: {
         fixtureIds: matches.map((f) => f.fixtureId),
         preparedFromCache,
@@ -157,11 +160,13 @@ async function fetchFixture(fixture: SlimMatch): Promise<WithStats | null> {
       return {
         fixtureId: fixture.fixtureId,
         fromCache,
+        referee: data?.fixtureData[0].fixture.referee,
         stats: reduceStats(data?.fixtureData[0].statistics),
       };
     }
     return {
       fixtureId: fixture.fixtureId,
+      referee: null,
       fromCache,
       stats: {},
     };
@@ -190,5 +195,6 @@ export function reduceStats(team: Results.FixtureApi["statistics"] = []): {
 export type WithStats = {
   fixtureId: number;
   fromCache: boolean;
+  referee: string | null;
   stats: { [team: string]: Record<string, number | string> };
 };

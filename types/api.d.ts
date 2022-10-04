@@ -14,6 +14,7 @@ declare namespace FormGuideAPI {
       errors: { message: string; [key: string]: string }[];
     };
     type GoalsEndpoint = BaseAPIV2<Data.GoalsEndpoint>;
+    type StatsEndpoint = BaseAPIV2<Data.StatsEndpoint>;
     type FixtureEndpoint = BaseAPIV2<Data.Fixture>;
     type FixturesEndpoint = BaseAPIV2<Record<string, Data.Fixtures>>;
     type PlusMinusEndpoint = BaseApiV2<Data.PlusMinusEndpoint>;

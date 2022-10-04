@@ -23,6 +23,7 @@ import {
   ScatterPlot,
   Person3Rounded,
   StadiumTwoTone,
+  CardTravel,
 } from "@mui/icons-material";
 
 import { format, startOfYear } from "date-fns";
@@ -43,6 +44,7 @@ export const Groups: Record<string, symbol> = {
   Players: Symbol("Players"),
   Projected: Symbol("Projected"),
   Rolling: Symbol("Rolling"),
+  Refereeing: Symbol("Refereeing"),
   GameStates: Symbol("Game States"),
   Fixtures: Symbol("Fixtures"),
   HeadToHead: Symbol("Head to Head"),
@@ -57,7 +59,7 @@ export const Groups: Record<string, symbol> = {
   Supplementary: Symbol("Supplementary Stats"),
 };
 
-const NavigationConfig: NavItem[] = [
+const main: NavItem[] = [
   { href: "/", title: "Form Guide", icon: TableChart, group: Groups.Main },
   {
     href: "/table",
@@ -102,6 +104,15 @@ const NavigationConfig: NavItem[] = [
     group: Groups.Main,
   },
   {
+    href: "/odds",
+    title: "Odds",
+    icon: Money,
+    group: Groups.Main,
+  },
+];
+
+const projected = [
+  {
     href: "/projected-standings",
     title: "Projected / Simulated League Standings",
     icon: TableChart,
@@ -119,6 +130,9 @@ const NavigationConfig: NavItem[] = [
     icon: TableChart,
     group: Groups.Projected,
   },
+];
+
+const fixtures: NavItem[] = [
   {
     href: "/fixtures",
     title: "Upcoming Fixtures",
@@ -131,6 +145,18 @@ const NavigationConfig: NavItem[] = [
     icon: HourglassFull,
     group: Groups.Fixtures,
   },
+];
+
+const refereeing: NavItem[] = [
+  {
+    title: "Refereeing Form",
+    href: "/referees",
+    icon: CardTravel,
+    group: Groups.Refereeing,
+  },
+];
+
+const rolling: NavItem[] = [
   {
     href: "/chart/3",
     title: "Rolling Points, 3-game",
@@ -156,6 +182,45 @@ const NavigationConfig: NavItem[] = [
     group: Groups.Rolling,
   },
   {
+    href: "/gf-chart/5",
+    title: "GF Rolling",
+    icon: Timeline,
+    group: Groups.Rolling,
+  },
+  {
+    href: "/gd-chart/5",
+    title: "GD Rolling",
+    icon: Timeline,
+    group: Groups.Rolling,
+  },
+  {
+    href: "/ga-chart/5",
+    title: "GA Rolling",
+    icon: Timeline,
+    group: Groups.Rolling,
+  },
+  {
+    href: "/game-days/since/5",
+    title: "Rolling Days Between Games",
+    icon: Timeline,
+    group: Groups.Rolling,
+  },
+  {
+    href: "/first-goal/rolling/gf/5",
+    title: "Rolling First Goal Scored",
+    icon: Watch,
+    group: Groups.Rolling,
+  },
+  {
+    href: "/first-goal/rolling/ga/5",
+    title: "Rolling First Goal Conceded",
+    icon: Watch,
+    group: Groups.Rolling,
+  },
+];
+
+const h2h: NavItem[] = [
+  {
     href: "/versus/record",
     title: "Record vs.",
     icon: BarChart,
@@ -173,29 +238,14 @@ const NavigationConfig: NavItem[] = [
     icon: BarChart,
     group: Groups.HeadToHead,
   },
+];
+
+const goals: NavItem[] = [
   {
     href: "/gd",
     title: "GD By Game",
     icon: SportsSoccerSharp,
     group: Groups.Goals,
-  },
-  {
-    href: "/gf-chart/5",
-    title: "GF Rolling",
-    icon: Timeline,
-    group: Groups.Rolling,
-  },
-  {
-    href: "/gd-chart/5",
-    title: "GD Rolling",
-    icon: Timeline,
-    group: Groups.Rolling,
-  },
-  {
-    href: "/ga-chart/5",
-    title: "GA Rolling",
-    icon: Timeline,
-    group: Groups.Rolling,
   },
   {
     href: "/gd/cumulative",
@@ -239,6 +289,9 @@ const NavigationConfig: NavItem[] = [
     icon: SportsSoccerSharp,
     group: Groups.Goals,
   },
+];
+
+const ppg: NavItem[] = [
   {
     href: "/ppg/opponent",
     title: "Opponent PPG By Game",
@@ -263,6 +316,9 @@ const NavigationConfig: NavItem[] = [
     icon: BarChart,
     group: Groups.PPG,
   },
+];
+
+const gameStates: NavItem[] = [
   {
     href: "/results/first-half",
     title: "First-half results only",
@@ -312,11 +368,77 @@ const NavigationConfig: NavItem[] = [
     group: Groups.GameStates,
   },
   {
+    href: "/game-states",
+    title: "Best/Worst Game States",
+    icon: Alarm,
+    group: Groups.GameStates,
+  },
+  {
+    href: "/game-states/comebacks",
+    title: "Comebacks",
+    icon: Alarm,
+    group: Groups.GameStates,
+  },
+  {
+    href: "/game-states/lost-leads",
+    title: "Lost Leads",
+    icon: Alarm,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Earliest Substitute",
+    href: "/substitutes/earliest",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Earliest Substitute Rolling",
+    href: "/substitutes/earliest-rolling",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Game States Visualized",
+    href: "/game-states/team",
+    icon: StadiumTwoTone,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Earliest Substitute",
+    href: "/substitutes/earliest",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Earliest Substitute Rolling",
+    href: "/substitutes/earliest-rolling",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
+    title: "Game States Visualized",
+    href: "/game-states/team",
+    icon: StadiumTwoTone,
+    group: Groups.GameStates,
+  },
+];
+
+const supplementary: NavItem[] = [
+  {
     href: `/record/since/${format(startOfYear(new Date()), "yyy-MM-dd")}`,
     title: "Record since selected date",
     icon: CalendarViewWeek,
     group: Groups.Supplementary,
   },
+  {
+    href: "/facts",
+    title: "Match Facts",
+    icon: LightbulbOutlined,
+    group: Groups.Supplementary,
+  },
+];
+
+const gamesSince = [
   {
     href: "/since-result/W",
     title: "Games since a win",
@@ -354,11 +476,14 @@ const NavigationConfig: NavItem[] = [
     group: Groups.GamesSince,
   },
   {
-    href: "/game-days/since/5",
-    title: "Rolling Days Between Games",
-    icon: Timeline,
-    group: Groups.Rolling,
+    href: "/game-days/since-home",
+    title: "Days Between Home Games",
+    icon: CalendarViewMonth,
+    group: Groups.GamesSince,
   },
+];
+
+const statsByMatch: NavItem[] = [
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/${stat}`,
@@ -373,6 +498,9 @@ const NavigationConfig: NavItem[] = [
     icon: Numbers,
     group: Groups.StatsByMatch,
   },
+];
+
+const statsCompare: NavItem[] = [
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/comparison/${stat}`,
@@ -381,6 +509,9 @@ const NavigationConfig: NavItem[] = [
       group: Groups.StatsCompare,
     };
   }),
+];
+
+const statsRolling: NavItem[] = [
   ...Object.keys(stats).map((stat) => {
     return {
       href: `/stats/rolling/${stat}`,
@@ -395,6 +526,9 @@ const NavigationConfig: NavItem[] = [
     icon: Numbers,
     group: Groups.StatsRolling,
   },
+];
+
+const advancedStats: NavItem[] = [
   {
     href: "/xg/for",
     title: "XG For",
@@ -444,47 +578,27 @@ const NavigationConfig: NavItem[] = [
     group: Groups.AdvancedStats,
   },
   {
-    href: "/game-days/since-home",
-    title: "Days Between Home Games",
-    icon: CalendarViewMonth,
-    group: Groups.Main,
+    href: "/plus-minus",
+    title: "Player Plus-Minus",
+    icon: Person2TwoTone,
+    group: Groups.AdvancedStats,
   },
+  {
+    href: "https://app.americansocceranalysis.com/",
+    external: true,
+    title: "ASA interactive tables",
+    icon: LaunchTwoTone,
+    group: Groups.AdvancedStats,
+  },
+];
+
+const statsGroup: NavItem[] = [
   {
     href: "/mls-player-stats/comparison/minutes",
     external: true,
     title: "MLS Player Minutes by Age",
     icon: Elderly,
     group: Groups.Stats,
-  },
-  {
-    href: "/facts",
-    title: "Match Facts",
-    icon: LightbulbOutlined,
-    group: Groups.Supplementary,
-  },
-  {
-    href: "/odds",
-    title: "Odds",
-    icon: Money,
-    group: Groups.Main,
-  },
-  {
-    href: "/game-states",
-    title: "Best/Worst Game States",
-    icon: Alarm,
-    group: Groups.GameStates,
-  },
-  {
-    href: "/game-states/comebacks",
-    title: "Comebacks",
-    icon: Alarm,
-    group: Groups.GameStates,
-  },
-  {
-    href: "/game-states/lost-leads",
-    title: "Lost Leads",
-    icon: Alarm,
-    group: Groups.GameStates,
   },
   {
     href: "/first-goal/gf",
@@ -498,55 +612,35 @@ const NavigationConfig: NavItem[] = [
     icon: Watch,
     group: Groups.Stats,
   },
-  {
-    href: "/first-goal/rolling/gf/5",
-    title: "Rolling First Goal Scored",
-    icon: Watch,
-    group: Groups.Rolling,
-  },
-  {
-    href: "/first-goal/rolling/ga/5",
-    title: "Rolling First Goal Conceded",
-    icon: Watch,
-    group: Groups.Rolling,
-  },
-  {
-    href: "/plus-minus",
-    title: "Player Plus-Minus",
-    icon: Person2TwoTone,
-    group: Groups.AdvancedStats,
-  },
-  {
-    href: "https://app.americansocceranalysis.com/",
-    external: true,
-    title: "ASA interactive tables",
-    icon: LaunchTwoTone,
-    group: Groups.AdvancedStats,
-  },
+];
+
+const players: NavItem[] = [
   {
     title: "Team Player Minutes",
     href: "/player-minutes",
     icon: Person2TwoTone,
     group: Groups.Players,
   },
-  {
-    title: "Earliest Substitute",
-    href: "/substitutes/earliest",
-    icon: Person3Rounded,
-    group: Groups.GameStates,
-  },
-  {
-    title: "Earliest Substitute Rolling",
-    href: "/substitutes/earliest-rolling",
-    icon: Person3Rounded,
-    group: Groups.GameStates,
-  },
-  {
-    title: "Game States Visualized",
-    href: "/game-states/team",
-    icon: StadiumTwoTone,
-    group: Groups.GameStates,
-  },
+];
+
+const NavigationConfig: NavItem[] = [
+  ...main,
+  ...projected,
+  ...fixtures,
+  ...h2h,
+  ...goals,
+  ...rolling,
+  ...ppg,
+  ...gameStates,
+  ...supplementary,
+  ...gamesSince,
+  ...statsByMatch,
+  ...statsCompare,
+  ...statsRolling,
+  ...advancedStats,
+  ...statsGroup,
+  ...players,
+  ...refereeing,
 ];
 
 export default NavigationConfig;

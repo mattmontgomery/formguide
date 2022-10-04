@@ -77,11 +77,31 @@ export default function MatchCell({
   );
 }
 
-function MatchCellDetails({
+export function MatchCellDetails<T extends Results.Match>({
   match,
+  renderMatchTitle = (match) => (
+    <>
+      <strong>{match.home ? "Home" : "Away"}</strong> vs.{" "}
+      <strong>{match.opponent}</strong>
+    </>
+  ),
+  renderScoreline = (match) => (
+    <>
+      <strong>
+        {getPastTense(match)} {match.scoreline}{" "}
+        {match.status.short === "PEN"
+          ? `(PKs: ${match.score.penalty[match.home ? "home" : "away"]}–${
+              match.score.penalty[match.home ? "away" : "home"]
+            })`
+          : ""}
+      </strong>
+    </>
+  ),
   onClose,
 }: {
-  match: Results.Match;
+  match: T;
+  renderMatchTitle?: (match: T) => React.ReactNode;
+  renderScoreline?: (match: T) => React.ReactNode;
   onClose: () => void;
 }): React.ReactElement {
   const league = useContext(LeagueContext);
@@ -127,19 +147,11 @@ function MatchCellDetails({
               paddingY={1}
               gutterBottom={false}
             >
-              <strong>{match.home ? "Home" : "Away"}</strong> vs.{" "}
-              <strong>{match.opponent}</strong>
+              {renderMatchTitle(match)}
             </Typography>
             <Divider />
             <Typography variant="subtitle1" paddingY={1}>
-              <strong>
-                {getPastTense(match)} {match.scoreline}{" "}
-                {match.status.short === "PEN"
-                  ? `(PKs: ${
-                      match.score.penalty[match.home ? "home" : "away"]
-                    }–${match.score.penalty[match.home ? "away" : "home"]})`
-                  : ""}
-              </strong>
+              {renderScoreline(match)}
             </Typography>
           </CardContent>
           <span></span>

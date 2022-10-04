@@ -91,6 +91,7 @@ declare namespace Results {
     };
   };
   type MatchWithStatsData = {
+    referee: string;
     stats?: {
       [team: string]: Record<string, number | string>;
     };
