@@ -17,9 +17,9 @@ export default function GameStates(): React.ReactElement {
       pageTitle={`${team} game states`}
       renderTitle={() => (
         <>
-          {team} game states
+          <Box sx={{ display: "inline-block", mr: 2 }}>{team} game states</Box>
           <Link passHref href={router.asPath.replace(/team\/.+/, "/team")}>
-            <Button>Select a team</Button>
+            <Button variant="contained">Select a team</Button>
           </Link>
         </>
       )}
@@ -75,7 +75,12 @@ export default function GameStates(): React.ReactElement {
                           </Box>
                           <Box
                             sx={{
-                              color: "black",
+                              color:
+                                state.team > state.opponent
+                                  ? "success.contrastText"
+                                  : state.opponent > state.team
+                                  ? "error.contrastText"
+                                  : "warning.contrastText",
                               display: "grid",
                               alignContent: "center",
                               position: "absolute",

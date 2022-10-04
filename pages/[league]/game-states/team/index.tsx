@@ -34,7 +34,6 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                   <Box
                     sx={{
                       backgroundColor: "warning.main",
-                      color: "black",
                       height: 30,
                       position: "relative",
                       display: "grid",
@@ -46,6 +45,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                     <Box
                       sx={{
                         backgroundColor: "success.main",
+                        color: "success.contrastText",
                         position: "absolute",
                         left: 0,
                         pl: 1,
@@ -65,6 +65,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                     <Box
                       sx={{
                         backgroundColor: "warning.main",
+                        color: "warning.contrastText",
                         position: "absolute",
                         left: `${
                           (states.w / (states.w + states.d + states.l)) * 100
@@ -86,6 +87,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                     <Box
                       sx={{
                         backgroundColor: "error.main",
+                        color: "error.contrastText",
                         position: "absolute",
                         pl: 1,
                         right: 0,
