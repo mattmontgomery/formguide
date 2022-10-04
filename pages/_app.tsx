@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import type { AppContext, AppProps } from "next/app";
 import {
   Box,
-  Divider,
   CssBaseline,
   Link as MLink,
   ThemeProvider,
@@ -37,7 +36,10 @@ export function MLSFormGuide({
   pageProps,
 }: AppProps & { league: Results.Leagues }): React.ReactElement {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [darkMode, setDarkMode] = useState<boolean>(prefersDarkMode);
+  const [darkModeCookie, setDarkMode] = useCookie("dark-mode", "");
+  const darkMode =
+    darkModeCookie === "dark" ||
+    (darkModeCookie !== "light" && prefersDarkMode);
   const [year, setYear] = useState<number>(DEFAULT_YEAR);
   const { easterEgg, renderComponent } = useEasterEgg();
   const [_league, setLeague] = useState<Results.Leagues>(
@@ -45,9 +47,6 @@ export function MLSFormGuide({
   );
   const [drawerOpen, setDrawerOpen] = useCookie("drawer-open", "closed");
 
-  useEffect(() => {
-    setDarkMode(prefersDarkMode);
-  }, [prefersDarkMode]);
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -131,7 +130,9 @@ export function MLSFormGuide({
                   <Nav
                     drawerOpen={drawerOpen === "open"}
                     league={_league}
-                    setDarkMode={setDarkMode}
+                    setDarkMode={(darkMode) =>
+                      setDarkMode(darkMode ? "dark" : "light")
+                    }
                     darkMode={darkMode}
                     onCloseDrawer={() => setDrawerOpen("closed")}
                     onOpenDrawer={() => setDrawerOpen("open")}

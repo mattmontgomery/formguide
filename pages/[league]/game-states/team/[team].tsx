@@ -75,6 +75,7 @@ export default function GameStates(): React.ReactElement {
                           </Box>
                           <Box
                             sx={{
+                              color: "black",
                               display: "grid",
                               alignContent: "center",
                               position: "absolute",

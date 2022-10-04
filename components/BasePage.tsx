@@ -33,7 +33,7 @@ export default function BasePage({
       />
       <div className={styles.body}>
         <Box paddingBottom={2}>
-          <Grid container rowGap={2}>
+          <Grid container rowGap={2} sx={{ color: "text.primary" }}>
             <Grid xs={12} item>
               <Typography variant="overline">
                 Year: {year}, League: {LeagueOptions[league]}

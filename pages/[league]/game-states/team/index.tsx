@@ -34,6 +34,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                   <Box
                     sx={{
                       backgroundColor: "warning.main",
+                      color: "black",
                       height: 30,
                       position: "relative",
                       display: "grid",
