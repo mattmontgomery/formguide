@@ -55,7 +55,7 @@ export default async function Goals(
     getHash(matches)
   );
 
-  const keys = await redisClient().keys(`${FIXTURE_KEY_PREFIX}*`);
+  const keys = await redisClient().scan(`${FIXTURE_KEY_PREFIX}*`);
 
   const from = new Date();
 
