@@ -6,6 +6,7 @@ import {
   getKey,
   getKeyFromParts,
 } from "@/utils/cache";
+import getKeys from "@/utils/cache/getKeys";
 import getAllFixtureIds, { SlimMatch } from "@/utils/getAllFixtureIds";
 import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 import { getPlusMinus } from "@/utils/match";
@@ -34,7 +35,7 @@ export default async function PlusMinusEndpoint(
 
   const matches = getAllFixtureIds(data);
 
-  const keys = await getClient().keys(`${FIXTURE_KEY_PREFIX}*`);
+  const keys = await getKeys(`${FIXTURE_KEY_PREFIX}*`);
 
   const key = getKeyFromParts(
     FIXTURE_KEY_PREFIX,

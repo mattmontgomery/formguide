@@ -6,6 +6,7 @@ import {
   getKey,
   getKeyFromParts,
 } from "@/utils/cache";
+import getKeys from "@/utils/cache/getKeys";
 import getAllFixtureIds from "@/utils/getAllFixtureIds";
 import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 import { getSingleTeamPlayerMinutes } from "@/utils/match";
@@ -39,7 +40,7 @@ export default async function PlayersTeamEndpoint(
 
   const matches = getAllFixtureIds(data, team);
 
-  const keys = await getClient().keys(`${FIXTURE_KEY_PREFIX}*`);
+  const keys = await getKeys(`${FIXTURE_KEY_PREFIX}*`);
 
   const key = getKeyFromParts(
     FIXTURE_KEY_PREFIX,
