@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.43.0](https://github.com/mattmontgomery/formguide/compare/v1.42.0...v1.43.0) (2022-10-09)
+
+
+### Features
+
+* ✨ adds home/away toggle to referee form ([819e618](https://github.com/mattmontgomery/formguide/commit/819e6186cdb82a3638067cc648d3b175330411d1))
+* ✨ refactors referee stats page ([0437c2f](https://github.com/mattmontgomery/formguide/commit/0437c2f1f998de685a5060e8199703745d7af6c8))
+
+
+### Bug Fixes
+
+* 🐛 fix issue with goals api ([604c574](https://github.com/mattmontgomery/formguide/commit/604c574f6246ab4f07cec3cff6c6bfb8fddf2763))
+* 🐛 fixes redis issue with goals page ([faa9a13](https://github.com/mattmontgomery/formguide/commit/faa9a1329b4bea4498c01d79edbf6c8edd679e5d))
+* 🐛 refactors api to use scan instead of keys ([6a24076](https://github.com/mattmontgomery/formguide/commit/6a240761b4becd5792d70104de529d242bcbd071))
+
 ## [1.42.0](https://github.com/mattmontgomery/formguide/compare/v1.41.0...v1.42.0) (2022-10-04)
 
 
