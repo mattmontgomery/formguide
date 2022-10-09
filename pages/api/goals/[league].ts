@@ -14,6 +14,7 @@ import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 import getFixtureData, { FIXTURE_KEY_PREFIX } from "@/utils/api/getFixtureData";
 import { chunk } from "@/utils/array";
 import redisClient from "@/utils/redis";
+import getKeys from "@/utils/cache/getKeys";
 
 const FORM_API = process.env.FORM_API;
 
@@ -55,7 +56,7 @@ export default async function Goals(
     getHash(matches)
   );
 
-  const keys = await redisClient().scan(`${FIXTURE_KEY_PREFIX}*`);
+  const keys = await getKeys(`${FIXTURE_KEY_PREFIX}`);
 
   const from = new Date();
 
