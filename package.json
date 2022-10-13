@@ -32,7 +32,7 @@
     "@visx/tooltip": "^2.15.0",
     "@visx/xychart": "^2.15.0",
     "calculate-correlation": "^1.2.3",
-    "csv": "^6.2.0",
+    "csv": "^6.2.1",
     "date-fns": "^2.29.3",
     "devmoji": "~2.3",
     "husky": "~8.0",
