@@ -23,7 +23,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.7",
+    "@mui/material": "^5.10.10",
     "@mui/x-data-grid": "^5.17.6",
     "@visx/curve": "^2.1.0",
     "@visx/legend": "^2.10.0",
