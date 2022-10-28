@@ -30,7 +30,7 @@
     "@visx/responsive": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/tooltip": "^2.15.0",
-    "@visx/xychart": "^2.15.0",
+    "@visx/xychart": "^2.16.0",
     "calculate-correlation": "^1.2.3",
     "csv": "^6.2.1",
     "date-fns": "^2.29.3",
