@@ -40,7 +40,7 @@
     "itscalledsoccer": "^1.0.1",
     "kbar": "^0.1.0-beta.36",
     "next": "^13.0.0",
-    "next-seo": "^5.9.0",
+    "next-seo": "^5.13.0",
     "node-gzip": "^1.1.2",
     "react": "~18.2",
     "react-dom": "~18.2",
