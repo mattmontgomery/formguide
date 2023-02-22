@@ -34,7 +34,6 @@ export default function PlayerMinutesTeamPage(): React.ReactElement {
           <Box>*: On bench, did not play. -: Not on bench</Box>
         </>
       )}
-      swrArgs={[team]}
       pageTitle={`${team} Player Minutes`}
       getEndpoint={(year, league) =>
         `/api/players/${league}/${team}?year=${year}`

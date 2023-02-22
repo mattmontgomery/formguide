@@ -11,7 +11,6 @@ export type DataPageProps<
 > = {
   renderComponent: (data: Data, meta: Meta) => React.ReactNode;
   getEndpoint?: (year: number, league: string) => string;
-  swrArgs?: unknown[];
 } & BasePageProps;
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -22,7 +21,6 @@ function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>(
     children,
     renderComponent,
     getEndpoint = (year, league) => `/api/form?year=${year}&league=${league}`,
-    swrArgs = [],
     ...basePageProps
   } = props;
   const year = useContext(YearContext);
@@ -30,7 +28,7 @@ function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>(
   const { data } = useSWR<{
     data: Data;
     meta: Meta;
-  }>([getEndpoint(year, league), year, league, ...swrArgs], fetcher, {
+  }>(getEndpoint(year, league), fetcher, {
     dedupingInterval: 500,
   });
   return (

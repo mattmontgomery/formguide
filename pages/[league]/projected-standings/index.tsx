@@ -57,7 +57,6 @@ export default function ProjectedStandingsPage(): React.ReactElement {
       renderControls={renderToggle}
       pageTitle="League final standings simulations"
       getEndpoint={getEndpoint}
-      swrArgs={[useTeamPpg]}
       renderComponent={(data, meta) => {
         const preparedData = Object.entries(data).map(([team, results]) => {
           return {

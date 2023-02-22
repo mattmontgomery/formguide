@@ -27,7 +27,7 @@ function BaseASADataPage<
   const { data } = useSWR<{
     data: T;
     meta: U;
-  }>([endpoint(String(year), league), year, league], fetcher);
+  }>(endpoint(String(year), league), fetcher);
   return (
     <BasePage pageTitle={pageTitle} renderControls={renderControls}>
       {data && data?.data ? (

@@ -22,7 +22,7 @@ import { LeagueOptions } from "@/utils/Leagues";
 export default function LeagueOdds(): React.ReactElement {
   const league = useContext(LeagueContext);
   const { data } = useSWR<FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>>(
-    [`/api/theodds/${league}`, league],
+    `/api/theodds/${league}`,
     fetcher
   );
   const entries = data?.data ?? [];
