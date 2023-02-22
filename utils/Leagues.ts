@@ -51,7 +51,9 @@ export const LeagueProbabilities: Partial<
   },
 };
 
-export const LeagueYearOffset: Partial<Record<Results.Leagues, 1>> = {};
+export const LeagueYearOffset: Partial<Record<Results.Leagues, 1>> = {
+  mls: 1,
+};
 
 export function getConferenceDisplayName(conference: string) {
   return ConferenceDisplayNames[conference] ?? conference;
