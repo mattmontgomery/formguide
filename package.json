@@ -28,7 +28,7 @@
     "@visx/curve": "~2",
     "@visx/legend": "~2",
     "@visx/responsive": "~2",
-    "@visx/scale": "~2",
+    "@visx/scale": "~3",
     "@visx/tooltip": "~2",
     "@visx/xychart": "~2",
     "calculate-correlation": "^1.2.3",
