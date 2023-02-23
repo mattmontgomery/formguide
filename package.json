@@ -27,7 +27,7 @@
     "@mui/x-data-grid": "^5.17.24",
     "@visx/curve": "~2",
     "@visx/legend": "~2",
-    "@visx/responsive": "~2",
+    "@visx/responsive": "~3",
     "@visx/scale": "~2",
     "@visx/tooltip": "~2",
     "@visx/xychart": "~2",
