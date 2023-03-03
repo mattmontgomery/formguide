@@ -24,7 +24,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.0",
-    "@mui/x-data-grid": "^5.17.24",
+    "@mui/x-data-grid": "^5.17.26",
     "@visx/curve": "~2",
     "@visx/legend": "~2",
     "@visx/responsive": "~2",
