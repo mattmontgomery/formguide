@@ -1,3 +1,4 @@
+import { getMonth } from "date-fns";
 import { ConferenceDisplayNames } from "./LeagueConferences";
 
 export const LeagueGames: Partial<Record<Results.Leagues, number>> = {
@@ -51,9 +52,29 @@ export const LeagueProbabilities: Partial<
   },
 };
 
-export const LeagueYearOffset: Partial<Record<Results.Leagues, 1>> = {
-  mls: 1,
+export const LeagueYearOffset: Partial<Record<Results.Leagues, 1>> = {};
+
+export const SeasonType: Partial<
+  Record<Results.Leagues, "calendar" | "not-calendar">
+> = {
+  mls: "calendar",
 };
+
+// assume july season end for current year
+const SEASON_END = 7;
+
+export function getCurrentYear(league: Results.Leagues) {
+  const thisYear = new Date().getFullYear();
+  if (SeasonType[league] === "calendar") {
+    return thisYear;
+  } else {
+    if (getMonth(new Date()) > SEASON_END) {
+      return thisYear - 1;
+    } else {
+      return thisYear;
+    }
+  }
+}
 
 export function getConferenceDisplayName(conference: string) {
   return ConferenceDisplayNames[conference] ?? conference;

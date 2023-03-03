@@ -1,5 +1,5 @@
 import getExpires from "@/utils/getExpires";
-import { LeagueYearOffset } from "@/utils/Leagues";
+import { getCurrentYear, LeagueYearOffset } from "@/utils/Leagues";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const FORM_API = process.env.FORM_API;
@@ -8,8 +8,8 @@ export default async function form(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const year = +String(req.query.year) || 2022;
   const league = String(req.query.league) as Results.Leagues;
+  const year = +String(req.query.year) || getCurrentYear(league);
   const yearOffset = LeagueYearOffset[league] ?? 0;
   const args = `year=${year + yearOffset}&league=${league || "mls"}`;
   try {
