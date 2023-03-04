@@ -10,12 +10,21 @@ import calculateCorrelation from "calculate-correlation";
 import { useStatsToggle } from "@/components/Selector/Stats";
 import { Options, useHomeAway } from "@/components/Toggle/HomeAwayToggle";
 import { Box } from "@mui/system";
+import { useToggle } from "@/components/Toggle/Toggle";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
   const types: ValidStats[] = (String(router.query.type).split(
     ","
   ) as ValidStats[]) ?? ["shots", "possession"];
+
+  const { value: summarize, renderComponent: renderSummaryToggle } = useToggle(
+    [
+      { label: "Summarize Matches", value: "summarize" },
+      { label: "By Match", value: "byMatch" },
+    ],
+    "summarize"
+  );
 
   const { renderComponent: renderStatsToggle, value: statTypes } =
     useStatsToggle({ selected: types });
@@ -28,6 +37,7 @@ export default function StatsByMatch(): React.ReactElement {
         <>
           <Box>{renderStatsToggle()}</Box>
           <Box>{renderHomeAway()}</Box>
+          <Box>{renderSummaryToggle()}</Box>
         </>
       )}
       pageTitle={`Statistic scatterplot: ${statTypes
@@ -35,19 +45,26 @@ export default function StatsByMatch(): React.ReactElement {
         .join(" x ")}`}
       getEndpoint={(year, league) => `/api/stats/${league}?year=${year}`}
       renderComponent={(data) => (
-        <DataView data={data} statTypes={statTypes} homeAway={homeAway} />
+        <DataView
+          data={data}
+          statTypes={statTypes}
+          homeAway={homeAway}
+          summarize={summarize as "summarize" | "byMatch"}
+        />
       )}
     ></BaseDataPage>
   );
 }
 export function DataView({
   data,
-  statTypes,
   homeAway,
+  statTypes,
+  summarize,
 }: {
   data: FormGuideAPI.Data.StatsEndpoint;
-  statTypes: ValidStats[];
   homeAway: Options;
+  statTypes: ValidStats[];
+  summarize: "summarize" | "byMatch";
 }): React.ReactElement {
   const statTypesValidated = [null, null].map((_, idx) => {
     return statTypes[idx] ?? "goals";
@@ -55,26 +72,59 @@ export function DataView({
   const correlation = useMemo(() => {
     const x: number[] = [];
     const y: number[] = [];
-    Object.entries(data.teams).forEach(([, matches]) => {
-      matches
-        .filter((match) =>
-          homeAway === "all"
-            ? true
-            : homeAway === "home"
-            ? match.home
-            : !match.home
-        )
-        .forEach((match) => {
-          const xStat = Number(getStats(match, statTypesValidated[0] ?? 0)[0]);
-          const yStat = Number(getStats(match, statTypesValidated[1] ?? 0)[0]);
-          if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
-            x.push(xStat);
-            y.push(yStat);
-          }
-        });
-    });
+    if (summarize) {
+      const teamX: Record<string, number> = {};
+      const teamY: Record<string, number> = {};
+      Object.entries(data.teams).forEach(([, matches]) => {
+        matches
+          .filter((match) =>
+            homeAway === "all"
+              ? true
+              : homeAway === "home"
+              ? match.home
+              : !match.home
+          )
+          .forEach((match) => {
+            const xStat = Number(
+              getStats(match, statTypesValidated[0] ?? 0)[0]
+            );
+            const yStat = Number(
+              getStats(match, statTypesValidated[1] ?? 0)[0]
+            );
+            if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
+              teamX[match.team] = xStat + (teamX[match.team] ?? 0);
+              teamY[match.team] = yStat + (teamY[match.team] ?? 0);
+            }
+          });
+      });
+      Object.values(teamX).forEach((_x) => x.push(_x));
+      Object.values(teamY).forEach((_y) => x.push(_y));
+    } else {
+      Object.entries(data.teams).forEach(([, matches]) => {
+        matches
+          .filter((match) =>
+            homeAway === "all"
+              ? true
+              : homeAway === "home"
+              ? match.home
+              : !match.home
+          )
+          .forEach((match) => {
+            const xStat = Number(
+              getStats(match, statTypesValidated[0] ?? 0)[0]
+            );
+            const yStat = Number(
+              getStats(match, statTypesValidated[1] ?? 0)[0]
+            );
+            if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
+              x.push(xStat);
+              y.push(yStat);
+            }
+          });
+      });
+    }
     return calculateCorrelation(x, y);
-  }, [data, statTypesValidated, homeAway]);
+  }, [data, statTypesValidated, homeAway, summarize]);
   return (
     <ParentSize>
       {({ width, height }) => {
