@@ -11,6 +11,7 @@ import { useStatsToggle } from "@/components/Selector/Stats";
 import { Options, useHomeAway } from "@/components/Toggle/HomeAwayToggle";
 import { Box } from "@mui/system";
 import { useToggle } from "@/components/Toggle/Toggle";
+import { getArrayAverage, getArraySum } from "@/utils/array";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function StatsByMatch(): React.ReactElement {
       { label: "Summarize Matches", value: "summarize" },
       { label: "By Match", value: "byMatch" },
     ],
-    "summarize"
+    "byMatch"
   );
 
   const { renderComponent: renderStatsToggle, value: statTypes } =
@@ -72,7 +73,7 @@ export function DataView({
   const correlation = useMemo(() => {
     const x: number[] = [];
     const y: number[] = [];
-    if (summarize) {
+    if (summarize === "summarize") {
       const teamX: Record<string, number> = {};
       const teamY: Record<string, number> = {};
       Object.entries(data.teams).forEach(([, matches]) => {
@@ -98,7 +99,7 @@ export function DataView({
           });
       });
       Object.values(teamX).forEach((_x) => x.push(_x));
-      Object.values(teamY).forEach((_y) => x.push(_y));
+      Object.values(teamY).forEach((_y) => y.push(_y));
     } else {
       Object.entries(data.teams).forEach(([, matches]) => {
         matches
@@ -125,6 +126,66 @@ export function DataView({
     }
     return calculateCorrelation(x, y);
   }, [data, statTypesValidated, homeAway, summarize]);
+  const xyData = useMemo(() => {
+    const x: number[] = [];
+    const y: number[] = [];
+    if (summarize === "summarize") {
+      const teamX: Record<string, number[]> = {};
+      const teamY: Record<string, number[]> = {};
+      Object.entries(data.teams).forEach(([, matches]) => {
+        matches
+          .filter((match) =>
+            homeAway === "all"
+              ? true
+              : homeAway === "home"
+              ? match.home
+              : !match.home
+          )
+          .forEach((match) => {
+            const xStat = Number(
+              getStats(match, statTypesValidated[0] ?? 0)[0]
+            );
+            const yStat = Number(
+              getStats(match, statTypesValidated[1] ?? 0)[0]
+            );
+            if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
+              teamX[match.team] = Array.isArray(teamX[match.team])
+                ? [...teamX[match.team], xStat]
+                : [xStat];
+              teamY[match.team] = Array.isArray(teamY[match.team])
+                ? [...teamY[match.team], yStat]
+                : [yStat];
+            }
+          });
+      });
+      Object.values(teamX).forEach((_x) => x.push(getArraySum(_x)));
+      Object.values(teamY).forEach((_y) => y.push(getArraySum(_y)));
+    } else {
+      Object.entries(data.teams).forEach(([, matches]) => {
+        matches
+          .filter((match) =>
+            homeAway === "all"
+              ? true
+              : homeAway === "home"
+              ? match.home
+              : !match.home
+          )
+          .forEach((match) => {
+            const xStat = Number(
+              getStats(match, statTypesValidated[0] ?? 0)[0]
+            );
+            const yStat = Number(
+              getStats(match, statTypesValidated[1] ?? 0)[0]
+            );
+            if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
+              x.push(xStat);
+              y.push(yStat);
+            }
+          });
+      });
+    }
+    return { x, y };
+  }, [data, statTypesValidated, homeAway, summarize]);
   return (
     <ParentSize>
       {({ width, height }) => {
@@ -149,20 +210,24 @@ export function DataView({
                     key={idx}
                     {...accessors}
                     dataKey={team}
-                    data={matches
-                      .filter((match) =>
-                        homeAway === "all"
-                          ? true
-                          : homeAway === "home"
-                          ? match.home
-                          : !match.home
-                      )
-                      .map((match) => {
-                        return {
-                          x: getStats(match, statTypes[0])[0] ?? 0,
-                          y: getStats(match, statTypes[1])[0] ?? 0,
-                        };
-                      })}
+                    data={
+                      summarize === "summarize"
+                        ? xyData.x.map((x, idx) => ({ x, y: xyData.y[idx] }))
+                        : matches
+                            .filter((match) =>
+                              homeAway === "all"
+                                ? true
+                                : homeAway === "home"
+                                ? match.home
+                                : !match.home
+                            )
+                            .map((match) => {
+                              return {
+                                x: getStats(match, statTypes[0])[0] ?? 0,
+                                y: getStats(match, statTypes[1])[0] ?? 0,
+                              };
+                            })
+                    }
                   />
                 );
               })}
