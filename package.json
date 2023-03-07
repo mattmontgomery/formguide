@@ -47,7 +47,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use-cookie": "^1.4.0",
-    "swr": "^2.0.3"
+    "swr": "^2.1.0"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
