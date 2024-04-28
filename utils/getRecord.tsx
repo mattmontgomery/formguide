@@ -16,7 +16,7 @@ export function getRecord(
     to: Date | null;
   }> = {}
 ): RecordPoints {
-  return matches
+  return (matches ?? [])
     .filter(
       (match) =>
         match.status.long === "Match Finished" &&
@@ -44,7 +44,7 @@ export function getRecord(
  * @return [goalsFor, goalsAgainst, goalDifference]
  */
 export function getGoals(matches: Results.Match[]): RecordGoals {
-  return matches
+  return (matches ?? [])
     .filter((match) => match.status.long === "Match Finished")
     .reduce(
       (prev, curr) => {
