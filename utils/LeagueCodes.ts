@@ -40,5 +40,5 @@ export const LeagueCodesInverse: Record<number, Results.Leagues> =
         ...acc,
         ...curr,
       }),
-      {}
+      {},
     );

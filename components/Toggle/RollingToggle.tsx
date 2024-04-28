@@ -10,6 +10,6 @@ export function useRolling(defaultValue: Options = 5) {
       { value: 8, label: "8-game" },
       { value: 11, label: "11-game" },
     ],
-    defaultValue
+    defaultValue,
   );
 }

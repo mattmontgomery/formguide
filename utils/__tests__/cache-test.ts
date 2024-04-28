@@ -10,7 +10,7 @@ test("Compress string actually compresses and returns a compressed string", asyn
   const compressedValue = await compressString(initialValue);
 
   expect(getStringSize(compressedValue)).toBeLessThan(
-    getStringSize(initialValue)
+    getStringSize(initialValue),
   );
 });
 test("Can compress then decompress", async () => {

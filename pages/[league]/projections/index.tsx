@@ -107,27 +107,27 @@ export default function Projections(): React.ReactElement {
                         w:
                           row.w +
                           points.filter(
-                            (p) => p.team === row.team && p.result === "W"
+                            (p) => p.team === row.team && p.result === "W",
                           ).length,
                         d:
                           row.w +
                           points.filter(
-                            (p) => p.team === row.team && p.result === "D"
+                            (p) => p.team === row.team && p.result === "D",
                           ).length,
                         l:
                           row.w +
                           points.filter(
-                            (p) => p.team === row.team && p.result === "L"
+                            (p) => p.team === row.team && p.result === "L",
                           ).length,
                         points:
                           row.points +
                           getArraySum(
                             points
                               .filter((p) => p.team === row.team)
-                              .map((p) => getPointsForResult(p.result))
+                              .map((p) => getPointsForResult(p.result)),
                           ),
                       })),
-                      meta.league
+                      meta.league,
                     ).map((record, idx) => ({
                       ...record,
                       rank: idx + 1,
@@ -145,7 +145,7 @@ export default function Projections(): React.ReactElement {
 }
 function dataParser(
   data: Results.ParsedData["teams"],
-  projections: Projections = []
+  projections: Projections = [],
 ): Render.RenderReadyData {
   return Object.keys(data).map((team) => [
     team,
@@ -153,7 +153,7 @@ function dataParser(
       .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
       .map((match, idx) => {
         const projected = projections.find(
-          (p) => p.fixtureId === match.fixtureId
+          (p) => p.fixtureId === match.fixtureId,
         );
         return (
           <MatchCell

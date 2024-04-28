@@ -21,7 +21,7 @@ function PlusMinus({ data }: { data: Results.MatchWithGoalData }) {
           ? Object.entries(players).map(
               ([player, minutes]: [
                 string,
-                FormGuideAPI.Data.PlusMinus
+                FormGuideAPI.Data.PlusMinus,
               ]): Row => {
                 return {
                   id: player,
@@ -31,12 +31,12 @@ function PlusMinus({ data }: { data: Results.MatchWithGoalData }) {
                   minutes: minutes.minutes,
                   matches: minutes.matches,
                 };
-              }
+              },
             )
           : []),
       ];
     },
-    []
+    [],
   );
   return (
     <Table<Row>

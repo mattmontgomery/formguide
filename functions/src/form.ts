@@ -30,7 +30,7 @@ http("form", async (req, res) => {
     const data = await fetchData({ year, league });
     res.setHeader(
       `Cache-Control`,
-      `s-maxage=${getExpires(year, data)}, stale-while-revalidate`
+      `s-maxage=${getExpires(year, data)}, stale-while-revalidate`,
     );
     res.json({
       data,
@@ -77,7 +77,7 @@ async function fetchData({
     (data) => getExpires(year, data),
     {
       allowCompression: true,
-    }
+    },
   );
   if (!matchData) {
     throw "no data found";

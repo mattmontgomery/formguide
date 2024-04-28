@@ -6,7 +6,7 @@ export default async function form(
   res: NextApiResponse<
     | FormGuideAPI.Responses.FixtureEndpoint
     | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const fixture = +String(req.query.fixture);
   const {
@@ -23,7 +23,7 @@ export default async function form(
   if (data) {
     res.setHeader(
       `Cache-Control`,
-      `s-maxage=${60 * 60}, stale-while-revalidate`
+      `s-maxage=${60 * 60}, stale-while-revalidate`,
     );
     res.json({
       data,

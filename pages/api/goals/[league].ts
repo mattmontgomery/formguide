@@ -21,7 +21,7 @@ export default async function Goals(
   req: NextApiRequest,
   res: NextApiResponse<
     FormGuideAPI.Responses.GoalsEndpoint | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const league = String(req.query.league);
   const year = String(req.query.year ?? new Date().getFullYear());
@@ -34,11 +34,11 @@ export default async function Goals(
     return;
   }
   const response = await fetch(
-    `${FORM_API}?year=${year}&league=${league || "mls"}`
+    `${FORM_API}?year=${year}&league=${league || "mls"}`,
   );
   res.setHeader(
     `Cache-Control`,
-    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`
+    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`,
   );
 
   const { data }: { data: Results.ParsedData } = await response.json();
@@ -52,7 +52,7 @@ export default async function Goals(
     "SUBSTITUTIONS",
     "COMPRESSED",
     matches.length,
-    getHash(matches)
+    getHash(matches),
   );
 
   const keys = await getKeys(`${FIXTURE_KEY_PREFIX}`);
@@ -97,14 +97,14 @@ export default async function Goals(
     getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
     {
       allowCompression: true,
-    }
+    },
   );
 
   const teamsData = data
     ? Object.entries(data.teams).reduce(
         (
           previousValue: FormGuideAPI.Data.GoalsEndpoint["teams"],
-          [team, matches]
+          [team, matches],
         ) => {
           return {
             ...previousValue,
@@ -114,11 +114,11 @@ export default async function Goals(
                 goalsData:
                   prepared?.find((f) => m.fixtureId === f?.fixtureId) ??
                   undefined,
-              })
+              }),
             ),
           };
         },
-        {}
+        {},
       )
     : null;
   if (errors) {
@@ -149,7 +149,7 @@ export default async function Goals(
 }
 
 async function fetchFixture(
-  fixture: SlimMatch
+  fixture: SlimMatch,
 ): Promise<Results.MatchWithGoalData["goalsData"] | null> {
   try {
     const { data, fromCache } = await getFixtureData(fixture.fixtureId);
@@ -159,10 +159,10 @@ async function fetchFixture(
         fixtureId: fixture.fixtureId,
         fromCache,
         goals: data?.fixtureData[0].events.filter(
-          (event) => event.type === "Goal"
+          (event) => event.type === "Goal",
         ),
         substitutions: data?.fixtureData[0].events.filter(
-          (event) => event.type === "subst"
+          (event) => event.type === "subst",
         ),
         penalties: data?.fixtureData[0].players.reduce((acc, teamPlayers) => {
           return {
@@ -179,7 +179,7 @@ async function fetchFixture(
               {
                 scored: 0,
                 missed: 0,
-              }
+              },
             ),
           };
         }, {}),

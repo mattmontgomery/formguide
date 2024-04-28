@@ -24,8 +24,8 @@ export default async function getFixtureData(fixture: number) {
       data.fixtureData?.[0].fixture.status.long === "Match Finished"
         ? 0 // no expiration for completed matches
         : isBefore(parseISO(data.fixtureData[0]?.fixture.date), new Date())
-        ? 60 * 60 // 1 hour for matches from today forward
-        : 60 * 60 * 24, // 24 hour cache for incomplete matches
+          ? 60 * 60 // 1 hour for matches from today forward
+          : 60 * 60 * 24, // 24 hour cache for incomplete matches
     {
       checkEmpty: (data) => {
         if (!data) return true;
@@ -46,12 +46,12 @@ export default async function getFixtureData(fixture: number) {
       },
       retryOnEmptyData: true,
       allowCompression: true,
-    }
+    },
   );
 }
 
 export async function fetchFixture(
-  fixture: SlimMatch
+  fixture: SlimMatch,
 ): Promise<Results.FixtureApi | null> {
   try {
     const { data } = await getFixtureData(fixture.fixtureId);

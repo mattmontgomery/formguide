@@ -40,7 +40,7 @@ export default function DateFilter({
 
 export function useDateFilter(
   defaultFrom: Date,
-  defaultTo: Date
+  defaultTo: Date,
 ): {
   from: Date;
   to: Date;

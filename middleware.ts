@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
     console.info(
       `[${new Date().toJSON()}] ${request.method} ${
         request.nextUrl.pathname
-      } status:${response.status}`
+      } status:${response.status}`,
     );
   }
 

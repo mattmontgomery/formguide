@@ -103,15 +103,15 @@ export default function MatchFacts(): React.ReactElement {
 }
 
 function getMostGoalsConceded(
-  results: Results.ParsedData["teams"]
+  results: Results.ParsedData["teams"],
 ): Results.Match[] {
   return flattenMatches(results)
     .sort((a, b) => {
       return (a.goalsConceded || 0) > (b.goalsConceded || 0)
         ? 1
         : a.goalsConceded === b.goalsConceded
-        ? 0
-        : -1;
+          ? 0
+          : -1;
     })
     .reverse()
     .slice(0, 10);
@@ -128,15 +128,15 @@ function getBiggestGD(results: Results.ParsedData["teams"]): Results.Match[] {
 }
 
 function getMostGoalsScored(
-  results: Results.ParsedData["teams"]
+  results: Results.ParsedData["teams"],
 ): Results.Match[] {
   return flattenMatches(results)
     .sort((a, b) => {
       return (a.goalsScored || 0) > (b.goalsScored || 0)
         ? 1
         : a.goalsScored === b.goalsScored
-        ? 0
-        : -1;
+          ? 0
+          : -1;
     })
     .reverse()
     .slice(0, 10);
@@ -152,7 +152,7 @@ function flattenMatches(results: Results.ParsedData["teams"]): Results.Match[] {
 }
 
 function getBiggestTurnaround(
-  results: Results.ParsedData["teams"]
+  results: Results.ParsedData["teams"],
 ): Results.Match[] {
   return flattenMatches(results)
     .filter((match) => {
@@ -169,7 +169,7 @@ function getBiggestTurnaround(
         (b.firstHalf?.goalsScored || 0) - (b.firstHalf?.goalsConceded || 0)
         ? 1
         : a.goalsScored === b.goalsScored
-        ? 0
-        : -1;
+          ? 0
+          : -1;
     });
 }

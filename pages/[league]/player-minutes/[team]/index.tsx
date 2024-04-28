@@ -24,7 +24,7 @@ export default function PlayerMinutesTeamPage(): React.ReactElement {
       { value: "assists", label: "Assists" },
       { value: "g+a", label: "G+A" },
     ],
-    "minutes"
+    "minutes",
   );
   return (
     <BaseDataPage<FormGuideAPI.Responses.PlayerMinutesEndpoint["data"]>
@@ -69,17 +69,17 @@ export function Data({
             break;
           case "goals":
             players[player.name][matchIdx] = match.goals?.filter(
-              (g) => g.player.id === player.id
+              (g) => g.player.id === player.id,
             ).length;
             break;
           case "assists":
             players[player.name][matchIdx] = match.goals?.filter(
-              (g) => g.assist?.id === player.id
+              (g) => g.assist?.id === player.id,
             ).length;
             break;
           case "g+a":
             players[player.name][matchIdx] = match.goals?.filter(
-              (g) => g.assist?.id === player.id || g.player.id === player.id
+              (g) => g.assist?.id === player.id || g.player.id === player.id,
             ).length;
             break;
         }
@@ -106,8 +106,8 @@ export function Data({
                           return value
                             ? getMinutesColor(value)
                             : value === 0
-                            ? getMinutesColor(0)
-                            : "grey.300";
+                              ? getMinutesColor(0)
+                              : "grey.300";
                         case "goals":
                         case "g+a":
                         case "assists":

@@ -12,7 +12,7 @@ import MatchDetails from "./MatchDetails";
 export type GridProps<T extends Results.Match> = {
   data: Record<string, T[]>;
   getBackgroundColor?: (
-    match: T
+    match: T,
   ) => ReturnType<CellProps["getBackgroundColor"]>;
   getCellProps?: (match: T) => Partial<CellProps>;
   getShaded?: (match: T) => boolean;
@@ -26,7 +26,7 @@ export type GridProps<T extends Results.Match> = {
   result?: Results.ResultTypesAll;
   sortMethod?: (
     sortStrategy: string,
-    weekSortIdx: number
+    weekSortIdx: number,
   ) => (a: unknown, b: unknown) => 1 | -1 | 0;
 };
 
@@ -45,7 +45,7 @@ export default function MatchGrid<T extends Results.Match>({
   result,
 }: GridProps<T>): React.ReactElement {
   const [sortStrategy, setSortStrategy] = useState<"teamName" | "week">(
-    "teamName"
+    "teamName",
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>();
   const homeShaded = homeAway === "home";

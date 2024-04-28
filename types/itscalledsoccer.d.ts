@@ -41,49 +41,49 @@ declare module "itscalledsoccer" {
      * Get IDs by name
      */
     getPlayersByName(
-      args: EntityByNameArgs
+      args: EntityByNameArgs,
     ): Promise<Array<EntityReference<"players">>>;
     getManagersByName(
-      args: EntityByNameArgs
+      args: EntityByNameArgs,
     ): Promise<Array<EntityReference<"managers">>>;
     getStadiaByName(
-      args: EntityByNameArgs
+      args: EntityByNameArgs,
     ): Promise<Array<EntityReference<"stadia">>>;
     getRefereesByName(
-      args: EntityByNameArgs
+      args: EntityByNameArgs,
     ): Promise<Array<EntityReference<"referees">>>;
     getTeamsByName(
-      args: EntityByNameArgs
+      args: EntityByNameArgs,
     ): Promise<Array<EntityReference<"teams">>>;
 
     getPlayersXgoals(
-      args: StatArgs<PlayersXGoalParameters>
+      args: StatArgs<PlayersXGoalParameters>,
     ): Promise<PlayerXGoals[]>;
     getPlayersXpass(
-      args: StatArgs<PlayerXPassParameters>
+      args: StatArgs<PlayerXPassParameters>,
     ): Promise<PlayerXPass[]>;
     getPlayersGoalsAdded(
-      args: StatArgs<PlayersGoalsAddedParameters>
+      args: StatArgs<PlayersGoalsAddedParameters>,
     ): Promise<PlayerGoalsAdded[]>;
     getPlayersSalaries(
-      args: StatArgs<PlayersSalariesParameters>
+      args: StatArgs<PlayersSalariesParameters>,
     ): Promise<PlayerSalaries[]>;
     getGoalkeepersXgoals(
-      args: StatArgs<GoalkeepersXgoalsParameters>
+      args: StatArgs<GoalkeepersXgoalsParameters>,
     ): Promise<GoalkeeperXGoals[]>;
     getGoalkeepersGoalsAdded(
-      args: StatArgs<GoalkeepersGoalsAddedParameters>
+      args: StatArgs<GoalkeepersGoalsAddedParameters>,
     ): Promise<GoalkeeperGoalsAdded[]>;
     getTeamsXgoals(args: StatArgs<TeamsXgoalsParameters>): Promise<TeamXPass[]>;
     getTeamsXpass(args: StatArgs<TeamsXpassParameters>): Promise<TeamXPass[]>;
     getTeamsGoalsAdded(
-      args: StatArgs<TeamsGoalsAddedParameters>
+      args: StatArgs<TeamsGoalsAddedParameters>,
     ): Promise<TeamGoalsAdded[]>;
     getTeamsSalaries(
-      args: StatArgs<TeamsSalariesParameters>
+      args: StatArgs<TeamsSalariesParameters>,
     ): Promise<TeamSalaries[]>;
     getGamesXgoals(
-      args: StatArgs<GamesXgoalsParameters>
+      args: StatArgs<GamesXgoalsParameters>,
     ): Promise<GamesXGoals[]>;
   }
 
@@ -104,7 +104,7 @@ declare module "itscalledsoccer" {
     "splitBySeasons",
     "splitByGames",
     "stageName",
-    "generalPosition"
+    "generalPosition",
   ];
 
   type PlayerXPassParameters = [
@@ -120,7 +120,7 @@ declare module "itscalledsoccer" {
     "splitBySeasons",
     "splitByGames",
     "stageName",
-    "generalPosition"
+    "generalPosition",
   ];
 
   type PlayersGoalsAddedParameters = [
@@ -136,7 +136,7 @@ declare module "itscalledsoccer" {
     "stageName",
     "generalPosition",
     "actionType",
-    "aboveReplacement"
+    "aboveReplacement",
   ];
 
   type PlayersSalariesParameters = [
@@ -145,7 +145,7 @@ declare module "itscalledsoccer" {
     "position",
     "seasonName",
     "startDate",
-    "endDate"
+    "endDate",
   ];
 
   type GoalkeepersXgoalsParameters = [
@@ -160,7 +160,7 @@ declare module "itscalledsoccer" {
     "splitByTeams",
     "splitBySeasons",
     "splitByGames",
-    "stageName"
+    "stageName",
   ];
 
   type GoalkeepersGoalsAddedParameters = [
@@ -175,7 +175,7 @@ declare module "itscalledsoccer" {
     "splitByGames",
     "stageName",
     "actionType",
-    "aboveReplacement"
+    "aboveReplacement",
   ];
 
   type TeamsXgoalsParameters = [
@@ -191,7 +191,7 @@ declare module "itscalledsoccer" {
     "awayOnly",
     "homeAdjusted",
     "evenGameState",
-    "stageName"
+    "stageName",
   ];
 
   type TeamsXpassParameters = [
@@ -205,7 +205,7 @@ declare module "itscalledsoccer" {
     "splitByGames",
     "homeOnly",
     "awayOnly",
-    "stageName"
+    "stageName",
   ];
 
   type TeamsGoalsAddedParameters = [
@@ -215,7 +215,7 @@ declare module "itscalledsoccer" {
     "stageName",
     "actionType",
     "zone",
-    "gamestateTrunc"
+    "gamestateTrunc",
   ];
 
   type TeamsSalariesParameters = [
@@ -223,7 +223,7 @@ declare module "itscalledsoccer" {
     "seasonName",
     "splitByTeams",
     "splitBySeasons",
-    "splitByGames"
+    "splitByGames",
   ];
 
   type GamesParameters = ["gameId", "teamId", "seasonName", "stageName"];
@@ -233,7 +233,7 @@ declare module "itscalledsoccer" {
     "seasonName",
     "startDate",
     "endDate",
-    "stageName"
+    "stageName",
   ];
 
   /**

@@ -16,10 +16,10 @@ declare namespace TheOdds {
   };
   type Market = {
     key: "h2h" | "totals" | "spreads";
-    outcomes: ({
+    outcomes: {
       name: string | "Draw";
       price: number;
       point?: number;
-    })[];
+    }[];
   };
 }

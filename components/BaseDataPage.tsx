@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 export type DataPageProps<
   Data = Results.ParsedData,
-  Meta = Results.ParsedMeta
+  Meta = Results.ParsedMeta,
 > = {
   renderComponent: (data: Data, meta: Meta) => React.ReactNode;
   getEndpoint?: (year: number, league: string) => string;
@@ -15,7 +15,7 @@ export type DataPageProps<
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 function BaseDataPage<Data = Results.ParsedData, Meta = Results.ParsedMeta>(
-  props: React.PropsWithChildren<DataPageProps<Data, Meta>>
+  props: React.PropsWithChildren<DataPageProps<Data, Meta>>,
 ): React.ReactElement {
   const {
     children,

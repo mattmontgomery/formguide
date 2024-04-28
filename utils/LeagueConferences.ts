@@ -169,7 +169,7 @@ const LeagueSorts: Partial<
     Results.Leagues,
     (
       a: { points: number; w: number; gd: number },
-      b: { points: number; w: number; gd: number }
+      b: { points: number; w: number; gd: number },
     ) => 1 | 0 | -1
   >
 > = {
@@ -177,36 +177,36 @@ const LeagueSorts: Partial<
     return a.points > b.points
       ? 1
       : a.points < b.points
-      ? -1
-      : a.w > b.w
-      ? 1
-      : a.w < b.w
-      ? -1
-      : a.gd > b.gd
-      ? 1
-      : a.gd < b.gd
-      ? -1
-      : 0;
+        ? -1
+        : a.w > b.w
+          ? 1
+          : a.w < b.w
+            ? -1
+            : a.gd > b.gd
+              ? 1
+              : a.gd < b.gd
+                ? -1
+                : 0;
   },
 };
 
 const DefaultLeagueSort = (
   a: { points: number; w: number; gd: number },
-  b: { points: number; w: number; gd: number }
+  b: { points: number; w: number; gd: number },
 ): 1 | 0 | -1 => {
   return a.points > b.points
     ? 1
     : a.points < b.points
-    ? -1
-    : a.gd > b.gd
-    ? 1
-    : a.gd < b.gd
-    ? -1
-    : a.w > b.w
-    ? 1
-    : a.w < b.w
-    ? -1
-    : 0;
+      ? -1
+      : a.gd > b.gd
+        ? 1
+        : a.gd < b.gd
+          ? -1
+          : a.w > b.w
+            ? 1
+            : a.w < b.w
+              ? -1
+              : 0;
 };
 
 export {

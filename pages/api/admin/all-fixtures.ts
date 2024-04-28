@@ -6,7 +6,7 @@ export default async function LoadFixturesEndpoint(
   req: NextApiRequest,
   res: NextApiResponse<
     FormGuideAPI.BaseAPIV2<number[]> | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   if (process.env.NODE_ENV !== "development") {
     res.json({

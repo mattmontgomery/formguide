@@ -8,6 +8,6 @@ export function useOpponentToggle(show: OpponentToggleOptions = "team") {
       { value: "team", label: "Team" },
       { value: "opponent", label: "Opponent" },
     ],
-    show
+    show,
   );
 }

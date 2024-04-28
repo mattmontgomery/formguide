@@ -19,7 +19,7 @@ export default async function PlayersTeamEndpoint(
   res: NextApiResponse<
     | FormGuideAPI.Responses.PlayerMinutesEndpoint
     | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const team = String(req.query.team);
   const league = String(req.query.league) as Results.Leagues;
@@ -27,11 +27,11 @@ export default async function PlayersTeamEndpoint(
     ? Number(req.query.year)
     : new Date().getFullYear();
   const response = await fetch(
-    `${FORM_API}?year=${year}&league=${league || "mls"}`
+    `${FORM_API}?year=${year}&league=${league || "mls"}`,
   );
   res.setHeader(
     `Cache-Control`,
-    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`
+    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`,
   );
 
   const { data }: { data: Results.ParsedData } = await response.json();
@@ -46,7 +46,7 @@ export default async function PlayersTeamEndpoint(
     "ALL",
     "WITH_GOALS",
     "PLAYER_MINUTES_v2",
-    getHash([matches, league])
+    getHash([matches, league]),
   );
   const {
     data: playersData = [],
@@ -93,13 +93,13 @@ export default async function PlayersTeamEndpoint(
               playerMinutes: getSingleTeamPlayerMinutes(p, team),
               goals: p.events.filter((e) => e.type === "Goal"),
             }
-          : null
+          : null,
       );
     },
     getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
     {
       allowCompression: true,
-    }
+    },
   );
   if (errors) {
     res.json({
@@ -110,7 +110,7 @@ export default async function PlayersTeamEndpoint(
   res.json({
     data:
       (playersData?.filter(
-        Boolean
+        Boolean,
       ) as FormGuideAPI.Data.PlayerMinutesEndpoint[]) ?? [],
     meta: { team, league, year, compressed, preparedFromCache },
   });

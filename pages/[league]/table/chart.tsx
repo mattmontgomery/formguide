@@ -42,7 +42,7 @@ function LeagueTable({
   meta: Results.ParsedMeta;
 }): React.ReactElement {
   const { selectedTeams, hoverTeam, renderComponent } = useChartLegend(
-    Object.keys(data.teams)
+    Object.keys(data.teams),
   );
   return (
     <Box>
@@ -86,7 +86,7 @@ function ChartView({
       <Grid columns={false} numTicks={8} />
       {Object.keys(data.teams)
         .filter(
-          (team) => selectedTeams.includes(team) || selectedTeams.length === 0
+          (team) => selectedTeams.includes(team) || selectedTeams.length === 0,
         )
         .map((team, idx) => (
           <TeamLineSeries
@@ -99,7 +99,7 @@ function ChartView({
               (points, idx) => ({
                 x: idx,
                 y: points,
-              })
+              }),
             )}
           />
         ))}

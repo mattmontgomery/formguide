@@ -3,7 +3,7 @@ import { useToggle } from "./Toggle";
 export type RefereeStatOptions = "Yellow Cards" | "Red Cards" | "Fouls";
 
 export function useRefereeStatsToggle(
-  show: RefereeStatOptions = "Yellow Cards"
+  show: RefereeStatOptions = "Yellow Cards",
 ) {
   return useToggle<RefereeStatOptions>(
     [
@@ -20,6 +20,6 @@ export function useRefereeStatsToggle(
         label: "Fouls",
       },
     ],
-    show
+    show,
   );
 }

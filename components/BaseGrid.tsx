@@ -19,7 +19,7 @@ function convertToNumber(value: string | number): string | number {
 
 function teamNameSort(
   a: [string, ...React.ReactElement[]],
-  b: [string, ...React.ReactElement[]]
+  b: [string, ...React.ReactElement[]],
 ): 1 | -1 | 0 {
   if (!a || !b) {
     return 0;
@@ -53,11 +53,11 @@ export default function BaseGrid<T = Results.ParsedData["teams"]>({
     return sortStrategy === "teamName"
       ? teamNameSort(
           a as [string, ...React.ReactElement[]],
-          b as [string, ...React.ReactElement[]]
+          b as [string, ...React.ReactElement[]],
         )
       : sortStrategy === "week"
-      ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
-      : 0;
+        ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
+        : 0;
   },
 }: {
   data: T;
@@ -72,11 +72,11 @@ export default function BaseGrid<T = Results.ParsedData["teams"]>({
   getMatchCellProps?: (match: Results.Match) => Partial<MatchCellProps>;
   sortMethod?: (
     sortStrategy: string,
-    weekSortIdx: number
+    weekSortIdx: number,
   ) => (a: unknown, b: unknown) => 1 | -1 | 0;
 }): React.ReactElement {
   const [sortStrategy, setSortStrategy] = useState<"teamName" | "week">(
-    "teamName"
+    "teamName",
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
   const [shaded, setShaded] = useState<string>();
@@ -145,7 +145,7 @@ export default function BaseGrid<T = Results.ParsedData["teams"]>({
                           : {}),
                         rightBorder: shouldHaveRightBorder,
                       });
-                    }
+                    },
                   )}
                 </Box>
               );

@@ -9,6 +9,6 @@ export function useHomeAway(defaultValue: Options = "all") {
       { value: "home", label: "Home" },
       { value: "away", label: "Away" },
     ],
-    defaultValue
+    defaultValue,
   );
 }

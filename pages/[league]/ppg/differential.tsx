@@ -31,16 +31,16 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
             const points = getArrayAverage(
               teamPoints[match.opponent]
                 .filter(
-                  (opponentMatch) => opponentMatch.date < new Date(match.date)
+                  (opponentMatch) => opponentMatch.date < new Date(match.date),
                 )
-                .map((opponentPoints) => opponentPoints.points)
+                .map((opponentPoints) => opponentPoints.points),
             );
             const ownPoints = getArrayAverage(
               teamPoints[match.team]
                 .filter(
-                  (opponentMatch) => opponentMatch.date < new Date(match.date)
+                  (opponentMatch) => opponentMatch.date < new Date(match.date),
                 )
-                .map((opponentPoints) => opponentPoints.points)
+                .map((opponentPoints) => opponentPoints.points),
             );
             if (!match.result) {
               return "-";

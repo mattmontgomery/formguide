@@ -14,7 +14,7 @@ export default function Chart(): React.ReactElement {
         { value: "shots", label: "Shots" },
         { value: "shots-on-goal", label: "SOT" },
       ],
-      "shots"
+      "shots",
     );
   const max = stat === "shots" ? 0.4 : 0.8;
   return (

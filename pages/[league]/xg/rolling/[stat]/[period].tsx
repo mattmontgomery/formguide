@@ -30,13 +30,13 @@ const statMap: Record<
       ? asa.home_goals > asa.away_goals
         ? 3
         : asa.home_goals === asa.away_goals
-        ? 0
-        : 1
+          ? 0
+          : 1
       : asa.away_goals > asa.home_goals
-      ? 3
-      : asa.away_goals === asa.home_goals
-      ? 0
-      : 1;
+        ? 3
+        : asa.away_goals === asa.home_goals
+          ? 0
+          : 1;
     return actualPoints - (isHome ? asa.home_xpoints : asa.away_xpoints);
   },
   for: (asa, isHome) => (isHome ? asa.home_team_xgoals : asa.away_team_xgoals),
@@ -78,7 +78,7 @@ export default function Chart(): React.ReactElement {
 
   const { value: periodLength, renderComponent } = usePeriodLength(
     defaultPeriodLength,
-    true
+    true,
   );
   if (
     typeof stat !== "string" ||
@@ -106,7 +106,7 @@ function parseChartData(
   periodLength = 5,
   stat: ASA.ValidStats,
   homeAway: Options,
-  result: ResultOptions = "all"
+  result: ResultOptions = "all",
 ): ReturnType<Render.RollingParser> {
   return Object.keys(data)
     .sort()
@@ -123,16 +123,16 @@ function parseChartData(
               homeAway === "home"
                 ? match.home
                 : homeAway === "away"
-                ? !match.home
-                : true
+                  ? !match.home
+                  : true,
             )
             .filter((match) =>
-              result !== "all" ? result === match.result : true
+              result !== "all" ? result === match.result : true,
             )
             .slice(idx, idx + periodLength)
             .filter((match) => match.result !== null);
           const results = resultSet.map((match) =>
-            match.asa ? Number(statMap[stat](match.asa, match.home)) : -1
+            match.asa ? Number(statMap[stat](match.asa, match.home)) : -1,
           );
           return {
             value:
@@ -182,6 +182,6 @@ function dataParser({
           );
         }),
       ];
-    }
+    },
   );
 }

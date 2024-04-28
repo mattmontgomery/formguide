@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 
 export default function FixtureListItem(
-  match: Results.Match
+  match: Results.Match,
 ): React.ReactElement {
   return (
     <ListItem>

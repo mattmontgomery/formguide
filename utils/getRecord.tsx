@@ -14,14 +14,14 @@ export function getRecord(
     away: boolean | null;
     from: Date | null;
     to: Date | null;
-  }> = {}
+  }> = {},
 ): RecordPoints {
   return (matches ?? [])
     .filter(
       (match) =>
         match.status.long === "Match Finished" &&
         ((home !== null ? match.home === home : true) ||
-          (away !== null ? !match.home === away : true))
+          (away !== null ? !match.home === away : true)),
     )
     .filter((match) => (from ? isAfter(new Date(match.rawDate), from) : true))
     .filter((match) => (to ? isBefore(new Date(match.rawDate), to) : true))
@@ -35,7 +35,7 @@ export function getRecord(
             ]
           : prev;
       },
-      [0, 0, 0]
+      [0, 0, 0],
     );
 }
 
@@ -56,7 +56,7 @@ export function getGoals(matches: Results.Match[]): RecordGoals {
             ]
           : prev;
       },
-      [0, 0, 0]
+      [0, 0, 0],
     );
 }
 

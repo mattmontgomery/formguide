@@ -79,8 +79,8 @@ export default function GameStates(): React.ReactElement {
                                 state.team > state.opponent
                                   ? "success.contrastText"
                                   : state.opponent > state.team
-                                  ? "error.contrastText"
-                                  : "warning.contrastText",
+                                    ? "error.contrastText"
+                                    : "warning.contrastText",
                               display: "grid",
                               alignContent: "center",
                               position: "absolute",
@@ -95,8 +95,8 @@ export default function GameStates(): React.ReactElement {
                                 state.team > state.opponent
                                   ? "success.main"
                                   : state.opponent > state.team
-                                  ? "error.main"
-                                  : "warning.main",
+                                    ? "error.main"
+                                    : "warning.main",
                             }}
                           >
                             {state.team}-{state.opponent}

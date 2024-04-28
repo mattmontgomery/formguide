@@ -2,7 +2,7 @@ import MatchCell from "@/components/MatchCell";
 
 export default function getConsecutiveGames(
   results: Results.ParsedData["teams"],
-  teamNamesSorted: string[]
+  teamNamesSorted: string[],
 ): Render.RenderReadyData {
   return teamNamesSorted.map((team) => {
     const collated = results[team].map((match, idx) => {

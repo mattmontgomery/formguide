@@ -15,7 +15,7 @@ export default function VersusGrid({
   renderValue: (values: number[]) => number | string;
   getValue: (result: Results.Match) => number;
   getBackgroundColor: (
-    value: number[]
+    value: number[],
   ) =>
     | "common.white"
     | "success.main"
@@ -24,7 +24,7 @@ export default function VersusGrid({
     | "background.paper"
     | "transparent";
   getForegroundColor: (
-    value: number[]
+    value: number[],
   ) =>
     | "success.contrastText"
     | "error.contrastText"
@@ -133,7 +133,7 @@ export default function VersusGrid({
                     >
                       {teamData[team][t] ? renderValue(teamData[team][t]) : ""}
                     </Box>
-                  )
+                  ),
                 )}
             </Box>
           ))}

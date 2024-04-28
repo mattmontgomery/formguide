@@ -32,8 +32,8 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
             return cumulative[a][idx] > cumulative[b][idx]
               ? 1
               : cumulative[a][idx] === cumulative[b][idx]
-              ? 0
-              : -1;
+                ? 0
+                : -1;
           })
           .reverse()[0];
         pointsOffTop[team] = pointsOffTop[team] || [];

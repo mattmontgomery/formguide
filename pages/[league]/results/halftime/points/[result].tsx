@@ -52,30 +52,31 @@ export default function RecordSinceDate(): React.ReactElement {
                       return a[2] < b[2] ? 1 : a[2] > b[2] ? -1 : 0;
                     }
                   : sort === "matches"
-                  ? (a: Records, b: Records) => {
-                      return a[3].length < b[3].length
-                        ? 1
-                        : a[3].length > b[3].length
-                        ? -1
-                        : 0;
-                    }
-                  : sort === "pointsMatches"
-                  ? (a: Records, b: Records) => {
-                      return a[2] / a[3].length < b[2] / b[3].length
-                        ? 1
-                        : a[2] / a[3].length > b[2] / b[3].length
-                        ? -1
-                        : 0;
-                    }
-                  : sort === "pointsDropped"
-                  ? (a: Records, b: Records) => {
-                      return a[3].length * 3 - a[2] < b[3].length * 3 - b[2]
-                        ? 1
-                        : a[3].length * 3 - a[2] > b[3].length * 3 - b[2]
-                        ? -1
-                        : 0;
-                    }
-                  : undefined
+                    ? (a: Records, b: Records) => {
+                        return a[3].length < b[3].length
+                          ? 1
+                          : a[3].length > b[3].length
+                            ? -1
+                            : 0;
+                      }
+                    : sort === "pointsMatches"
+                      ? (a: Records, b: Records) => {
+                          return a[2] / a[3].length < b[2] / b[3].length
+                            ? 1
+                            : a[2] / a[3].length > b[2] / b[3].length
+                              ? -1
+                              : 0;
+                        }
+                      : sort === "pointsDropped"
+                        ? (a: Records, b: Records) => {
+                            return a[3].length * 3 - a[2] <
+                              b[3].length * 3 - b[2]
+                              ? 1
+                              : a[3].length * 3 - a[2] > b[3].length * 3 - b[2]
+                                ? -1
+                                : 0;
+                          }
+                        : undefined,
               )
               .map(([team, record, points, matches]: Records, idx) => {
                 return (

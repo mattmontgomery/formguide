@@ -13,10 +13,10 @@ export default function Chart(): React.ReactElement {
         typeof value !== "number"
           ? "background.paper"
           : value < periodLength * 1.25
-          ? "success.main"
-          : value < periodLength * 2
-          ? "warning.main"
-          : "error.main"
+            ? "success.main"
+            : value < periodLength * 2
+              ? "warning.main"
+              : "error.main"
       }
     >
       <ColorKey

@@ -288,7 +288,7 @@ function getColumns(groupIds: string[]): GridColumns<AdvancedTableRow> {
       return true;
     }
     const inGroup = GROUP_MODEL.find((g) =>
-      g.children.some((c) => isLeaf(c) && c.field === column.field)
+      g.children.some((c) => isLeaf(c) && c.field === column.field),
     );
     return (inGroup && groupIds.includes(inGroup.groupId)) || !inGroup;
   });
@@ -304,7 +304,7 @@ export default function AdvancedTablePage() {
     [],
     {
       exclusive: false,
-    }
+    },
   );
   return (
     <BaseDataPage<Results.ParsedDataGoals>
@@ -343,7 +343,7 @@ export function AdvancedTableWrapper({
     renderComponent: renderDatePicker,
   } = useDateFilter(
     addWeeks(getMatchDate(getEarliestMatch(data)), -1),
-    addWeeks(getMatchDate(getLatestMatch(data)), 1)
+    addWeeks(getMatchDate(getLatestMatch(data)), 1),
   );
   return (
     <Box>
@@ -397,13 +397,13 @@ export function AdvancedTable({
           isAfter(parseISO(match.rawDate), from) &&
           isBefore(parseISO(match.rawDate), to)
       : homeAway === "away"
-      ? (match: Results.Match) =>
-          !match.home &&
-          isAfter(parseISO(match.rawDate), from) &&
-          isBefore(parseISO(match.rawDate), to)
-      : (match: Results.Match) =>
-          isAfter(parseISO(match.rawDate), from) &&
-          isBefore(parseISO(match.rawDate), to);
+        ? (match: Results.Match) =>
+            !match.home &&
+            isAfter(parseISO(match.rawDate), from) &&
+            isBefore(parseISO(match.rawDate), to)
+        : (match: Results.Match) =>
+            isAfter(parseISO(match.rawDate), from) &&
+            isBefore(parseISO(match.rawDate), to);
   const rows: Omit<AdvancedTableRow, "rank">[] = Object.entries(data.teams)
     .filter(([team]) => {
       return conference === "all"
@@ -420,13 +420,13 @@ export function AdvancedTable({
       ]);
       const points = getPoints(matches.filter(filterFn));
       const uniqueScorers = getUniqueGoalscorers(matches.filter(filterFn)).sort(
-        (a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0)
+        (a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0),
       );
       const winningScorers = getUniqueGoalscorers(
-        winningMatches.filter(filterFn)
+        winningMatches.filter(filterFn),
       ).sort((a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0));
       const losingScorers = getUniqueGoalscorers(
-        losingMatches.filter(filterFn)
+        losingMatches.filter(filterFn),
       ).sort((a, b) => (a.goals > b.goals ? -1 : b.goals > a.goals ? 1 : 0));
       const penalties = getPenalties(matches);
       return {

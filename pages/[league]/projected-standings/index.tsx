@@ -44,7 +44,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
         { value: true, label: "Team PPG" },
         { value: false, label: "Pre-Calculated Averages" },
       ],
-      true
+      true,
     );
   const getEndpoint = useMemo(() => {
     return (year: number, league: string): string =>
@@ -117,8 +117,8 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                         preparedData.filter(
                           (r) =>
                             ConferencesByYear[league]?.[year]?.[r.id] ===
-                              conference || conference === "All"
-                        ).length
+                              conference || conference === "All",
+                        ).length,
                       )
                         .fill(null)
                         .map((_, idx) => ({
@@ -129,7 +129,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                     rows={preparedData.filter(
                       (r) =>
                         ConferencesByYear[league]?.[year]?.[r.id] ===
-                          conference || conference === "All"
+                          conference || conference === "All",
                     )}
                   ></DataGrid>
                 </Box>

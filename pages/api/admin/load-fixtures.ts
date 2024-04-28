@@ -6,7 +6,7 @@ export default async function LoadFixturesEndpoint(
   req: NextApiRequest,
   res: NextApiResponse<
     FormGuideAPI.BaseAPIV2<string[]> | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   if (process.env.NODE_ENV !== "development") {
     res.json({
@@ -21,8 +21,8 @@ export default async function LoadFixturesEndpoint(
   const fixtures: string[] = Array.isArray(req.query.fixtureIds)
     ? req.query.fixtureIds
     : req.query.fixtureIds
-    ? [...req.query.fixtureIds.split(",")]
-    : [];
+      ? [...req.query.fixtureIds.split(",")]
+      : [];
 
   const responses = [];
 
@@ -34,7 +34,7 @@ export default async function LoadFixturesEndpoint(
   const json = await Promise.all(
     responses
       .filter((r: Response) => typeof r.json === "function")
-      .map((r: Response) => r.json())
+      .map((r: Response) => r.json()),
   );
   res.json({
     data: json.map((match) => match.meta.fixture),

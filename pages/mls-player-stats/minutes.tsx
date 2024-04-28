@@ -7,7 +7,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 export default function MLSMinutes(): React.ReactElement {
   const { data } = useSWR<PlayerStats.ApiResponse<PlayerStats.Minutes[]>>(
     `/api/player-stats/minutes`,
-    fetcher
+    fetcher,
   );
   const players = data?.data;
   const teamMinutes =

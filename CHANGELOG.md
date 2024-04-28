@@ -6,224 +6,195 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.43.0](https://github.com/mattmontgomery/formguide/compare/v1.42.0...v1.43.0) (2022-10-09)
 
-
 ### Features
 
-* ✨ adds home/away toggle to referee form ([819e618](https://github.com/mattmontgomery/formguide/commit/819e6186cdb82a3638067cc648d3b175330411d1))
-* ✨ refactors referee stats page ([0437c2f](https://github.com/mattmontgomery/formguide/commit/0437c2f1f998de685a5060e8199703745d7af6c8))
-
+- ✨ adds home/away toggle to referee form ([819e618](https://github.com/mattmontgomery/formguide/commit/819e6186cdb82a3638067cc648d3b175330411d1))
+- ✨ refactors referee stats page ([0437c2f](https://github.com/mattmontgomery/formguide/commit/0437c2f1f998de685a5060e8199703745d7af6c8))
 
 ### Bug Fixes
 
-* 🐛 fix issue with goals api ([604c574](https://github.com/mattmontgomery/formguide/commit/604c574f6246ab4f07cec3cff6c6bfb8fddf2763))
-* 🐛 fixes redis issue with goals page ([faa9a13](https://github.com/mattmontgomery/formguide/commit/faa9a1329b4bea4498c01d79edbf6c8edd679e5d))
-* 🐛 refactors api to use scan instead of keys ([6a24076](https://github.com/mattmontgomery/formguide/commit/6a240761b4becd5792d70104de529d242bcbd071))
+- 🐛 fix issue with goals api ([604c574](https://github.com/mattmontgomery/formguide/commit/604c574f6246ab4f07cec3cff6c6bfb8fddf2763))
+- 🐛 fixes redis issue with goals page ([faa9a13](https://github.com/mattmontgomery/formguide/commit/faa9a1329b4bea4498c01d79edbf6c8edd679e5d))
+- 🐛 refactors api to use scan instead of keys ([6a24076](https://github.com/mattmontgomery/formguide/commit/6a240761b4becd5792d70104de529d242bcbd071))
 
 ## [1.42.0](https://github.com/mattmontgomery/formguide/compare/v1.41.0...v1.42.0) (2022-10-04)
 
-
 ### Features
 
-* ✨ adds back button for game states page ([c56b914](https://github.com/mattmontgomery/formguide/commit/c56b914372907a8474847f9ac07953b472a4ed70))
-* ✨ adds game states by team pages ([715c605](https://github.com/mattmontgomery/formguide/commit/715c605d2f934b3d5ec65c891e9de4af3fc5cdb4))
-* ✨ adds game states overview page ([7b8a0a3](https://github.com/mattmontgomery/formguide/commit/7b8a0a3c7d9db4b1413f9e41e73a0b69a7993631))
-* ✨ adds refereeing form guide ([e1053ff](https://github.com/mattmontgomery/formguide/commit/e1053ffe516a681d0abe2f8996b2ceae11ec03de))
-* ✨ adds renderTitle for base page ([457bdd9](https://github.com/mattmontgomery/formguide/commit/457bdd9cafa49fb37792f04cded13c9ab5e7181a))
-* ✨ refinements to game states page ([2e49f05](https://github.com/mattmontgomery/formguide/commit/2e49f0541483d43730239788a007caaee9c4afd3))
-* ✨ refines dark mode usage, respects user default if set ([1a06642](https://github.com/mattmontgomery/formguide/commit/1a066426d48b45254c4d64a37d585cb055df64f4))
-
+- ✨ adds back button for game states page ([c56b914](https://github.com/mattmontgomery/formguide/commit/c56b914372907a8474847f9ac07953b472a4ed70))
+- ✨ adds game states by team pages ([715c605](https://github.com/mattmontgomery/formguide/commit/715c605d2f934b3d5ec65c891e9de4af3fc5cdb4))
+- ✨ adds game states overview page ([7b8a0a3](https://github.com/mattmontgomery/formguide/commit/7b8a0a3c7d9db4b1413f9e41e73a0b69a7993631))
+- ✨ adds refereeing form guide ([e1053ff](https://github.com/mattmontgomery/formguide/commit/e1053ffe516a681d0abe2f8996b2ceae11ec03de))
+- ✨ adds renderTitle for base page ([457bdd9](https://github.com/mattmontgomery/formguide/commit/457bdd9cafa49fb37792f04cded13c9ab5e7181a))
+- ✨ refinements to game states page ([2e49f05](https://github.com/mattmontgomery/formguide/commit/2e49f0541483d43730239788a007caaee9c4afd3))
+- ✨ refines dark mode usage, respects user default if set ([1a06642](https://github.com/mattmontgomery/formguide/commit/1a066426d48b45254c4d64a37d585cb055df64f4))
 
 ### Bug Fixes
 
-* 🐛 closes navigation by default ([6cd737d](https://github.com/mattmontgomery/formguide/commit/6cd737d5c12dd44f882a7c5a58b70ab64af703e2))
-* 🐛 removes missed penalties from game state ([dad5cdc](https://github.com/mattmontgomery/formguide/commit/dad5cdc5f4a003903ec195bb9dabf6c4e017c50b))
+- 🐛 closes navigation by default ([6cd737d](https://github.com/mattmontgomery/formguide/commit/6cd737d5c12dd44f882a7c5a58b70ab64af703e2))
+- 🐛 removes missed penalties from game state ([dad5cdc](https://github.com/mattmontgomery/formguide/commit/dad5cdc5f4a003903ec195bb9dabf6c4e017c50b))
 
 ## [1.41.0](https://github.com/mattmontgomery/formguide/compare/v1.40.1...v1.41.0) (2022-10-03)
 
-
 ### Features
 
-* ✨ allows compression on form guide ([7d65db4](https://github.com/mattmontgomery/formguide/commit/7d65db4d2219d165ee4358a488a1b57fa7e564e4))
-* **style:** ✨ 🎨 refines nav ([bf5fb82](https://github.com/mattmontgomery/formguide/commit/bf5fb82cdb2de8a219efe2b8f1d747a3c3c07216))
+- ✨ allows compression on form guide ([7d65db4](https://github.com/mattmontgomery/formguide/commit/7d65db4d2219d165ee4358a488a1b57fa7e564e4))
+- **style:** ✨ 🎨 refines nav ([bf5fb82](https://github.com/mattmontgomery/formguide/commit/bf5fb82cdb2de8a219efe2b8f1d747a3c3c07216))
 
 ### [1.40.1](https://github.com/mattmontgomery/formguide/compare/v1.40.0...v1.40.1) (2022-10-03)
 
-
 ### Bug Fixes
 
-* 🐛 fixes bug where frauen bundesliga was cut off ([5bb8d2c](https://github.com/mattmontgomery/formguide/commit/5bb8d2c600498ec63386bff99fc4ce491c7b92d6))
+- 🐛 fixes bug where frauen bundesliga was cut off ([5bb8d2c](https://github.com/mattmontgomery/formguide/commit/5bb8d2c600498ec63386bff99fc4ce491c7b92d6))
 
 ## [1.40.0](https://github.com/mattmontgomery/formguide/compare/v1.39.0...v1.40.0) (2022-10-03)
 
-
 ### Features
 
-* ✨ adds API support for various european leagues ([0079b8b](https://github.com/mattmontgomery/formguide/commit/0079b8b55dec443a99b1010df3ccddbdc985b2e0))
-* ✨ adds rolling player stats page ([dd3121f](https://github.com/mattmontgomery/formguide/commit/dd3121f37a431667fd02b58a684c2a4f940b67e2))
-* ✨ adds UI support for european leagues ([e965b55](https://github.com/mattmontgomery/formguide/commit/e965b55f167402260a9fb43227818e1aa5bde8a6))
-
+- ✨ adds API support for various european leagues ([0079b8b](https://github.com/mattmontgomery/formguide/commit/0079b8b55dec443a99b1010df3ccddbdc985b2e0))
+- ✨ adds rolling player stats page ([dd3121f](https://github.com/mattmontgomery/formguide/commit/dd3121f37a431667fd02b58a684c2a4f940b67e2))
+- ✨ adds UI support for european leagues ([e965b55](https://github.com/mattmontgomery/formguide/commit/e965b55f167402260a9fb43227818e1aa5bde8a6))
 
 ### Bug Fixes
 
-* 🐛 adjusts league offsets ([8b73d15](https://github.com/mattmontgomery/formguide/commit/8b73d158ab55dab7f34e622428e0d042bfbb1e82))
-* **deps:** 🐛 removes d3 overrides ([f70bf5d](https://github.com/mattmontgomery/formguide/commit/f70bf5dc8f5066e83dfabe24b60e770acdbc0ac6))
+- 🐛 adjusts league offsets ([8b73d15](https://github.com/mattmontgomery/formguide/commit/8b73d158ab55dab7f34e622428e0d042bfbb1e82))
+- **deps:** 🐛 removes d3 overrides ([f70bf5d](https://github.com/mattmontgomery/formguide/commit/f70bf5dc8f5066e83dfabe24b60e770acdbc0ac6))
 
 ## [1.39.0](https://github.com/mattmontgomery/formguide/compare/v1.38.1...v1.39.0) (2022-09-28)
 
-
 ### Features
 
-* **advanced-table:** ✨ adds shutouts, times shutout ([dce2949](https://github.com/mattmontgomery/formguide/commit/dce29499a0d505343a4e9459583b39e3a753e30c))
-
+- **advanced-table:** ✨ adds shutouts, times shutout ([dce2949](https://github.com/mattmontgomery/formguide/commit/dce29499a0d505343a4e9459583b39e3a753e30c))
 
 ### Bug Fixes
 
-* **rolling-base:** 🐛 fixes issue introduced that broke period length toggles ([1563816](https://github.com/mattmontgomery/formguide/commit/15638165e903e127ab4e98c3b1d8bf910df3cee6))
+- **rolling-base:** 🐛 fixes issue introduced that broke period length toggles ([1563816](https://github.com/mattmontgomery/formguide/commit/15638165e903e127ab4e98c3b1d8bf910df3cee6))
 
 ### [1.38.1](https://github.com/mattmontgomery/formguide/compare/v1.38.0...v1.38.1) (2022-09-28)
 
 ## [1.38.0](https://github.com/mattmontgomery/formguide/compare/v1.37.0...v1.38.0) (2022-09-28)
 
-
 ### Features
 
-* ✨ reuses homepage ([b07fae2](https://github.com/mattmontgomery/formguide/commit/b07fae2ecf29117d6fac867cae3e4fc37600b909))
-
+- ✨ reuses homepage ([b07fae2](https://github.com/mattmontgomery/formguide/commit/b07fae2ecf29117d6fac867cae3e4fc37600b909))
 
 ### Bug Fixes
 
-* **rolling-base:** 🐛 fixes issue with period lengths derived from routers ([9fd1542](https://github.com/mattmontgomery/formguide/commit/9fd1542031888982592c42c71beb22142c3bafa4))
+- **rolling-base:** 🐛 fixes issue with period lengths derived from routers ([9fd1542](https://github.com/mattmontgomery/formguide/commit/9fd1542031888982592c42c71beb22142c3bafa4))
 
 ## [1.37.0](https://github.com/mattmontgomery/formguide/compare/v1.36.0...v1.37.0) (2022-09-27)
 
-
 ### Features
 
-* ✨ redis refactor ([e00e817](https://github.com/mattmontgomery/formguide/commit/e00e81709ddb61cd17e8d9ae09b6fa513da89d2f))
-* ✨ unifies and refactors rolling pages ([c78a068](https://github.com/mattmontgomery/formguide/commit/c78a06800e90374d936ef4ad707349b855a6fd13))
-* **refactor:** ✨ ♻️ major refactors to base grid page ([c4acdac](https://github.com/mattmontgomery/formguide/commit/c4acdac37a58625f67f2319369b8453d53031bdc))
-* **scatterplot:** ✨ adds router support for stats toggle ([9e64821](https://github.com/mattmontgomery/formguide/commit/9e64821bee7d27794fe91a36cce92be7e0185a42))
-* **subs:** ✨ adds earliest substitute grid, rolling pages ([8d5e140](https://github.com/mattmontgomery/formguide/commit/8d5e140e94b993e69941516b7d4671a93688f737))
+- ✨ redis refactor ([e00e817](https://github.com/mattmontgomery/formguide/commit/e00e81709ddb61cd17e8d9ae09b6fa513da89d2f))
+- ✨ unifies and refactors rolling pages ([c78a068](https://github.com/mattmontgomery/formguide/commit/c78a06800e90374d936ef4ad707349b855a6fd13))
+- **refactor:** ✨ ♻️ major refactors to base grid page ([c4acdac](https://github.com/mattmontgomery/formguide/commit/c4acdac37a58625f67f2319369b8453d53031bdc))
+- **scatterplot:** ✨ adds router support for stats toggle ([9e64821](https://github.com/mattmontgomery/formguide/commit/9e64821bee7d27794fe91a36cce92be7e0185a42))
+- **subs:** ✨ adds earliest substitute grid, rolling pages ([8d5e140](https://github.com/mattmontgomery/formguide/commit/8d5e140e94b993e69941516b7d4671a93688f737))
 
 ## [1.36.0](https://github.com/mattmontgomery/formguide/compare/v1.35.0...v1.36.0) (2022-09-26)
 
-
 ### Features
 
-* **advanced-table:** ✨ adds penalties to advanced table, adds filtering ([1e95afb](https://github.com/mattmontgomery/formguide/commit/1e95afbb41e79ed1f70533be752fb0282a2a4c63))
-
+- **advanced-table:** ✨ adds penalties to advanced table, adds filtering ([1e95afb](https://github.com/mattmontgomery/formguide/commit/1e95afbb41e79ed1f70533be752fb0282a2a4c63))
 
 ### Bug Fixes
 
-* 🐛 updates scatterplot nav link ([6346a62](https://github.com/mattmontgomery/formguide/commit/6346a62e20c8b271f0438aeb2be303a3e1d07cfc))
+- 🐛 updates scatterplot nav link ([6346a62](https://github.com/mattmontgomery/formguide/commit/6346a62e20c8b271f0438aeb2be303a3e1d07cfc))
 
 ## [1.35.0](https://github.com/mattmontgomery/formguide/compare/v1.34.1...v1.35.0) (2022-09-25)
 
-
 ### Features
 
-* ✨ adds correlation charts ([ca3717c](https://github.com/mattmontgomery/formguide/commit/ca3717c8ff942936fd81c1d51b06991522f94aae))
-* **scatterplot:** ✨ adds home/away filter ([9221ab3](https://github.com/mattmontgomery/formguide/commit/9221ab3eed2b81f54ca4e361d0045afe1375c44c))
-* **stats:** ✨ adds scatterplot page ([1c8872f](https://github.com/mattmontgomery/formguide/commit/1c8872f3b91350090d38256cf14da9853610a1fd))
+- ✨ adds correlation charts ([ca3717c](https://github.com/mattmontgomery/formguide/commit/ca3717c8ff942936fd81c1d51b06991522f94aae))
+- **scatterplot:** ✨ adds home/away filter ([9221ab3](https://github.com/mattmontgomery/formguide/commit/9221ab3eed2b81f54ca4e361d0045afe1375c44c))
+- **stats:** ✨ adds scatterplot page ([1c8872f](https://github.com/mattmontgomery/formguide/commit/1c8872f3b91350090d38256cf14da9853610a1fd))
 
 ### [1.34.1](https://github.com/mattmontgomery/formguide/compare/v1.34.0...v1.34.1) (2022-09-25)
 
-
 ### Bug Fixes
 
-* 🐛 fixes toggle bug ([1a378bc](https://github.com/mattmontgomery/formguide/commit/1a378bc5416b0ea6d0b41d53dcb8c20c501ec25f))
+- 🐛 fixes toggle bug ([1a378bc](https://github.com/mattmontgomery/formguide/commit/1a378bc5416b0ea6d0b41d53dcb8c20c501ec25f))
 
 ## [1.34.0](https://github.com/mattmontgomery/formguide/compare/v1.33.0...v1.34.0) (2022-09-23)
 
-
 ### Features
 
-* ✨ adds player goals, assists, g+a ([fa1ca14](https://github.com/mattmontgomery/formguide/commit/fa1ca1433e06416d1f35020dbefc13777f414165))
+- ✨ adds player goals, assists, g+a ([fa1ca14](https://github.com/mattmontgomery/formguide/commit/fa1ca1433e06416d1f35020dbefc13777f414165))
 
 ## [1.33.0](https://github.com/mattmontgomery/formguide/compare/v1.32.1...v1.33.0) (2022-09-22)
 
-
 ### Features
 
-* ✨ adds color gradient tool for minutes ([8214121](https://github.com/mattmontgomery/formguide/commit/82141215804260d66dc8be2a5ca6ac03358c58e4))
+- ✨ adds color gradient tool for minutes ([8214121](https://github.com/mattmontgomery/formguide/commit/82141215804260d66dc8be2a5ca6ac03358c58e4))
 
 ### [1.32.1](https://github.com/mattmontgomery/formguide/compare/v1.32.0...v1.32.1) (2022-09-22)
 
-
 ### Bug Fixes
 
-* 🐛 fixes sorting issue ([241658b](https://github.com/mattmontgomery/formguide/commit/241658b43b4fa1e23ca9f49c42834f98d1e93e6a))
+- 🐛 fixes sorting issue ([241658b](https://github.com/mattmontgomery/formguide/commit/241658b43b4fa1e23ca9f49c42834f98d1e93e6a))
 
 ## [1.32.0](https://github.com/mattmontgomery/formguide/compare/v1.31.0...v1.32.0) (2022-09-22)
 
-
 ### Features
 
-* ✨ adds a legend for player minutes chart ([25f7afc](https://github.com/mattmontgomery/formguide/commit/25f7afc1339911aa43edd532dfddb2569f5f1adf))
-* ✨ adds team player minutes page ([0437406](https://github.com/mattmontgomery/formguide/commit/04374067398442b11a09594e07192b309db1ae45))
+- ✨ adds a legend for player minutes chart ([25f7afc](https://github.com/mattmontgomery/formguide/commit/25f7afc1339911aa43edd532dfddb2569f5f1adf))
+- ✨ adds team player minutes page ([0437406](https://github.com/mattmontgomery/formguide/commit/04374067398442b11a09594e07192b309db1ae45))
 
 ## [1.31.0](https://github.com/mattmontgomery/formguide/compare/v1.30.0...v1.31.0) (2022-09-22)
 
-
 ### Features
 
-* ✨ adds color coding to form chart ([3327330](https://github.com/mattmontgomery/formguide/commit/3327330e20279c6daa97b8e9f62ca6e7d0b37945))
-* ✨ adds color coding to rolling first ga/gf ([99b3646](https://github.com/mattmontgomery/formguide/commit/99b3646877ea3961d62bc780dc13d5d3ea4baf8b))
-* ✨ adds finishing percentage stats pages ([9643452](https://github.com/mattmontgomery/formguide/commit/9643452535d0e040948d50620f40974178143a2f))
-* ✨ adds opponent toggle to new stats pages ([fb11cc1](https://github.com/mattmontgomery/formguide/commit/fb11cc1b4d5cc09cf97acb0ebcf3aebc1ac3519b))
-* ✨ adds team-highlight support to rolling pages ([557c329](https://github.com/mattmontgomery/formguide/commit/557c32976666b2c57fef4b4af73dc0e50dc2dea3))
+- ✨ adds color coding to form chart ([3327330](https://github.com/mattmontgomery/formguide/commit/3327330e20279c6daa97b8e9f62ca6e7d0b37945))
+- ✨ adds color coding to rolling first ga/gf ([99b3646](https://github.com/mattmontgomery/formguide/commit/99b3646877ea3961d62bc780dc13d5d3ea4baf8b))
+- ✨ adds finishing percentage stats pages ([9643452](https://github.com/mattmontgomery/formguide/commit/9643452535d0e040948d50620f40974178143a2f))
+- ✨ adds opponent toggle to new stats pages ([fb11cc1](https://github.com/mattmontgomery/formguide/commit/fb11cc1b4d5cc09cf97acb0ebcf3aebc1ac3519b))
+- ✨ adds team-highlight support to rolling pages ([557c329](https://github.com/mattmontgomery/formguide/commit/557c32976666b2c57fef4b4af73dc0e50dc2dea3))
 
 ## [1.30.0](https://github.com/mattmontgomery/formguide/compare/v1.29.0...v1.30.0) (2022-09-22)
 
-
 ### Features
 
-* ✨ refactors odds page ([ff59a1b](https://github.com/mattmontgomery/formguide/commit/ff59a1b09f03b44b72e90b0064caf79eff4c3edf))
-
+- ✨ refactors odds page ([ff59a1b](https://github.com/mattmontgomery/formguide/commit/ff59a1b09f03b44b72e90b0064caf79eff4c3edf))
 
 ### Bug Fixes
 
-* 🐛 fixes issue with odds showing up in wrong spot ([ccda359](https://github.com/mattmontgomery/formguide/commit/ccda359d67a292a4b46e7b16bbd63f4b2d84f48d))
-* 🐛 minor cleanup ([63d3941](https://github.com/mattmontgomery/formguide/commit/63d3941e634811e7c72df1dcb7e3c2dcdcafa34d))
-* 🐛 removes unnecessary meta from head ([7f4aacb](https://github.com/mattmontgomery/formguide/commit/7f4aacbc62b65a8bc7c7f2d72fd0475f7fe04a32))
+- 🐛 fixes issue with odds showing up in wrong spot ([ccda359](https://github.com/mattmontgomery/formguide/commit/ccda359d67a292a4b46e7b16bbd63f4b2d84f48d))
+- 🐛 minor cleanup ([63d3941](https://github.com/mattmontgomery/formguide/commit/63d3941e634811e7c72df1dcb7e3c2dcdcafa34d))
+- 🐛 removes unnecessary meta from head ([7f4aacb](https://github.com/mattmontgomery/formguide/commit/7f4aacbc62b65a8bc7c7f2d72fd0475f7fe04a32))
 
 ## [1.29.0](https://github.com/mattmontgomery/formguide/compare/v1.28.0...v1.29.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ adds twitter cards ([18f642e](https://github.com/mattmontgomery/formguide/commit/18f642ee424b059e9c5c65616a5887533e0ae9dd))
+- ✨ adds twitter cards ([18f642e](https://github.com/mattmontgomery/formguide/commit/18f642ee424b059e9c5c65616a5887533e0ae9dd))
 
 ## [1.28.0](https://github.com/mattmontgomery/formguide/compare/v1.27.0...v1.28.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ adds next-seo ([9151b64](https://github.com/mattmontgomery/formguide/commit/9151b642459c2e49c8d2957214b48964bd088d48))
+- ✨ adds next-seo ([9151b64](https://github.com/mattmontgomery/formguide/commit/9151b642459c2e49c8d2957214b48964bd088d48))
 
 ## [1.27.0](https://github.com/mattmontgomery/formguide/compare/v1.26.0...v1.27.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ adds og:title, og:description ([51b44cb](https://github.com/mattmontgomery/formguide/commit/51b44cb0d93a4441a5daaaa53045c63c6f5bd223))
-* ✨ change base page name ([352def4](https://github.com/mattmontgomery/formguide/commit/352def46086f4733beb86b982a974d5fc2440d84))
+- ✨ adds og:title, og:description ([51b44cb](https://github.com/mattmontgomery/formguide/commit/51b44cb0d93a4441a5daaaa53045c63c6f5bd223))
+- ✨ change base page name ([352def4](https://github.com/mattmontgomery/formguide/commit/352def46086f4733beb86b982a974d5fc2440d84))
 
 ## [1.26.0](https://github.com/mattmontgomery/formguide/compare/v1.25.0...v1.26.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ improve navigation ([0f52741](https://github.com/mattmontgomery/formguide/commit/0f52741eba6bb12bef4cdac618bccd8110f244bb))
-* ✨ page names ([196b33e](https://github.com/mattmontgomery/formguide/commit/196b33e766a5ea63f325b82458ac252f92df5e3e))
+- ✨ improve navigation ([0f52741](https://github.com/mattmontgomery/formguide/commit/0f52741eba6bb12bef4cdac618bccd8110f244bb))
+- ✨ page names ([196b33e](https://github.com/mattmontgomery/formguide/commit/196b33e766a5ea63f325b82458ac252f92df5e3e))
 
 ## [1.25.0](https://github.com/mattmontgomery/formguide/compare/v1.24.2...v1.25.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ improve colorblindness readability ([3a54e0c](https://github.com/mattmontgomery/formguide/commit/3a54e0c1dd549dd1f3de443320e0638b299a040f))
-* ✨ improves kbar ([bbf9458](https://github.com/mattmontgomery/formguide/commit/bbf94581d9b9290dd67d0c07010243890ed34a74))
+- ✨ improve colorblindness readability ([3a54e0c](https://github.com/mattmontgomery/formguide/commit/3a54e0c1dd549dd1f3de443320e0638b299a040f))
+- ✨ improves kbar ([bbf9458](https://github.com/mattmontgomery/formguide/commit/bbf94581d9b9290dd67d0c07010243890ed34a74))
 
 ### [1.24.2](https://github.com/mattmontgomery/formguide/compare/v1.24.1...v1.24.2) (2022-09-21)
 
@@ -231,36 +202,31 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.24.0](https://github.com/mattmontgomery/formguide/compare/v1.23.0...v1.24.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ refactors navigation, adds kbar support on mobile ([bfc48b8](https://github.com/mattmontgomery/formguide/commit/bfc48b8dba3bbcb230a257fbe73fed6080c4cbb9))
+- ✨ refactors navigation, adds kbar support on mobile ([bfc48b8](https://github.com/mattmontgomery/formguide/commit/bfc48b8dba3bbcb230a257fbe73fed6080c4cbb9))
 
 ## [1.23.0](https://github.com/mattmontgomery/formguide/compare/v1.22.0...v1.23.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ refactors rolling stats page, adds controls to top ([11b2e65](https://github.com/mattmontgomery/formguide/commit/11b2e6595095462b9d7e1711c570f35f83345b87))
+- ✨ refactors rolling stats page, adds controls to top ([11b2e65](https://github.com/mattmontgomery/formguide/commit/11b2e6595095462b9d7e1711c570f35f83345b87))
 
 ## [1.22.0](https://github.com/mattmontgomery/formguide/compare/v1.21.0...v1.22.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ adds rolling charts, comparison charts, by-game charts for individual stats ([a74a7b7](https://github.com/mattmontgomery/formguide/commit/a74a7b796864123872cdc8c0067c2c78578e88d1))
+- ✨ adds rolling charts, comparison charts, by-game charts for individual stats ([a74a7b7](https://github.com/mattmontgomery/formguide/commit/a74a7b796864123872cdc8c0067c2c78578e88d1))
 
 ## [1.21.0](https://github.com/mattmontgomery/formguide/compare/v1.20.0...v1.21.0) (2022-09-21)
 
-
 ### Features
 
-* ✨ adds total shots difference chart ([11cdbdf](https://github.com/mattmontgomery/formguide/commit/11cdbdfa7c954a1fc07a2a6a44cbbe552f138af3))
-
+- ✨ adds total shots difference chart ([11cdbdf](https://github.com/mattmontgomery/formguide/commit/11cdbdfa7c954a1fc07a2a6a44cbbe552f138af3))
 
 ### Bug Fixes
 
-* 🐛 fixes leagues issue ([84b896a](https://github.com/mattmontgomery/formguide/commit/84b896a6cc7b0e6d9abbeb12af482bd692f57bac))
+- 🐛 fixes leagues issue ([84b896a](https://github.com/mattmontgomery/formguide/commit/84b896a6cc7b0e6d9abbeb12af482bd692f57bac))
 
 ### 0.1.1 (2022-09-21)
 

@@ -58,7 +58,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                       }}
                     >
                       {Number(
-                        (states.w / (states.w + states.d + states.l)) * 100
+                        (states.w / (states.w + states.d + states.l)) * 100,
                       ).toFixed(2)}
                       %
                     </Box>
@@ -80,7 +80,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                       }}
                     >
                       {Number(
-                        (states.d / (states.w + states.d + states.l)) * 100
+                        (states.d / (states.w + states.d + states.l)) * 100,
                       ).toFixed(2)}
                       %
                     </Box>
@@ -100,7 +100,7 @@ export default function PlayerMinutesBasePage(): React.ReactElement {
                       }}
                     >
                       {Number(
-                        (states.l / (states.w + states.d + states.l)) * 100
+                        (states.l / (states.w + states.d + states.l)) * 100,
                       ).toFixed(2)}
                       %
                     </Box>

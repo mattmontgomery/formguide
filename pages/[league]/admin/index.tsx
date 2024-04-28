@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "development") {
 export default function Admin() {
   const { data: fixturesData } = useSWR<FormGuideAPI.BaseAPIV2<number[]>>(
     `/api/admin/all-fixtures`,
-    fetcher
+    fetcher,
   );
   const [loadFixture, setLoadFixture] = useState<number[]>([]);
   const [loaded, setLoaded] = useState<number[]>([]);
@@ -36,7 +36,7 @@ export default function Admin() {
       await fetch(
         `/api/admin/load-fixtures?${loadFixture
           .map((fixture) => `fixtureIds=${fixture}`)
-          .join("&")}`
+          .join("&")}`,
       );
       setLoaded([...loaded, ...loadFixture]);
       setLoadFixture([]);
@@ -62,7 +62,7 @@ export default function Admin() {
               !(
                 loaded.includes(f) ||
                 (fixturesData?.data && fixturesData.data?.includes(f))
-              )
+              ),
           );
         return (
           <Box sx={{ maxWidth: 800 }}>

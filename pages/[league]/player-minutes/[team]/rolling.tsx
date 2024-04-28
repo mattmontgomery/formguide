@@ -22,7 +22,7 @@ export default function PlayerMinutesTeamPage(): React.ReactElement {
       { value: "assists", label: "Assists" },
       { value: "g+a", label: "G+A" },
     ],
-    "minutes"
+    "minutes",
   );
   const max = statType === "minutes" ? 90 : 2;
   return (
@@ -65,7 +65,7 @@ export default function PlayerMinutesTeamPage(): React.ReactElement {
                 players[player.name][matchIdx] =
                   match.goals?.filter(
                     (g) =>
-                      g.assist?.id === player.id || g.player.id === player.id
+                      g.assist?.id === player.id || g.player.id === player.id,
                   ).length ?? 0;
                 break;
             }
@@ -88,8 +88,8 @@ export default function PlayerMinutesTeamPage(): React.ReactElement {
             backgroundColor = item.value
               ? getMinutesColor(item.value)
               : item.value === 0
-              ? getMinutesColor(0)
-              : "grey.300";
+                ? getMinutesColor(0)
+                : "grey.300";
             break;
           case "goals":
           case "g+a":

@@ -27,7 +27,7 @@ export type BaseRollingPageProps<T, ValueType, DataType, ParsedDataType> = {
   max?: number;
   renderBox: (
     item: { matches: T[]; value: number | null },
-    periodLength: number
+    periodLength: number,
   ) => React.ReactNode;
   renderControls?: BasePageProps["renderControls"];
 };
@@ -36,7 +36,7 @@ export default function AbstractBaseRollingPage<
   T,
   ValueType = number,
   DataType = { teams: Record<string, T[]> },
-  ParsedDataType = T
+  ParsedDataType = T,
 >({
   children,
   getData,
@@ -85,8 +85,8 @@ export default function AbstractBaseRollingPage<
                       ? null
                       : getSummaryValue(
                           valueSet.filter(
-                            (v) => typeof v !== "undefined"
-                          ) as ValueType[]
+                            (v) => typeof v !== "undefined",
+                          ) as ValueType[],
                         ),
                   matches: resultSet,
                 };
@@ -107,10 +107,10 @@ export default function AbstractBaseRollingPage<
               );
             }),
           ];
-        }
+        },
       );
     },
-    [filterMatches, getSummaryValue, getValue, periodLength, renderBox]
+    [filterMatches, getSummaryValue, getValue, periodLength, renderBox],
   );
   return (
     <BaseDataPage<DataType>

@@ -42,7 +42,7 @@ export default function PPGOutcomes(): React.ReactElement {
 function dataParser(
   data: Results.ParsedData["teams"],
   newProjection = true,
-  periodLength = 0
+  periodLength = 0,
 ): Render.RenderReadyData {
   const teamPoints = getTeamPoints(data);
   const teamCumulativeProjectedPoints: Record<string, number[]> = {};
@@ -60,7 +60,7 @@ function dataParser(
           ? getArraySum(
               teamPoints[team]
                 .filter((_, arraySumIdx) => arraySumIdx <= idx)
-                .map((p) => p.points)
+                .map((p) => p.points),
             )
           : teamCumulativeProjectedPoints[team][idx - 1] +
             (match.home
@@ -72,8 +72,8 @@ function dataParser(
                     .reverse()
                     .slice(
                       0,
-                      periodLength > 0 ? periodLength : teamPoints[team].length
-                    )
+                      periodLength > 0 ? periodLength : teamPoints[team].length,
+                    ),
                 )
               : getArrayAverage(
                   teamPoints[team]
@@ -83,8 +83,8 @@ function dataParser(
                     .reverse()
                     .slice(
                       0,
-                      periodLength > 0 ? periodLength : teamPoints[team].length
-                    )
+                      periodLength > 0 ? periodLength : teamPoints[team].length,
+                    ),
                 ));
       }),
   ]);

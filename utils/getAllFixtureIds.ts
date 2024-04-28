@@ -17,7 +17,7 @@ export type MatchWithTeams = {
 };
 export default function getAllFixtureIds(
   data: Results.ParsedData,
-  filterTeam?: string
+  filterTeam?: string,
 ): SlimMatch[] {
   return Object.entries(data.teams).reduce(
     (acc: SlimMatch[], [team, matches]) => {
@@ -29,7 +29,7 @@ export default function getAllFixtureIds(
         ...matches
           .filter(
             (match) =>
-              !acc.some(({ fixtureId }) => match.fixtureId === fixtureId)
+              !acc.some(({ fixtureId }) => match.fixtureId === fixtureId),
           )
           .map((match) => ({
             fixtureId: match.fixtureId,
@@ -39,13 +39,13 @@ export default function getAllFixtureIds(
           })),
       ];
     },
-    []
+    [],
   );
 }
 
 export function getAllFixtures(
   data: Results.ParsedData,
-  filter: (match: Results.Match) => boolean = () => true
+  filter: (match: Results.Match) => boolean = () => true,
 ): MatchWithTeams[] {
   return Object.entries(data.teams).reduce(
     (acc: MatchWithTeams[], [, matches]) => {
@@ -54,7 +54,7 @@ export function getAllFixtures(
         ...matches
           .filter(
             (match) =>
-              !acc.some(({ fixtureId }) => match.fixtureId === fixtureId)
+              !acc.some(({ fixtureId }) => match.fixtureId === fixtureId),
           )
           .filter(filter)
           .map((match) => ({
@@ -67,7 +67,7 @@ export function getAllFixtures(
           })),
       ];
     },
-    []
+    [],
   );
 }
 
@@ -75,13 +75,13 @@ export function getAllUniqueFixtures<
   M extends Results.Match,
   Data extends {
     teams: Record<string, M[]>;
-  }
+  },
 >(data: Data): M[] {
   return Object.values(data.teams).reduce((acc: M[], matches) => {
     return [
       ...acc,
       ...matches.filter(
-        (match) => !acc.some(({ fixtureId }) => match.fixtureId === fixtureId)
+        (match) => !acc.some(({ fixtureId }) => match.fixtureId === fixtureId),
       ),
     ];
   }, []);

@@ -23,12 +23,12 @@ export default function LeagueOdds(): React.ReactElement {
   const league = useContext(LeagueContext);
   const { data } = useSWR<FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>>(
     `/api/theodds/${league}`,
-    fetcher
+    fetcher,
   );
   const entries = data?.data ?? [];
 
   const [oddsFormat, setOddsFormat] = useState<"decimal" | "american">(
-    "american"
+    "american",
   );
 
   return (
@@ -97,7 +97,7 @@ export default function LeagueOdds(): React.ReactElement {
                         <TableCell rowSpan={bookmaker.markets.length}>
                           {formatRelative(
                             parseISO(bookmaker.last_update),
-                            new Date()
+                            new Date(),
                           )}
                         </TableCell>
                         <TableCell>{bookmaker.markets[0].key}</TableCell>
@@ -105,7 +105,7 @@ export default function LeagueOdds(): React.ReactElement {
                           <Outcome
                             oddsFormat={oddsFormat}
                             outcome={bookmaker.markets[0].outcomes.find(
-                              (o) => o.name === entry.home_team
+                              (o) => o.name === entry.home_team,
                             )}
                           />
                         </TableCell>
@@ -113,7 +113,7 @@ export default function LeagueOdds(): React.ReactElement {
                           <Outcome
                             oddsFormat={oddsFormat}
                             outcome={bookmaker.markets[0].outcomes.find(
-                              (o) => o.name === entry.away_team
+                              (o) => o.name === entry.away_team,
                             )}
                           />
                         </TableCell>
@@ -121,7 +121,7 @@ export default function LeagueOdds(): React.ReactElement {
                           <Outcome
                             oddsFormat={oddsFormat}
                             outcome={bookmaker.markets[0].outcomes.find(
-                              (o) => o.name === "Draw"
+                              (o) => o.name === "Draw",
                             )}
                           />
                         </TableCell>
@@ -136,7 +136,7 @@ export default function LeagueOdds(): React.ReactElement {
                                 outcome={market.outcomes.find((o) =>
                                   market.key === "totals"
                                     ? o.name === "Over"
-                                    : o.name === entry.home_team
+                                    : o.name === entry.home_team,
                                 )}
                               />
                             </TableCell>
@@ -146,7 +146,7 @@ export default function LeagueOdds(): React.ReactElement {
                                 outcome={market.outcomes.find((o) =>
                                   market.key === "totals"
                                     ? o.name === "Under"
-                                    : o.name === entry.away_team
+                                    : o.name === entry.away_team,
                                 )}
                               />
                             </TableCell>
@@ -154,7 +154,7 @@ export default function LeagueOdds(): React.ReactElement {
                               <Outcome
                                 oddsFormat={oddsFormat}
                                 outcome={market.outcomes.find(
-                                  (o) => o.name === "Draw"
+                                  (o) => o.name === "Draw",
                                 )}
                               />
                             </TableCell>
@@ -183,14 +183,14 @@ function Outcome(props: {
       switch (props.oddsFormat) {
         case "american":
           const _odds = Math.round(
-            odds >= 2 ? (odds - 1) * 100 : -100 / (odds - 1)
+            odds >= 2 ? (odds - 1) * 100 : -100 / (odds - 1),
           );
           return _odds > 0 ? `+${_odds}` : _odds;
         case "decimal":
           return odds;
       }
     },
-    [props.oddsFormat]
+    [props.oddsFormat],
   );
   return (
     <>

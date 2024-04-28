@@ -26,7 +26,7 @@ export default function SinceResultPage(): React.ReactElement {
 
 function dataParser(
   data: Results.ParsedData["teams"],
-  resultTypes: Results.ResultTypes[]
+  resultTypes: Results.ResultTypes[],
 ): Render.RenderReadyData {
   const lastTeamResult: Record<string, number> = {};
   return Object.keys(data).map((team) => [
@@ -39,7 +39,7 @@ function dataParser(
         }
         if (
           resultTypes.filter(
-            (result) => match.result?.toLowerCase() === result.toLowerCase()
+            (result) => match.result?.toLowerCase() === result.toLowerCase(),
           ).length > 0
         ) {
           lastTeamResult[team] = idx;
@@ -49,10 +49,10 @@ function dataParser(
           .find(
             (m) =>
               resultTypes.includes(m.result as Results.ResultTypes) &&
-              isBefore(parseISO(m.rawDate), parseISO(match.rawDate))
+              isBefore(parseISO(m.rawDate), parseISO(match.rawDate)),
           );
         const lastResultIdx = data[team].findIndex(
-          (m) => m.fixtureId === lastResult?.fixtureId
+          (m) => m.fixtureId === lastResult?.fixtureId,
         );
         return (
           <MatchCell

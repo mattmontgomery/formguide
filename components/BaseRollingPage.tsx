@@ -55,8 +55,8 @@ export default function BaseRollingPage({
         const maxValue = max
           ? max
           : typeof getMax === "function"
-          ? getMax(data, periodLength)
-          : 100;
+            ? getMax(data, periodLength)
+            : 100;
         return data?.teams ? (
           <MatchGrid
             rowSx={{

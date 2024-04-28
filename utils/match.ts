@@ -8,17 +8,17 @@ export type Minutes = {
   off: number | null;
 };
 export function getPlayerMinutes(
-  fixture: Results.FixtureApi
+  fixture: Results.FixtureApi,
 ): [string, Minutes[]][] {
   return fixture.players.map((teamPlayers): [string, Minutes[]] => {
     return [
       teamPlayers.team.name,
       teamPlayers.players.map((p): Minutes => {
         const subOnEvent = fixture.events.find(
-          (e) => e.type === "subst" && e.assist?.id === p.player.id
+          (e) => e.type === "subst" && e.assist?.id === p.player.id,
         );
         const subOffEvent = fixture.events.find(
-          (e) => e.type === "subst" && e.player?.id === p.player.id
+          (e) => e.type === "subst" && e.player?.id === p.player.id,
         );
         return {
           id: p.player.id,
@@ -36,7 +36,7 @@ export function getPlayerMinutes(
 
 export function getSingleTeamPlayerMinutes(
   fixture: Results.FixtureApi,
-  team: string
+  team: string,
 ): Minutes[] {
   return getPlayerMinutes(fixture)?.find((m) => m[0] === team)?.[1] ?? [];
 }
@@ -44,7 +44,7 @@ export function getSingleTeamPlayerMinutes(
 export function getPlusMinus(fixture: Results.FixtureApi) {
   const allMinutes = getPlayerMinutes(fixture);
   const goals = fixture.events.filter(
-    (e) => e.type === "Goal" && e.detail !== "Missed Penalty"
+    (e) => e.type === "Goal" && e.detail !== "Missed Penalty",
   );
   return allMinutes
     .map(([team, minutes]) => {
@@ -55,25 +55,25 @@ export function getPlusMinus(fixture: Results.FixtureApi) {
               (e) =>
                 e.team.name === team &&
                 m.minutes !== null &&
-                inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
+                inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180),
             );
             const goalsOff = goals.filter(
               (e) =>
                 e.team.name === team &&
                 m.minutes !== null &&
-                !inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
+                !inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180),
             );
             const goalsOnOpp = goals.filter(
               (e) =>
                 e.team.name !== team &&
                 m.minutes !== null &&
-                inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
+                inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180),
             );
             const goalsOffOpp = goals.filter(
               (e) =>
                 e.team.name !== team &&
                 m.minutes !== null &&
-                !inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180)
+                !inRange(e.time.elapsed, m.on ?? 0, m.off ?? 180),
             );
             return {
               [m.name]: {

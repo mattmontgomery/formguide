@@ -30,10 +30,10 @@ http("prediction", async (req, res) => {
         !data
           ? 30
           : data?.[0].fixture.status.long === "Match Finished"
-          ? 0
-          : data?.[0].fixture.status.short === "NS"
-          ? 60 * 60 * 4 // 4 hours if the match has not started
-          : 60 * 15 // 15 minutes if the match has started
+            ? 0
+            : data?.[0].fixture.status.short === "NS"
+              ? 60 * 60 * 4 // 4 hours if the match has not started
+              : 60 * 15, // 15 minutes if the match has started
     );
     console.info("Fetching data", fixture, Boolean(fixtureData), fromCache);
     const [predictionData] = await fetchCachedOrFresh<Results.PredictionApi[]>(
@@ -43,8 +43,8 @@ http("prediction", async (req, res) => {
         fixtureData?.[0].fixture.status.long === "Match Finished"
           ? 0 // store in perpetuity if match is finished
           : Boolean(data)
-          ? 60 * 60 * 24
-          : 60 * 60 // one minute if failed, 24 hours if not
+            ? 60 * 60 * 24
+            : 60 * 60, // one minute if failed, 24 hours if not
     );
     res.json({
       errors: [],

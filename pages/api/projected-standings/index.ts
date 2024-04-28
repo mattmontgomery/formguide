@@ -22,10 +22,10 @@ export default async function LoadFixturesEndpoint(
   res: NextApiResponse<
     | FormGuideAPI.Responses.SimulationsEndpoint
     | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const league: Results.Leagues = String(
-    req.query.league ?? "mls"
+    req.query.league ?? "mls",
   ) as Results.Leagues;
 
   const year = Number(req.query.year ?? 2022);
@@ -33,18 +33,18 @@ export default async function LoadFixturesEndpoint(
   const yearOffset = LeagueYearOffset[league] ?? 0;
 
   const response = await fetch(
-    `${FORM_API}?year=${year + yearOffset}&league=${league}`
+    `${FORM_API}?year=${year + yearOffset}&league=${league}`,
   );
 
   const { data } = (await response.json()) as { data: Results.ParsedData };
 
   const fixtureIds = getAllFixtures(
     data,
-    (m) => m.status.long !== "Match Finished"
+    (m) => m.status.long !== "Match Finished",
   );
   const finished = getAllFixtures(
     data,
-    (m) => m.status.long === "Match Finished"
+    (m) => m.status.long === "Match Finished",
   );
   const { homeWin = 0.4, awayWin = 0.3 } = LeagueProbabilities[league] ?? {};
 
@@ -53,14 +53,14 @@ export default async function LoadFixturesEndpoint(
       ? fixtureIds.length > 300
         ? 1000
         : fixtureIds.length > 200
-        ? 2000
-        : fixtureIds.length > 150
-        ? 3000
-        : fixtureIds.length > 100
-        ? 4000
-        : fixtureIds.length > 50
-        ? 5000
-        : 500
+          ? 2000
+          : fixtureIds.length > 150
+            ? 3000
+            : fixtureIds.length > 100
+              ? 4000
+              : fixtureIds.length > 50
+                ? 5000
+                : 500
       : 1;
 
   const _from = new Date();
@@ -130,7 +130,7 @@ export default async function LoadFixturesEndpoint(
           (acc: number, curr: number) => {
             return acc + curr;
           },
-          0
+          0,
         ),
         fromCache: Boolean(cachedProjectionsData),
         took: Number(new Date()) - Number(_from),
@@ -142,7 +142,7 @@ export default async function LoadFixturesEndpoint(
 function getMatchOutcome(
   m: MatchWithTeams,
   homeWin: number,
-  awayWin: number
+  awayWin: number,
 ): Possibility {
   const r = Math.random();
   const projectedResult =
@@ -226,11 +226,11 @@ async function calculate({
         });
         return { ...acc, [team]: getRow(team, projectedResults) };
       },
-      {}
+      {},
     );
 
     possibleTables.push(
-      getTeamRank(Object.values(table), league as Results.Leagues)
+      getTeamRank(Object.values(table), league as Results.Leagues),
     );
   }
   const possibilities: FormGuideAPI.Data.Simulations = possibleTables.reduce(
@@ -252,7 +252,7 @@ async function calculate({
         }, {}),
       };
     },
-    {}
+    {},
   );
   return possibilities;
 }

@@ -15,7 +15,7 @@ export default function RollingEarliestSubstitute(): React.ReactElement {
         match.goalsData?.substitutions.find(
           (e) =>
             e.team.name ===
-            (showOpponent === "opponent" ? match.opponent : match.team)
+            (showOpponent === "opponent" ? match.opponent : match.team),
         )?.time.elapsed
       }
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}

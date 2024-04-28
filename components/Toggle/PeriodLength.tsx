@@ -6,7 +6,7 @@ export type PeriodLengthOptions = 3 | 5 | 8 | 11 | number;
 
 export function usePeriodLength(
   defaultValue: PeriodLengthOptions = 5,
-  withRouter = false
+  withRouter = false,
 ) {
   const router = useRouter();
 
@@ -17,7 +17,7 @@ export function usePeriodLength(
       { value: 8, label: 8 },
       { value: 11, label: 11 },
     ],
-    defaultValue
+    defaultValue,
   );
 
   useEffect(() => {

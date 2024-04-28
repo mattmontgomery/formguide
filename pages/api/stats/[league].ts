@@ -21,7 +21,7 @@ export default async function Stats(
   req: NextApiRequest,
   res: NextApiResponse<
     FormGuideAPI.Responses.StatsEndpoint | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const league = String(req.query.league);
   const year = String(req.query.year ?? new Date().getFullYear());
@@ -34,11 +34,11 @@ export default async function Stats(
     return;
   }
   const response = await fetch(
-    `${FORM_API}?year=${year}&league=${league || "mls"}`
+    `${FORM_API}?year=${year}&league=${league || "mls"}`,
   );
   res.setHeader(
     `Cache-Control`,
-    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`
+    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`,
   );
 
   const { data }: { data: Results.ParsedData } = await response.json();
@@ -52,7 +52,7 @@ export default async function Stats(
     "COMPRESSED",
     "WITH_REFEREE",
     matches.length,
-    getHash(matches)
+    getHash(matches),
   );
 
   const keys = await getKeys(`${FIXTURE_KEY_PREFIX}*`);
@@ -97,20 +97,20 @@ export default async function Stats(
     getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
     {
       allowCompression: true,
-    }
+    },
   );
 
   const teamsData = data
     ? Object.entries(data.teams).reduce(
         (
           previousValue: FormGuideAPI.Data.StatsEndpoint["teams"],
-          [team, matches]
+          [team, matches],
         ) => {
           return {
             ...previousValue,
             [team]: matches.map((m): FormGuideAPI.Data.StatsMatch => {
               const fixture = prepared?.find(
-                (f) => m.fixtureId === f?.fixtureId
+                (f) => m.fixtureId === f?.fixtureId,
               );
               const match = {
                 ...m,
@@ -122,7 +122,7 @@ export default async function Stats(
             }),
           };
         },
-        {}
+        {},
       )
     : null;
   if (errors) {

@@ -9,7 +9,7 @@ const API_BASE = process.env.API_FOOTBALL_BASE;
 const API_KEY = process.env.API_FOOTBALL_KEY;
 
 export async function getFixture(
-  fixtureId: number
+  fixtureId: number,
 ): Promise<Results.FixtureApi[]> {
   const authHeaders = await getAuthenticationHeaders();
   const resp = await fetch(`${URL_BASE}/v3/fixtures?id=${fixtureId}`, {
@@ -18,7 +18,7 @@ export async function getFixture(
   return ((await resp.json()) as { response: Results.FixtureApi[] })?.response;
 }
 export async function getPredictionsForFixture(
-  fixtureId: number
+  fixtureId: number,
 ): Promise<Results.PredictionApi[]> {
   const authHeaders = await getAuthenticationHeaders();
   const resp = await fetch(`${URL_BASE}/v3/predictions?fixture=${fixtureId}`, {

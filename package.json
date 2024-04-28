@@ -10,7 +10,7 @@
     "lint:style": "stylelint **/*.css",
     "lint:build": "tsc --noEmit",
     "lint:prettier": "prettier --check .",
-    "prettier": "prettier .",
+    "prettier": "prettier --write .",
     "_lint:css": "csslint **/*.css",
     "build": "next build",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md --same-file -p conventionalcommits",

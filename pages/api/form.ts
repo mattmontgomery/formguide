@@ -6,7 +6,7 @@ const FORM_API = process.env.FORM_API;
 
 export default async function form(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> {
   const league = String(req.query.league) as Results.Leagues;
   const year = +String(req.query.year) || getCurrentYear(league);
@@ -16,7 +16,7 @@ export default async function form(
     const response = await fetch(`${FORM_API}?${args}`);
     res.setHeader(
       `Cache-Control`,
-      `s-maxage=${getExpires(year)}, stale-while-revalidate`
+      `s-maxage=${getExpires(year)}, stale-while-revalidate`,
     );
     if (response.status !== 200) {
       throw `function response: ${response.statusText}`;

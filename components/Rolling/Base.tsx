@@ -27,9 +27,9 @@ export default function BaseRollingPage<
     | Results.Match
     | Results.MatchWithStatsData
     | Results.MatchWithGoalData,
-  ValueType = number
+  ValueType = number,
 >(
-  props: React.PropsWithChildren<BaseRollingPageProps<T, ValueType>>
+  props: React.PropsWithChildren<BaseRollingPageProps<T, ValueType>>,
 ): React.ReactElement {
   const { value: homeAway, renderComponent: renderHomeAwayToggle } =
     useHomeAway();

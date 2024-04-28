@@ -46,7 +46,7 @@ export function useStatsToggle({
         })}
       </Select>
     ),
-    [statTypes]
+    [statTypes],
   );
   return {
     value: statTypes,

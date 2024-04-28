@@ -9,26 +9,26 @@ declare namespace Render {
     T = {
       value: number | null;
       matches: Results.Match[];
-    }
+    },
   > = (
     data: Results.ParsedData["teams"],
     periodLength: number,
-    homeAway: "home" | "away" | "all"
+    homeAway: "home" | "away" | "all",
   ) => [string, ...Array<T>][];
   type ASARollingParser<
     DataType,
     T = {
       value: number | null;
       matches: Results.Match[];
-    }
+    },
   > = (
     data: DataType,
     periodLength: number,
-    stat: ASA.ValidStats
+    stat: ASA.ValidStats,
   ) => [string, ...Array<T>][];
 
   type GetBackgroundColor = (
     value: number | null,
-    periodLength: number
+    periodLength: number,
   ) => string;
 }

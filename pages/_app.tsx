@@ -43,7 +43,7 @@ export function MLSFormGuide({
   const [year, setYear] = useState<number>(DEFAULT_YEAR);
   const { easterEgg, renderComponent } = useEasterEgg();
   const [_league, setLeague] = useState<Results.Leagues>(
-    league ?? DEFAULT_LEAGUE
+    league ?? DEFAULT_LEAGUE,
   );
   const [drawerOpen, setDrawerOpen] = useCookie("drawer-open", "closed");
 
@@ -76,8 +76,8 @@ export function MLSFormGuide({
             main: easterEgg
               ? deepPurple["300"]
               : darkMode
-              ? deepOrange["50"]
-              : deepOrange["700"],
+                ? deepOrange["50"]
+                : deepOrange["700"],
           },
           secondary: {
             light: deepPurple["100"],
@@ -100,7 +100,7 @@ export function MLSFormGuide({
           },
         },
       }),
-    [darkMode, easterEgg]
+    [darkMode, easterEgg],
   );
 
   return (
@@ -206,7 +206,7 @@ export default function RouterWrapped(
     Component: React.ReactElement;
     pageProps: unknown;
   }> &
-    AppProps
+    AppProps,
 ): React.ReactElement {
   const router = useRouter();
   const [league, setLeague] = useState<Results.Leagues>();

@@ -220,7 +220,7 @@ export default function Fixture(): React.ReactElement {
                           match.teams.away.winner
                             ? `<strong>${match.teams.away.name}</strong>`
                             : match.teams.away.name
-                        }</i>`
+                        }</i>`,
                     )
                     .join(`\n`);
                   const htmlBlob = new Blob([`<ul>${last10}</ul>`], {
@@ -241,13 +241,13 @@ export default function Fixture(): React.ReactElement {
                               match.teams.away.winner
                                 ? `*${match.teams.away.name}*`
                                 : match.teams.away.name
-                            }`
+                            }`,
                         )
                         .join(`\n`),
                     ],
                     {
                       type: "text/plain",
-                    }
+                    },
                   );
                   const clipped = new ClipboardItem({
                     [htmlBlob.type]: htmlBlob,
@@ -346,7 +346,7 @@ export default function Fixture(): React.ReactElement {
                     </Grid>
                   </ListItemText>
                 </ListItem>
-              )
+              ),
             )}
           </List>
         )}
@@ -375,7 +375,7 @@ export default function Fixture(): React.ReactElement {
               </ListItemText>
             </ListItem>
             {Object.keys(
-              predictionData.teams.home.league.goals.against.minute
+              predictionData.teams.home.league.goals.against.minute,
             ).map((segment, idx) => (
               <ListItem key={idx}>
                 <ListItemText>

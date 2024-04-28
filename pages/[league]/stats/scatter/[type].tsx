@@ -16,7 +16,7 @@ import { getArraySum } from "@/utils/array";
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
   const types: ValidStats[] = (String(router.query.type).split(
-    ","
+    ",",
   ) as ValidStats[]) ?? ["shots", "possession"];
 
   const { value: summarize, renderComponent: renderSummaryToggle } = useToggle(
@@ -24,7 +24,7 @@ export default function StatsByMatch(): React.ReactElement {
       { label: "Summarize Matches", value: "summarize" },
       { label: "By Match", value: "byMatch" },
     ],
-    "byMatch"
+    "byMatch",
   );
 
   const { renderComponent: renderStatsToggle, value: statTypes } =
@@ -82,15 +82,15 @@ export function DataView({
             homeAway === "all"
               ? true
               : homeAway === "home"
-              ? match.home
-              : !match.home
+                ? match.home
+                : !match.home,
           )
           .forEach((match) => {
             const xStat = Number(
-              getStats(match, statTypesValidated[0] ?? 0)[0]
+              getStats(match, statTypesValidated[0] ?? 0)[0],
             );
             const yStat = Number(
-              getStats(match, statTypesValidated[1] ?? 0)[0]
+              getStats(match, statTypesValidated[1] ?? 0)[0],
             );
             if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
               teamX[match.team] = xStat + (teamX[match.team] ?? 0);
@@ -107,15 +107,15 @@ export function DataView({
             homeAway === "all"
               ? true
               : homeAway === "home"
-              ? match.home
-              : !match.home
+                ? match.home
+                : !match.home,
           )
           .forEach((match) => {
             const xStat = Number(
-              getStats(match, statTypesValidated[0] ?? 0)[0]
+              getStats(match, statTypesValidated[0] ?? 0)[0],
             );
             const yStat = Number(
-              getStats(match, statTypesValidated[1] ?? 0)[0]
+              getStats(match, statTypesValidated[1] ?? 0)[0],
             );
             if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
               x.push(xStat);
@@ -138,15 +138,15 @@ export function DataView({
             homeAway === "all"
               ? true
               : homeAway === "home"
-              ? match.home
-              : !match.home
+                ? match.home
+                : !match.home,
           )
           .forEach((match) => {
             const xStat = Number(
-              getStats(match, statTypesValidated[0] ?? 0)[0]
+              getStats(match, statTypesValidated[0] ?? 0)[0],
             );
             const yStat = Number(
-              getStats(match, statTypesValidated[1] ?? 0)[0]
+              getStats(match, statTypesValidated[1] ?? 0)[0],
             );
             if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
               teamX[match.team] = Array.isArray(teamX[match.team])
@@ -167,15 +167,15 @@ export function DataView({
             homeAway === "all"
               ? true
               : homeAway === "home"
-              ? match.home
-              : !match.home
+                ? match.home
+                : !match.home,
           )
           .forEach((match) => {
             const xStat = Number(
-              getStats(match, statTypesValidated[0] ?? 0)[0]
+              getStats(match, statTypesValidated[0] ?? 0)[0],
             );
             const yStat = Number(
-              getStats(match, statTypesValidated[1] ?? 0)[0]
+              getStats(match, statTypesValidated[1] ?? 0)[0],
             );
             if (!Number.isNaN(xStat) && !Number.isNaN(yStat)) {
               x.push(xStat);
@@ -218,8 +218,8 @@ export function DataView({
                               homeAway === "all"
                                 ? true
                                 : homeAway === "home"
-                                ? match.home
-                                : !match.home
+                                  ? match.home
+                                  : !match.home,
                             )
                             .map((match) => {
                               return {

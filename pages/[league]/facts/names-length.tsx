@@ -10,7 +10,7 @@ export default function MatchFactsNames(): React.ReactElement {
           data,
           Object.keys(data).sort((a, b) => {
             return a.length > b.length ? 1 : b.length > a.length ? -1 : 0;
-          })
+          }),
         )
       }
     />

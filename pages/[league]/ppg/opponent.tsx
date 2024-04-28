@@ -26,7 +26,7 @@ export default function PPGOpponent(): React.ReactElement {
 }
 function dataParser(
   data: Results.ParsedData["teams"],
-  useHomeAway = true
+  useHomeAway = true,
 ): Render.RenderReadyData {
   const teamPoints = getTeamPoints(data);
   return Object.keys(data).map((team) => [
@@ -44,7 +44,7 @@ function dataParser(
               .filter(
                 (opponentMatch) =>
                   opponentMatch.date < new Date(match.date) &&
-                  opponentMatch.result !== null
+                  opponentMatch.result !== null,
               )
               .filter((opponentMatch) => {
                 if (useHomeAway) {

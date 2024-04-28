@@ -43,7 +43,7 @@ export const stats = {
 };
 
 export function compareStats(
-  stats: [number | string | undefined, number | string | undefined]
+  stats: [number | string | undefined, number | string | undefined],
 ) {
   return typeof stats[0] === "number" || typeof stats[1] === "number"
     ? Number(stats[0] ?? 0) - Number(stats[1] ?? 0)
@@ -52,7 +52,7 @@ export function compareStats(
 
 export function getStats(
   match: Results.MatchWithStatsData,
-  stat: ValidStats
+  stat: ValidStats,
 ): [number | string | undefined, number | string | undefined] {
   const statName = getStatsName(stat);
   switch (stat) {
@@ -60,7 +60,7 @@ export function getStats(
       return [
         Number(String(match.stats?.[match.team]?.[statName])?.replace("%", "")),
         Number(
-          String(match.stats?.[match.opponent]?.[statName])?.replace("%", "")
+          String(match.stats?.[match.opponent]?.[statName])?.replace("%", ""),
         ),
       ];
     case "goals":

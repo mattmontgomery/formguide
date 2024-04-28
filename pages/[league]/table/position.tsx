@@ -108,7 +108,7 @@ function LeagueTable({
         const conferenceTeams = getConferenceTeams(
           conference,
           meta.league,
-          meta.year
+          meta.year,
         );
         const allTeams = Object.keys(data.teams);
         const max = conferenceTeams.length || allTeams.length;
@@ -139,7 +139,7 @@ function LeagueTable({
                         const teamConference = getTeamConference(
                           team,
                           meta.league,
-                          meta.year
+                          meta.year,
                         );
                         return (
                           (selectedTeams.includes(team) ||
@@ -172,7 +172,7 @@ function LeagueTable({
                         tooltipData.nearestDatum &&
                         colorScale &&
                         selectedTeams.includes(
-                          tooltipData?.nearestDatum?.key
+                          tooltipData?.nearestDatum?.key,
                         ) ? (
                           <Box>
                             <Box
@@ -185,12 +185,12 @@ function LeagueTable({
                             <Box>
                               Week:{" "}
                               {accessors.xAccessor(
-                                tooltipData.nearestDatum.datum
+                                tooltipData.nearestDatum.datum,
                               )}
                             </Box>
                             <Box>
                               {accessors.yAccessor(
-                                tooltipData.nearestDatum.datum
+                                tooltipData.nearestDatum.datum,
                               )}{" "}
                               rank
                             </Box>
@@ -207,7 +207,7 @@ function LeagueTable({
               <Button
                 onClick={() =>
                   setSelectedTeams(
-                    selectedTeams.length ? [] : Object.keys(data.teams)
+                    selectedTeams.length ? [] : Object.keys(data.teams),
                   )
                 }
               >

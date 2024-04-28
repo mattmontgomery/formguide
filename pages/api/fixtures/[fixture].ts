@@ -8,7 +8,7 @@ export default async function form(
   res: NextApiResponse<
     | FormGuideAPI.Responses.FixturesEndpoint
     | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const fixtures = String(req.query.fixture)
     .split(",")
@@ -21,17 +21,17 @@ export default async function form(
       const prepared: (FormGuideAPI.Data.Fixtures | null)[] = [];
       for await (const chunk of chunks) {
         const matches = (await Promise.all(chunk.map(getFixtureData))).filter(
-          (m) => m !== null
+          (m) => m !== null,
         );
         prepared.push(
           ...matches
             .map((f) => f.data?.fixtureData?.[0] ?? null)
-            .filter(Boolean)
+            .filter(Boolean),
         );
       }
       return prepared;
     },
-    60 * 60 * 24
+    60 * 60 * 24,
   );
   if (!matches) {
     res.json({
@@ -52,7 +52,7 @@ export default async function form(
           return acc;
         }
       },
-      {}
+      {},
     ),
     meta: {},
   });

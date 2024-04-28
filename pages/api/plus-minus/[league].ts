@@ -16,18 +16,18 @@ const FORM_API = process.env.FORM_API;
 
 export default async function PlusMinusEndpoint(
   req: NextApiRequest,
-  res: NextApiResponse<FormGuideAPI.Responses.PlusMinusEndpoint>
+  res: NextApiResponse<FormGuideAPI.Responses.PlusMinusEndpoint>,
 ): Promise<void> {
   const league = String(req.query.league) as Results.Leagues;
   const year = req.query.year
     ? Number(req.query.year)
     : new Date().getFullYear();
   const response = await fetch(
-    `${FORM_API}?year=${year}&league=${league || "mls"}`
+    `${FORM_API}?year=${year}&league=${league || "mls"}`,
   );
   res.setHeader(
     `Cache-Control`,
-    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`
+    `s-maxage=${getExpires(Number(year))}, stale-while-revalidate`,
   );
 
   const { data }: { data: Results.ParsedData } = await response.json();
@@ -40,7 +40,7 @@ export default async function PlusMinusEndpoint(
     FIXTURE_KEY_PREFIX,
     "ALL",
     "PLUS_MINUS",
-    getHash([matches, league])
+    getHash([matches, league]),
   );
   const {
     data: plusMinus = [],
@@ -83,7 +83,7 @@ export default async function PlusMinusEndpoint(
               teams: p.teams,
               plusMinus: getPlusMinus(p),
             }
-          : null
+          : null,
       );
       const collectedPlayers: FormGuideAPI.Data.PlusMinusEndpoint = {};
       perMatchData.forEach((match) => {
@@ -118,7 +118,7 @@ export default async function PlusMinusEndpoint(
     getExpiresWeek(Number(year)), // long cache time; when match statuses change, the fixtures hex in the key will change, negating a need to cache for a shorter time
     {
       allowCompression: true,
-    }
+    },
   );
 
   res.json({
@@ -132,7 +132,7 @@ export default async function PlusMinusEndpoint(
 }
 
 async function fetchFixture(
-  fixture: SlimMatch
+  fixture: SlimMatch,
 ): Promise<Results.FixtureApi | null> {
   try {
     const { data } = await getFixtureData(fixture.fixtureId);

@@ -19,7 +19,7 @@ function convertToNumber(value: string | number): string | number {
 
 function teamNameSort(
   a: [string, ...React.ReactElement[]],
-  b: [string, ...React.ReactElement[]]
+  b: [string, ...React.ReactElement[]],
 ): 1 | -1 | 0 {
   if (!a || !b) {
     return 0;
@@ -55,16 +55,16 @@ export default function MatchGridV2<T extends Results.Match>({
     return sortStrategy === "teamName"
       ? teamNameSort(
           a as [string, ...React.ReactElement[]],
-          b as [string, ...React.ReactElement[]]
+          b as [string, ...React.ReactElement[]],
         )
       : sortStrategy === "week"
-      ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
-      : 0;
+        ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
+        : 0;
   },
 }: {
   data: Record<string, T[]>;
   dataParser: (
-    data: Record<string, T[]>
+    data: Record<string, T[]>,
   ) => [string, ...React.ReactElement[]][];
   homeAway: Options;
   showMatchdayHeader?: boolean;
@@ -76,11 +76,11 @@ export default function MatchGridV2<T extends Results.Match>({
   getMatchCellProps?: (match: T) => Partial<MatchCellProps>;
   sortMethod?: (
     sortStrategy: string,
-    weekSortIdx: number
+    weekSortIdx: number,
   ) => (a: unknown, b: unknown) => 1 | -1 | 0;
 }): React.ReactElement {
   const [sortStrategy, setSortStrategy] = useState<"teamName" | "week">(
-    "teamName"
+    "teamName",
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
   const homeShaded = homeAway === "home";
@@ -166,7 +166,7 @@ export default function MatchGridV2<T extends Results.Match>({
                           );
                         },
                       });
-                    }
+                    },
                   )}
                 </Box>
               );

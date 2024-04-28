@@ -15,10 +15,10 @@ export default function Chart(): React.ReactElement {
         typeof value !== "number"
           ? "background.paper"
           : value > 0
-          ? "success.main"
-          : value === 0
-          ? "warning.main"
-          : "error.main"
+            ? "success.main"
+            : value === 0
+              ? "warning.main"
+              : "error.main"
       }
     >
       <ColorKey

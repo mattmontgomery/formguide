@@ -2,7 +2,7 @@ import { getArraySum } from "./array";
 import { getTeamPointsArray } from "./getTeamPoints";
 
 export default function getPPG(
-  data: Results.ParsedData["teams"]
+  data: Results.ParsedData["teams"],
 ): Record<string, { home: number; away: number }> {
   return Object.entries(data)
     .map(([team, matches]): [string, { home: number; away: number }] => {
@@ -29,7 +29,7 @@ export type Probabilities = {
   awayL: number;
 };
 export function getProbabilities(
-  data: Results.ParsedData["teams"]
+  data: Results.ParsedData["teams"],
 ): Record<string, Probabilities> {
   return Object.entries(data)
     .map(([team, matches]): [string, Probabilities] => {

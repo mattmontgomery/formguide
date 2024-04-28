@@ -17,7 +17,7 @@ function convertToNumber(value: string | number): string | number {
 
 function teamNameSort(
   a: [string, ...React.ReactElement[]],
-  b: [string, ...React.ReactElement[]]
+  b: [string, ...React.ReactElement[]],
 ): 1 | -1 | 0 {
   if (!a || !b) {
     return 0;
@@ -41,7 +41,7 @@ function weekSort(a: ProppyArray, b: ProppyArray, week: number): 1 | -1 | 0 {
 export type AbstractGridProps<T> = {
   data: Record<string, T[]>;
   dataParser: (
-    data: Record<string, T[]>
+    data: Record<string, T[]>,
   ) => [string, ...React.ReactElement[]][];
   showMatchdayHeader?: boolean;
   rowSx?: SxProps;
@@ -52,7 +52,7 @@ export type AbstractGridProps<T> = {
   getMatchCellProps?: (match: T) => Partial<MatchCellProps>;
   sortMethod?: (
     sortStrategy: string,
-    weekSortIdx: number
+    weekSortIdx: number,
   ) => (a: unknown, b: unknown) => 1 | -1 | 0;
 };
 
@@ -68,15 +68,15 @@ export default function AbstractGrid<T>({
     return sortStrategy === "teamName"
       ? teamNameSort(
           a as [string, ...React.ReactElement[]],
-          b as [string, ...React.ReactElement[]]
+          b as [string, ...React.ReactElement[]],
         )
       : sortStrategy === "week"
-      ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
-      : 0;
+        ? weekSort(a as ProppyArray, b as ProppyArray, weekSortIdx)
+        : 0;
   },
 }: AbstractGridProps<T>): React.ReactElement {
   const [sortStrategy, setSortStrategy] = useState<"teamName" | "week">(
-    "teamName"
+    "teamName",
   );
   const [weekSortIdx, setWeekSortIdx] = useState<number>(34);
   const [teamShaded, setTeamShaded] = useState<string>();

@@ -19,8 +19,8 @@ export default function OpponentSinceResultPage(): React.ReactElement {
         result === "W"
           ? "(Slumpbusters)"
           : result === "L"
-          ? "(Streakbusters)"
-          : ""
+            ? "(Streakbusters)"
+            : ""
       }`}
       dataParser={(teams) => dataParser(teams, result)}
     />
@@ -29,7 +29,7 @@ export default function OpponentSinceResultPage(): React.ReactElement {
 
 function dataParser(
   data: Results.ParsedData["teams"],
-  resultType: Results.ResultTypes = "W"
+  resultType: Results.ResultTypes = "W",
 ): Render.RenderReadyData {
   return Object.keys(data).map((team) => [
     team,

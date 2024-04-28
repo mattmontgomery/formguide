@@ -31,7 +31,7 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
               .filter(
                 (opponentMatch) =>
                   opponentMatch.date < new Date(match.date) &&
-                  opponentMatch.result !== null
+                  opponentMatch.result !== null,
               )
               .map((opponentPoints) => opponentPoints.points);
             return getArrayAverageFormatted(points);

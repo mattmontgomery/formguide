@@ -28,7 +28,7 @@ export default function Chart(): React.ReactElement {
       }}
       getValue={(match) => {
         return Number(
-          getStats(match, statType)[showOpponent === "opponent" ? 1 : 0] ?? 0
+          getStats(match, statType)[showOpponent === "opponent" ? 1 : 0] ?? 0,
         );
       }}
     />

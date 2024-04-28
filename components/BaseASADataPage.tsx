@@ -8,7 +8,7 @@ import { useContext } from "react";
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 function BaseASADataPage<
   T = ASA.GenericApi["data"],
-  U = ASA.GenericApi["meta"]
+  U = ASA.GenericApi["meta"],
 >({
   children,
   renderControls,

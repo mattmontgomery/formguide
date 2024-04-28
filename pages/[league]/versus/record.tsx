@@ -20,8 +20,8 @@ export default function VersusPoints(): React.ReactElement {
             return avg >= 2
               ? "success.main"
               : avg >= 1
-              ? "warning.main"
-              : "error.main";
+                ? "warning.main"
+                : "error.main";
           }}
           getForegroundColor={(points) => {
             if (!points || points.length === 0) {
@@ -31,8 +31,8 @@ export default function VersusPoints(): React.ReactElement {
             return avg >= 2
               ? "success.contrastText"
               : avg >= 1
-              ? "warning.contrastText"
-              : "error.contrastText";
+                ? "warning.contrastText"
+                : "error.contrastText";
           }}
         />
       )}

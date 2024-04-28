@@ -15,7 +15,7 @@ export function useChartLegend(teams: string[]) {
         setSelectedTeams(
           selectedTeams.includes(team)
             ? selectedTeams.filter((t) => t !== team)
-            : [...selectedTeams, team]
+            : [...selectedTeams, team],
         )
       }
       onHoverTeam={setHoverTeam}
@@ -116,7 +116,7 @@ export function ChartLegend({
 export function TeamLineSeries(
   props: BaseLineSeriesProps<AxisScale, AxisScale, Record<string, unknown>> & {
     focused: boolean;
-  }
+  },
 ) {
   const { colorScale } = useContext(DataContext);
   const { focused, ...lineSeriesProps } = props;

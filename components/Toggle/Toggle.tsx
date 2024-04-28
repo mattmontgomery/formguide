@@ -16,7 +16,7 @@ export function useToggle<T>(
   {
     exclusive = true,
     allowEmpty = false,
-  }: { exclusive?: boolean; allowEmpty?: boolean } = {}
+  }: { exclusive?: boolean; allowEmpty?: boolean } = {},
 ) {
   const [value, setValue] = useState<T>(defaultValue);
   return {

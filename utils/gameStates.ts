@@ -11,13 +11,13 @@ export function getGameStates(match: Results.MatchWithGoalData) {
         ];
         return [...previousValue, next];
       },
-      [[0, 0]]
+      [[0, 0]],
     );
 }
 
 export function getExtremeGameState(
   match: Results.MatchWithGoalData,
-  type: "best" | "worst" = "best"
+  type: "best" | "worst" = "best",
 ) {
   const gameStates = getGameStates(match);
   return gameStates
@@ -31,23 +31,23 @@ export function getExtremeGameState(
           ? 1
           : -1
         : aDiff < bDiff
-        ? type === "best"
-          ? -1
-          : 1
-        : 0;
+          ? type === "best"
+            ? -1
+            : 1
+          : 0;
     })
     .reverse()?.[0];
 }
 
 export function getGameStatesExtended(
-  match: Results.MatchWithGoalData
+  match: Results.MatchWithGoalData,
 ): { minute: number; team: number; opponent: number }[] {
   return (match.goalsData?.goals ?? [])
     .filter((goal) => goal.detail !== "Missed Penalty")
     .reduce(
       (
         previousValue: { minute: number; team: number; opponent: number }[],
-        currentValue
+        currentValue,
       ): { minute: number; team: number; opponent: number }[] => {
         const last = [...previousValue].reverse()?.[0];
         const isFirst = match.team === currentValue.team.name;
@@ -64,12 +64,12 @@ export function getGameStatesExtended(
           },
         ];
       },
-      []
+      [],
     );
 }
 
 export function getMultipleGameStateSummary(
-  matches: Results.MatchWithGoalData[]
+  matches: Results.MatchWithGoalData[],
 ): {
   w: number;
   d: number;
@@ -82,7 +82,7 @@ export function getMultipleGameStateSummary(
       // const summary;
       return { w: acc.w + state.w, d: acc.d + state.d, l: acc.l + state.l };
     },
-    { w: 0, d: 0, l: 0 }
+    { w: 0, d: 0, l: 0 },
   );
 }
 
@@ -103,8 +103,8 @@ export function getGameStateSummary(match: Results.MatchWithGoalData): {
         state.team > state.opponent
           ? "w"
           : state.opponent > state.team
-          ? "l"
-          : "d";
+            ? "l"
+            : "d";
       output[currentResult] =
         output[currentResult] + (state.minute - states[idx - 1].minute);
     }

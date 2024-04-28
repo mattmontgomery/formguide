@@ -11,7 +11,7 @@ export default function EarliestSubstitute(): React.ReactElement {
       getValue={(match) =>
         match.goalsData
           ? match.goalsData.substitutions.find(
-              (t) => t.team.name === match.team
+              (t) => t.team.name === match.team,
             )?.time.elapsed ?? "-"
           : "-"
       }

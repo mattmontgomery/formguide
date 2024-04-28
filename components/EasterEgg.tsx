@@ -38,7 +38,7 @@ export default function EasterEgg({
         setKonamiCode([]);
       }
     },
-    [konamiCode, easterEgg, onSetEasterEgg]
+    [konamiCode, easterEgg, onSetEasterEgg],
   );
   useEffect(() => {
     document.addEventListener("keyup", listener);

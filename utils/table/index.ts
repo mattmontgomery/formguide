@@ -36,7 +36,7 @@ export function getRow(
   team: string,
   matches: Results.Match[],
   from?: Date,
-  to?: Date
+  to?: Date,
 ): Row {
   const [w, d, l] = getRecord(matches, {
     from,
@@ -168,7 +168,7 @@ export function getColumns(): GridColumns {
 
 export function getConferences(
   league: Results.Leagues,
-  year: number
+  year: number,
 ): string[] {
   return (
     (ConferencesByYear[league]?.[year] ? Conferences[league] : null) ?? ["All"]
@@ -184,7 +184,7 @@ export function getTeams(
   }: {
     league: Results.Leagues;
     year: number;
-  }
+  },
 ): Record<string, string> {
   return (
     (conferences.length > 1
@@ -194,14 +194,14 @@ export function getTeams(
             ...acc,
             [curr]: "All",
           }),
-          {}
+          {},
         )) ??
     Object.keys(teamsData).reduce(
       (acc, curr) => ({
         ...acc,
         [curr]: "All",
       }),
-      {}
+      {},
     )
   );
 }
@@ -220,7 +220,7 @@ export function getTable(
     useConferences?: boolean;
     from?: Date;
     to?: Date;
-  }
+  },
 ): {
   conferences: ReturnType<typeof getConferences>;
   table: Row[][];
@@ -241,8 +241,8 @@ export function getTable(
             true;
           }),
           from,
-          to
-        )
+          to,
+        ),
       )
       .sort(getSortStrategy(league))
       .reverse()
@@ -270,7 +270,7 @@ export function getSortStrategy(league: Results.Leagues) {
 export function getTeamRank(
   rows: Row[],
   league: Results.Leagues,
-  year = new Date().getFullYear()
+  year = new Date().getFullYear(),
 ): Row[] {
   const conferencesByYear = ConferencesByYear[league]?.[year] ?? {};
   const sorted = [...rows].sort(getSortStrategy(league)).reverse();
@@ -281,7 +281,8 @@ export function getTeamRank(
       Object.keys(conferencesByYear).length > 0
         ? sorted
             .filter(
-              (sR) => conferencesByYear[row.team] === conferencesByYear[sR.team]
+              (sR) =>
+                conferencesByYear[row.team] === conferencesByYear[sR.team],
             )
             .findIndex((sR) => sR.team === row.team) + 1
         : undefined, //
@@ -291,7 +292,7 @@ export function getTeamRank(
 export function getTeamConference(
   team: string,
   league: Results.Leagues,
-  year: number
+  year: number,
 ): string | null {
   return ConferencesByYear[league]?.[year]?.[team] ?? null;
 }
@@ -299,7 +300,7 @@ export function getTeamConference(
 export function getConferenceSize(
   conference: string,
   league: Results.Leagues,
-  year: number
+  year: number,
 ): number {
   return getConferenceTeams(conference, league, year).length;
 }
@@ -307,7 +308,7 @@ export function getConferenceSize(
 export function getConferenceTeams(
   conference: string,
   league: Results.Leagues,
-  year: number
+  year: number,
 ): string[] {
   return Object.entries(ConferencesByYear[league]?.[year] || {})
     .filter(([, c]) => c === conference)
@@ -315,19 +316,19 @@ export function getConferenceTeams(
 }
 
 export function getPoints<T extends Results.Match = Results.Match>(
-  matches: T[]
+  matches: T[],
 ): number {
   return getArraySum(getTeamPointsArray(matches));
 }
 export function getPlayedMatches<T extends Results.Match = Results.Match>(
-  matches: T[]
+  matches: T[],
 ): T[] {
   return matches.filter((m) => m.status.long === "Match Finished");
 }
 
 export function getGamesWithPositions(
   matches: Results.MatchWithGoalData[],
-  positions: ("W" | "D" | "L")[] = []
+  positions: ("W" | "D" | "L")[] = [],
 ): Results.MatchWithGoalData[] {
   return matches.filter((match) => {
     const gameStates = (match.goalsData?.goals ?? []).reduce(
@@ -340,7 +341,7 @@ export function getGamesWithPositions(
         ];
         return [...previousValue, next];
       },
-      [[0, 0]]
+      [[0, 0]],
     );
     return gameStates.some(([team, opponent]) => {
       if (positions.includes("W") && team > opponent) {
@@ -356,7 +357,7 @@ export function getGamesWithPositions(
 }
 
 export function getUniqueGoalscorers(
-  matches: Results.MatchWithGoalData[]
+  matches: Results.MatchWithGoalData[],
 ): { name: string; goals: number }[] {
   return matches.reduce(
     (acc: ReturnType<typeof getUniqueGoalscorers>, match) => {
@@ -374,7 +375,7 @@ export function getUniqueGoalscorers(
       });
       return goalscorers;
     },
-    []
+    [],
   );
 }
 
@@ -396,7 +397,7 @@ export function getPenalties(matches: Results.MatchWithGoalData[]) {
         (match.goalsData?.penalties?.[match.team]?.scored ?? 0) +
         (match.goalsData?.penalties?.[match.team]?.missed ?? 0)
       );
-    })
+    }),
   );
   const opponentTaken = getArraySum(
     matches.map((match) => {
@@ -404,17 +405,17 @@ export function getPenalties(matches: Results.MatchWithGoalData[]) {
         (match.goalsData?.penalties?.[match.opponent]?.scored ?? 0) +
         (match.goalsData?.penalties?.[match.opponent]?.missed ?? 0)
       );
-    })
+    }),
   );
   const scored = getArraySum(
     matches.map((match) => {
       return match.goalsData?.penalties?.[match.team]?.scored ?? 0;
-    })
+    }),
   );
   const opponentScored = getArraySum(
     matches.map((match) => {
       return match.goalsData?.penalties?.[match.opponent]?.scored ?? 0;
-    })
+    }),
   );
   return { taken, scored, opponentTaken, opponentScored };
 }

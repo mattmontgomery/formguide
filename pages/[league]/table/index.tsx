@@ -18,7 +18,7 @@ export default function TablePage() {
   const league = useContext(LeagueContext);
   const year = useContext(YearContext);
   const [useConferences, setUseConferences] = useState<boolean>(
-    typeof ConferencesByYear[league]?.[year] !== "undefined"
+    typeof ConferencesByYear[league]?.[year] !== "undefined",
   );
   useEffect(() => {
     setUseConferences(typeof ConferencesByYear[league]?.[year] !== "undefined");
@@ -63,7 +63,7 @@ function LeagueTable({
 }): React.ReactElement {
   const { from, to, setFrom, setTo, renderComponent } = useDateFilter(
     addWeeks(getMatchDate(getEarliestMatch(data)), -1),
-    addWeeks(getMatchDate(getLatestMatch(data)), 1)
+    addWeeks(getMatchDate(getLatestMatch(data)), 1),
   );
   useEffect(() => {
     setFrom(addWeeks(getMatchDate(getEarliestMatch(data)), -1));

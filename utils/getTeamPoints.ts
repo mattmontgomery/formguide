@@ -2,7 +2,7 @@ import { getArraySum } from "./array";
 import getMatchPoints from "./getMatchPoints";
 
 export default function getTeamPoints(
-  data: Results.ParsedData["teams"]
+  data: Results.ParsedData["teams"],
 ): Record<
   string,
   { date: Date; points: number; result: Results.ResultType; home: boolean }[]
@@ -25,7 +25,7 @@ export function getTeamPointsArray(matches: Results.Match[]): number[] {
 }
 
 export function getCumulativeTeamPointsArray(
-  matches: Results.Match[]
+  matches: Results.Match[],
 ): number[] {
   const points = matches.map(getMatchPoints);
   const cumulativePoints = points.map((_, idx) => {

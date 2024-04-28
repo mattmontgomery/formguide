@@ -14,7 +14,7 @@ const getEndpoint = (
     "h2h",
     "spreads",
     "totals",
-  ]
+  ],
 ) =>
   `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${
     process.env.THEODDS_API_KEY
@@ -25,7 +25,7 @@ export default async function LeagueOdds(
   res: NextApiResponse<
     | FormGuideAPI.BaseAPIV2<TheOdds.Entry[]>
     | FormGuideAPI.Responses.ErrorResponse
-  >
+  >,
 ): Promise<void> {
   const league = String(req.query.league) as Results.Leagues;
   if (typeof TheOddsMapping[league] !== "string") {
@@ -43,7 +43,7 @@ export default async function LeagueOdds(
       const res = await fetch(endpoint);
       return res.json();
     },
-    60 * 60 * 1 // cache for 1 hour
+    60 * 60 * 1, // cache for 1 hour
   );
   res.json({
     data: data,

@@ -45,11 +45,11 @@ export default function RecordSinceDate(): React.ReactElement {
           (team): [string, RecordPoints, number] => {
             const record = getRecord(
               data.teams[team].filter((match) =>
-                isAfter(parseISO(match.rawDate), parsedDate)
-              )
+                isAfter(parseISO(match.rawDate), parsedDate),
+              ),
             );
             return [team, record, getRecordPoints(record)];
-          }
+          },
         );
         return (
           <ul>
@@ -59,12 +59,12 @@ export default function RecordSinceDate(): React.ReactElement {
                   ? (a, b) => {
                       return a[2] < b[2] ? 1 : a[2] > b[2] ? -1 : 0;
                     }
-                  : undefined
+                  : undefined,
               )
               .map(
                 (
                   [team, record, points]: [string, RecordPoints, number],
-                  idx
+                  idx,
                 ) => {
                   return (
                     <li key={idx}>
@@ -72,7 +72,7 @@ export default function RecordSinceDate(): React.ReactElement {
                       {record[1]}–{record[2]}
                     </li>
                   );
-                }
+                },
               )}
           </ul>
         );

@@ -1,15 +1,15 @@
 import { colors } from "@mui/material";
 
 export function getInverseResult(
-  result: Results.ResultType
+  result: Results.ResultType,
 ): Results.ResultType {
   return result === null
     ? null
     : result === "W"
-    ? "L"
-    : result === "L"
-    ? "W"
-    : "D";
+      ? "L"
+      : result === "L"
+        ? "W"
+        : "D";
 }
 export function stepResult(result: Results.ResultType): Results.ResultType {
   if (result === "W") {
@@ -27,10 +27,10 @@ export function getResultBackgroundColor(result?: Results.ResultType): string {
   return !result
     ? "background.default"
     : result === "W"
-    ? "success.main"
-    : result === "L"
-    ? "error.main"
-    : "warning.main";
+      ? "success.main"
+      : result === "L"
+        ? "error.main"
+        : "warning.main";
 }
 export function getResultGradient(
   value: number,
@@ -38,8 +38,8 @@ export function getResultGradient(
   colors: string[],
   distanceCheck: (value: number, scaleValue: number) => boolean = (
     value,
-    scaleValue
-  ) => value - scaleValue <= 5
+    scaleValue,
+  ) => value - scaleValue <= 5,
 ): string {
   // find the closest number in the scale
   const scaleValue = scale.find((scaleValue) => {
@@ -67,7 +67,7 @@ export function getMinutesColor(value: number): string {
       colors.green["400"],
       colors.green["500"],
       colors.green["500"],
-    ]
+    ],
   );
 }
 
@@ -86,6 +86,6 @@ export function getSmallStatsColor(value: number): string {
       colors.purple["400"],
       colors.deepPurple["400"],
     ],
-    (value, scaleValue) => value === scaleValue
+    (value, scaleValue) => value === scaleValue,
   );
 }

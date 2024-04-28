@@ -17,7 +17,8 @@ const getActions = ({
   onSetLeague: (league: Results.Leagues) => void;
 }): KBarProviderProps["actions"] => [
   ...NavigationConfig.filter(
-    (action) => typeof action === "object" && Boolean((action as NavItem)?.href)
+    (action) =>
+      typeof action === "object" && Boolean((action as NavItem)?.href),
   ).map((action): Action => {
     const navItem = action as NavItem;
     return {
@@ -76,7 +77,7 @@ const Provider = React.forwardRef<typeof KBarProvider, ProviderProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 export default Provider;

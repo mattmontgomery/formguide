@@ -25,7 +25,7 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
             typeof data[team][idx - 1]?.date !== "undefined"
               ? differenceInDays(
                   new Date(data[team][idx].date),
-                  new Date(data[team][idx - 1].date)
+                  new Date(data[team][idx - 1].date),
                 )
               : "-"
           }

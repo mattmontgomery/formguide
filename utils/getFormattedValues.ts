@@ -2,7 +2,7 @@ import { format, formatRelative, isThisWeek, parseISO } from "date-fns";
 
 export function getFormattedDate(
   match: Results.Fixture | Results.Match,
-  showTime = true
+  showTime = true,
 ): string {
   const date = (match as Results.Match).rawDate
     ? (match as Results.Match).rawDate
@@ -12,7 +12,7 @@ export function getFormattedDate(
     : "";
 }
 export function getFormattedTime(
-  match: Results.Fixture | Results.Match
+  match: Results.Fixture | Results.Match,
 ): string {
   const date = (match as Results.Match).rawDate
     ? (match as Results.Match).rawDate
@@ -38,7 +38,7 @@ export function getMatchTitle(match: Results.Match) {
 
 export function getRelativeDate(
   match: Results.Fixture | Results.Match,
-  showTime = true
+  showTime = true,
 ): string {
   const date = (match as Results.Match).rawDate
     ? (match as Results.Match).rawDate

@@ -18,7 +18,7 @@ export default function Chart(): React.ReactElement {
 
   const { value: periodLength, renderComponent } = usePeriodLength(
     defaultPeriodLength,
-    true
+    true,
   );
   return (
     <BaseRollingPage
@@ -30,10 +30,10 @@ export default function Chart(): React.ReactElement {
         typeof pointValue !== "number"
           ? "background.paper"
           : pointValue > 8
-          ? "warning.main"
-          : pointValue < 5.5
-          ? "error.main"
-          : "success.main"
+            ? "warning.main"
+            : pointValue < 5.5
+              ? "error.main"
+              : "success.main"
       }
       isWide
     >
@@ -48,7 +48,7 @@ export default function Chart(): React.ReactElement {
 
 function parseChartData(
   teams: Results.ParsedData["teams"],
-  periodLength = 5
+  periodLength = 5,
 ): ReturnType<Render.RollingParser> {
   return Object.keys(teams)
     .sort()
@@ -68,7 +68,7 @@ function parseChartData(
               return teams[team][idx - 1]?.date
                 ? differenceInDays(
                     new Date(teams[team][idx + matchIdx].date),
-                    new Date(teams[team][idx + matchIdx - 1].date)
+                    new Date(teams[team][idx + matchIdx - 1].date),
                   )
                 : 0;
             });

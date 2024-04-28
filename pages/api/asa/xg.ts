@@ -6,7 +6,7 @@ import { fetchCachedOrFresh } from "@/utils/cache";
 
 export default async function XGApi(
   req: NextApiRequest,
-  res: NextApiResponse<ASA.XgByGameApi>
+  res: NextApiResponse<ASA.XgByGameApi>,
 ): Promise<void> {
   const { year, league: _league } = req.query;
   const client = new Client();
@@ -41,7 +41,7 @@ export default async function XGApi(
                 [curr.team_id]: curr,
               };
             },
-            {}
+            {},
           );
           const xg: ASA.XGWithGame[] = await client.getGamesXgoals({
             leagues: [league],
@@ -49,11 +49,11 @@ export default async function XGApi(
           });
           return [teams, teamsById, xg];
         },
-        60 * 60
+        60 * 60,
       )) ?? [];
     res.setHeader(
       `Cache-Control`,
-      `s-maxage=${60 * 60}, stale-while-revalidate`
+      `s-maxage=${60 * 60}, stale-while-revalidate`,
     );
     res.json({
       data: {

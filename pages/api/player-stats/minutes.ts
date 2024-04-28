@@ -7,7 +7,7 @@ import path from "path";
 
 export default async function playerStats(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
     const csvFilePath = path.resolve("mls-data/", "20220830_playerStats.csv");

@@ -34,16 +34,16 @@ function dataParser(data: Results.ParsedData["teams"]): Render.RenderReadyData {
             const points = getArraySum(
               teamPoints[match.opponent]
                 .filter(
-                  (opponentMatch) => opponentMatch.date < new Date(match.date)
+                  (opponentMatch) => opponentMatch.date < new Date(match.date),
                 )
-                .map((opponentPoints) => opponentPoints.points)
+                .map((opponentPoints) => opponentPoints.points),
             );
             const ownPoints = getArraySum(
               teamPoints[match.team]
                 .filter(
-                  (opponentMatch) => opponentMatch.date < new Date(match.date)
+                  (opponentMatch) => opponentMatch.date < new Date(match.date),
                 )
-                .map((opponentPoints) => opponentPoints.points)
+                .map((opponentPoints) => opponentPoints.points),
             );
             if (!match.result) {
               return "-";

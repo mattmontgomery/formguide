@@ -5,7 +5,7 @@ import { gzip, gunzip } from "zlib";
 export async function fetchCachedOrFresh<T>(
   key: string,
   fetch: () => Promise<T>,
-  expire: number | ((data: T) => number)
+  expire: number | ((data: T) => number),
 ): Promise<T | null> {
   const REDIS_URL = process.env.REDIS_URL;
   const APP_VERSION = process.env.APP_VERSION || "v3.0.3";
@@ -27,7 +27,7 @@ export async function fetchCachedOrFresh<T>(
       if (expire !== 0) {
         await redisClient().expire(
           redisKey,
-          typeof expire === "number" ? expire : expire(data)
+          typeof expire === "number" ? expire : expire(data),
         );
       }
       return data;
@@ -56,7 +56,7 @@ export async function fetchCachedOrFreshV2<T>(
     checkEmpty?: (arg0: string | null) => boolean;
     retryOnEmptyData?: boolean;
     allowCompression?: boolean;
-  } = {}
+  } = {},
 ): Promise<FetchCachedOrFreshReturnType<T>> {
   try {
     const REDIS_URL = process.env.REDIS_URL;
@@ -67,12 +67,12 @@ export async function fetchCachedOrFreshV2<T>(
     // keys differentiate by year and league
     const redisKey = getKeyFromParts(
       key,
-      allowCompression ? "compressed" : undefined
+      allowCompression ? "compressed" : undefined,
     );
     const exists = await redisClient().exists(redisKey);
     const { data, empty, compressed } = await fetchFromCache<T>(
       redisKey,
-      checkEmpty
+      checkEmpty,
     );
 
     if (exists && empty && !retryOnEmptyData) {
@@ -131,7 +131,7 @@ export async function fetchCachedOrFreshV2<T>(
 
 export async function fetchFromCache<T>(
   key: string,
-  checkEmpty: (arg0: string | null) => boolean = () => false
+  checkEmpty: (arg0: string | null) => boolean = () => false,
 ): Promise<{ data: T | null; empty: boolean; compressed: boolean }> {
   const data = await redisClient().get(key);
   if (!data || (data && checkEmpty(data))) {
@@ -174,7 +174,7 @@ export async function setInCache<T>({
     const compressed = await compressString(stringifiedData);
     await redisClient().set(
       key,
-      JSON.stringify({ compressed: true, compressedData: compressed })
+      JSON.stringify({ compressed: true, compressedData: compressed }),
     );
   } else {
     await redisClient().set(key, stringifiedData);

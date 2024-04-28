@@ -2,7 +2,7 @@ import { LeagueCodes } from "@/utils/LeagueCodes";
 import { parseJSON } from "date-fns";
 
 export function transformXGMatchIntoASAMatch(
-  match: ASA.XGWithGame & ASA.HomeAway
+  match: ASA.XGWithGame & ASA.HomeAway,
 ): Results.Match {
   return {
     date: match.date_time_utc,
@@ -20,13 +20,13 @@ export function transformXGMatchIntoASAMatch(
       ? match.home_goals > match.away_goals
         ? "W"
         : match.home_goals < match.away_goals
-        ? "L"
-        : "D"
+          ? "L"
+          : "D"
       : match.away_goals > match.home_goals
-      ? "W"
-      : match.home_goals === match.away_goals
-      ? "D"
-      : "L",
+        ? "W"
+        : match.home_goals === match.away_goals
+          ? "D"
+          : "L",
 
     score: {
       halftime: {

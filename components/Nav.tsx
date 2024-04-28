@@ -43,7 +43,7 @@ const ListItemLink = React.forwardRef<ListItemProps, any>(
         />
       </Link>
     );
-  }
+  },
 );
 ListItemLink.displayName = "ListItemLink";
 
@@ -187,7 +187,7 @@ function NavSection({
                 </ListItemLink>
               );
             }
-          }
+          },
         )}
     </Box>
   );

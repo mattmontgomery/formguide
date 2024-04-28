@@ -47,8 +47,8 @@ export default function MatchCell({
     resultType === "first-half"
       ? match.firstHalf?.result
       : resultType === "second-half"
-      ? match.secondHalf?.result
-      : match.result;
+        ? match.secondHalf?.result
+        : match.result;
   const valueRenderer =
     typeof renderValue !== "function" ? () => result || "-" : renderValue;
   const renderedValue =
@@ -63,8 +63,8 @@ export default function MatchCell({
         isShaded
           ? isShaded(match)
           : shadeEmpty && (!renderedValue || renderedValue === "-")
-          ? true
-          : false
+            ? true
+            : false
       }
       onClick={() => onClick && onClick(match)}
       renderCard={(setOpen: (state: boolean) => void) => (
