@@ -7,7 +7,6 @@
     "dev:test": "jest --watch",
     "lint": "run-p lint:*",
     "lint:next": "next lint",
-    "lint:style": "stylelint **/*.css",
     "lint:build": "tsc --noEmit",
     "lint:prettier": "prettier --check .",
     "prettier": "prettier --write .",
@@ -64,9 +63,6 @@
     "lint-staged": "^15.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
-    "stylelint": "^16.4.0",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-prettier": "^5.0.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.5"
   },
