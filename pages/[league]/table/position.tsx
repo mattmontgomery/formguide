@@ -37,11 +37,13 @@ export default function PositionChart() {
     />
   );
 }
+
 const accessors = {
+  // eslint-disable-next-line
   xAccessor: (d: any) => d?.x,
+  // eslint-disable-next-line
   yAccessor: (d: any) => d?.y,
 };
-
 function LeagueTable({
   data,
   meta,
@@ -56,7 +58,6 @@ function LeagueTable({
   const weeklyTables = useMemo<[string, number[]][]>(() => {
     const earliestMatch = getEarliestMatch(data);
     const latestMatch = getLatestMatch(data);
-
     const first = startOfWeek(parseISO(earliestMatch.rawDate), {
       weekStartsOn: 1,
     });
@@ -86,6 +87,7 @@ function LeagueTable({
                 ? conferences.findIndex((c) => c === teamConference)
                 : -1;
               if (conferences.length === 1) {
+                // find the team in the first week
                 return table[0].find((t) => t.team === team);
               } else if (conferenceIndex > -1) {
                 return table[conferenceIndex].find((t) => t.team === team);

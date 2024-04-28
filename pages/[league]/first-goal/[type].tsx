@@ -1,5 +1,4 @@
 import BaseGridPage from "@/components/Grid/Base";
-import MatchCell from "@/components/MatchCell";
 import React from "react";
 
 import styles from "@/styles/Home.module.css";

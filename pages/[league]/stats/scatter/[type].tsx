@@ -11,7 +11,7 @@ import { useStatsToggle } from "@/components/Selector/Stats";
 import { Options, useHomeAway } from "@/components/Toggle/HomeAwayToggle";
 import { Box } from "@mui/system";
 import { useToggle } from "@/components/Toggle/Toggle";
-import { getArrayAverage, getArraySum } from "@/utils/array";
+import { getArraySum } from "@/utils/array";
 
 export default function StatsByMatch(): React.ReactElement {
   const router = useRouter();
@@ -188,7 +188,7 @@ export function DataView({
   }, [data, statTypesValidated, homeAway, summarize]);
   return (
     <ParentSize>
-      {({ width, height }) => {
+      {({ width }) => {
         return (
           <DataProvider
             xScale={{ type: "linear" }}
@@ -241,6 +241,8 @@ export function DataView({
 }
 
 const accessors = {
+  // eslint-disable-next-line
   xAccessor: (d: any) => d?.x,
+  // eslint-disable-next-line
   yAccessor: (d: any) => d?.y,
 };

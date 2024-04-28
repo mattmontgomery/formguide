@@ -62,7 +62,7 @@ export type ProviderProps = KBarProviderProps & {
 } & PropsWithChildren;
 
 const Provider = React.forwardRef<typeof KBarProvider, ProviderProps>(
-  function Provider(props, ref) {
+  function Provider(props) {
     const router = useRouter();
     const league = useContext(LeagueContext);
 

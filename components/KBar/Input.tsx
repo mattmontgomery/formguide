@@ -40,6 +40,6 @@ function SearchBar(props: InputBaseComponentProps): React.ReactElement {
 }
 
 // eslint-disable-next-line react/display-name
-const ReffedSearchBar = forwardRef((props: InputBaseComponentProps, ref) => (
+const ReffedSearchBar = forwardRef((props: InputBaseComponentProps) => (
   <SearchBar {...props} />
 ));

@@ -27,8 +27,11 @@ export default function PointsChart() {
     />
   );
 }
+
 const accessors = {
+  // eslint-disable-next-line
   xAccessor: (d: any) => d?.x,
+  // eslint-disable-next-line
   yAccessor: (d: any) => d?.y,
 };
 

@@ -10,8 +10,6 @@ import getKeys from "@/utils/cache/getKeys";
 import getAllFixtureIds from "@/utils/getAllFixtureIds";
 import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 import { getSingleTeamPlayerMinutes } from "@/utils/match";
-import getClient from "@/utils/redis";
-import { sortByDate } from "@/utils/sort";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const FORM_API = process.env.FORM_API;

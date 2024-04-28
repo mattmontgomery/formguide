@@ -1,4 +1,4 @@
-import getMatchPoints, { getPointsForResult } from "@/utils/getMatchPoints";
+import { getPointsForResult } from "@/utils/getMatchPoints";
 import { getInverseResult } from "@/utils/results";
 
 export type ValidStats =

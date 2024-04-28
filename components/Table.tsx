@@ -16,8 +16,10 @@ export default function Table<ColumnType extends GridValidRowModel = Row>({
   gridProps?: Partial<DataGridProps<ColumnType>>;
 }): React.ReactElement {
   const {
-    columns: _,
-    rows: __,
+    // eslint-disable-next-line
+    columns: _columns,
+    // eslint-disable-next-line
+    rows: _rows,
     pageSize = 100,
     components = {},
     ...extraGridProps

@@ -10,7 +10,6 @@ import getKeys from "@/utils/cache/getKeys";
 import getAllFixtureIds, { SlimMatch } from "@/utils/getAllFixtureIds";
 import getExpires, { getExpiresWeek } from "@/utils/getExpires";
 import { getPlusMinus } from "@/utils/match";
-import { getClient } from "@/utils/redis";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const FORM_API = process.env.FORM_API;

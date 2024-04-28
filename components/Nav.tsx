@@ -12,7 +12,6 @@ import {
   ListItemIcon,
   Switch,
   FormControlLabel,
-  Paper,
   ListItemButton,
   Box,
   Typography,
@@ -27,6 +26,7 @@ import type { NavItem } from "@/constants/nav";
 import { CloseOutlined, KeyboardArrowDown } from "@mui/icons-material";
 import LeagueSelect from "./App/LeagueSelect";
 
+// eslint-disable-next-line
 const ListItemLink = React.forwardRef<ListItemProps, any>(
   ({ href, as, ...props }, ref) => {
     return (

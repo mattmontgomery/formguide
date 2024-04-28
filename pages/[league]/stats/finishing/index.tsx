@@ -16,7 +16,7 @@ export default function FinishingStatsByMatch(): React.ReactElement {
         const shots = getStats(match, "shots")[opponent === "opponent" ? 1 : 0];
         const goals =
           opponent !== "opponent" ? match.goalsScored : match.goalsConceded;
-        return shots && shots > 0
+        return shots && Number(shots) > 0
           ? Number((goals ?? 0) / Number(shots)).toFixed(2)
           : "-";
       }}

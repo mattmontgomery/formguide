@@ -69,6 +69,6 @@ export function ResultItem({
 }
 
 // eslint-disable-next-line react/display-name
-const ResultItemWithRef = React.forwardRef((props: ResultItemProps, ref) => (
+const ResultItemWithRef = React.forwardRef((props: ResultItemProps) => (
   <ResultItem {...props} />
 ));

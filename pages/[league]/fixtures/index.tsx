@@ -1,4 +1,3 @@
-import Link from "next/link";
 import BaseDataPage from "@/components/BaseDataPage";
 import { List, Typography } from "@mui/material";
 import { isComplete } from "@/utils/match";

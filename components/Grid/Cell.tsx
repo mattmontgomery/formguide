@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  useMemo,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { Box, ClickAwayListener, SxProps } from "@mui/material";
 import { getResultBackgroundColor } from "@/utils/results";
