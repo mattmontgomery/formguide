@@ -30,7 +30,7 @@ import { TeamLineSeries, useChartLegend } from "@/components/XYChartTools";
 export default function PositionChart() {
   return (
     <BaseDataPage
-      pageTitle="Points over Time"
+      pageTitle="League Position over Time"
       renderComponent={(data, meta) => {
         return <LeagueTable data={data} meta={meta} />;
       }}
