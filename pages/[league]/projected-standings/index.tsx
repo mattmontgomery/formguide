@@ -109,7 +109,6 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                       },
                     }}
                     autoHeight
-                    pageSize={100}
                     columns={[
                       { field: "id", headerName: "Team", width: 250 },
                       { field: "median", headerName: "Median", width: 100 },
