@@ -96,8 +96,8 @@ export default function Bar({
           onChange={(ev) => onSetYear(Number(ev.target.value))}
         >
           <MenuItem value={2024}>2024</MenuItem>
-          <MenuItem value={2023}>2023</MenuItem>
           <Divider />
+          <MenuItem value={2023}>2023</MenuItem>
           <MenuItem value={2022}>2022</MenuItem>
           <MenuItem value={2012}>2012</MenuItem>
           <MenuItem value={2013}>2013</MenuItem>
