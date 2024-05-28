@@ -88,6 +88,9 @@ export default function Chart(): React.ReactElement {
   }
   return (
     <BaseASARollingPage
+      getBackgroundColor={(value) =>
+        (value ?? 0) > 0 ? "success.main" : "error.main"
+      }
       renderControls={renderComponent}
       endpoint={(year, league) => `/api/asa/xg?year=${year}&league=${league}`}
       isStaticHeight={false}
@@ -173,10 +176,10 @@ function dataParser({
                 typeof statHeightCalc[stat] === "function"
                   ? statHeightCalc[stat]
                   : (value, periodLength) =>
-                      `${
+                      `${Math.abs(
                         ((value || 0) / (periodLength * statHeightMap[stat])) *
-                        100
-                      }%`
+                          100,
+                      )}%`
               }
             />
           );
