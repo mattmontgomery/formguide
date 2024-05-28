@@ -1,5 +1,5 @@
 import { getRecord, getGoals, getRecordPoints } from "@/utils/getRecord";
-import { GridColumns, GridValidRowModel } from "@mui/x-data-grid";
+import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
 import { getArraySum } from "../array";
 import { getTeamPointsArray } from "../getTeamPoints";
 import {
@@ -79,7 +79,7 @@ export function getRow(
   };
 }
 
-export function getColumns(): GridColumns {
+export function getColumns(): GridColDef[] {
   return [
     { field: "rank", headerName: "Rank", width: 100 },
     { field: "id", headerName: "Team", width: 250 },

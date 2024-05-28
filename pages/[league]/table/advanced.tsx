@@ -24,7 +24,7 @@ import { Box } from "@mui/system";
 import { addWeeks, isAfter, isBefore, parseISO } from "date-fns";
 import React, { useContext } from "react";
 import { useToggle } from "@/components/Toggle/Toggle";
-import { GridColumnGroupingModel, GridColumns, isLeaf } from "@mui/x-data-grid";
+import { GridColumnGroupingModel, GridColDef, isLeaf } from "@mui/x-data-grid";
 
 type AdvancedTableRow = {
   rank: number;
@@ -145,7 +145,7 @@ const GROUP_MODEL: GridColumnGroupingModel = [
   },
 ];
 
-function getColumns(groupIds: string[]): GridColumns<AdvancedTableRow> {
+function getColumns(groupIds: string[]): GridColDef<AdvancedTableRow>[] {
   return [
     { field: "rank", width: 50 },
     { field: "team", width: 200 },
@@ -477,7 +477,6 @@ export function AdvancedTable({
   return (
     <Table<AdvancedTableRow>
       gridProps={{
-        experimentalFeatures: { columnGrouping: true },
         columnGroupingModel: GROUP_MODEL,
       }}
       data={rows

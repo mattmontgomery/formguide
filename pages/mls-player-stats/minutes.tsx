@@ -27,7 +27,7 @@ export default function MLSMinutes(): React.ReactElement {
   return (
     <BasePage pageTitle="MLS Player Stats | Minutes (as of Aug. 22, 2022)">
       <DataGrid
-        components={{ Pagination: () => <></> }}
+        slots={{ pagination: () => <></> }}
         autoHeight
         columns={[
           { field: "team", width: 250, pinnable: true },

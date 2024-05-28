@@ -18,7 +18,8 @@
     "setup:functions": "npm install --prefix ./functions",
     "release": "run-s release:*",
     "release:version": "HUSKY=0 npx standard-version --no-verify",
-    "release:push": "git push --follow-tags origin main"
+    "release:push": "git push --follow-tags origin main",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
