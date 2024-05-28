@@ -41,9 +41,7 @@ function PlusMinus({ data }: { data: Results.MatchWithGoalData }) {
   return (
     <Table<Row>
       gridProps={{
-        components: {
-          Toolbar: GridToolbar,
-        },
+        slots: { toolbar: GridToolbar },
       }}
       columns={() => [
         { field: "team", width: 200 },
@@ -51,11 +49,13 @@ function PlusMinus({ data }: { data: Results.MatchWithGoalData }) {
         {
           field: "plusMinus",
           header: "+/-",
-          valueFormatter: (a) => (a.value >= 0 ? `+${a.value}` : a.value),
+          valueFormatter: (a: { value: number }) =>
+            a.value >= 0 ? `+${a.value}` : a.value,
         },
         {
           field: "minutes",
-          valueFormatter: (a) => Number(a.value).toLocaleString(),
+          valueFormatter: (a: { value: number }) =>
+            Number(a.value).toLocaleString(),
         },
         { field: "matches" },
       ]}

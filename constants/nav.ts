@@ -63,13 +63,13 @@ const main: NavItem[] = [
   { href: "/", title: "Form Guide", icon: TableChart, group: Groups.Main },
   {
     href: "/table",
-    title: "League Table",
+    title: "League Table and Standings",
     icon: TableChart,
     group: Groups.Main,
   },
   {
     href: "/table/advanced",
-    title: "Advanced League Table",
+    title: "Advanced League Table and Standings",
     icon: TableChart,
     group: Groups.Main,
   },

@@ -2,7 +2,7 @@ import { getColumns, Row } from "@/utils/table";
 import {
   DataGrid,
   DataGridProps,
-  GridColumns,
+  GridColDef,
   GridValidRowModel,
 } from "@mui/x-data-grid";
 
@@ -12,7 +12,7 @@ export default function Table<ColumnType extends GridValidRowModel = Row>({
   gridProps = {} as DataGridProps,
 }: {
   data: ColumnType[];
-  columns?: () => GridColumns<ColumnType>;
+  columns?: () => GridColDef<ColumnType>[];
   gridProps?: Partial<DataGridProps<ColumnType>>;
 }): React.ReactElement {
   const {
@@ -20,15 +20,11 @@ export default function Table<ColumnType extends GridValidRowModel = Row>({
     columns: _columns,
     // eslint-disable-next-line
     rows: _rows,
-    pageSize = 100,
-    components = {},
     ...extraGridProps
   } = gridProps;
   return (
     <DataGrid
       autoHeight
-      pageSize={pageSize}
-      components={{ Pagination: () => <></>, ...components }}
       columns={columns()}
       rows={data}
       {...extraGridProps}
