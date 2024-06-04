@@ -14,8 +14,13 @@ import { useContext, useMemo } from "react";
 
 const fieldDefinition: Omit<GridColDef, "field"> = {
   type: "number",
-  valueFormatter: (n: { value: number }) =>
-    !n.value ? "" : `${(Number(n.value) * 100).toFixed(2)}%`,
+  valueFormatter: (n: { value: number }) => {
+    return typeof n === "number"
+      ? Number(n).toFixed(2)
+      : !n?.value
+        ? ""
+        : `${(Number(n.value) * 100).toFixed(2)}%`;
+  },
   sortComparator: (v1, v2) => {
     if (!v1) {
       return -1;
