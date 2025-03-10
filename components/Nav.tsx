@@ -7,7 +7,6 @@ import React, {
 import {
   List,
   ListItem,
-  ListItemProps,
   ListItemText,
   ListItemIcon,
   Switch,
@@ -25,27 +24,6 @@ import { NavigationConfig, Groups } from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";
 import { CloseOutlined, KeyboardArrowDown } from "@mui/icons-material";
 import LeagueSelect from "./App/LeagueSelect";
-
-// eslint-disable-next-line
-const ListItemLink = React.forwardRef<ListItemProps, any>(
-  ({ href, as, ...props }, ref) => {
-    return (
-      <Link href={href} as={as} passHref>
-        <ListItem
-          button
-          ref={ref}
-          sx={{
-            [`.MuiListItemText-root .MuiTypography-root`]: {
-              fontSize: `.9rem`,
-            },
-          }}
-          {...props}
-        />
-      </Link>
-    );
-  },
-);
-ListItemLink.displayName = "ListItemLink";
 
 export type Subtitle = {
   subtitle: React.ReactNode;
@@ -121,9 +99,12 @@ export default function Nav({
               label="Dark Mode"
             />
           </ListItem>
-          <ListItemLink href="https://lineup.tools.football">
+          <ListItemButton
+            LinkComponent={Link}
+            href="https://lineup.tools.football"
+          >
             <ListItemText>Lineup Graphic Builder</ListItemText>
-          </ListItemLink>
+          </ListItemButton>
         </List>
       </SwipeableDrawer>
     </>
@@ -176,7 +157,8 @@ function NavSection({
             if (item.href) {
               const LinkIcon = item.icon;
               return (
-                <ListItemLink
+                <ListItemButton
+                  LinkComponent={!item.external ? Link : undefined}
                   href={item.external ? item.href : `/${league}${item.href}`}
                   key={idx}
                 >
@@ -184,7 +166,7 @@ function NavSection({
                   <ListItemText sx={{ fontSize: "0.725rem" }}>
                     {item.title}
                   </ListItemText>
-                </ListItemLink>
+                </ListItemButton>
               );
             }
           },

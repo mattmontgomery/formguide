@@ -10,7 +10,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemSecondaryAction,
 } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -84,7 +83,12 @@ export default function Admin() {
             <List>
               {fixtureIds.map((match, idx) => {
                 return (
-                  <ListItem key={idx}>
+                  <ListItem
+                    key={idx}
+                    secondaryAction={
+                      <a href={`/fixtures/${match.fixtureId}`}>Link</a>
+                    }
+                  >
                     <ListItemIcon>
                       {fixturesData?.data?.includes(match.fixtureId) ? (
                         <SportsSoccer />
@@ -101,9 +105,6 @@ export default function Admin() {
                     >
                       {match.title}
                     </ListItemButton>
-                    <ListItemSecondaryAction>
-                      <a href={`/fixtures/${match.fixtureId}`}>Link</a>
-                    </ListItemSecondaryAction>
                   </ListItem>
                 );
               })}
