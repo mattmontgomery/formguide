@@ -141,10 +141,12 @@ export default function BaseGrid<T = Results.ParsedData["teams"]>({
                         LeagueSeparators[league]?.indexOf(cellIndex + 1) !== -1;
                       return React.cloneElement(Cell, {
                         ...(typeof getMatchCellProps === "function"
-                          ? getMatchCellProps(Cell.props.match)
+                          ? getMatchCellProps(
+                              (Cell.props as MatchCellProps).match,
+                            )
                           : {}),
                         rightBorder: shouldHaveRightBorder,
-                      });
+                      } as MatchCellProps);
                     },
                   )}
                 </Box>
