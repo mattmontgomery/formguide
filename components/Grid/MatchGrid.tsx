@@ -54,7 +54,7 @@ export default function MatchGrid<T extends Results.Match>({
 
   const league = useContext(LeagueContext);
   const dataValues: Record<string, React.ReactNode[]> = useMemo(() => {
-    return Object.keys(data)
+    return Object.keys(data ?? {})
       .map((team) => {
         return {
           [team]: data[team].sort(sortByDate).map(getValue),
