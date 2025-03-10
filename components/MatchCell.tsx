@@ -20,11 +20,11 @@ import Link from "next/link";
 import Cell from "./Cell";
 import { getResultBackgroundColor } from "@/utils/results";
 
-export type MatchCellProps = {
-  isShaded?: (match: Results.Match) => boolean;
-  match: Results.Match;
-  onClick?: (match: Results.Match) => void;
-  renderValue?: (match: Results.Match) => React.ReactNode;
+export type MatchCellProps<T = Results.Match> = {
+  isShaded?: (match: T) => boolean;
+  match: T;
+  onClick?: (match: T) => void;
+  renderValue?: (match: T) => React.ReactNode;
   renderRawValue?: () => number;
   prerenderedValue?: string | number;
   resultType?: "first-half" | "second-half" | "full-match";

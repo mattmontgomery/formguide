@@ -145,7 +145,9 @@ export default function MatchGridV2<T extends Results.Match>({
                         LeagueSeparators[league]?.indexOf(cellIndex + 1) !== -1;
                       return React.cloneElement(Cell, {
                         ...(typeof getMatchCellProps === "function"
-                          ? getMatchCellProps(Cell.props.match)
+                          ? getMatchCellProps(
+                              (Cell.props as MatchCellProps).match as T,
+                            )
                           : {}),
                         rightBorder: shouldHaveRightBorder,
                         isShaded: (match: T) => {
@@ -162,10 +164,10 @@ export default function MatchGridV2<T extends Results.Match>({
                           return (
                             isHomeAwayShaded ||
                             resultShaded ||
-                            (Cell.props.isShaded && Cell.props.isShaded(match))
+                            (Cell.props as MatchCellProps).isShaded?.(match)
                           );
                         },
-                      });
+                      } as MatchCellProps);
                     },
                   )}
                 </Box>
