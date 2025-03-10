@@ -143,7 +143,9 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                         LeagueSeparators[league]?.indexOf(cellIndex + 1) !== -1;
                       return React.cloneElement(Cell, {
                         ...(typeof getMatchCellProps === "function"
-                          ? getMatchCellProps(Cell.props.match)
+                          ? getMatchCellProps(
+                              (Cell.props as MatchCellProps).match,
+                            )
                           : {}),
                         rightBorder: shouldHaveRightBorder,
                         isShaded: (match: Results.Match) => {
@@ -160,10 +162,10 @@ export default function MatchGrid<T = Results.ParsedData["teams"]>({
                           return (
                             isHomeAwayShaded ||
                             resultShaded ||
-                            (Cell.props.isShaded && Cell.props.isShaded(match))
+                            (Cell.props as MatchCellProps).isShaded?.(match)
                           );
                         },
-                      });
+                      } as MatchCellProps);
                     },
                   )}
                 </Box>
