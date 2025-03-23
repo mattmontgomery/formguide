@@ -16,7 +16,7 @@ export default function SinceResultPage(): React.ReactElement {
     ?.split(",") as Results.ResultTypes[]) || ["W"];
   return (
     <BaseGridPage
-      pageTitle={`Games since an away ${result
+      pageTitle={`Games since a home ${result
         .map((r) => formattedResults[r])
         .join(" or ")}`}
       dataParser={(teams) => dataParser(teams, result)}
