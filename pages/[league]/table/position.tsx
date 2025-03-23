@@ -95,7 +95,7 @@ function LeagueTable({
             })
             .filter(Boolean)
             .map((row) => {
-              return row ? row.conferenceRank ?? row.rank ?? -1 : -1;
+              return row ? (row.conferenceRank ?? row.rank ?? -1) : -1;
             }),
         ];
       });
@@ -168,8 +168,7 @@ function LeagueTable({
                       showVerticalCrosshair
                       showSeriesGlyphs
                       renderTooltip={({ tooltipData, colorScale }) =>
-                        tooltipData &&
-                        tooltipData.nearestDatum &&
+                        tooltipData?.nearestDatum &&
                         colorScale &&
                         selectedTeams.includes(
                           tooltipData?.nearestDatum?.key,
@@ -218,66 +217,5 @@ function LeagueTable({
         );
       })}
     </Box>
-  );
-}
-
-export function ChartLegend({
-  onSelectTeam,
-  onHoverTeam,
-  selectedTeams = [],
-  allTeams = [],
-}: {
-  onHoverTeam: (team: string | null) => void;
-  onSelectTeam: (team: string) => void;
-  selectedTeams: string[];
-  allTeams: string[];
-}): React.ReactElement {
-  const { colorScale } = useContext(DataContext);
-  return colorScale ? (
-    <LegendOrdinal
-      direction="column"
-      itemMargin="8px 8px 8px 0"
-      scale={colorScale}
-      labelFormat={(label: string) => label}
-      legendLabelProps={{ color: "white" }}
-      shape="line"
-      style={{
-        marginTop: -24,
-        display: "flex", // required in addition to `direction` if overriding styles
-      }}
-    >
-      {(labels) => {
-        return allTeams.sort().map((team, idx) => {
-          const l = labels.find((label) => label.text === team);
-          return (
-            <React.Fragment key={idx}>
-              <FormControlLabel
-                onMouseEnter={() => onHoverTeam(team)}
-                onMouseLeave={() => onHoverTeam(null)}
-                control={
-                  <Checkbox
-                    checked={selectedTeams.includes(team)}
-                    onChange={() => onSelectTeam(team)}
-                  />
-                }
-                label={
-                  <Box
-                    sx={{
-                      borderBottomColor: l ? colorScale(l.text) : "#ddd",
-                      borderBottomWidth: 4,
-                      borderBottomStyle: "solid",
-                    }}
-                  >
-                    {team}
-                  </Box>
-                }
-              />
-            </React.Fragment>
-          );
-        });
-      }}
-    </LegendOrdinal>
-  ) : (
-    <>whoops!</>
   );
 }

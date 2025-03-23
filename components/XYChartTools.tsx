@@ -1,8 +1,9 @@
 import { getTeamColor } from "@/utils/Leagues";
 import { Box, Checkbox, FormControlLabel } from "@mui/material";
 import { LegendOrdinal } from "@visx/legend";
-import { AxisScale, DataContext, LineSeries } from "@visx/xychart";
-import { BaseLineSeriesProps } from "@visx/xychart/lib/components/series/private/BaseLineSeries";
+import { DataContext, LineSeries } from "@visx/xychart";
+import type { AxisScale } from "@visx/xychart";
+import type { BaseLineSeriesProps } from "@visx/xychart/lib/components/series/private/BaseLineSeries";
 import React, { useContext, useState } from "react";
 
 export function useChartLegend(teams: string[]) {
