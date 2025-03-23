@@ -55,7 +55,7 @@ export const Groups: Record<string, symbol> = {
   StatsRolling: Symbol("Stats Rolling"),
   StatsCompare: Symbol("Stats Compared"),
   AdvancedStats: Symbol("Advanced Stats"),
-  GamesSince: Symbol("Game Since..."),
+  GamesSince: Symbol("Game Since... / Consecutive Results"),
   Supplementary: Symbol("Supplementary Stats"),
 };
 
@@ -460,6 +460,18 @@ const gamesSince = [
   {
     href: "/since-result/W,D",
     title: "Games since a win or draw",
+    icon: CalendarViewMonth,
+    group: Groups.GamesSince,
+  },
+  {
+    href: "/since-result/W,D",
+    title: "Games since a home win or draw",
+    icon: CalendarViewMonth,
+    group: Groups.GamesSince,
+  },
+  {
+    href: "/since-result/W,D",
+    title: "Games since an away win or draw",
     icon: CalendarViewMonth,
     group: Groups.GamesSince,
   },
