@@ -2,19 +2,11 @@ import BaseDataPage from "@/components/BaseDataPage";
 
 import { ParentSize } from "@visx/responsive";
 
-import {
-  Grid,
-  XYChart,
-  Axis,
-  Tooltip,
-  DataContext,
-  DataProvider,
-} from "@visx/xychart";
+import { Grid, XYChart, Axis, Tooltip, DataProvider } from "@visx/xychart";
 import { curveCatmullRom } from "@visx/curve";
 import { Box } from "@mui/system";
-import { LegendOrdinal } from "@visx/legend";
 import React, { useContext, useMemo } from "react";
-import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { addWeeks, differenceInWeeks, parseISO, startOfWeek } from "date-fns";
 import {
   getConferences,
