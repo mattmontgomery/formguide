@@ -464,13 +464,13 @@ const gamesSince = [
     group: Groups.GamesSince,
   },
   {
-    href: "/since-result/W,D",
+    href: "/since-result/home/W,D",
     title: "Games since a home win or draw",
     icon: CalendarViewMonth,
     group: Groups.GamesSince,
   },
   {
-    href: "/since-result/W,D",
+    href: "/since-result/away/W,D",
     title: "Games since an away win or draw",
     icon: CalendarViewMonth,
     group: Groups.GamesSince,
