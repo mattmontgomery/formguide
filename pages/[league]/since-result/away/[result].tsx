@@ -29,11 +29,17 @@ function dataParser(
   resultTypes: Results.ResultTypes[],
 ): Render.RenderReadyData {
   const lastTeamResult: Record<string, number> = {};
-  return Object.keys(data).map((team) => [
+  const filteredDataForAway = Object.keys(data).reduce(
+    (acc, team) => {
+      acc[team] = data[team].filter((match) => !match.home);
+      return acc;
+    },
+    {} as Results.ParsedData["teams"],
+  );
+  return Object.keys(filteredDataForAway).map((team) => [
     team,
     ...data[team]
       .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
-      .filter((match) => !match.home)
       .map((match, idx) => {
         if (typeof lastTeamResult[team] === "undefined") {
           lastTeamResult[team] = 0;
