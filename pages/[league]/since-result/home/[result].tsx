@@ -16,7 +16,7 @@ export default function SinceResultPage(): React.ReactElement {
     ?.split(",") as Results.ResultTypes[]) || ["W"];
   return (
     <BaseGridPage
-      pageTitle={`Games since a home ${result
+      pageTitle={`Games since an away ${result
         .map((r) => formattedResults[r])
         .join(" or ")}`}
       dataParser={(teams) => dataParser(teams, result)}
@@ -25,22 +25,21 @@ export default function SinceResultPage(): React.ReactElement {
 }
 
 function dataParser(
-  data: Results.ParsedData["teams"],
+  prefilteredData: Results.ParsedData["teams"],
   resultTypes: Results.ResultTypes[],
 ): Render.RenderReadyData {
   const lastTeamResult: Record<string, number> = {};
-  const filteredDataForAway = Object.keys(data).reduce(
+  const data = Object.keys(prefilteredData).reduce(
     (acc, team) => {
-      acc[team] = data[team].filter((match) => !match.home);
+      acc[team] = prefilteredData[team].filter((match) => match.home);
       return acc;
     },
     {} as Results.ParsedData["teams"],
   );
-  return Object.keys(filteredDataForAway).map((team) => [
+  return Object.keys(data).map((team) => [
     team,
     ...data[team]
       .sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
-
       .map((match, idx) => {
         if (typeof lastTeamResult[team] === "undefined") {
           lastTeamResult[team] = 0;
