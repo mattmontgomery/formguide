@@ -416,6 +416,12 @@ const gameStates: NavItem[] = [
     group: Groups.GameStates,
   },
   {
+    title: "Most Substitutes at Once",
+    href: "/substitutes/most-at-once",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
     title: "Game States Visualized",
     href: "/game-states/team",
     icon: StadiumTwoTone,
