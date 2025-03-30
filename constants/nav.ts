@@ -393,7 +393,7 @@ const gameStates: NavItem[] = [
   },
   {
     title: "Earliest Multiple Substitutes",
-    href: "/substitutes/earliest",
+    href: "/substitutes/earliest-multiple",
     icon: Person3Rounded,
     group: Groups.GameStates,
   },
