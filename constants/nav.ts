@@ -392,6 +392,12 @@ const gameStates: NavItem[] = [
     group: Groups.GameStates,
   },
   {
+    title: "Earliest Multiple Substitutes",
+    href: "/substitutes/earliest",
+    icon: Person3Rounded,
+    group: Groups.GameStates,
+  },
+  {
     title: "Earliest Substitute Rolling",
     href: "/substitutes/earliest-rolling",
     icon: Person3Rounded,
