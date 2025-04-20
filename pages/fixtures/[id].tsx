@@ -132,10 +132,10 @@ export default function Fixture(): React.ReactElement {
           <Grid container>
             {fixtureData?.lineups.map((lineup, idx) => (
               <Grid container key={idx} sx={{ paddingBottom: 2 }}>
-                <Grid item xs={12} sm={2}>
+                <Grid>
                   <strong>{lineup.team.name}</strong>
                 </Grid>
-                <Grid item xs={6} sm={5}>
+                <Grid>
                   <Box sx={{ paddingBottom: 1 }}>
                     <strong>Starting XI</strong>
                   </Box>
@@ -145,7 +145,7 @@ export default function Fixture(): React.ReactElement {
                     </Box>
                   ))}
                 </Grid>
-                <Grid item xs={6} sm={5}>
+                <Grid>
                   <Box sx={{ paddingBottom: 1 }}>
                     <strong>Substitutes</strong>
                   </Box>
@@ -254,12 +254,12 @@ export default function Fixture(): React.ReactElement {
             {predictionData.h2h.map((match, idx) => (
               <ListItem key={idx}>
                 <Grid container>
-                  <Grid item sm={2}>
+                  <Grid>
                     <Link href={`/fixtures/${match.fixture.id}`} passHref>
                       <Button>{getFormattedDate(match.fixture, false)}</Button>
                     </Link>
                   </Grid>
-                  <Grid item sm={2}>
+                  <Grid>
                     <Box
                       sx={{
                         color: match.teams.home.winner ? "success.main" : "",
@@ -268,10 +268,10 @@ export default function Fixture(): React.ReactElement {
                       {match.teams.home.name}
                     </Box>
                   </Grid>
-                  <Grid item sm={1}>
+                  <Grid>
                     {match.score.fulltime.home}-{match.score.fulltime.away}
                   </Grid>
-                  <Grid item sm={2}>
+                  <Grid>
                     <Box
                       sx={{
                         color: match.teams.away.winner ? "success.main" : "",
@@ -297,15 +297,9 @@ export default function Fixture(): React.ReactElement {
             <ListItem>
               <ListItemText>
                 <Grid container>
-                  <Grid item sm={1}>
-                    Time segment
-                  </Grid>
-                  <Grid item sm={2}>
-                    {fixtureData.teams.home.name}
-                  </Grid>
-                  <Grid item sm={2}>
-                    {fixtureData.teams.away.name}
-                  </Grid>
+                  <Grid>Time segment</Grid>
+                  <Grid>{fixtureData.teams.home.name}</Grid>
+                  <Grid>{fixtureData.teams.away.name}</Grid>
                 </Grid>
               </ListItemText>
             </ListItem>
@@ -314,17 +308,15 @@ export default function Fixture(): React.ReactElement {
                 <ListItem key={idx}>
                   <ListItemText>
                     <Grid container>
-                      <Grid item sm={1}>
-                        {segment}
-                      </Grid>
-                      <Grid item sm={2}>
+                      <Grid>{segment}</Grid>
+                      <Grid>
                         {
                           predictionData.teams.home.league.goals.for.minute[
                             segment
                           ].total
                         }
                       </Grid>
-                      <Grid item sm={2}>
+                      <Grid>
                         {
                           predictionData.teams.away.league.goals.for.minute[
                             segment
@@ -350,15 +342,9 @@ export default function Fixture(): React.ReactElement {
             <ListItem>
               <ListItemText>
                 <Grid container>
-                  <Grid item sm={1}>
-                    Time segment
-                  </Grid>
-                  <Grid item sm={2}>
-                    {fixtureData.teams.home.name}
-                  </Grid>
-                  <Grid item sm={2}>
-                    {fixtureData.teams.away.name}
-                  </Grid>
+                  <Grid>Time segment</Grid>
+                  <Grid>{fixtureData.teams.home.name}</Grid>
+                  <Grid>{fixtureData.teams.away.name}</Grid>
                 </Grid>
               </ListItemText>
             </ListItem>
@@ -368,17 +354,15 @@ export default function Fixture(): React.ReactElement {
               <ListItem key={idx}>
                 <ListItemText>
                   <Grid container>
-                    <Grid item sm={1}>
-                      {segment}
-                    </Grid>
-                    <Grid item sm={2}>
+                    <Grid>{segment}</Grid>
+                    <Grid>
                       {
                         predictionData.teams.home.league.goals.against.minute[
                           segment
                         ].total
                       }
                     </Grid>
-                    <Grid item sm={2}>
+                    <Grid>
                       {
                         predictionData.teams.away.league.goals.against.minute[
                           segment
@@ -404,12 +388,8 @@ export default function Fixture(): React.ReactElement {
               <ListItem key={idx}>
                 <ListItemText>
                   <Grid container>
-                    <Grid item sm={1}>
-                      {l.formation}
-                    </Grid>
-                    <Grid item sm={2}>
-                      {l.played}
-                    </Grid>
+                    <Grid>{l.formation}</Grid>
+                    <Grid>{l.played}</Grid>
                   </Grid>
                 </ListItemText>
               </ListItem>
@@ -429,12 +409,8 @@ export default function Fixture(): React.ReactElement {
               <ListItem key={idx}>
                 <ListItemText>
                   <Grid container>
-                    <Grid item sm={1}>
-                      {l.formation}
-                    </Grid>
-                    <Grid item sm={2}>
-                      {l.played}
-                    </Grid>
+                    <Grid>{l.formation}</Grid>
+                    <Grid>{l.played}</Grid>
                   </Grid>
                 </ListItemText>
               </ListItem>
