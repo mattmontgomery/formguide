@@ -97,36 +97,24 @@ export default function Fixture(): React.ReactElement {
           <Grid container>
             {fixtureData?.events.map((event, idx) => (
               <Grid container key={idx}>
-                <Grid
-                  item
-                  xs={0}
-                  sm={1}
-                  sx={{ textAlign: { sm: "right" }, paddingRight: 1 }}
-                >
+                <Grid sx={{ textAlign: { sm: "right" }, paddingRight: 1 }}>
                   {event.time.elapsed}
                   {"'"}
                 </Grid>
-                <Grid item xs={5} sm={1}>
-                  {event.team.name}
-                </Grid>
-                <Grid item xs={6} sm={1}>
+                <Grid>{event.team.name}</Grid>
+                <Grid>
                   <strong>{getFormattedEventName(event)}</strong>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid>
                   {event.type === "subst" ? "Off: " : ""}
                   {event.player.name}
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid>
                   {event.type === "Goal"
                     ? `Assist: ${event.assist?.name || "N/A"}`
                     : ""}
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  paddingY={2}
-                  sx={{ display: { sm: "none" } }}
-                >
+                <Grid paddingY={2} sx={{ display: { sm: "none" } }}>
                   <Divider />
                 </Grid>
               </Grid>
