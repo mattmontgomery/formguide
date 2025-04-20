@@ -1,6 +1,6 @@
 import { SearchSharp } from "@mui/icons-material";
 import { Input, InputBaseComponentProps } from "@mui/material";
-import { KBarSearch } from "kbar";
+import { KBarSearch } from "@refinedev/kbar";
 import { forwardRef, useContext } from "react";
 import DarkMode from "../Context/DarkMode";
 

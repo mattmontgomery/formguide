@@ -1,7 +1,7 @@
 import React from "react";
 import { SvgIconComponent } from "@mui/icons-material";
 import { Box } from "@mui/material";
-import { ActionImpl, KBarResults, useMatches } from "kbar";
+import { ActionImpl, KBarResults, useMatches } from "@refinedev/kbar";
 
 export default function Results({ darkMode }: { darkMode: boolean }) {
   const { results } = useMatches();

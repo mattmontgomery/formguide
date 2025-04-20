@@ -1,7 +1,7 @@
 import { LeagueOptions } from "@/utils/Leagues";
 import NavigationConfig from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";
-import { Action, KBarProvider, KBarProviderProps } from "kbar";
+import { Action, KBarProvider, KBarProviderProps } from "@refinedev/kbar";
 import { NextRouter, useRouter } from "next/router";
 import React, { useContext } from "react";
 import { PropsWithChildren } from "react";

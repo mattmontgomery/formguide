@@ -16,7 +16,7 @@ import Nav from "@/components/Nav";
 import YearContext, { DEFAULT_YEAR } from "@/components/Context/Year";
 import LeagueContext, { DEFAULT_LEAGUE } from "@/components/Context/League";
 import { useRouter } from "next/router";
-import { KBarAnimator, KBarPortal, KBarPositioner } from "kbar";
+import { KBarAnimator, KBarPortal, KBarPositioner } from "@refinedev/kbar";
 import KBarProvider from "@/components/KBar/Provider";
 import Results from "@/components/Results";
 
