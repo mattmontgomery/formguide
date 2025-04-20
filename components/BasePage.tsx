@@ -33,42 +33,43 @@ export default function BasePage({
       />
       <div className={styles.body}>
         <Box paddingBottom={2}>
-          <Grid container rowGap={2} sx={{ color: "text.primary" }}>
-            <Grid xs={12} item>
-              <Typography variant="overline">
-                Year: {year}, League: {LeagueOptions[league]}
-              </Typography>
-              {typeof renderTitle === "function" ? (
-                <Typography variant="h4">{renderTitle()}</Typography>
-              ) : pageTitle ? (
-                <Typography variant="h4">{pageTitle}</Typography>
-              ) : (
-                <></>
-              )}
-            </Grid>
-            {renderControls && (
-              <Grid xs={12} item>
-                <Paper
-                  elevation={3}
-                  sx={{
-                    padding: 2,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 2,
-                  }}
-                >
-                  {renderControls()}
-                </Paper>
-              </Grid>
-            )}
-            <Grid xs={12} item>
-              <Paper elevation={1} sx={{ padding: 2 }}>
-                {children}
-              </Paper>
-            </Grid>
-          </Grid>
+          <Typography variant="overline">
+            Year: {year}, League: {LeagueOptions[league]}
+          </Typography>
+          {typeof renderTitle === "function" ? (
+            <Typography variant="h4">{renderTitle()}</Typography>
+          ) : pageTitle ? (
+            <Typography variant="h4">{pageTitle}</Typography>
+          ) : (
+            <></>
+          )}
         </Box>
+        <hr
+          style={{
+            borderColor: "goldenrod",
+            borderWidth: "1.5px",
+            borderStyle: "solid",
+            marginBottom: "1rem",
+          }}
+        />
+        {renderControls && (
+          <Paper
+            elevation={25}
+            sx={{
+              padding: 2,
+              fontSize: "85%",
+              alignContent: "center",
+              marginBottom: "2rem",
+            }}
+          >
+            <Grid direction="row" container columnGap={4}>
+              {renderControls()}
+            </Grid>
+          </Paper>
+        )}
+        <Paper elevation={25} sx={{ padding: 2 }}>
+          {children}
+        </Paper>
       </div>
     </>
   );

@@ -55,6 +55,7 @@ async function fetchData({
     typeof API_BASE !== "string" ||
     typeof API_KEY !== "string"
   ) {
+    console.error("Missing environment variables");
     throw "Application not properly configured";
   }
 
@@ -78,7 +79,10 @@ async function fetchData({
     {
       allowCompression: true,
     },
-  );
+  ).catch((e) => {
+    console.error("Error fetching data", e);
+    throw e;
+  });
   if (!matchData) {
     throw "no data found";
   }

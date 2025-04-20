@@ -12,6 +12,15 @@ export default async function form(
   const year = +String(req.query.year) || getCurrentYear(league);
   const yearOffset = LeagueYearOffset[league] ?? 0;
   const args = `year=${year + yearOffset}&league=${league || "mls"}`;
+  if (!FORM_API) {
+    console.error({ error: "Missing environment variables" });
+    res.status(500);
+    res.json({
+      data: {},
+      errors: ["Application not properly configured"],
+    });
+    return;
+  }
   try {
     const response = await fetch(`${FORM_API}?${args}`);
     res.setHeader(
@@ -27,6 +36,7 @@ export default async function form(
       meta: { ...(responseBody.meta || {}), year, league, args },
     });
   } catch (e) {
+    console.error(JSON.stringify({ error: e }));
     res.status(500);
     res.json({
       data: {},

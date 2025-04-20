@@ -20,7 +20,7 @@ import {
   getUniqueGoalscorers,
 } from "@/utils/table";
 import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Grid } from "@mui/system";
 import { addWeeks, isAfter, isBefore, parseISO } from "date-fns";
 import React, { useContext } from "react";
 import { useToggle } from "@/components/Toggle/Toggle";
@@ -159,7 +159,8 @@ function getColumns(groupIds: string[]): GridColDef<AdvancedTableRow>[] {
     { field: "gd", width: 50 },
     {
       field: "ppg",
-      valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
+      valueFormatter: (n: { value: string }) =>
+        typeof n.value === "number" ? Number(n.value).toFixed(2) : n.value,
     },
     {
       field: "shutouts",
@@ -199,7 +200,8 @@ function getColumns(groupIds: string[]): GridColDef<AdvancedTableRow>[] {
     {
       field: "ppgLosing",
       headerName: "PPG",
-      valueFormatter: (n: { value: string }) => Number(n.value).toFixed(2),
+      valueFormatter: (n: { value: string }) =>
+        typeof n.value === "number" ? Number(n.value).toFixed(2) : n.value,
     },
     {
       field: "losingGoals",
@@ -310,8 +312,8 @@ export default function AdvancedTablePage() {
     <BaseDataPage<Results.ParsedDataGoals>
       renderControls={() => (
         <>
-          <Box>{renderHomeAway()}</Box>
-          <Box>{renderGroups()}</Box>
+          <Grid>{renderHomeAway()}</Grid>
+          <Grid>{renderGroups()}</Grid>
         </>
       )}
       getEndpoint={(year, league) => `/api/goals/${league}?year=${year}`}
