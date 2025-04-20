@@ -20,7 +20,7 @@ export default function ColorKey({
     <Box>
       <Typography variant="h6">Legend</Typography>
       <Grid columns={3} spacing={3} container>
-        <Grid item>
+        <Grid>
           <Card>
             <CardMedia
               sx={{ backgroundColor: "success.main", height: "4rem" }}
@@ -28,7 +28,7 @@ export default function ColorKey({
             <CardContent>{successText}</CardContent>
           </Card>
         </Grid>
-        <Grid item>
+        <Grid>
           <Card>
             <CardMedia
               sx={{ backgroundColor: "warning.main", height: "4rem" }}
@@ -36,7 +36,7 @@ export default function ColorKey({
             <CardContent>{warningText}</CardContent>
           </Card>
         </Grid>
-        <Grid item>
+        <Grid>
           <Card>
             <CardMedia
               sx={{ backgroundColor: "error.main", height: "4rem" }}
