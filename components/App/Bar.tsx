@@ -90,7 +90,7 @@ export default function Bar({
         <Select
           sx={{
             backgroundColor: "background.paper",
-            display: { xs: "none", md: "inline" },
+            display: { md: "inline" },
           }}
           value={year}
           onChange={(ev) => onSetYear(Number(ev.target.value))}
