@@ -61,55 +61,6 @@ export default function FormFacts(): React.ReactElement {
   );
 }
 
-function getMostGoalsConceded(
-  results: Results.ParsedData["teams"],
-): Results.Match[] {
-  return flattenMatches(results)
-    .sort((a, b) => {
-      return (a.goalsConceded || 0) > (b.goalsConceded || 0)
-        ? 1
-        : a.goalsConceded === b.goalsConceded
-          ? 0
-          : -1;
-    })
-    .reverse()
-    .slice(0, 10);
-}
-
-function getBiggestGD(results: Results.ParsedData["teams"]): Results.Match[] {
-  return flattenMatches(results)
-    .sort((a, b) => {
-      const gdA: number = typeof a.gd === "number" ? a.gd : 0;
-      const gdB: number = typeof b.gd === "number" ? b.gd : 0;
-      return gdA > gdB ? -1 : gdA === gdB ? 0 : 1;
-    })
-    .slice(0, 10);
-}
-
-function getMostGoalsScored(
-  results: Results.ParsedData["teams"],
-): Results.Match[] {
-  return flattenMatches(results)
-    .sort((a, b) => {
-      return (a.goalsScored || 0) > (b.goalsScored || 0)
-        ? 1
-        : a.goalsScored === b.goalsScored
-          ? 0
-          : -1;
-    })
-    .reverse()
-    .slice(0, 10);
-}
-
-function flattenMatches(results: Results.ParsedData["teams"]): Results.Match[] {
-  return Object.values(results)
-    .reduce((acc, curr) => {
-      return [...acc, ...curr];
-    }, [])
-    .filter((match) => Boolean(match.result))
-    .filter((match) => Boolean(typeof match.goalsConceded === "number"));
-}
-
 // Returns biggest streak of consecutive matches without winning
 function getMostMatchesWithoutResult(
   results: Results.ParsedData["teams"],
