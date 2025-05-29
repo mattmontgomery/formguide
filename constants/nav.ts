@@ -448,6 +448,12 @@ const supplementary: NavItem[] = [
     icon: LightbulbOutlined,
     group: Groups.Supplementary,
   },
+  {
+    href: "/facts/form",
+    title: "Form Facts",
+    icon: LightbulbOutlined,
+    group: Groups.Supplementary,
+  },
 ];
 
 const gamesSince = [
