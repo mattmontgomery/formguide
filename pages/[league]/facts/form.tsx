@@ -70,7 +70,7 @@ function getMostMatchesWithResult(
   matches: number;
 }[] {
   const teams = Object.keys(results);
-  return teams.map((team) => {
+  return teams.sort().map((team) => {
     const matches = results[team];
     let maxStreak = 0;
     let currentStreak = 0;
