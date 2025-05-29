@@ -14,7 +14,7 @@ export default function FormFacts(): React.ReactElement {
                   Most matches without winning
                 </Typography>
                 <ul>
-                  {getMostMatchesWithoutResult(data.teams, ["W"]).map(
+                  {getMostMatchesWithResult(data.teams, ["D", "L"]).map(
                     (data, idx) => (
                       <li key={idx}>
                         {data.team} - {data.matches}
@@ -29,7 +29,7 @@ export default function FormFacts(): React.ReactElement {
                   Most matches without losing
                 </Typography>
                 <ul>
-                  {getMostMatchesWithoutResult(data.teams, ["L"]).map(
+                  {getMostMatchesWithResult(data.teams, ["W", "D"]).map(
                     (data, idx) => (
                       <li key={idx}>
                         {data.team} - {data.matches}
@@ -44,7 +44,7 @@ export default function FormFacts(): React.ReactElement {
                   Most matches without drawing
                 </Typography>
                 <ul>
-                  {getMostMatchesWithoutResult(data.teams, ["D"]).map(
+                  {getMostMatchesWithResult(data.teams, ["W", "L"]).map(
                     (data, idx) => (
                       <li key={idx}>
                         {data.team} - {data.matches}
@@ -62,7 +62,7 @@ export default function FormFacts(): React.ReactElement {
 }
 
 // Returns biggest streak of consecutive matches without winning
-function getMostMatchesWithoutResult(
+function getMostMatchesWithResult(
   results: Results.ParsedData["teams"],
   resultType: Results.ResultType[],
 ): {
@@ -76,7 +76,7 @@ function getMostMatchesWithoutResult(
     let currentStreak = 0;
 
     matches.forEach((match) => {
-      if (!resultType.includes(match.result)) {
+      if (resultType.includes(match.result)) {
         currentStreak++;
       } else {
         maxStreak = Math.max(maxStreak, currentStreak);
