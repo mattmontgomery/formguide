@@ -24,7 +24,11 @@ import { Box, Grid } from "@mui/system";
 import { addWeeks, isAfter, isBefore, parseISO } from "date-fns";
 import React, { useContext } from "react";
 import { useToggle } from "@/components/Toggle/Toggle";
-import { GridColumnGroupingModel, GridColDef, isLeaf } from "@mui/x-data-grid";
+import {
+  type GridColumnGroupingModel,
+  type GridColDef,
+  isLeaf,
+} from "@mui/x-data-grid";
 
 type AdvancedTableRow = {
   rank: number;
