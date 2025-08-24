@@ -356,7 +356,7 @@ export function AdvancedTableWrapper({
   return (
     <Box>
       <Box my={2}>{renderDatePicker()}</Box>
-      {conferences.map((conference, idx) => {
+      {conferences.map((conference) => {
         return (
           <Box key={conference}>
             <Typography variant="h5">
