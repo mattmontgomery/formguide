@@ -1,9 +1,9 @@
-import { getColumns, Row } from "@/utils/table";
+import { getColumns, type Row } from "@/utils/table";
 import {
   DataGrid,
-  DataGridProps,
-  GridColDef,
-  GridValidRowModel,
+  type DataGridProps,
+  type GridColDef,
+  type GridValidRowModel,
 } from "@mui/x-data-grid";
 
 export default function Table<ColumnType extends GridValidRowModel = Row>({
@@ -24,10 +24,10 @@ export default function Table<ColumnType extends GridValidRowModel = Row>({
   } = gridProps;
   return (
     <DataGrid
-      autoHeight
+      autosizeOnMount
       columns={columns()}
       rows={data}
       {...extraGridProps}
-    ></DataGrid>
+    />
   );
 }

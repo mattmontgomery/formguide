@@ -22,7 +22,7 @@ import {
 import { Typography } from "@mui/material";
 import { Box, Grid } from "@mui/system";
 import { addWeeks, isAfter, isBefore, parseISO } from "date-fns";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useToggle } from "@/components/Toggle/Toggle";
 import {
   type GridColumnGroupingModel,
@@ -85,6 +85,7 @@ type AdvancedTableRow = {
 const GROUP_MODEL: GridColumnGroupingModel = [
   {
     groupId: "Record",
+    headerName: "Record",
     children: [
       { field: "w" },
       { field: "d" },
@@ -101,6 +102,7 @@ const GROUP_MODEL: GridColumnGroupingModel = [
   },
   {
     groupId: "Goal Scorers",
+    headerName: "Goal Scorers",
     children: [
       { field: "goalscorers" },
       { field: "topScorer" },
@@ -356,7 +358,7 @@ export function AdvancedTableWrapper({
       <Box my={2}>{renderDatePicker()}</Box>
       {conferences.map((conference, idx) => {
         return (
-          <Box key={idx}>
+          <Box key={conference}>
             <Typography variant="h5">
               {getConferenceDisplayName(conference)}
             </Typography>
