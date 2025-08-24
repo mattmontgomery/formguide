@@ -57,7 +57,7 @@ export default function FormFacts(): React.ReactElement {
           )
         );
       }}
-    ></BaseDataPage>
+    />
   );
 }
 
@@ -75,14 +75,14 @@ function getMostMatchesWithResult(
     let maxStreak = 0;
     let currentStreak = 0;
 
-    matches.forEach((match) => {
+    for (const match of matches) {
       if (resultType.includes(match.result)) {
         currentStreak++;
       } else {
         maxStreak = Math.max(maxStreak, currentStreak);
         currentStreak = 0;
       }
-    });
+    }
 
     // Check at the end of the loop
     maxStreak = Math.max(maxStreak, currentStreak);
