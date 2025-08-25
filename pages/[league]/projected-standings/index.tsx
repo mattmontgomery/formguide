@@ -134,7 +134,7 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                                 }}
                               >
                                 {field.value > 0
-                                  ? `${Math.round(field.value * 1000) / 10}%`
+                                  ? `${Math.round(field.value * 10000) / 100}%`
                                   : "-"}
                               </div>
                             );
