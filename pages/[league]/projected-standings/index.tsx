@@ -101,9 +101,9 @@ export default function ProjectedStandingsPage(): React.ReactElement {
               )}
             </Box>
 
-            {conferences.map((conference, idx) => {
+            {conferences.map((conference) => {
               return (
-                <Box key={idx} sx={{ paddingY: 4 }}>
+                <Box key={conference} sx={{ paddingY: 4 }}>
                   <Typography variant="h5">
                     {ConferenceDisplayNames[conference] ?? conference}
                   </Typography>
@@ -113,7 +113,6 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                         sortModel: [{ field: "median", sort: "asc" }],
                       },
                     }}
-                    autoHeight
                     columns={[
                       { field: "id", headerName: "Team", width: 250 },
                       { field: "median", headerName: "Median", width: 100 },
@@ -127,6 +126,20 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                         .fill(null)
                         .map((_, idx) => ({
                           field: String(idx + 1),
+                          renderCell(field: typeof _) {
+                            return (
+                              <>
+                                <div
+                                  style={{
+                                    background:
+                                      field.value > 0.1 ? "green" : "red",
+                                  }}
+                                >
+                                  {field.value}
+                                </div>
+                              </>
+                            );
+                          },
                           ...fieldDefinition,
                         })),
                     ]}
@@ -135,13 +148,13 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                         ConferencesByYear[league]?.[year]?.[r.id] ===
                           conference || conference === "All",
                     )}
-                  ></DataGrid>
+                  />
                 </Box>
               );
             })}
           </>
         );
       }}
-    ></BaseDataPage>
+    />
   );
 }
