@@ -130,10 +130,12 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                             return (
                               <div
                                 style={{
-                                  background: `linear-gradient(to right, green ${Math.round(field.value * 1000) / 10}%, transparent ${Math.round(field.value * 1000) / 10}%)`,
+                                  background: `linear-gradient(to right, RGBA(150,200,150) ${Math.round(field.value * 1000) / 10}%, transparent ${Math.round(field.value * 1000) / 10}%)`,
                                 }}
                               >
-                                {Math.round(field.value * 1000) / 10}%
+                                {field.value > 0
+                                  ? `${Math.round(field.value * 1000) / 10}%`
+                                  : "-"}
                               </div>
                             );
                           },
