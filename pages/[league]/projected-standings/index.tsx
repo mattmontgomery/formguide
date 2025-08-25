@@ -128,16 +128,13 @@ export default function ProjectedStandingsPage(): React.ReactElement {
                           field: String(idx + 1),
                           renderCell(field: typeof _) {
                             return (
-                              <>
-                                <div
-                                  style={{
-                                    background:
-                                      field.value > 0.1 ? "green" : "red",
-                                  }}
-                                >
-                                  {field.value}
-                                </div>
-                              </>
+                              <div
+                                style={{
+                                  background: `linear-gradient(to right, green ${Math.round(field.value * 1000) / 10}%, transparent ${Math.round(field.value * 1000) / 10}%)`,
+                                }}
+                              >
+                                {Math.round(field.value * 1000) / 10}%
+                              </div>
                             );
                           },
                           ...fieldDefinition,
