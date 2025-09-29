@@ -1,3 +1,5 @@
+"use client";
+
 import useSWR from "swr";
 import BasePage, { BasePageProps } from "./BasePage";
 import { Box, CircularProgress } from "@mui/material";

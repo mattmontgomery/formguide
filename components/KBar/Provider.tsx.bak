@@ -1,8 +1,10 @@
+"use client";
+
 import { LeagueOptions } from "@/utils/Leagues";
 import NavigationConfig from "@/constants/nav";
 import type { NavItem } from "@/constants/nav";
 import { Action, KBarProvider, KBarProviderProps } from "@refinedev/kbar";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import { PropsWithChildren } from "react";
 import LeagueContext from "../Context/League";
@@ -12,7 +14,7 @@ const getActions = ({
   league,
   onSetLeague,
 }: {
-  router: NextRouter;
+  router: ReturnType<typeof useRouter>; // App Router router type
   league: Results.Leagues;
   onSetLeague: (league: Results.Leagues) => void;
 }): KBarProviderProps["actions"] => [
