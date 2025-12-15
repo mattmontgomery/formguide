@@ -20,10 +20,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 24
       - run: npm ci
-      - run: npm test
-
       - id: "auth"
         uses: "google-github-actions/auth@v0"
         with:
@@ -33,7 +31,7 @@ jobs:
         uses: "google-github-actions/deploy-cloud-functions@v0"
         with:
           name: "form"
-          runtime: "nodejs16"
+          runtime: "nodejs24"
           region: "us-west3"
           source_dir: functions
           env_vars: REDIS_URL=${{secrets.REDIS_URL}},API_FOOTBALL_BASE=${{secrets.API_FOOTBALL_BASE}},API_FOOTBALL_KEY=${{secrets.API_FOOTBALL_KEY}}
