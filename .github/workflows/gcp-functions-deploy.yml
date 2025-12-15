@@ -40,7 +40,7 @@ jobs:
         uses: "google-github-actions/deploy-cloud-functions@v1"
         with:
           name: "prediction"
-          runtime: "nodejs16"
+          runtime: "nodejs20"
           region: "us-west3"
           source_dir: functions
           env_vars: REDIS_URL=${{secrets.REDIS_URL}},API_FOOTBALL_BASE=${{secrets.API_FOOTBALL_BASE}},API_FOOTBALL_KEY=${{secrets.API_FOOTBALL_KEY}}
