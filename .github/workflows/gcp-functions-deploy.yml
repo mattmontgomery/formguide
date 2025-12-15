@@ -23,12 +23,12 @@ jobs:
           node-version: 24
       - run: npm ci
       - id: "auth"
-        uses: "google-github-actions/auth@v0"
+        uses: "google-github-actions/auth"
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
       - id: "deploy-form"
-        uses: "google-github-actions/deploy-cloud-functions@v0"
+        uses: "google-github-actions/deploy-cloud-functions"
         with:
           name: "form"
           runtime: "nodejs24"
@@ -37,7 +37,7 @@ jobs:
           env_vars: REDIS_URL=${{secrets.REDIS_URL}},API_FOOTBALL_BASE=${{secrets.API_FOOTBALL_BASE}},API_FOOTBALL_KEY=${{secrets.API_FOOTBALL_KEY}}
 
       - id: "deploy-prediction"
-        uses: "google-github-actions/deploy-cloud-functions@v0"
+        uses: "google-github-actions/deploy-cloud-functions"
         with:
           name: "prediction"
           runtime: "nodejs16"
