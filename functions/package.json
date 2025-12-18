@@ -3,7 +3,7 @@
   "dependencies": {
     "@google-cloud/functions-framework": "^4.0.1",
     "date-fns": "^2.29.3",
-    "dotenv": "^16.0.3",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "ioredis": "^5.8.2",
     "node-fetch-commonjs": "^3.2.4",
