@@ -6,7 +6,7 @@
     "dotenv": "^16.0.3",
     "express": "^5.2.1",
     "ioredis": "^5.8.2",
-    "node-fetch-commonjs": "^3.2.4",
+    "node-fetch-commonjs": "^3.3.2",
     "typescript": "^4.8.4"
   },
   "devDependencies": {
