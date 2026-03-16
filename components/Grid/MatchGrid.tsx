@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "@/styles/Home.module.css";
 import { LeagueSeparators } from "@/utils/Leagues";
 import { sortByDate } from "@/utils/sort";

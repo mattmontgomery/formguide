@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AppBar,
   Autocomplete,
@@ -20,7 +22,7 @@ import {
 import EasterEggContext from "../Context/EasterEgg";
 import { useContext } from "react";
 import LeagueContext from "../Context/League";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { LeagueOptions } from "@/utils/Leagues";
 import DrawerContext from "../Context/Drawer";
 import YearContext from "../Context/Year";
@@ -39,6 +41,8 @@ export default function Bar({
   const year = useContext(YearContext);
   const open = useContext(DrawerContext);
   const router = useRouter();
+  // const pathname = usePathname();
+  const searchParams = useSearchParams();
   return (
     <AppBar>
       <Toolbar sx={{ gap: 1 }}>
@@ -136,13 +140,9 @@ export default function Bar({
           onChange={(ev, newValue) => {
             if (newValue) {
               onSetLeague(String(newValue.id) as Results.Leagues);
-              router.push({
-                pathname: router.pathname,
-                query: {
-                  ...router.query,
-                  league: String(newValue.id),
-                },
-              });
+              const newSearchParams = new URLSearchParams(searchParams);
+              newSearchParams.set("league", String(newValue.id));
+              router.push(`/${String(newValue.id)}`);
             }
           }}
         />
