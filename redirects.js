@@ -56,6 +56,10 @@ const PATH_RULES = [
     from: "/chart/:period",
     to: (league, params) => `/rolling/${league}?period=${params.period}`,
   },
+  {
+    from: "/record/since/:date",
+    to: (league) => `/standings/${league}`,
+  },
 ];
 
 function buildRedirects() {
