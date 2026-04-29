@@ -41,6 +41,10 @@ const PATH_RULES = [
     to: (league) => `/standings/${league}`,
   },
   {
+    from: "/table/advanced",
+    to: (league) => `/standings/${league}`,
+  },
+  {
     from: "/table",
     to: (league) => `/standings/${league}`,
   },
