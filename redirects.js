@@ -37,6 +37,10 @@ const PATH_RULES = [
     to: (league) => `/simulated/${league}`,
   },
   {
+    from: "/projected-standings",
+    to: (league) => `/simulated/${league}`,
+  },
+  {
     from: "/table/position",
     to: (league) => `/standings/${league}`,
   },
