@@ -1,2 +1,0 @@
-import "./prediction";
-import "./form";

@@ -1,0 +1,3433 @@
+{
+  "framework": null,
+  "buildCommand": null,
+  "installCommand": null,
+  "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/mls/projected/points",
+      "destination": "https://formguide.tools.football/simulated/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/projections",
+      "destination": "https://formguide.tools.football/simulated/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/table/chart",
+      "destination": "https://formguide.tools.football/over-time/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/table/position",
+      "destination": "https://formguide.tools.football/standings/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/table/advanced",
+      "destination": "https://formguide.tools.football/standings/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/table",
+      "destination": "https://formguide.tools.football/standings/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mls?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mls/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mls?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mls/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mls?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mls/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mls?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mls/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/mls?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mls/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/mls?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mls/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/stats/:type",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/xg/for",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/xg/against",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/xg/difference",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/gf",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/ga",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/gd",
+      "destination": "https://formguide.tools.football/stats/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/mls/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/mls/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/mls/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/versus/record",
+      "destination": "https://formguide.tools.football/h2h/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/versus",
+      "destination": "https://formguide.tools.football/h2h/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/fixtures",
+      "destination": "https://formguide.tools.football/schedule/mls",
+      "permanent": true
+    },
+    {
+      "source": "/mls/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/mls",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/projected/points",
+      "destination": "https://formguide.tools.football/simulated/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/projections",
+      "destination": "https://formguide.tools.football/simulated/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/table/chart",
+      "destination": "https://formguide.tools.football/over-time/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/table/position",
+      "destination": "https://formguide.tools.football/standings/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/table/advanced",
+      "destination": "https://formguide.tools.football/standings/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/table",
+      "destination": "https://formguide.tools.football/standings/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nwsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nwsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nwsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nwsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/nwsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/nwsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/stats/:type",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/xg/for",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/xg/against",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/xg/difference",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/gf",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/ga",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/gd",
+      "destination": "https://formguide.tools.football/stats/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/versus/record",
+      "destination": "https://formguide.tools.football/h2h/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/versus",
+      "destination": "https://formguide.tools.football/h2h/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/fixtures",
+      "destination": "https://formguide.tools.football/schedule/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/nwsl/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/nwsl",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/projected/points",
+      "destination": "https://formguide.tools.football/simulated/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/projections",
+      "destination": "https://formguide.tools.football/simulated/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/table/chart",
+      "destination": "https://formguide.tools.football/over-time/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/table/position",
+      "destination": "https://formguide.tools.football/standings/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/table/advanced",
+      "destination": "https://formguide.tools.football/standings/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/table",
+      "destination": "https://formguide.tools.football/standings/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mlsnp?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mlsnp?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mlsnp?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/mlsnp?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/mlsnp?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/mlsnp?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/stats/:type",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/xg/for",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/xg/against",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/xg/difference",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/gf",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/ga",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/gd",
+      "destination": "https://formguide.tools.football/stats/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/versus/record",
+      "destination": "https://formguide.tools.football/h2h/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/versus",
+      "destination": "https://formguide.tools.football/h2h/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/fixtures",
+      "destination": "https://formguide.tools.football/schedule/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/mlsnp/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/mlsnp",
+      "permanent": true
+    },
+    {
+      "source": "/epl/projected/points",
+      "destination": "https://formguide.tools.football/simulated/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/projections",
+      "destination": "https://formguide.tools.football/simulated/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/table/chart",
+      "destination": "https://formguide.tools.football/over-time/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/table/position",
+      "destination": "https://formguide.tools.football/standings/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/table/advanced",
+      "destination": "https://formguide.tools.football/standings/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/table",
+      "destination": "https://formguide.tools.football/standings/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/epl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/epl/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/epl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/epl/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/epl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/epl/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/epl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/epl/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/epl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/epl/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/epl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/epl/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/stats/:type",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/xg/for",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/xg/against",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/xg/difference",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/gf",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/ga",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/gd",
+      "destination": "https://formguide.tools.football/stats/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/epl/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/epl/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/epl/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/versus/record",
+      "destination": "https://formguide.tools.football/h2h/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/versus",
+      "destination": "https://formguide.tools.football/h2h/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/fixtures",
+      "destination": "https://formguide.tools.football/schedule/epl",
+      "permanent": true
+    },
+    {
+      "source": "/epl/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/epl",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/projected/points",
+      "destination": "https://formguide.tools.football/simulated/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/projections",
+      "destination": "https://formguide.tools.football/simulated/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/table/chart",
+      "destination": "https://formguide.tools.football/over-time/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/table/position",
+      "destination": "https://formguide.tools.football/standings/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/table/advanced",
+      "destination": "https://formguide.tools.football/standings/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/table",
+      "destination": "https://formguide.tools.football/standings/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligamx?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligamx?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligamx?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligamx?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/ligamx?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/ligamx?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/stats/:type",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/xg/for",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/xg/against",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/xg/difference",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/gf",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/ga",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/gd",
+      "destination": "https://formguide.tools.football/stats/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/versus/record",
+      "destination": "https://formguide.tools.football/h2h/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/versus",
+      "destination": "https://formguide.tools.football/h2h/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/fixtures",
+      "destination": "https://formguide.tools.football/schedule/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/ligamx/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/ligamx",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/projected/points",
+      "destination": "https://formguide.tools.football/simulated/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/projections",
+      "destination": "https://formguide.tools.football/simulated/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/table/chart",
+      "destination": "https://formguide.tools.football/over-time/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/table/position",
+      "destination": "https://formguide.tools.football/standings/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/table/advanced",
+      "destination": "https://formguide.tools.football/standings/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/table",
+      "destination": "https://formguide.tools.football/standings/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/stats/:type",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/xg/for",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/xg/against",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/xg/difference",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/gf",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/ga",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/gd",
+      "destination": "https://formguide.tools.football/stats/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/versus/record",
+      "destination": "https://formguide.tools.football/h2h/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/versus",
+      "destination": "https://formguide.tools.football/h2h/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/fixtures",
+      "destination": "https://formguide.tools.football/schedule/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/uslc/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/uslchampionship",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/projected/points",
+      "destination": "https://formguide.tools.football/simulated/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/projections",
+      "destination": "https://formguide.tools.football/simulated/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/table/chart",
+      "destination": "https://formguide.tools.football/over-time/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/table/position",
+      "destination": "https://formguide.tools.football/standings/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/table/advanced",
+      "destination": "https://formguide.tools.football/standings/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/table",
+      "destination": "https://formguide.tools.football/standings/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/stats/:type",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/xg/for",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/xg/against",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/xg/difference",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/gf",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/ga",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/gd",
+      "destination": "https://formguide.tools.football/stats/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/versus/record",
+      "destination": "https://formguide.tools.football/h2h/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/versus",
+      "destination": "https://formguide.tools.football/h2h/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/fixtures",
+      "destination": "https://formguide.tools.football/schedule/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl1/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/uslleagueone",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/projected/points",
+      "destination": "https://formguide.tools.football/simulated/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/projections",
+      "destination": "https://formguide.tools.football/simulated/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/table/chart",
+      "destination": "https://formguide.tools.football/over-time/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/table/position",
+      "destination": "https://formguide.tools.football/standings/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/table/advanced",
+      "destination": "https://formguide.tools.football/standings/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/table",
+      "destination": "https://formguide.tools.football/standings/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/stats/:type",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/xg/for",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/xg/against",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/xg/difference",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/gf",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/ga",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/gd",
+      "destination": "https://formguide.tools.football/stats/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/versus/record",
+      "destination": "https://formguide.tools.football/h2h/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/versus",
+      "destination": "https://formguide.tools.football/h2h/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/fixtures",
+      "destination": "https://formguide.tools.football/schedule/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/usl2/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/uslleaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/projected/points",
+      "destination": "https://formguide.tools.football/simulated/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/projections",
+      "destination": "https://formguide.tools.football/simulated/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/table/chart",
+      "destination": "https://formguide.tools.football/over-time/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/table/position",
+      "destination": "https://formguide.tools.football/standings/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/table/advanced",
+      "destination": "https://formguide.tools.football/standings/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/table",
+      "destination": "https://formguide.tools.football/standings/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/bundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/bundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/bundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/bundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/bundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/bundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/stats/:type",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/xg/for",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/xg/against",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/xg/difference",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/gf",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/ga",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/gd",
+      "destination": "https://formguide.tools.football/stats/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/versus/record",
+      "destination": "https://formguide.tools.football/h2h/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/versus",
+      "destination": "https://formguide.tools.football/h2h/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/fixtures",
+      "destination": "https://formguide.tools.football/schedule/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_bundesliga/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/bundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/projected/points",
+      "destination": "https://formguide.tools.football/simulated/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/projections",
+      "destination": "https://formguide.tools.football/simulated/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/table/chart",
+      "destination": "https://formguide.tools.football/over-time/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/table/position",
+      "destination": "https://formguide.tools.football/standings/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/table/advanced",
+      "destination": "https://formguide.tools.football/standings/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/table",
+      "destination": "https://formguide.tools.football/standings/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/stats/:type",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/xg/for",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/xg/against",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/xg/difference",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/gf",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/ga",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/gd",
+      "destination": "https://formguide.tools.football/stats/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/versus/record",
+      "destination": "https://formguide.tools.football/h2h/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/versus",
+      "destination": "https://formguide.tools.football/h2h/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/fixtures",
+      "destination": "https://formguide.tools.football/schedule/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/de_frauen_bundesliga/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/frauenbundesliga",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/projected/points",
+      "destination": "https://formguide.tools.football/simulated/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/projections",
+      "destination": "https://formguide.tools.football/simulated/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/table/chart",
+      "destination": "https://formguide.tools.football/over-time/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/table/position",
+      "destination": "https://formguide.tools.football/standings/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/table/advanced",
+      "destination": "https://formguide.tools.football/standings/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/table",
+      "destination": "https://formguide.tools.football/standings/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/fawsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/fawsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/fawsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/fawsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/fawsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/fawsl?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/stats/:type",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/xg/for",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/xg/against",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/xg/difference",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/gf",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/ga",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/gd",
+      "destination": "https://formguide.tools.football/stats/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/versus/record",
+      "destination": "https://formguide.tools.football/h2h/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/versus",
+      "destination": "https://formguide.tools.football/h2h/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/fixtures",
+      "destination": "https://formguide.tools.football/schedule/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_fa_wsl/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/fawsl",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/projected/points",
+      "destination": "https://formguide.tools.football/simulated/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/projections",
+      "destination": "https://formguide.tools.football/simulated/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/table/chart",
+      "destination": "https://formguide.tools.football/over-time/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/table/position",
+      "destination": "https://formguide.tools.football/standings/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/table/advanced",
+      "destination": "https://formguide.tools.football/standings/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/table",
+      "destination": "https://formguide.tools.football/standings/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/championship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/championship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/championship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/championship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/championship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/championship?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/stats/:type",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/xg/for",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/xg/against",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/xg/difference",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/gf",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/ga",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/gd",
+      "destination": "https://formguide.tools.football/stats/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/versus/record",
+      "destination": "https://formguide.tools.football/h2h/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/versus",
+      "destination": "https://formguide.tools.football/h2h/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/fixtures",
+      "destination": "https://formguide.tools.football/schedule/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_championship/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/championship",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/projected/points",
+      "destination": "https://formguide.tools.football/simulated/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/projections",
+      "destination": "https://formguide.tools.football/simulated/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/table/chart",
+      "destination": "https://formguide.tools.football/over-time/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/table/position",
+      "destination": "https://formguide.tools.football/standings/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/table/advanced",
+      "destination": "https://formguide.tools.football/standings/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/table",
+      "destination": "https://formguide.tools.football/standings/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/leagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/leagueone?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/stats/:type",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/xg/for",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/xg/against",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/xg/difference",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/gf",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/ga",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/gd",
+      "destination": "https://formguide.tools.football/stats/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/versus/record",
+      "destination": "https://formguide.tools.football/h2h/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/versus",
+      "destination": "https://formguide.tools.football/h2h/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/fixtures",
+      "destination": "https://formguide.tools.football/schedule/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_one/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/leagueone",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/projected/points",
+      "destination": "https://formguide.tools.football/simulated/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/projections",
+      "destination": "https://formguide.tools.football/simulated/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/table/chart",
+      "destination": "https://formguide.tools.football/over-time/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/table/position",
+      "destination": "https://formguide.tools.football/standings/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/table/advanced",
+      "destination": "https://formguide.tools.football/standings/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/table",
+      "destination": "https://formguide.tools.football/standings/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/stats/:type",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/xg/for",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/xg/against",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/xg/difference",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/gf",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/ga",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/gd",
+      "destination": "https://formguide.tools.football/stats/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/versus/record",
+      "destination": "https://formguide.tools.football/h2h/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/versus",
+      "destination": "https://formguide.tools.football/h2h/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/fixtures",
+      "destination": "https://formguide.tools.football/schedule/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_league_two/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/leaguetwo",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/projected/points",
+      "destination": "https://formguide.tools.football/simulated/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/projections",
+      "destination": "https://formguide.tools.football/simulated/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/table/chart",
+      "destination": "https://formguide.tools.football/over-time/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/table/position",
+      "destination": "https://formguide.tools.football/standings/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/table/advanced",
+      "destination": "https://formguide.tools.football/standings/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/table",
+      "destination": "https://formguide.tools.football/standings/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nationalleague?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nationalleague?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nationalleague?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/nationalleague?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/nationalleague?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/nationalleague?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/stats/:type",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/xg/for",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/xg/against",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/xg/difference",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/gf",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/ga",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/gd",
+      "destination": "https://formguide.tools.football/stats/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/versus/record",
+      "destination": "https://formguide.tools.football/h2h/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/versus",
+      "destination": "https://formguide.tools.football/h2h/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/fixtures",
+      "destination": "https://formguide.tools.football/schedule/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/en_national/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/nationalleague",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/projected/points",
+      "destination": "https://formguide.tools.football/simulated/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/projections",
+      "destination": "https://formguide.tools.football/simulated/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/table/chart",
+      "destination": "https://formguide.tools.football/over-time/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/table/position",
+      "destination": "https://formguide.tools.football/standings/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/table/advanced",
+      "destination": "https://formguide.tools.football/standings/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/table",
+      "destination": "https://formguide.tools.football/standings/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligue1?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligue1?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligue1?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/ligue1?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/ligue1?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/ligue1?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/stats/:type",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/xg/for",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/xg/against",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/xg/difference",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/gf",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/ga",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/gd",
+      "destination": "https://formguide.tools.football/stats/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/versus/record",
+      "destination": "https://formguide.tools.football/h2h/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/versus",
+      "destination": "https://formguide.tools.football/h2h/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/fixtures",
+      "destination": "https://formguide.tools.football/schedule/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/fr_ligue_1/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/ligue1",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/projected/points",
+      "destination": "https://formguide.tools.football/simulated/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/projections",
+      "destination": "https://formguide.tools.football/simulated/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/table/chart",
+      "destination": "https://formguide.tools.football/over-time/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/table/position",
+      "destination": "https://formguide.tools.football/standings/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/table/advanced",
+      "destination": "https://formguide.tools.football/standings/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/table",
+      "destination": "https://formguide.tools.football/standings/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/laliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/laliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/laliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/laliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/laliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/laliga?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/stats/:type",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/xg/for",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/xg/against",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/xg/difference",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/gf",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/ga",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/gd",
+      "destination": "https://formguide.tools.football/stats/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/versus/record",
+      "destination": "https://formguide.tools.football/h2h/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/versus",
+      "destination": "https://formguide.tools.football/h2h/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/fixtures",
+      "destination": "https://formguide.tools.football/schedule/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/sp_la_liga/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/laliga",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/projected/points",
+      "destination": "https://formguide.tools.football/simulated/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/projections",
+      "destination": "https://formguide.tools.football/simulated/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/table/chart",
+      "destination": "https://formguide.tools.football/over-time/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/table/position",
+      "destination": "https://formguide.tools.football/standings/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/table/advanced",
+      "destination": "https://formguide.tools.football/standings/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/table",
+      "destination": "https://formguide.tools.football/standings/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/seriea?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/seriea?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/seriea?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/seriea?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/seriea?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/seriea?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/stats/:type",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/xg/for",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/xg/against",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/xg/difference",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/gf",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/ga",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/gd",
+      "destination": "https://formguide.tools.football/stats/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/versus/record",
+      "destination": "https://formguide.tools.football/h2h/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/versus",
+      "destination": "https://formguide.tools.football/h2h/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/fixtures",
+      "destination": "https://formguide.tools.football/schedule/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/seriea",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/projected/points",
+      "destination": "https://formguide.tools.football/simulated/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/projected-standings",
+      "destination": "https://formguide.tools.football/simulated/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/projections",
+      "destination": "https://formguide.tools.football/simulated/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/table/chart",
+      "destination": "https://formguide.tools.football/over-time/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/table/position",
+      "destination": "https://formguide.tools.football/standings/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/table/advanced",
+      "destination": "https://formguide.tools.football/standings/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/table",
+      "destination": "https://formguide.tools.football/standings/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/record/since/:date",
+      "destination": "https://formguide.tools.football/standings/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/points/cumulative",
+      "destination": "https://formguide.tools.football/over-time/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/chart/:period",
+      "destination": "https://formguide.tools.football/rolling/serieawomen?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/gf-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/serieawomen?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/ga-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/serieawomen?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/gd-chart/:period",
+      "destination": "https://formguide.tools.football/rolling/serieawomen?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/xg/rolling/:stat/:period",
+      "destination": "https://formguide.tools.football/rolling/serieawomen?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/first-goal/rolling/:type/:period",
+      "destination": "https://formguide.tools.football/rolling/serieawomen?period=:period",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/stats/rolling/finishing",
+      "destination": "https://formguide.tools.football/rolling/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/stats/rolling/:type",
+      "destination": "https://formguide.tools.football/rolling/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/stats/comparison/:type",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/stats/finishing",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/stats/scatter/:type",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/stats/:type",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/xg/for",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/xg/against",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/xg/difference",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/gf",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/ga",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/gd",
+      "destination": "https://formguide.tools.football/stats/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/player-minutes/:team/rolling",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/player-minutes/:team",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/player-minutes",
+      "destination": "https://formguide.tools.football/stats",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/versus/gd",
+      "destination": "https://formguide.tools.football/h2h/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/versus/record",
+      "destination": "https://formguide.tools.football/h2h/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/versus",
+      "destination": "https://formguide.tools.football/h2h/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/fixtures/today",
+      "destination": "https://formguide.tools.football/schedule/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/fixtures",
+      "destination": "https://formguide.tools.football/schedule/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/it_serie_a_women/ppg/opponent",
+      "destination": "https://formguide.tools.football/strength-of-schedule/serieawomen",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://formguide.tools.football",
+      "permanent": true
+    }
+  ]
+}
